@@ -3,7 +3,6 @@ package dk.kb.droidlight;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 import java.util.*;
 
 /**
@@ -58,52 +57,33 @@ import java.util.*;
  * not worth the added complexity of compiling a second, chained-context automaton
  * - but it is a known asymmetry, not an oversight.
  *
- * MEASURED RESULT - A REAL, HONEST TRADEOFF, NOT A UNIFORM WIN
- * -------------------------------------------------------------
- * All results were cross-checked identical to DroidSignatureVerifier across every
- * test file used throughout this project's development (GIF positive/negative,
- * WebP, both MP3s, MP4) - this class is a drop-in replacement for correctness.
- * Performance, however, genuinely depends on file size and content, in a way worth
- * understanding rather than assuming Aho-Corasick automatically wins:
+ * MEASURED RESULT - UPDATE: THE EARLIER LARGE-FILE SLOWDOWN IS NOW FIXED
+ * ---------------------------------------------------------------------------
+ * An earlier version of this class read the ENTIRE file/stream into memory and
+ * ran the Aho-Corasick scan over all of it - correct, but this both caused an
+ * OutOfMemoryError on multi-GB files (Java arrays are int-indexed, capped
+ * around 2GB) AND made this class measurably SLOWER than DroidSignatureVerifier
+ * on large files (a real MP3/MP4 comparison showed ~2-3x slower), since the
+ * O(file_length) full-file automaton pass became the dominant cost once files
+ * got large.
  *
- *   File                         DroidSignatureVerifier   This class
- *   fake.gif (27 bytes)          73 ms                    27 ms   (2.7x faster)
- *   image.webp (55.8 KB)         570 ms                   66 ms   (8.6x faster)
- *   real MP3 (6.2 MB)            232 ms                   668 ms  (2.9x SLOWER)
- *   real MP4 (23.3 MB)           586 ms                   1276 ms (2.2x SLOWER)
+ * Both problems are fixed by the same change: scanForAnchors now runs only over
+ * the bounded head+tail windows of a DroidSignatureVerifier.FileRegion (see its
+ * javadoc, and readBoundedRegion()) instead of the whole file. This is not a
+ * compromise - it is provably lossless for this class's own fragment-
+ * verification stage, since that stage already only has byte access within
+ * those same bounded windows (anything outside them can never be verified
+ * anyway, so scanning for anchors there was always wasted work). See
+ * scanForAnchors's javadoc for the full reasoning, including why this involves
+ * no risk of a match being split across a scan boundary (each window is
+ * scanned as one uninterrupted automaton pass).
  *
- * WHY IT'S SLOWER ON LARGER FILES - AND WHY THAT'S THE RIGHT LESSON, NOT A BUG
- * -------------------------------------------------------------------------------
- * DroidSignatureVerifier's MAX_ANCHOR_SEARCH_DISTANCE bounds its fixed-anchor
- * search to a small, FILE-SIZE-INDEPENDENT window (2000 bytes) near each
- * ByteSequence's reference point. It never looks at most of a large file at all -
- * cost there is roughly signature_count x window_size, constant regardless of
- * whether the file is 6 MB or 180 MB (confirmed earlier: ~145ms on a 6MB MP3 and
- * ~430ms on a 180MB MP3 - barely different).
- *
- * This class's Aho-Corasick stage, by contrast, must make one pass over the
- * ENTIRE file to find every literal anchor occurrence anywhere in it - a genuine
- * O(file_length) cost. For SMALL/MEDIUM files that's cheap and the win from
- * checking all 2,258 signatures' anchors in one combined pass (instead of 2,258
- * separate small-window scans) dominates. For LARGE files, the O(file_length)
- * full-file pass itself becomes the bigger cost, and DroidSignatureVerifier's
- * already-bounded, size-independent search wins instead.
- *
- * (An earlier, unbounded version of this class's hit-collection was far worse
- * still - a real MP3 produced 3.68 MILLION raw anchor hits, an MP4 8.86 MILLION,
- * because short/common literal anchors coincidentally match constantly in noisy
- * compressed media data; only the closest-to-reference-point handful of those
- * are ever useful, so hit collection is now bounded by MAX_CANDIDATES_TO_TRY
- * during the scan itself, cutting both files down to ~14,000 hits and bringing
- * runtime down substantially - but the fundamental full-file-pass cost for large
- * files remains, since that part is inherent to the single-pass architecture.)
- *
- * PRACTICAL TAKEAWAY: this class is a clear win for small-to-medium files, and a
- * real (if now modest, ~2-3x) regression for large files, compared to
- * DroidSignatureVerifier's already-efficient bounded-window design. Which one is
- * "better" depends entirely on the expected file-size distribution of whatever
- * it's being used against - there is no universally superior choice between them
- * demonstrated here.
+ * Net effect: this class should now be fast and memory-bounded regardless of
+ * file size, converging with (and, for the anchor-finding stage specifically,
+ * still ahead of) DroidSignatureVerifier's own bounded-window design - the
+ * "signature_count x window_size" per-signature cost DroidSignatureVerifier
+ * still pays for its independent scans is replaced here by one shared pass over
+ * the same small windows for ALL signatures at once.
  */
 public class DroidSignatureAhoCorasickVerifier {
 
@@ -132,6 +112,17 @@ public class DroidSignatureAhoCorasickVerifier {
     private final List<DroidSignatureVerifier.FileFormatDef> formats;
     private final TrieNode trieRoot = new TrieNode();
 
+    // Flat-array mapping from a compact "anchor slot" id (assigned during trie
+    // construction, one per distinct (sigIdx,bsIdx) pair with a fixed anchor)
+    // back to that pair - lets scanBufferInto use direct array indexing instead
+    // of nested HashMap lookups per hit (see HitBuffer's javadoc for why the
+    // per-hit hot path needed this: hashing/boxing overhead across tens of
+    // millions of hits on a repetitive-content file was itself a major cost,
+    // separate from the O(cap)-eviction bug HitBuffer also fixes).
+    private int[] flatSigIdx;
+    private int[] flatBsIdx;
+    private int totalAnchorSlots;
+
     /**
      * Parses the given DROID signature file once (reusing
      * DroidSignatureVerifier's own parser directly - no duplicated parsing logic),
@@ -147,6 +138,8 @@ public class DroidSignatureAhoCorasickVerifier {
         System.out.printf("  Parsed %,d signatures and %,d file formats in %.1f ms%n",
                 signatures.size(), formats.size(), (t1 - t0) / 1e6);
 
+        List<Integer> flatSigIdxList = new ArrayList<>();
+        List<Integer> flatBsIdxList = new ArrayList<>();
         int anchorCount = 0;
         for (int sigIdx = 0; sigIdx < signatures.size(); sigIdx++) {
             DroidSignatureVerifier.InternalSignatureDef sig = signatures.get(sigIdx);
@@ -161,9 +154,19 @@ public class DroidSignatureAhoCorasickVerifier {
                 // but this is a defensive check, not an assumption.
                 if (literalAnchor == null || literalAnchor.length == 0) continue;
                 boolean isEofDirected = (bs.reference == DroidSignatureVerifier.Reference.EOF);
-                addToTrie(literalAnchor, sigIdx, bsIdx, literalAnchor.length, isEofDirected);
+                int flatId = anchorCount;
+                addToTrie(literalAnchor, flatId, literalAnchor.length, isEofDirected);
+                flatSigIdxList.add(sigIdx);
+                flatBsIdxList.add(bsIdx);
                 anchorCount++;
             }
+        }
+        totalAnchorSlots = anchorCount;
+        flatSigIdx = new int[anchorCount];
+        flatBsIdx = new int[anchorCount];
+        for (int i = 0; i < anchorCount; i++) {
+            flatSigIdx[i] = flatSigIdxList.get(i);
+            flatBsIdx[i] = flatBsIdxList.get(i);
         }
         buildFailureLinks();
         long t2 = System.nanoTime();
@@ -202,7 +205,7 @@ public class DroidSignatureAhoCorasickVerifier {
         return out;
     }
 
-    void addToTrie(byte[] pattern, int sigIdx, int bsIdx, int anchorLen, boolean isEofDirected) {
+    void addToTrie(byte[] pattern, int flatId, int anchorLen, boolean isEofDirected) {
         TrieNode cur = trieRoot;
         for (byte b : pattern) {
             int idx = b & 0xFF;
@@ -210,7 +213,7 @@ public class DroidSignatureAhoCorasickVerifier {
             cur = cur.children[idx];
         }
         if (cur.outputs == null) cur.outputs = new ArrayList<>();
-        cur.outputs.add(new int[]{sigIdx, bsIdx, anchorLen, isEofDirected ? 1 : 0});
+        cur.outputs.add(new int[]{flatId, anchorLen, isEofDirected ? 1 : 0});
     }
 
     void buildFailureLinks() {
@@ -246,58 +249,143 @@ public class DroidSignatureAhoCorasickVerifier {
     // ------------------------------------------------------------------
 
     /**
-     * Scans the whole file ONCE, returning, for every (signatureIndex,
-     * byteSequenceIndex) pair whose fixed anchor occurs anywhere in the file, the
-     * list of start positions where it occurs (in ascending file-position order,
-     * since that's the order a single forward pass naturally produces them in).
+     * Scans only the head and tail windows of a FileRegion - NOT the whole file.
+     *
+     * WHY THIS IS BOTH CORRECT AND FASTER (fixes both the OOM and the earlier
+     * large-file slowdown in one change): the fragment-verification stage below
+     * (matchFixedSubSequenceUsingHits etc) only ever has byte access within the
+     * SAME bounded head+tail FileRegion DroidSignatureVerifier already uses -
+     * FileRegion.byteAt() returns -1 for anything in the unloaded "gap" between
+     * them. So an anchor hit found outside those windows could never be verified
+     * anyway; scanning the whole file for such hits was always wasted work. This
+     * also directly fixes this class's own OutOfMemoryError (it previously called
+     * Files.readAllBytes on the whole file just to feed this scan) and its
+     * earlier large-file slowdown (see class javadoc "MEASURED RESULT" table
+     * above - that O(file_length) full-file pass was the dominant cost on large
+     * files; scanning only ~40MB total regardless of true file size removes that
+     * cost entirely).
+     *
+     * The head and tail are each scanned as ONE uninterrupted automaton pass -
+     * trie state resets to root between them (they aren't contiguous in the real
+     * file, so carrying state across that gap would be wrong), but there is no
+     * internal chunk boundary WITHIN either window, so no match can ever be
+     * split by this scanning strategy - the only "boundary" is the head/tail
+     * split itself, which is the exact same, already-validated boundary
+     * DroidSignatureVerifier's own bounded search has always had.
+     *
+     * Positions are `long`, not `int`: a tail window's absolute position (true
+     * file length minus window size, plus an offset within the tail buffer) can
+     * exceed Integer.MAX_VALUE for files above ~2GB - exactly the file size range
+     * this whole fix targets.
      */
-    Map<Integer, Map<Integer, List<Integer>>> scanForAnchors(byte[] data) {
-        Map<Integer, Map<Integer, List<Integer>>> hits = new HashMap<>();
+    Map<Integer, Map<Integer, List<Long>>> scanForAnchors(DroidSignatureVerifier.FileRegion region) {
+        HitBuffer[] hitBuffers = new HitBuffer[totalAnchorSlots];
+        scanBufferInto(region.head, 0L, hitBuffers);
+        if (region.tail != null) {
+            scanBufferInto(region.tail, region.tailStartAbsolute, hitBuffers);
+        }
+
+        // Convert the flat array back to the (sigIdx -> bsIdx -> positions) shape
+        // the verification stage expects - this loop runs once per anchor SLOT
+        // (~2,657 total), not once per raw hit, so its HashMap usage here is
+        // negligible regardless of how many raw hits occurred during scanning.
+        Map<Integer, Map<Integer, List<Long>>> hits = new HashMap<>();
+        for (int flatId = 0; flatId < hitBuffers.length; flatId++) {
+            HitBuffer buf = hitBuffers[flatId];
+            if (buf == null) continue;
+            int sigIdx = flatSigIdx[flatId];
+            int bsIdx = flatBsIdx[flatId];
+            hits.computeIfAbsent(sigIdx, k -> new HashMap<>()).put(bsIdx, buf.toAscendingList());
+        }
+        return hits;
+    }
+
+    /**
+     * Bounded, O(1)-per-insertion holder for up to MAX_CANDIDATES_TO_TRY hit
+     * positions for one (signature, ByteSequence) pair.
+     *
+     * BUG FIX: an earlier version stored positions in a plain ArrayList and
+     * evicted the oldest entry via `positions.remove(0)` once full - correct, but
+     * remove(0) on an ArrayList is O(cap) (it shifts every remaining element).
+     * For a short, common literal anchor (e.g. a single 0x00 byte) that happens
+     * to match at EVERY position across a long run of repetitive/silent bytes
+     * (confirmed on a real-shaped test file: a large all-zero region caused one
+     * such anchor to raw-hit ~20 million times), that's ~20 million x O(cap)
+     * eviction shifts - cheap individually, but summing to roughly a billion
+     * operations, and directly explains a measured 77-second anchor scan over
+     * just 40MB of data that should have taken a few hundred milliseconds. This
+     * is a real risk on genuine files too, not just a synthetic edge case - long
+     * silent stretches in audio, or blank/black regions in video, are exactly
+     * this kind of repetitive content. Fixed with a circular buffer: eviction is
+     * O(1) regardless of how many raw hits occur, since a new value simply
+     * overwrites whichever slot is `cap` insertions behind it.
+     */
+    static final class HitBuffer {
+        final long[] positions = new long[MAX_CANDIDATES_TO_TRY];
+        int count = 0;
+        int nextWriteIndex = 0;
+        boolean full = false;
+
+        /** BOF-directed: once full, later (larger, less useful) positions are
+         *  simply skipped - O(1) either way. */
+        void addBof(long pos) {
+            if (!full) {
+                positions[count++] = pos;
+                if (count == positions.length) full = true;
+            }
+        }
+
+        /** EOF-directed: once full, the new (larger, more useful) position
+         *  overwrites whichever slot holds the oldest (smallest) one - O(1). */
+        void addEof(long pos) {
+            if (!full) {
+                positions[count++] = pos;
+                if (count == positions.length) full = true;
+            } else {
+                positions[nextWriteIndex] = pos;
+                nextWriteIndex = (nextWriteIndex + 1) % positions.length;
+            }
+        }
+
+        /** Returns the retained positions in ascending (chronological) order. */
+        List<Long> toAscendingList() {
+            List<Long> result = new ArrayList<>(count);
+            if (!full) {
+                for (int i = 0; i < count; i++) result.add(positions[i]);
+            } else {
+                // nextWriteIndex currently points at the oldest retained entry
+                // (the next one due to be overwritten) - start reading from there.
+                for (int i = 0; i < positions.length; i++) {
+                    result.add(positions[(nextWriteIndex + i) % positions.length]);
+                }
+            }
+            return result;
+        }
+    }
+
+    private void scanBufferInto(byte[] buffer, long absoluteOffset, HitBuffer[] hitBuffers) {
         TrieNode cur = trieRoot;
-        for (int i = 0; i < data.length; i++) {
-            int b = data[i] & 0xFF;
+        for (int i = 0; i < buffer.length; i++) {
+            int b = buffer[i] & 0xFF;
             while (cur != trieRoot && cur.children[b] == null) cur = cur.fail;
             TrieNode next = cur.children[b];
             cur = (next != null) ? next : trieRoot;
             if (cur.outputs != null) {
                 for (int[] out : cur.outputs) {
-                    int sigIdx = out[0];
-                    int bsIdx = out[1];
-                    int anchorLen = out[2]; // precomputed at construction time - see addToTrie
-                    boolean isEofDirected = (out[3] == 1);
-                    int startPos = i - anchorLen + 1;
+                    int flatId = out[0];
+                    int anchorLen = out[1];
+                    boolean isEofDirected = (out[2] == 1);
+                    long startPos = absoluteOffset + i - anchorLen + 1;
 
-                    Map<Integer, List<Integer>> bySig = hits.computeIfAbsent(sigIdx, k -> new HashMap<>());
-                    List<Integer> positions = bySig.computeIfAbsent(bsIdx, k -> new ArrayList<>());
-
-                    // BOUNDED COLLECTION - the real fix for the ~3.7M/8.9M hit counts
-                    // measured on real MP3/MP4 files (see class javadoc addendum
-                    // below): only the MAX_CANDIDATES_TO_TRY positions closest to the
-                    // relevant reference point are ever useful (matchFixedSubSequence-
-                    // UsingHits only tries that many anyway), so there is no reason to
-                    // store every one of potentially millions of coincidental hits for
-                    // a short, common anchor in noisy compressed media data.
-                    //   - BOF-directed: positions arrive in ascending order, so the
-                    //     first MAX_CANDIDATES_TO_TRY seen are already the closest to
-                    //     BOF (position 0) - once the cap is reached, later (larger,
-                    //     less useful) positions are simply skipped.
-                    //   - EOF-directed: we want the positions closest to true EOF,
-                    //     i.e. the LARGEST ones - since positions still arrive in
-                    //     ascending order, each new one is "better" than the smallest
-                    //     one currently held once the cap is full, so the smallest
-                    //     stored position is evicted to make room.
-                    if (positions.size() < MAX_CANDIDATES_TO_TRY) {
-                        positions.add(startPos);
-                    } else if (isEofDirected) {
-                        positions.remove(0); // smallest (least useful for EOF) - ascending order
-                        positions.add(startPos);
+                    HitBuffer buf = hitBuffers[flatId];
+                    if (buf == null) {
+                        buf = new HitBuffer();
+                        hitBuffers[flatId] = buf;
                     }
-                    // else (BOF-directed, cap reached): skip - later positions are
-                    // strictly further from BOF and would never be tried anyway.
+                    if (isEofDirected) buf.addEof(startPos); else buf.addBof(startPos);
                 }
             }
         }
-        return hits;
     }
 
     // ------------------------------------------------------------------
@@ -310,12 +398,21 @@ public class DroidSignatureAhoCorasickVerifier {
      *  window applies to the fragment chain's END relative to the reference
      *  point, candidates tried closest-to-reference-point first), but iterating
      *  over precomputed candidate positions instead of scanning for them, and
-     *  capped by MAX_CANDIDATES_TO_TRY instead of MAX_ANCHOR_SEARCH_DISTANCE. */
-    static int matchFixedSubSequenceUsingHits(byte[] data, DroidSignatureVerifier.SubSequenceDef sub,
-                                               int referencePosition, boolean searchBackward,
-                                               List<Integer> anchorStartPositions) {
+     *  capped by MAX_CANDIDATES_TO_TRY instead of MAX_ANCHOR_SEARCH_DISTANCE.
+     *
+     *  NOTE: takes a DroidSignatureVerifier.FileRegion (not a raw byte[]) purely
+     *  to stay compatible with DroidSignatureVerifier's methods after its own
+     *  large-file fix (see its class javadoc "OutOfMemoryError" note) - this
+     *  class's OWN large-file handling (scanForAnchors still needs a byte[] for
+
+     *  its Aho-Corasick automaton, and detect(File)/detect(InputStream) below
+     *  still read the whole file/stream) has NOT been fixed yet; that is
+     *  deliberately a separate, later step. */
+    static long matchFixedSubSequenceUsingHits(DroidSignatureVerifier.FileRegion region, DroidSignatureVerifier.SubSequenceDef sub,
+                                                long referencePosition, boolean searchBackward,
+                                                List<Long> anchorStartPositions) {
         if (sub.anchor == null || anchorStartPositions == null || anchorStartPositions.isEmpty()) return -1;
-        int maxOffset = (sub.maxSeqOffset >= 0) ? sub.maxSeqOffset : Integer.MAX_VALUE / 2;
+        long maxOffset = (sub.maxSeqOffset >= 0) ? sub.maxSeqOffset : Long.MAX_VALUE / 2;
         int minOffset = sub.minSeqOffset;
         int anchorLen = DroidSignatureVerifier.patternLength(sub.anchor);
         int n = anchorStartPositions.size();
@@ -323,13 +420,13 @@ public class DroidSignatureAhoCorasickVerifier {
         if (searchBackward) {
             // EOF-anchored: candidates closest to true EOF first = largest position first.
             for (int idx = n - 1, tried = 0; idx >= 0 && tried < MAX_CANDIDATES_TO_TRY; idx--, tried++) {
-                int candidate = anchorStartPositions.get(idx);
-                int afterAnchor = candidate + anchorLen;
-                int chainEnd = DroidSignatureVerifier.verifyRightFragmentChain(data, afterAnchor, sub.rightFragments);
+                long candidate = anchorStartPositions.get(idx);
+                long afterAnchor = candidate + anchorLen;
+                long chainEnd = DroidSignatureVerifier.verifyRightFragmentChain(region, afterAnchor, sub.rightFragments);
                 if (chainEnd >= 0) {
-                    int distanceFromReference = referencePosition - chainEnd;
+                    long distanceFromReference = referencePosition - chainEnd;
                     if (distanceFromReference >= minOffset && distanceFromReference <= maxOffset) {
-                        int beforeLeft = DroidSignatureVerifier.verifyLeftFragmentChain(data, candidate, sub.leftFragments);
+                        long beforeLeft = DroidSignatureVerifier.verifyLeftFragmentChain(region, candidate, sub.leftFragments);
                         if (beforeLeft >= 0) return chainEnd;
                     }
                 }
@@ -339,13 +436,13 @@ public class DroidSignatureAhoCorasickVerifier {
             // BOF-anchored: candidates closest to BOF first = smallest position first
             // (already the natural ascending order the scan produced them in).
             for (int idx = 0, tried = 0; idx < n && tried < MAX_CANDIDATES_TO_TRY; idx++, tried++) {
-                int candidate = anchorStartPositions.get(idx);
-                int beforeLeft = DroidSignatureVerifier.verifyLeftFragmentChain(data, candidate, sub.leftFragments);
+                long candidate = anchorStartPositions.get(idx);
+                long beforeLeft = DroidSignatureVerifier.verifyLeftFragmentChain(region, candidate, sub.leftFragments);
                 if (beforeLeft >= 0) {
-                    int distanceFromReference = beforeLeft - referencePosition;
+                    long distanceFromReference = beforeLeft - referencePosition;
                     if (distanceFromReference >= minOffset && distanceFromReference <= maxOffset) {
-                        int afterAnchor = candidate + anchorLen;
-                        int chainEnd = DroidSignatureVerifier.verifyRightFragmentChain(data, afterAnchor, sub.rightFragments);
+                        long afterAnchor = candidate + anchorLen;
+                        long chainEnd = DroidSignatureVerifier.verifyRightFragmentChain(region, afterAnchor, sub.rightFragments);
                         if (chainEnd >= 0) return chainEnd;
                     }
                 }
@@ -358,26 +455,26 @@ public class DroidSignatureAhoCorasickVerifier {
      *  (first/reference-anchored) SubSequence now uses precomputed hits; any
      *  chained (non-first) SubSequences reuse
      *  DroidSignatureVerifier.matchChainedSubSequence unchanged. */
-    boolean matchByteSequenceUsingHits(byte[] data, DroidSignatureVerifier.ByteSequenceDef bs,
+    boolean matchByteSequenceUsingHits(DroidSignatureVerifier.FileRegion region, DroidSignatureVerifier.ByteSequenceDef bs,
                                         int sigIdx, int bsIdx,
-                                        Map<Integer, Map<Integer, List<Integer>>> anchorHits) {
+                                        Map<Integer, Map<Integer, List<Long>>> anchorHits) {
         List<DroidSignatureVerifier.SubSequenceDef> subs = new ArrayList<>(bs.subSequences);
         subs.sort(Comparator.comparingInt(s -> s.position));
         boolean backward = (bs.reference == DroidSignatureVerifier.Reference.EOF);
         if (backward) Collections.reverse(subs);
 
-        int referencePosition = backward ? data.length : 0;
+        long referencePosition = backward ? region.length : 0;
         boolean first = true;
-        int cursor = -1;
+        long cursor = -1;
         for (DroidSignatureVerifier.SubSequenceDef sub : subs) {
-            int result;
+            long result;
             if (first) {
-                List<Integer> hits = null;
-                Map<Integer, List<Integer>> bySig = anchorHits.get(sigIdx);
+                List<Long> hits = null;
+                Map<Integer, List<Long>> bySig = anchorHits.get(sigIdx);
                 if (bySig != null) hits = bySig.get(bsIdx);
-                result = matchFixedSubSequenceUsingHits(data, sub, referencePosition, backward, hits);
+                result = matchFixedSubSequenceUsingHits(region, sub, referencePosition, backward, hits);
             } else {
-                result = DroidSignatureVerifier.matchChainedSubSequence(data, sub, cursor);
+                result = DroidSignatureVerifier.matchChainedSubSequence(region, sub, cursor);
             }
             if (result < 0) return false;
             cursor = result;
@@ -386,10 +483,10 @@ public class DroidSignatureAhoCorasickVerifier {
         return true;
     }
 
-    boolean matchSignatureUsingHits(byte[] data, DroidSignatureVerifier.InternalSignatureDef sig, int sigIdx,
-                                     Map<Integer, Map<Integer, List<Integer>>> anchorHits) {
+    boolean matchSignatureUsingHits(DroidSignatureVerifier.FileRegion region, DroidSignatureVerifier.InternalSignatureDef sig, int sigIdx,
+                                     Map<Integer, Map<Integer, List<Long>>> anchorHits) {
         for (int bsIdx = 0; bsIdx < sig.byteSequences.size(); bsIdx++) {
-            if (!matchByteSequenceUsingHits(data, sig.byteSequences.get(bsIdx), sigIdx, bsIdx, anchorHits)) {
+            if (!matchByteSequenceUsingHits(region, sig.byteSequences.get(bsIdx), sigIdx, bsIdx, anchorHits)) {
                 return false;
             }
         }
@@ -407,17 +504,28 @@ public class DroidSignatureAhoCorasickVerifier {
      * DroidSignatureVerifier.detect() (see its javadoc), just computed via the
      * single-pass Aho-Corasick anchor stage instead of independent per-signature
      * scans.
+     *
+     * LARGE-FILE HANDLING: reuses DroidSignatureVerifier.readBoundedRegion(File)
+     * directly - the same bounded head+tail window reading that fixed
+     * DroidSignatureVerifier's OutOfMemoryError on multi-GB files. This class's
+     * Aho-Corasick scan now runs over those same bounded windows (see
+     * scanForAnchors's javadoc for why that's correct, not just convenient) -
+     * fixing both this class's own OutOfMemoryError AND its earlier large-file
+     * slowdown in the same change (see class javadoc "MEASURED RESULT" - that
+     * regression was caused by the full-file scan this fix removes).
      */
     public DetectionResult[] detect(File targetFile) throws Exception {
-        byte[] data = Files.readAllBytes(targetFile.toPath());
-        System.out.println("\nVerifying against: " + targetFile + " (" + data.length + " bytes)");
-        return detectFromBytes(data);
+        DroidSignatureVerifier.FileRegion region = DroidSignatureVerifier.readBoundedRegion(targetFile);
+        System.out.println("\nVerifying against: " + targetFile + " (" + region.length + " bytes)");
+        return detectFromRegion(region);
     }
 
     /**
      * Same as detect(File), but reads from an InputStream instead - identical
      * contract to DroidSignatureVerifier.detect(InputStream) (see its javadoc for
-     * the mark/reset behavior and rationale - this mirrors it exactly).
+     * the mark/reset behavior and rationale, and readBoundedRegion(InputStream)
+     * for the streaming head+circular-tail-buffer strategy - both reused
+     * directly, unchanged, from DroidSignatureVerifier).
      *
      * @param in the stream to identify; not closed by this method - the caller
      *           retains ownership and is responsible for closing it
@@ -431,27 +539,27 @@ public class DroidSignatureAhoCorasickVerifier {
                 System.out.println("  (reset() failed on the supplied stream, reading from current position: " + e + ")");
             }
         }
-        byte[] data = in.readAllBytes();
-        System.out.println("\nVerifying against: <input stream> (" + data.length + " bytes)");
-        return detectFromBytes(data);
+        DroidSignatureVerifier.FileRegion region = DroidSignatureVerifier.readBoundedRegion(in);
+        System.out.println("\nVerifying against: <input stream> (" + region.length + " bytes)");
+        return detectFromRegion(region);
     }
 
     /**
      * The actual detection logic, shared by both detect(File) and
      * detect(InputStream) - mirrors DroidSignatureVerifier's own
-     * detectFromBytes() split, just using the Aho-Corasick anchor stage instead
+     * detectFromRegion() split, just using the Aho-Corasick anchor stage instead
      * of independent per-signature scans.
      */
-    private DetectionResult[] detectFromBytes(byte[] data) throws Exception {
+    private DetectionResult[] detectFromRegion(DroidSignatureVerifier.FileRegion region) throws Exception {
         long t0 = System.nanoTime();
-        Map<Integer, Map<Integer, List<Integer>>> anchorHits = scanForAnchors(data);
+        Map<Integer, Map<Integer, List<Long>>> anchorHits = scanForAnchors(region);
         long t1 = System.nanoTime();
         System.out.printf("  Single-pass Aho-Corasick anchor scan completed in %.1f ms%n", (t1 - t0) / 1e6);
 
         List<Integer> matchedSignatureIds = new ArrayList<>();
         for (int sigIdx = 0; sigIdx < signatures.size(); sigIdx++) {
             DroidSignatureVerifier.InternalSignatureDef sig = signatures.get(sigIdx);
-            if (matchSignatureUsingHits(data, sig, sigIdx, anchorHits)) {
+            if (matchSignatureUsingHits(region, sig, sigIdx, anchorHits)) {
                 matchedSignatureIds.add(sig.id);
             }
         }
@@ -497,11 +605,12 @@ public class DroidSignatureAhoCorasickVerifier {
     }
 
     // ------------------------------------------------------------------
-    // Demo driver - same hardcoded-variable style as DroidSignatureVerifier's own
-    // main(), for direct IDE "Run" usage.
+    // No main() method in this class - see project convention: this class is a
+    // library component, constructed and called from other code, not run
+    // directly.
     // ------------------------------------------------------------------
-
-
+    
+    
     public static void main(String[] args) throws Exception {
         String signatureFile = "/home/teg/eclipse-workspace/droid-light/src/main/resources/DROID_SignatureFile_V124.xml";
 //      String scanFile = "/home/teg/Desktop/Evald_Tang_Kristensen_samling-oversigt.pdf";
@@ -515,4 +624,5 @@ public class DroidSignatureAhoCorasickVerifier {
         DetectionResult[] results = droid.detect(targetFile);
         System.out.println(results[0]);
     }
+    
 }

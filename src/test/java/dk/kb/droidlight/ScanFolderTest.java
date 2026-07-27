@@ -42,10 +42,12 @@ public class ScanFolderTest {
                 }
             }
         }
+        
+        long start=System.currentTimeMillis();
         System.out.println("Found " + files.size() + " file(s) in " + folder);
 
       DroidSignatureVerifier verifier = new DroidSignatureVerifier(sigFile); // parses ONCE
-       //DroidSignatureAhoCorasickVerifier verifier= new DroidSignatureAhoCorasickVerifier(sigFile);
+      //  DroidSignatureAhoCorasickVerifier verifier= new DroidSignatureAhoCorasickVerifier(sigFile);
         
         System.out.println("\n===== Scanning " + files.size() + " file(s) =====\n");
 
@@ -77,5 +79,6 @@ public class ScanFolderTest {
         }
 
         System.out.println("===== Done. " + files.size() + " file(s) scanned, " + errorCount + " error(s). =====");
+        System.out.println("Total scan time:"+(System.currentTimeMillis()-start));
     }
 }

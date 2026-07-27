@@ -159,6 +159,95 @@ public class DroidSignatureVerifier {
                 default: throw new AssertionError();
             }
         }
+
+        /** Same semantics as matchesAt(byte[], int) above, but reading through a
+         *  FileRegion at a long absolute position - see FileRegion's javadoc for why
+         *  this exists (large-file support without loading the whole file). An
+         *  unavailable byte (FileRegion.byteAt returns -1, meaning the position falls
+         *  in the unread "gap" of a bounded head+tail region) is treated as "does not
+         *  match" for every Kind, INCLUDING NOT/NOT_SEQUENCE - unavailable data must
+         *  never be treated as "the negative condition is satisfied", or a NOT
+         *  pattern could wrongly succeed just because we don't have the bytes loaded
+         *  to check it against. */
+        boolean matchesAt(FileRegion region, long pos) {
+            if (kind == Kind.NOT_SEQUENCE) {
+                for (int i = 0; i < notSequence.length; i++) {
+                    int v = region.byteAt(pos + i);
+                    if (v < 0) return false; // unavailable - can't confirm, so don't match
+                    if (v != (notSequence[i] & 0xFF)) return true; // any byte differs -> NOT satisfied
+                }
+                return false; // exact match to the forbidden sequence -> NOT is false
+            }
+            int v = region.byteAt(pos);
+            if (v < 0) return false; // unavailable - can't confirm, so don't match
+            switch (kind) {
+                case LITERAL: return v == a;
+                case NOT: return v != a;
+                case RANGE: return v >= a && v <= b;
+                default: throw new AssertionError();
+            }
+        }
+    }
+
+    /**
+     * FileRegion - a bounded view of a (potentially huge) file's content, holding
+     * only a head window and a tail window in memory instead of the whole file.
+     *
+     * WHY THIS EXISTS
+     * -----------------
+     * A naive "read the whole file into one byte[]" approach (what this class did
+     * before) cannot work at all above ~2GB (Java arrays are int-indexed, capped at
+     * Integer.MAX_VALUE), and is wasteful well below that too - a 4GB WAV file
+     * triggered exactly this: java.lang.OutOfMemoryError: Required array size too
+     * large, from Files.readAllBytes.
+     *
+     * DROID's own signature designs make this unnecessary in the vast majority of
+     * cases: MAX_ANCHOR_SEARCH_DISTANCE already bounds the FIXED SubSequence anchor
+     * search to a small window near BOF or EOF, and most CHAINED SubSequences have
+     * an explicit, small SubSeqMaxOffset too. So instead of the whole file, this
+     * class now keeps only:
+     *   - a "head" window: the first N bytes of the file
+     *   - a "tail" window: the last N bytes of the file
+     * and any position in between (the "gap") is simply unavailable - byteAt()
+     * returns -1 for it, and matching logic (see PatternElement.matchesAt above)
+     * treats that as "does not match" rather than crashing.
+     *
+     * KNOWN LIMITATION: a small number of real signatures use a CHAINED (non-first)
+     * SubSequence with NO explicit SubSeqMaxOffset (e.g. MP4 signature 278's "moov"
+     * box search after "ftyp" - see matchChainedSubSequence), meaning DROID's real
+     * semantics is "search forward with no fixed limit". For a file small enough to
+     * fit in memory this was already handled by simply searching to data.length.
+     * For a file too large to load fully, such an unbounded chained search can only
+     * search as far as the loaded head/tail windows actually reach - if the real
+     * match is further into the unloaded gap (e.g. "moov" sitting in the middle of
+     * a multi-GB MP4), it will not be found. This mirrors the same kind of
+     * pragmatic tradeoff real DROID makes with its own maxBytesToScan safety cap
+     * (see the class javadoc's "NOT IMPLEMENTED" section) - correctness for
+     * reference-anchored (BOF/EOF) matching is preserved regardless of file size;
+     * only unbounded middle-of-file searches on huge files are affected, and only
+     * for the minority of signatures structured that way.
+     */
+    static final class FileRegion {
+        final byte[] head;
+        final byte[] tail; // may be null if the whole file fit in `head`
+        final long length; // true total content length
+        final long tailStartAbsolute; // absolute position where `tail` begins, or `length` if tail is null
+
+        FileRegion(byte[] head, byte[] tail, long length) {
+            this.head = head;
+            this.tail = tail;
+            this.length = length;
+            this.tailStartAbsolute = (tail == null) ? length : (length - tail.length);
+        }
+
+        /** Returns the unsigned byte value at absolute position `pos`, or -1 if
+         *  `pos` is out of range or falls in the unloaded gap between head and tail. */
+        int byteAt(long pos) {
+            if (pos < 0 || pos >= length) return -1;
+            if (pos < head.length) return head[(int) pos] & 0xFF;
+            if (tail != null && pos >= tailStartAbsolute) return tail[(int) (pos - tailStartAbsolute)] & 0xFF;
+            return -1; // in the gap - not loaded
+        }
     }
 
     static int patternLength(List<PatternElement> pattern) {
@@ -271,24 +360,46 @@ public class DroidSignatureVerifier {
     // Low-level pattern search helpers
     // ------------------------------------------------------------------
 
-    static boolean matchesAt(byte[] data, int start, List<PatternElement> pattern) {
+    static boolean matchesAt(FileRegion region, long start, List<PatternElement> pattern) {
         if (start < 0) return false;
-        int pos = start;
+        long pos = start;
         for (PatternElement e : pattern) {
-            if (pos + e.length() > data.length) return false;
-            if (!e.matchesAt(data, pos)) return false;
+            if (pos + e.length() > region.length) return false;
+            if (!e.matchesAt(region, pos)) return false;
             pos += e.length();
         }
         return true;
     }
 
     /** First position in [fromInclusive, toInclusive] where pattern matches, or -1.
-     *  Searches in increasing offset order (i.e. "leftmost/earliest first"). */
-    static int findFirstForward(byte[] data, int fromInclusive, int toInclusive, List<PatternElement> pattern) {
-        int lo = Math.max(0, fromInclusive);
-        int hi = Math.min(toInclusive, data.length - patternLength(pattern));
-        for (int start = lo; start <= hi; start++) {
-            if (matchesAt(data, start, pattern)) return start;
+     *  Searches in increasing offset order (i.e. "leftmost/earliest first"). Uses
+     *  long positions throughout - a file's length can exceed Integer.MAX_VALUE
+     *  (this is exactly what caused the original OutOfMemoryError on a 4GB file).
+     *
+     *  IMPORTANT for FileRegion-backed large files: this clamps the search to the
+     *  single contiguous available buffer (head or tail) that `fromInclusive`
+     *  falls within, rather than scanning up to `toInclusive` regardless. Without
+     *  this, an unbounded chained-subsequence search (maxSeqOffset absent - see
+     *  matchChainedSubSequence, e.g. MP4 signature 278's "moov" search) would
+     *  naively iterate one position at a time through the entire unloaded "gap"
+     *  of a multi-GB file - each check fails immediately (FileRegion.byteAt
+     *  returns -1 there), but billions of individually-fast checks still add up
+     *  to a very long time. Clamping to the buffer's actual extent makes this
+     *  correctly and quickly return "not found" instead. */
+    static long findFirstForward(FileRegion region, long fromInclusive, long toInclusive, List<PatternElement> pattern) {
+        long lo = Math.max(0, fromInclusive);
+        long hi = Math.min(toInclusive, region.length - patternLength(pattern));
+
+        if (lo < region.head.length) {
+            hi = Math.min(hi, region.head.length - 1); // don't scan past the head buffer into the gap
+        } else if (region.tail != null && lo >= region.tailStartAbsolute) {
+            hi = Math.min(hi, region.length - 1); // tail buffer runs all the way to true EOF, no gap after it
+        } else {
+            return -1; // `lo` itself starts inside the unloaded gap - nothing available to search
+        }
+
+        for (long start = lo; start <= hi; start++) {
+            if (matchesAt(region, start, pattern)) return start;
         }
         return -1;
     }
@@ -330,15 +441,15 @@ public class DroidSignatureVerifier {
      *  the last matched fragment byte), or -1 if any step in the chain fails. Each
      *  step is a group of same-Position fragments; the step succeeds if ANY ONE of
      *  them matches (see BUG FIX note above). */
-    static int verifyRightFragmentChain(byte[] data, int afterAnchor, List<Fragment> rightFragments) {
-        int cursor = afterAnchor;
+    static long verifyRightFragmentChain(FileRegion region, long afterAnchor, List<Fragment> rightFragments) {
+        long cursor = afterAnchor;
         for (List<Fragment> alternatives : groupByPosition(rightFragments)) {
-            int bestFound = -1;
+            long bestFound = -1;
             int bestPatternLen = -1;
             for (Fragment f : alternatives) {
-                int from = cursor + f.minOffset;
-                int to = cursor + f.maxOffset;
-                int found = findFirstForward(data, from, to, f.pattern);
+                long from = cursor + f.minOffset;
+                long to = cursor + f.maxOffset;
+                long found = findFirstForward(region, from, to, f.pattern);
                 if (found >= 0 && (bestFound < 0 || found < bestFound)) {
                     bestFound = found;
                     bestPatternLen = patternLength(f.pattern);
@@ -354,15 +465,15 @@ public class DroidSignatureVerifier {
      *  Returns the cursor position at the start of the whole chain (i.e. the
      *  earliest matched fragment byte), or -1 if any step in the chain fails. Same
      *  same-Position-is-OR handling as verifyRightFragmentChain (see above). */
-    static int verifyLeftFragmentChain(byte[] data, int beforeAnchor, List<Fragment> leftFragments) {
-        int cursor = beforeAnchor;
+    static long verifyLeftFragmentChain(FileRegion region, long beforeAnchor, List<Fragment> leftFragments) {
+        long cursor = beforeAnchor;
         for (List<Fragment> alternatives : groupByPosition(leftFragments)) {
-            int bestFound = -1;
+            long bestFound = -1;
             for (Fragment f : alternatives) {
                 int patLen = patternLength(f.pattern);
-                int to = cursor - f.minOffset - patLen;
-                int from = cursor - f.maxOffset - patLen;
-                int found = findFirstForward(data, from, to, f.pattern);
+                long to = cursor - f.minOffset - patLen;
+                long from = cursor - f.maxOffset - patLen;
+                long found = findFirstForward(region, from, to, f.pattern);
                 // "Earliest" for a left fragment means closest to the anchor, i.e.
                 // the LARGEST found offset (rightmost within its window).
                 if (found >= 0 && found > bestFound) {
@@ -387,16 +498,16 @@ public class DroidSignatureVerifier {
      * that's directly anchored to the ByteSequence's BOF/EOF reference point).
      * Returns the new cursor (end of this SubSequence's full match), or -1.
      */
-    static int matchChainedSubSequence(byte[] data, SubSequenceDef sub, int cursor) {
+    static long matchChainedSubSequence(FileRegion region, SubSequenceDef sub, long cursor) {
         if (sub.anchor == null) return -1;
-        int from = cursor + sub.minSeqOffset;
-        int to = (sub.maxSeqOffset >= 0) ? (cursor + sub.maxSeqOffset) : data.length;
-        int anchorPos = findFirstForward(data, from, to, sub.anchor);
+        long from = cursor + sub.minSeqOffset;
+        long to = (sub.maxSeqOffset >= 0) ? (cursor + sub.maxSeqOffset) : region.length;
+        long anchorPos = findFirstForward(region, from, to, sub.anchor);
         if (anchorPos < 0) return -1;
-        int afterAnchor = anchorPos + patternLength(sub.anchor);
-        int afterRight = verifyRightFragmentChain(data, afterAnchor, sub.rightFragments);
+        long afterAnchor = anchorPos + patternLength(sub.anchor);
+        long afterRight = verifyRightFragmentChain(region, afterAnchor, sub.rightFragments);
         if (afterRight < 0) return -1;
-        int beforeLeft = verifyLeftFragmentChain(data, anchorPos, sub.leftFragments);
+        long beforeLeft = verifyLeftFragmentChain(region, anchorPos, sub.leftFragments);
         if (beforeLeft < 0) return -1;
         return afterRight;
     }
@@ -413,7 +524,7 @@ public class DroidSignatureVerifier {
      * ~259KB), small enough to keep a full 2,018-signature scan of a large file
      * from effectively hanging on every non-matching signature.
      */
-    static int MAX_ANCHOR_SEARCH_DISTANCE = 3000; //Cases where 3000 is required has been found for large mp4 files.
+    static int MAX_ANCHOR_SEARCH_DISTANCE = 3000;
 
     /**
      * Matches the FIXED SubSequence of a ByteSequence - the one directly anchored to
@@ -431,26 +542,26 @@ public class DroidSignatureVerifier {
      * @return the new cursor (end of this SubSequence's full match, for chaining to
      *         the next SubSequence, if any), or -1 if no valid candidate exists.
      */
-    static int matchFixedSubSequence(byte[] data, SubSequenceDef sub, int referencePosition, boolean searchBackward) {
+    static long matchFixedSubSequence(FileRegion region, SubSequenceDef sub, long referencePosition, boolean searchBackward) {
         if (sub.anchor == null) return -1;
         int anchorLen = patternLength(sub.anchor);
-        int maxOffset = (sub.maxSeqOffset >= 0) ? sub.maxSeqOffset : Integer.MAX_VALUE / 2;
+        long maxOffset = (sub.maxSeqOffset >= 0) ? sub.maxSeqOffset : Long.MAX_VALUE / 2;
         int minOffset = sub.minSeqOffset;
 
         if (searchBackward) {
             // EOF-anchored: try anchor candidates starting close to the reference
             // point and moving further back (away from EOF) until the RIGHT fragment
             // chain's end satisfies [referencePosition-maxOffset, referencePosition-minOffset].
-            int candidate = referencePosition - anchorLen; // closest possible to reference point
-            int floor = Math.max(0, referencePosition - MAX_ANCHOR_SEARCH_DISTANCE);
+            long candidate = referencePosition - anchorLen; // closest possible to reference point
+            long floor = Math.max(0, referencePosition - MAX_ANCHOR_SEARCH_DISTANCE);
             while (candidate >= floor) {
-                if (matchesAt(data, candidate, sub.anchor)) {
-                    int afterAnchor = candidate + anchorLen;
-                    int chainEnd = verifyRightFragmentChain(data, afterAnchor, sub.rightFragments);
+                if (matchesAt(region, candidate, sub.anchor)) {
+                    long afterAnchor = candidate + anchorLen;
+                    long chainEnd = verifyRightFragmentChain(region, afterAnchor, sub.rightFragments);
                     if (chainEnd >= 0) {
-                        int distanceFromReference = referencePosition - chainEnd;
+                        long distanceFromReference = referencePosition - chainEnd;
                         if (distanceFromReference >= minOffset && distanceFromReference <= maxOffset) {
-                            int beforeLeft = verifyLeftFragmentChain(data, candidate, sub.leftFragments);
+                            long beforeLeft = verifyLeftFragmentChain(region, candidate, sub.leftFragments);
                             if (beforeLeft >= 0) {
                                 return chainEnd;
                             }
@@ -465,11 +576,11 @@ public class DroidSignatureVerifier {
             // point and moving forward until the LEFT fragment chain's start
             // satisfies [referencePosition+minOffset, referencePosition+maxOffset].
             // (Symmetric to the EOF case above; see real source's forward branch.)
-            int candidate = referencePosition; // closest possible to reference point
-            int ceiling = Math.min(data.length - anchorLen, referencePosition + MAX_ANCHOR_SEARCH_DISTANCE);
+            long candidate = referencePosition; // closest possible to reference point
+            long ceiling = Math.min(region.length - anchorLen, referencePosition + MAX_ANCHOR_SEARCH_DISTANCE);
             while (candidate <= ceiling) {
-                if (matchesAt(data, candidate, sub.anchor)) {
-                    int beforeLeft = verifyLeftFragmentChain(data, candidate, sub.leftFragments);
+                if (matchesAt(region, candidate, sub.anchor)) {
+                    long beforeLeft = verifyLeftFragmentChain(region, candidate, sub.leftFragments);
                     if (beforeLeft >= 0) {
                         // BUG FIX: previously this check was skipped entirely when there were
                         // no left fragments ("sub.leftFragments.isEmpty() || ..."), on the wrong
@@ -483,11 +594,11 @@ public class DroidSignatureVerifier {
                         // `candidate` unchanged, so this check now correctly constrains the
                         // ANCHOR's own position directly - exactly what SubSeqMinOffset/
                         // SubSeqMaxOffset mean for a fragment-less SubSequence.
-                        int distanceFromReference = beforeLeft - referencePosition;
+                        long distanceFromReference = beforeLeft - referencePosition;
                         boolean leftOk = distanceFromReference >= minOffset && distanceFromReference <= maxOffset;
                         if (leftOk) {
-                            int afterAnchor = candidate + anchorLen;
-                            int chainEnd = verifyRightFragmentChain(data, afterAnchor, sub.rightFragments);
+                            long afterAnchor = candidate + anchorLen;
+                            long chainEnd = verifyRightFragmentChain(region, afterAnchor, sub.rightFragments);
                             if (chainEnd >= 0) {
                                 return chainEnd;
                             }
@@ -506,19 +617,19 @@ public class DroidSignatureVerifier {
      * Position order for EOF (matching real DROID's ByteSequence.matches(), which
      * iterates seq.length-1 down to 0 for EOFoffset ByteSequences).
      */
-    static boolean matchByteSequence(byte[] data, ByteSequenceDef bs) {
+    static boolean matchByteSequence(FileRegion region, ByteSequenceDef bs) {
         List<SubSequenceDef> subs = new ArrayList<>(bs.subSequences);
         subs.sort(Comparator.comparingInt(s -> s.position));
         boolean backward = (bs.reference == Reference.EOF);
         if (backward) Collections.reverse(subs);
 
-        int referencePosition = backward ? data.length : 0;
+        long referencePosition = backward ? region.length : 0;
         boolean first = true;
-        int cursor = -1;
+        long cursor = -1;
         for (SubSequenceDef sub : subs) {
-            int result = first
-                    ? matchFixedSubSequence(data, sub, referencePosition, backward)
-                    : matchChainedSubSequence(data, sub, cursor);
+            long result = first
+                    ? matchFixedSubSequence(region, sub, referencePosition, backward)
+                    : matchChainedSubSequence(region, sub, cursor);
             if (result < 0) return false;
             cursor = result;
             first = false;
@@ -527,9 +638,9 @@ public class DroidSignatureVerifier {
     }
 
     /** A signature matches only if ALL of its ByteSequences match. */
-    static boolean matchSignature(byte[] data, InternalSignatureDef sig) {
+    static boolean matchSignature(FileRegion region, InternalSignatureDef sig) {
         for (ByteSequenceDef bs : sig.byteSequences) {
-            if (!matchByteSequence(data, bs)) return false;
+            if (!matchByteSequence(region, bs)) return false;
         }
         return true;
     }
@@ -538,25 +649,25 @@ public class DroidSignatureVerifier {
     // Debug tracing - traces one signature's matching attempt step by step.
     // ------------------------------------------------------------------
 
-    static boolean matchByteSequenceDebug(byte[] data, ByteSequenceDef bs) {
+    static boolean matchByteSequenceDebug(FileRegion region, ByteSequenceDef bs) {
         List<SubSequenceDef> subs = new ArrayList<>(bs.subSequences);
         subs.sort(Comparator.comparingInt(s -> s.position));
         boolean backward = (bs.reference == Reference.EOF);
         if (backward) Collections.reverse(subs);
 
-        int referencePosition = backward ? data.length : 0;
+        long referencePosition = backward ? region.length : 0;
         System.out.printf("    reference=%s referencePosition=%,d%n", bs.reference, referencePosition);
 
         boolean first = true;
-        int cursor = -1;
+        long cursor = -1;
         for (SubSequenceDef sub : subs) {
             System.out.printf("    SubSequence Position %d (%s): minSeqOffset=%d maxSeqOffset=%s%n",
                     sub.position, first ? "FIXED to reference point" : "chained",
                     sub.minSeqOffset, sub.maxSeqOffset >= 0 ? String.valueOf(sub.maxSeqOffset) : "unbounded");
 
-            int result = first
-                    ? matchFixedSubSequence(data, sub, referencePosition, backward)
-                    : matchChainedSubSequence(data, sub, cursor);
+            long result = first
+                    ? matchFixedSubSequence(region, sub, referencePosition, backward)
+                    : matchChainedSubSequence(region, sub, cursor);
 
             if (result < 0) {
                 System.out.println("      -> NO valid candidate found. FAIL here.");
@@ -852,9 +963,58 @@ public class DroidSignatureVerifier {
      * @return array of 0 to 10 DetectionResults, index 0 = top candidate
      */
     public DetectionResult[] detect(File targetFile) throws Exception {
-        byte[] data = Files.readAllBytes(targetFile.toPath());
-        System.out.println("\nVerifying against: " + targetFile + " (" + data.length + " bytes)");
-        return detectFromBytes(data);
+        FileRegion region = readBoundedRegion(targetFile);
+        System.out.println("\nVerifying against: " + targetFile + " (" + region.length + " bytes)");
+        return detectFromRegion(region);
+    }
+
+    /**
+     * Size threshold below which detect(File) just reads the whole file in one
+     * go (simple, and reading a file we already know the exact size of is cheap
+     * either way) - above this, only bounded head+tail windows are read. Chosen
+     * generously above any file size likely to cause real memory pressure, while
+     * being well below the ~2GB hard limit where Files.readAllBytes stops working
+     * at all (Java arrays are int-indexed).
+     */
+    static long LARGE_FILE_THRESHOLD_BYTES = 100_000_000L; // 100 MB
+
+    /**
+     * Size of the head and tail windows read for files above
+     * LARGE_FILE_THRESHOLD_BYTES. Generously larger than any real
+     * MAX_ANCHOR_SEARCH_DISTANCE / SubSeqMaxOffset value seen in real signatures
+     * so far (the largest found across the whole investigation was ~136,000 bytes,
+     * for a DMG hybrid disk image signature) - 20 MB leaves a huge safety margin
+     * while keeping total memory use for even a many-GB file at ~40 MB.
+     */
+    static int WINDOW_BYTES_FOR_LARGE_FILES = 20_000_000; // 20 MB
+
+    /**
+     * Reads a FileRegion for the given file: the whole file if it's at or below
+     * LARGE_FILE_THRESHOLD_BYTES, or bounded head+tail windows (via a seekable
+     * RandomAccessFile - no need to read the middle at all) if it's larger. This
+     * is what actually fixes the OutOfMemoryError this method used to throw on
+     * multi-GB files (see class javadoc "OutOfMemoryError" note and FileRegion's
+     * own javadoc for the full rationale).
+     */
+    static FileRegion readBoundedRegion(File file) throws IOException {
+        long length = file.length(); // cheap - just filesystem metadata, no content read
+        if (length <= LARGE_FILE_THRESHOLD_BYTES) {
+            byte[] all = Files.readAllBytes(file.toPath());
+            return new FileRegion(all, null, all.length);
+        }
+        int windowSize = WINDOW_BYTES_FOR_LARGE_FILES;
+        byte[] head = new byte[windowSize];
+        byte[] tail = new byte[windowSize];
+        try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
+            raf.seek(0);
+            raf.readFully(head);
+            raf.seek(length - windowSize);
+            raf.readFully(tail);
+        }
+        System.out.printf("  Large file (%,d bytes) - reading bounded head+tail windows (%,d bytes each)"
+                        + " instead of the whole file (see FileRegion's javadoc for why this is safe).%n",
+                length, windowSize);
+        return new FileRegion(head, tail, length);
     }
 
     /**
@@ -876,10 +1036,11 @@ public class DroidSignatureVerifier {
      * supports mark() with an effectively unlimited read limit, is a good fit for
      * this method's needs in a Tika-based pipeline).
      *
-     * Reads the ENTIRE remaining stream into memory (same as detect(File) reads
-     * the entire file) - full binary content is needed regardless, since
-     * EOF-anchored signatures (see signature 266, the MP3 case) need to examine
-     * bytes near the true end of the content, not just a prefix.
+     * Unlike detect(File), the total length isn't known in advance for an
+     * arbitrary stream, so this reads a bounded head+tail using a streaming
+     * approach instead (see readBoundedRegion(InputStream)) - it never buffers
+     * the whole stream in memory, so this is safe for arbitrarily large streams
+     * too, not just files.
      *
      * @param in the stream to identify; not closed by this method - the caller
      *           retains ownership and is responsible for closing it
@@ -896,21 +1057,80 @@ public class DroidSignatureVerifier {
                 System.out.println("  (reset() failed on the supplied stream, reading from current position: " + e + ")");
             }
         }
-        byte[] data = in.readAllBytes();
-        System.out.println("\nVerifying against: <input stream> (" + data.length + " bytes)");
-        return detectFromBytes(data);
+        FileRegion region = readBoundedRegion(in);
+        System.out.println("\nVerifying against: <input stream> (" + region.length + " bytes)");
+        return detectFromRegion(region);
+    }
+
+    /**
+     * Reads a FileRegion from a stream whose total length isn't known in advance,
+     * WITHOUT ever buffering the whole thing in memory - safe for arbitrarily
+     * large streams, same goal as readBoundedRegion(File) but via streaming
+     * instead of seeking (an arbitrary InputStream generally can't seek).
+     *
+     * Strategy: fill a head buffer of WINDOW_BYTES_FOR_LARGE_FILES bytes first.
+     *   - If the stream ends before that buffer fills, it was a small stream -
+     *     trim it to the actual length and return it as the whole (head-only)
+     *     region, no tail needed.
+     *   - If the stream continues beyond the head window, keep reading into a
+     *     fixed-size CIRCULAR tail buffer (overwriting the oldest bytes as new
+     *     ones arrive), tracking total length, until EOF - so memory use stays
+     *     bounded at 2 x windowSize regardless of how long the stream actually is.
+     */
+    static FileRegion readBoundedRegion(InputStream in) throws IOException {
+        int windowSize = WINDOW_BYTES_FOR_LARGE_FILES;
+        byte[] headBuffer = new byte[windowSize];
+        int headFilled = 0;
+        int n;
+        while (headFilled < windowSize && (n = in.read(headBuffer, headFilled, windowSize - headFilled)) != -1) {
+            headFilled += n;
+        }
+        if (headFilled < windowSize) {
+            // Stream ended within the head window - a small stream, we have it all.
+            byte[] all = Arrays.copyOf(headBuffer, headFilled);
+            return new FileRegion(all, null, all.length);
+        }
+
+        // Stream is larger than the head window - keep reading, maintaining a
+        // circular tail buffer of the last `windowSize` bytes seen, until EOF.
+        byte[] tailBuffer = new byte[windowSize];
+        long totalLength = headFilled;
+        int tailPos = 0;
+        boolean tailWrapped = false;
+        byte[] chunk = new byte[65536];
+        while ((n = in.read(chunk)) != -1) {
+            for (int i = 0; i < n; i++) {
+                tailBuffer[tailPos] = chunk[i];
+                tailPos = (tailPos + 1) % windowSize;
+                if (tailPos == 0) tailWrapped = true;
+            }
+            totalLength += n;
+        }
+
+        byte[] tail;
+        if (!tailWrapped) {
+            tail = Arrays.copyOf(tailBuffer, tailPos); // never wrapped - straightforward prefix
+        } else {
+            tail = new byte[windowSize];
+            System.arraycopy(tailBuffer, tailPos, tail, 0, windowSize - tailPos);
+            System.arraycopy(tailBuffer, 0, tail, windowSize - tailPos, tailPos);
+        }
+        System.out.printf("  Large stream (%,d bytes) - reading bounded head+tail windows (%,d bytes each)"
+                        + " instead of buffering the whole stream.%n",
+                totalLength, windowSize);
+        return new FileRegion(headBuffer, tail, totalLength);
     }
 
     /**
      * The actual detection logic, shared by both detect(File) and
-     * detect(InputStream) - everything downstream of "we now have the full
-     * content as a byte[]" lives here exactly once.
+     * detect(InputStream) - everything downstream of "we now have a FileRegion"
+     * lives here exactly once.
      */
-    private DetectionResult[] detectFromBytes(byte[] data) throws Exception {
+    private DetectionResult[] detectFromRegion(FileRegion region) throws Exception {
         long t2 = System.nanoTime();
         List<Integer> matchedSignatureIds = new ArrayList<>();
         for (InternalSignatureDef sig : signatures) {
-            if (matchSignature(data, sig)) {
+            if (matchSignature(region, sig)) {
                 matchedSignatureIds.add(sig.id);
             }
         }
@@ -965,6 +1185,7 @@ public class DroidSignatureVerifier {
     // for a normal full scan against all signatures.
     // ------------------------------------------------------------------
 
+
     public static void main(String[] args) throws Exception {
         String signatureFile = "/home/teg/eclipse-workspace/droid-light/src/main/resources/DROID_SignatureFile_V124.xml";
 //        String scanFile = "/home/teg/Desktop/Evald_Tang_Kristensen_samling-oversigt.pdf";
@@ -979,4 +1200,6 @@ public class DroidSignatureVerifier {
         System.out.println(results[0]);
 
     }
+    
+    
 }
