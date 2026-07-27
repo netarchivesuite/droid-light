@@ -616,6 +616,7 @@ public class DroidSignatureAhoCorasickVerifier {
 //      String scanFile = "/home/teg/Desktop/Evald_Tang_Kristensen_samling-oversigt.pdf";
 //      String scanFile = "/home/teg/Music/SOTB/02-Tim-Wright-CoLD-SToRAGE-Castle-burger-bar-mix.mp3";
         String scanFile = "/home/teg/Downloads/Bozzy_and_the_Bint_-_BBKB_20171129.mp3";
+        //String scanFile = "/home/teg/Downloads/1000000659.jpg";
 
         File sigFile = new File(signatureFile);
         File targetFile = new File(scanFile);

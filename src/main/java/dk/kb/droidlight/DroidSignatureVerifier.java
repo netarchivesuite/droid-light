@@ -524,7 +524,7 @@ public class DroidSignatureVerifier {
      * ~259KB), small enough to keep a full 2,018-signature scan of a large file
      * from effectively hanging on every non-matching signature.
      */
-    static int MAX_ANCHOR_SEARCH_DISTANCE = 3000;
+    static int MAX_ANCHOR_SEARCH_DISTANCE = 100000; //JPG example require 100.000 value. Almost all other formats only required 3000
 
     /**
      * Matches the FIXED SubSequence of a ByteSequence - the one directly anchored to
@@ -1188,10 +1188,11 @@ public class DroidSignatureVerifier {
 
     public static void main(String[] args) throws Exception {
         String signatureFile = "/home/teg/eclipse-workspace/droid-light/src/main/resources/DROID_SignatureFile_V124.xml";
-//        String scanFile = "/home/teg/Desktop/Evald_Tang_Kristensen_samling-oversigt.pdf";
-//        String scanFile = "/home/teg/Music/SOTB/02-Tim-Wright-CoLD-SToRAGE-Castle-burger-bar-mix.mp3";
-        String scanFile = "/home/teg/Downloads/Bozzy_and_the_Bint_-_BBKB_20171129.mp3";
-
+//      String scanFile = "/home/teg/Desktop/Evald_Tang_Kristensen_samling-oversigt.pdf";
+ //   String scanFile = "/home/teg/Music/SOTB/02-Tim-Wright-CoLD-SToRAGE-Castle-burger-bar-mix.mp3";
+     //   String scanFile = "/home/teg/eclipse-workspace/droid/droid-container/src/test/resources/Book1.xlsx";
+      //  String scanFile = "/home/teg/Downloads/Bozzy_and_the_Bint_-_BBKB_20171129.mp3";
+        String scanFile = "/home/teg/Downloads/1000000659.jpg"; //Example that jpg files require
         File sigFile = new File(signatureFile);
         File targetFile = new File(scanFile);
            

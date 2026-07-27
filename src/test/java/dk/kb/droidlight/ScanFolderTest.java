@@ -21,7 +21,7 @@ public class ScanFolderTest {
 
     public static void main(String[] args) throws Exception {
         String signatureFile = "/home/teg/eclipse-workspace/droid-light/src/main/resources/DROID_SignatureFile_V124.xml";
-        String scan_folder = "/home/teg/Downloads";
+        String scan_folder = "/home/teg/eclipse-workspace/droid/droid-container/src/test/resources";
 
         File sigFile = new File(signatureFile);
         File folder = new File(scan_folder);
@@ -46,8 +46,8 @@ public class ScanFolderTest {
         long start=System.currentTimeMillis();
         System.out.println("Found " + files.size() + " file(s) in " + folder);
 
-      DroidSignatureVerifier verifier = new DroidSignatureVerifier(sigFile); // parses ONCE
-      //  DroidSignatureAhoCorasickVerifier verifier= new DroidSignatureAhoCorasickVerifier(sigFile);
+      //DroidSignatureVerifier verifier = new DroidSignatureVerifier(sigFile); // parses ONCE
+        DroidSignatureAhoCorasickVerifier verifier= new DroidSignatureAhoCorasickVerifier(sigFile);
         
         System.out.println("\n===== Scanning " + files.size() + " file(s) =====\n");
 
