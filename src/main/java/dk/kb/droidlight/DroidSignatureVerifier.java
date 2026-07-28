@@ -1219,30 +1219,5 @@ public class DroidSignatureVerifier {
         }
         return results;
     }
-
-    // ------------------------------------------------------------------
-    // No main() method in this class - see project convention: this class is a
-    // library component, constructed and called from other code (e.g. a folder
-    // scanner, a test harness, or a real pipeline integration), not run directly.
-    // matchByteSequenceDebug() remains available as a package-visible utility for
-    // tracing one signature's matching attempt step by step, callable from a
-    // separate test/driver class if needed.
-    // ------------------------------------------------------------------
-    
-    public static void main(String[] args) throws Exception {
-        String signatureFile = "/home/teg/eclipse-workspace/droid-light/src/main/resources/DROID_SignatureFile_V124.xml";
-//      String scanFile = "/home/teg/Desktop/Evald_Tang_Kristensen_samling-oversigt.pdf";
- //   String scanFile = "/home/teg/Music/SOTB/02-Tim-Wright-CoLD-SToRAGE-Castle-burger-bar-mix.mp3";
-     //   String scanFile = "/home/teg/eclipse-workspace/droid/droid-container/src/test/resources/Book1.xlsx";
-      //  String scanFile = "/home/teg/Downloads/Bozzy_and_the_Bint_-_BBKB_20171129.mp3";
-        String scanFile = "/home/teg/Downloads/1000000659.jpg"; //Example that jpg files require
-        File sigFile = new File(signatureFile);
-        File targetFile = new File(scanFile);
-           
-        DroidSignatureVerifier droid = new DroidSignatureVerifier(sigFile);
-        DetectionResult[] results = droid.detect(targetFile);
-        System.out.println(results[0]);
-
-    }
     
 }
