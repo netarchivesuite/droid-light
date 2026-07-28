@@ -1,5 +1,4 @@
 package dk.kb.droidlight;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -422,11 +421,11 @@ public class DroidSignatureAhoCorasickVerifier {
             for (int idx = n - 1, tried = 0; idx >= 0 && tried < MAX_CANDIDATES_TO_TRY; idx--, tried++) {
                 long candidate = anchorStartPositions.get(idx);
                 long afterAnchor = candidate + anchorLen;
-                long chainEnd = DroidSignatureVerifier.verifyRightFragmentChain(region, afterAnchor, sub.rightFragments);
+                long chainEnd = DroidSignatureVerifier.verifyRightFragmentChain(region, afterAnchor, sub.groupedRightFragments);
                 if (chainEnd >= 0) {
                     long distanceFromReference = referencePosition - chainEnd;
                     if (distanceFromReference >= minOffset && distanceFromReference <= maxOffset) {
-                        long beforeLeft = DroidSignatureVerifier.verifyLeftFragmentChain(region, candidate, sub.leftFragments);
+                        long beforeLeft = DroidSignatureVerifier.verifyLeftFragmentChain(region, candidate, sub.groupedLeftFragments);
                         if (beforeLeft >= 0) return chainEnd;
                     }
                 }
@@ -437,12 +436,12 @@ public class DroidSignatureAhoCorasickVerifier {
             // (already the natural ascending order the scan produced them in).
             for (int idx = 0, tried = 0; idx < n && tried < MAX_CANDIDATES_TO_TRY; idx++, tried++) {
                 long candidate = anchorStartPositions.get(idx);
-                long beforeLeft = DroidSignatureVerifier.verifyLeftFragmentChain(region, candidate, sub.leftFragments);
+                long beforeLeft = DroidSignatureVerifier.verifyLeftFragmentChain(region, candidate, sub.groupedLeftFragments);
                 if (beforeLeft >= 0) {
                     long distanceFromReference = beforeLeft - referencePosition;
                     if (distanceFromReference >= minOffset && distanceFromReference <= maxOffset) {
                         long afterAnchor = candidate + anchorLen;
-                        long chainEnd = DroidSignatureVerifier.verifyRightFragmentChain(region, afterAnchor, sub.rightFragments);
+                        long chainEnd = DroidSignatureVerifier.verifyRightFragmentChain(region, afterAnchor, sub.groupedRightFragments);
                         if (chainEnd >= 0) return chainEnd;
                     }
                 }
@@ -458,10 +457,8 @@ public class DroidSignatureAhoCorasickVerifier {
     boolean matchByteSequenceUsingHits(DroidSignatureVerifier.FileRegion region, DroidSignatureVerifier.ByteSequenceDef bs,
                                         int sigIdx, int bsIdx,
                                         Map<Integer, Map<Integer, List<Long>>> anchorHits) {
-        List<DroidSignatureVerifier.SubSequenceDef> subs = new ArrayList<>(bs.subSequences);
-        subs.sort(Comparator.comparingInt(s -> s.position));
+        List<DroidSignatureVerifier.SubSequenceDef> subs = bs.orderedSubSequences;
         boolean backward = (bs.reference == DroidSignatureVerifier.Reference.EOF);
-        if (backward) Collections.reverse(subs);
 
         long referencePosition = backward ? region.length : 0;
         boolean first = true;
@@ -603,10 +600,5 @@ public class DroidSignatureAhoCorasickVerifier {
         }
         return results;
     }
-
-    // ------------------------------------------------------------------
-    // No main() method in this class - see project convention: this class is a
-    // library component, constructed and called from other code, not run
-    // directly.
-    // ------------------------------------------------------------------
+  
 }
