@@ -1,4 +1,5 @@
 package dk.kb.droidlight;
+package uk.bl.wa.droidlight;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -419,31 +420,58 @@ public class DroidSignatureVerifier {
      *  long positions throughout - a file's length can exceed Integer.MAX_VALUE
      *  (this is exactly what caused the original OutOfMemoryError on a 4GB file).
      *
-     *  IMPORTANT for FileRegion-backed large files: this clamps the search to the
-     *  single contiguous available buffer (head or tail) that `fromInclusive`
-     *  falls within, rather than scanning up to `toInclusive` regardless. Without
-     *  this, an unbounded chained-subsequence search (maxSeqOffset absent - see
-     *  matchChainedSubSequence, e.g. MP4 signature 278's "moov" search) would
-     *  naively iterate one position at a time through the entire unloaded "gap"
-     *  of a multi-GB file - each check fails immediately (FileRegion.byteAt
-     *  returns -1 there), but billions of individually-fast checks still add up
-     *  to a very long time. Clamping to the buffer's actual extent makes this
-     *  correctly and quickly return "not found" instead. */
+     *  IMPORTANT for FileRegion-backed large files: this searches ONLY the
+     *  portions of [fromInclusive, toInclusive] that actually fall within the
+     *  head buffer and/or the tail buffer, in that order (preserving "leftmost
+     *  match first" semantics) - never wasting time iterating through the
+     *  unloaded "gap" between them (see the MAX_ANCHOR_SEARCH_DISTANCE-adjacent
+     *  performance note this class carries elsewhere for why that matters on a
+     *  multi-GB file with a common/short anchor).
+     *
+     *  BUG FIX: an earlier version of this method clamped the search to stop
+     *  at the end of whichever buffer `fromInclusive` fell within, and never
+     *  even attempted the other buffer - even when the two are directly
+     *  contiguous (no real gap at all) or when `toInclusive` genuinely extends
+     *  into the tail. This broke real, ordinary files: a real 39MB MP4 (not
+     *  "fast-start" optimized) had its "moov" box at offset ~39.07M, about 19MB
+     *  past the head/tail boundary when read via detect(InputStream) - fully
+     *  available in the tail buffer, but never reached, causing a real,
+     *  everyday MP4 to go completely undetected via the InputStream entry
+     *  point (while detect(File) worked fine, since a 39MB file is well under
+     *  LARGE_FILE_THRESHOLD_BYTES and gets read as one single, ungapped
+     *  buffer there). Fixed by searching the head sub-range first, then
+     *  continuing into the tail sub-range (only the portion of it that falls
+     *  within [fromInclusive, toInclusive]) if nothing was found in head. */
     static long findFirstForward(FileRegion region, long fromInclusive, long toInclusive, List<PatternElement> pattern) {
+        long patLen = patternLength(pattern);
         long lo = Math.max(0, fromInclusive);
-        long hi = Math.min(toInclusive, region.length - patternLength(pattern));
+        long hi = Math.min(toInclusive, region.length - patLen);
+        if (hi < lo) return -1;
 
-        if (lo < region.head.length) {
-            hi = Math.min(hi, region.head.length - 1); // don't scan past the head buffer into the gap
-        } else if (region.tail != null && lo >= region.tailStartAbsolute) {
-            hi = Math.min(hi, region.length - 1); // tail buffer runs all the way to true EOF, no gap after it
-        } else {
-            return -1; // `lo` itself starts inside the unloaded gap - nothing available to search
+        // Search the head-buffer portion of the requested range first (lowest
+        // positions - preserves "leftmost match first").
+        long headHi = Math.min(hi, region.head.length - 1);
+        if (lo <= headHi) {
+            for (long start = lo; start <= headHi; start++) {
+                if (matchesAt(region, start, pattern)) return start;
+            }
         }
 
-        for (long start = lo; start <= hi; start++) {
-            if (matchesAt(region, start, pattern)) return start;
+        // Continue into the tail buffer's portion of the requested range, if
+        // any - correctly handles both "head and tail are directly contiguous,
+        // no real gap" (the MP4 case above) and "there's a genuine unloaded gap
+        // in between" (the gap itself is simply never iterated, matching
+        // FileRegion.byteAt's -1-for-unavailable semantics, without wasting
+        // time scanning through it).
+        if (region.tail != null) {
+            long tailLo = Math.max(lo, region.tailStartAbsolute);
+            if (tailLo <= hi) {
+                for (long start = tailLo; start <= hi; start++) {
+                    if (matchesAt(region, start, pattern)) return start;
+                }
+            }
         }
+
         return -1;
     }
 
@@ -567,7 +595,7 @@ public class DroidSignatureVerifier {
      * ~259KB), small enough to keep a full 2,018-signature scan of a large file
      * from effectively hanging on every non-matching signature.
      */
-    static int MAX_ANCHOR_SEARCH_DISTANCE = 150000;
+    static int MAX_ANCHOR_SEARCH_DISTANCE = 160000;
 
     /**
      * Matches the FIXED SubSequence of a ByteSequence - the one directly anchored to
