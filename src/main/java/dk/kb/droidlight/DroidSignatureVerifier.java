@@ -1,5 +1,4 @@
 package dk.kb.droidlight;
-
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
@@ -118,25 +117,51 @@ public class DroidSignatureVerifier {
     // single byte, or a negated multi-byte sequence.
     // ------------------------------------------------------------------
 
-    enum Kind { LITERAL, RANGE, NOT, NOT_SEQUENCE }
+    enum Kind { LITERAL, RANGE, NOT, NOT_SEQUENCE, BITMASK }
 
     static final class PatternElement {
         final Kind kind;
-        final int a; // literal value, or single-byte NOT value, or range low
+        final int a; // literal value, single-byte NOT value, range low, or bitmask value
         final int b; // range high (only used for RANGE)
         final byte[] notSequence; // only used for NOT_SEQUENCE (multi-byte negation)
+        final boolean inverted; // only used for BITMASK - see bitmask()'s javadoc
 
-        private PatternElement(Kind kind, int a, int b, byte[] notSequence) {
+        private PatternElement(Kind kind, int a, int b, byte[] notSequence, boolean inverted) {
             this.kind = kind;
             this.a = a;
             this.b = b;
             this.notSequence = notSequence;
+            this.inverted = inverted;
         }
 
-        static PatternElement literal(int value) { return new PatternElement(Kind.LITERAL, value, -1, null); }
-        static PatternElement not(int value) { return new PatternElement(Kind.NOT, value, -1, null); }
-        static PatternElement range(int low, int high) { return new PatternElement(Kind.RANGE, low, high, null); }
-        static PatternElement notSequence(byte[] forbidden) { return new PatternElement(Kind.NOT_SEQUENCE, -1, -1, forbidden); }
+        static PatternElement literal(int value) { return new PatternElement(Kind.LITERAL, value, -1, null, false); }
+        static PatternElement not(int value) { return new PatternElement(Kind.NOT, value, -1, null, false); }
+        static PatternElement range(int low, int high) { return new PatternElement(Kind.RANGE, low, high, null, false); }
+        static PatternElement notSequence(byte[] forbidden) { return new PatternElement(Kind.NOT_SEQUENCE, -1, -1, forbidden, false); }
+
+        /**
+         * Bitmask matching - "[&XX]" / "[!&XX]" syntax, confirmed against DROID's
+         * own real syntax documentation (github.com/digital-preservation/droid,
+         * "Signature syntax.md"), found via two real signatures (1487 and 3426 in
+         * the V124 signature file) that this class was previously unable to parse
+         * at all - the parser had no concept of "&" inside brackets and threw a
+         * NumberFormatException trying to read it as a hex digit.
+         *
+         * Per the docs: "[&FF] ... will match all bytes which have the same bits
+         * set to one in the bitmask" - i.e. (byte & mask) == mask, ALL 1-bits in
+         * the mask must also be set in the byte (not merely "any" bit - confirmed
+         * by the doc's own multi-bit example, "[&88]" matching bytes with BOTH
+         * bit 7 and bit 3 set, an AND-equality check, not an OR/any-bit check).
+         * "[!&FF]" is the inverse: (byte & mask) != mask.
+         *
+         * This is a genuinely different construct from NOT_SEQUENCE (which
+         * negates an exact multi-byte literal, e.g. the real "[!4001C8...]" case
+         * found earlier) - bitmask always operates on exactly one byte, testing
+         * specific bit positions, not a run of literal bytes.
+         */
+        static PatternElement bitmask(int maskValue, boolean inverted) {
+            return new PatternElement(Kind.BITMASK, maskValue, -1, null, inverted);
+        }
 
         int length() {
             return (kind == Kind.NOT_SEQUENCE) ? notSequence.length : 1;
@@ -149,6 +174,11 @@ public class DroidSignatureVerifier {
                 case RANGE: {
                     int v = data[pos] & 0xFF;
                     return v >= a && v <= b;
+                }
+                case BITMASK: {
+                    int v = data[pos] & 0xFF;
+                    boolean allMaskBitsSet = (v & a) == a;
+                    return inverted != allMaskBitsSet; // != acts as XOR against the boolean invert flag
                 }
                 case NOT_SEQUENCE: {
                     for (int i = 0; i < notSequence.length; i++) {
@@ -184,6 +214,10 @@ public class DroidSignatureVerifier {
                 case LITERAL: return v == a;
                 case NOT: return v != a;
                 case RANGE: return v >= a && v <= b;
+                case BITMASK: {
+                    boolean allMaskBitsSet = (v & a) == a;
+                    return inverted != allMaskBitsSet;
+                }
                 default: throw new AssertionError();
             }
         }
@@ -264,7 +298,15 @@ public class DroidSignatureVerifier {
             if (c == '[') {
                 int close = text.indexOf(']', i);
                 String inner = text.substring(i + 1, close);
-                if (inner.startsWith("!")) {
+                if (inner.startsWith("!&")) {
+                    // Inverted bitmask, e.g. "[!&01]" - real DROID syntax, see
+                    // PatternElement.bitmask()'s javadoc. Must be checked BEFORE
+                    // the plain "!" branch below, since this also starts with "!".
+                    out.add(PatternElement.bitmask(hexByte(inner.substring(2)), true));
+                } else if (inner.startsWith("&")) {
+                    // Bitmask, e.g. "[&88]".
+                    out.add(PatternElement.bitmask(hexByte(inner.substring(1)), false));
+                } else if (inner.startsWith("!")) {
                     String hex = inner.substring(1);
                     if (hex.length() == 2) {
                         out.add(PatternElement.not(hexByte(hex)));
@@ -524,7 +566,7 @@ public class DroidSignatureVerifier {
      * ~259KB), small enough to keep a full 2,018-signature scan of a large file
      * from effectively hanging on every non-matching signature.
      */
-    static int MAX_ANCHOR_SEARCH_DISTANCE = 100000; //JPG example require 100.000 value. Almost all other formats only required 3000
+    static int MAX_ANCHOR_SEARCH_DISTANCE = 130000;
 
     /**
      * Matches the FIXED SubSequence of a ByteSequence - the one directly anchored to
@@ -1180,12 +1222,14 @@ public class DroidSignatureVerifier {
     }
 
     // ------------------------------------------------------------------
-    // Demo driver - hardcoded variables for IDE "Run" usage, no CLI args.
-    // Set debugSignatureId to trace one signature step by step; leave null
-    // for a normal full scan against all signatures.
+    // No main() method in this class - see project convention: this class is a
+    // library component, constructed and called from other code (e.g. a folder
+    // scanner, a test harness, or a real pipeline integration), not run directly.
+    // matchByteSequenceDebug() remains available as a package-visible utility for
+    // tracing one signature's matching attempt step by step, callable from a
+    // separate test/driver class if needed.
     // ------------------------------------------------------------------
-
-
+    
     public static void main(String[] args) throws Exception {
         String signatureFile = "/home/teg/eclipse-workspace/droid-light/src/main/resources/DROID_SignatureFile_V124.xml";
 //      String scanFile = "/home/teg/Desktop/Evald_Tang_Kristensen_samling-oversigt.pdf";
@@ -1201,6 +1245,5 @@ public class DroidSignatureVerifier {
         System.out.println(results[0]);
 
     }
-    
     
 }
