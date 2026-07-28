@@ -1,5 +1,4 @@
 package dk.kb.droidlight;
-
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
@@ -401,6 +400,58 @@ public class DroidSignatureVerifier {
     }
 
     /**
+     * Backward-direction counterpart to computeForwardShifts() - adapted from
+     * byteseek's BoyerMooreHorspoolSearcher.BackwardInfoFactory.create() (see
+     * computeForwardShifts()'s javadoc for full provenance). Used by
+     * matchFixedSubSequence()'s EOF-anchored (searchBackward) branch, which
+     * searches candidate anchor positions moving away from a reference point -
+     * exactly the same kind of loop the fragment/chained-subsequence searches
+     * already had BMH-accelerated, but this one operates on the FIRST byte of
+     * the anchor (searching backward) rather than the last (searching forward).
+     *
+     * Found to matter in practice: a real production comparison showed small
+     * files still running 10-20x slower than real DROID even after the forward
+     * BMH fix, because matchFixedSubSequence's own candidate loop - which this
+     * accelerates - was still using a naive one-position-at-a-time scan.
+     */
+    static int[] computeBackwardShifts(List<PatternElement> pattern) {
+        for (PatternElement e : pattern) {
+            if (e.kind == Kind.NOT_SEQUENCE) return null; // not BMH-eligible - see computeForwardShifts()
+        }
+        int len = pattern.size();
+        if (len == 0) return null;
+
+        // Pathological-case guard, mirrored from the forward case but checked
+        // from the START of the pattern instead of the end.
+        int maxShift = len;
+        for (int pos = 0; pos < len; pos++) {
+            if (matchesAllByteValues(pattern.get(pos))) {
+                maxShift = pos + 1;
+                break;
+            }
+        }
+
+        int[] shifts = new int[256];
+        Arrays.fill(shifts, maxShift);
+
+        if (maxShift > 1) {
+            int processShiftsFromPos = maxShift - 1;
+            // Shift for a byte value = its position in the pattern, for every
+            // position that byte could appear at (except position 0, which
+            // doesn't need a shift entry of its own - matching byteseek exactly).
+            for (int pos = processShiftsFromPos; pos > 0; pos--) {
+                PatternElement e = pattern.get(pos);
+                for (int b = 0; b < 256; b++) {
+                    if (e.matchesByteValue(b)) {
+                        shifts[b] = pos;
+                    }
+                }
+            }
+        }
+        return shifts;
+    }
+
+    /**
      * Boyer-Moore-Horspool forward search within a single contiguous byte[]
      * array - e.g. a FileRegion's head or tail buffer on its own, never
      * crossing between them (the caller, findFirstForward(), already handles
@@ -575,6 +626,9 @@ public class DroidSignatureVerifier {
         // PERFORMANCE: precomputed BMH shift table for the anchor itself - see
         // Fragment.forwardShifts's comment and computeForwardShifts()'s javadoc.
         int[] anchorForwardShifts;
+        // Backward-direction counterpart, used by matchFixedSubSequence()'s
+        // EOF-anchored branch - see computeBackwardShifts()'s javadoc.
+        int[] anchorBackwardShifts;
     }
 
     enum Reference { BOF, EOF, ANYWHERE }
@@ -851,6 +905,54 @@ public class DroidSignatureVerifier {
             // chain's end satisfies [referencePosition-maxOffset, referencePosition-minOffset].
             long candidate = referencePosition - anchorLen; // closest possible to reference point
             long floor = Math.max(0, referencePosition - MAX_ANCHOR_SEARCH_DISTANCE);
+            int[] shifts = sub.anchorBackwardShifts;
+
+            // PERFORMANCE: BMH-accelerated candidate search (see
+            // computeBackwardShifts()'s javadoc for why this matters - this loop
+            // was found to still dominate cost on small files even after the
+            // forward-direction fragment/chained-subsequence BMH fix, since every
+            // signature's FIXED anchor search used to check every single
+            // candidate position one at a time regardless of content). Checks
+            // the anchor's FIRST byte (searching backward); when it can't
+            // possibly match, skips back by the precomputed safe distance
+            // instead of just one position. When a full anchor+chain match
+            // attempt FAILS verification, this also shifts by the same safe
+            // distance rather than falling back to a single step - exactly
+            // mirroring byteseek's own real search algorithm (see
+            // computeForwardShifts()'s javadoc), which does the same thing.
+            if (shifts != null) {
+                PatternElement firstElement = sub.anchor.get(0);
+                while (candidate >= floor) {
+                    int currentByte = region.byteAt(candidate);
+                    if (currentByte < 0) { candidate--; continue; } // unavailable - safe minimal step
+                    while (!firstElement.matchesByteValue(currentByte)) {
+                        candidate -= shifts[currentByte];
+                        if (candidate < floor) return -1;
+                        int next = region.byteAt(candidate);
+                        if (next < 0) { candidate--; currentByte = -1; break; } // unavailable - safe minimal step
+                        currentByte = next;
+                    }
+                    if (currentByte < 0) continue; // hit the unavailable-byte fallback above - re-check loop condition
+                    if (matchesAt(region, candidate, sub.anchor)) {
+                        long afterAnchor = candidate + anchorLen;
+                        long chainEnd = verifyRightFragmentChain(region, afterAnchor, sub.groupedRightFragments);
+                        if (chainEnd >= 0) {
+                            long distanceFromReference = referencePosition - chainEnd;
+                            if (distanceFromReference >= minOffset && distanceFromReference <= maxOffset) {
+                                long beforeLeft = verifyLeftFragmentChain(region, candidate, sub.groupedLeftFragments);
+                                if (beforeLeft >= 0) {
+                                    return chainEnd;
+                                }
+                            }
+                        }
+                    }
+                    candidate -= shifts[currentByte];
+                }
+                return -1;
+            }
+
+            // Fallback: naive one-position-at-a-time scan, used when the anchor
+            // isn't BMH-eligible (contains a NOT_SEQUENCE element).
             while (candidate >= floor) {
                 if (matchesAt(region, candidate, sub.anchor)) {
                     long afterAnchor = candidate + anchorLen;
@@ -875,22 +977,63 @@ public class DroidSignatureVerifier {
             // (Symmetric to the EOF case above; see real source's forward branch.)
             long candidate = referencePosition; // closest possible to reference point
             long ceiling = Math.min(region.length - anchorLen, referencePosition + MAX_ANCHOR_SEARCH_DISTANCE);
+            int[] shifts = sub.anchorForwardShifts;
+
+            // PERFORMANCE: BMH-accelerated, symmetric to the backward branch above,
+            // checking the anchor's LAST byte and shifting forward.
+            if (shifts != null) {
+                int lastPos = sub.anchor.size() - 1;
+                PatternElement lastElement = sub.anchor.get(lastPos);
+                while (candidate <= ceiling) {
+                    long checkPos = candidate + lastPos;
+                    int currentByte = region.byteAt(checkPos);
+                    if (currentByte < 0) { candidate++; continue; } // unavailable - safe minimal step
+                    while (!lastElement.matchesByteValue(currentByte)) {
+                        candidate += shifts[currentByte];
+                        if (candidate > ceiling) return -1;
+                        checkPos = candidate + lastPos;
+                        int next = region.byteAt(checkPos);
+                        if (next < 0) { candidate++; currentByte = -1; break; } // unavailable - safe minimal step
+                        currentByte = next;
+                    }
+                    if (currentByte < 0) continue; // hit the unavailable-byte fallback above - re-check loop condition
+                    if (matchesAt(region, candidate, sub.anchor)) {
+                        long beforeLeft = verifyLeftFragmentChain(region, candidate, sub.groupedLeftFragments);
+                        if (beforeLeft >= 0) {
+                            // BUG FIX: previously this check was skipped entirely when there were
+                            // no left fragments ("sub.leftFragments.isEmpty() || ..."), on the wrong
+                            // assumption that "nothing to check" meant "no offset constraint at all".
+                            // That let signature 10 (TIFF, anchor "4D4D002A", SubSeqMinOffset=0,
+                            // SubSeqMaxOffset=0, NO fragments) match a byte-4 coincidence anywhere
+                            // within MAX_ANCHOR_SEARCH_DISTANCE, instead of requiring it AT byte 0
+                            // exactly - found via a real MP3 file where those 4 bytes happened to
+                            // occur at offset 339, inside an ID3v2 tag, and were wrongly accepted.
+                            // When there are no left fragments, verifyLeftFragmentChain returns
+                            // `candidate` unchanged, so this check now correctly constrains the
+                            // ANCHOR's own position directly - exactly what SubSeqMinOffset/
+                            // SubSeqMaxOffset mean for a fragment-less SubSequence.
+                            long distanceFromReference = beforeLeft - referencePosition;
+                            boolean leftOk = distanceFromReference >= minOffset && distanceFromReference <= maxOffset;
+                            if (leftOk) {
+                                long afterAnchor = candidate + anchorLen;
+                                long chainEnd = verifyRightFragmentChain(region, afterAnchor, sub.groupedRightFragments);
+                                if (chainEnd >= 0) {
+                                    return chainEnd;
+                                }
+                            }
+                        }
+                    }
+                    candidate += shifts[currentByte];
+                }
+                return -1;
+            }
+
+            // Fallback: naive one-position-at-a-time scan, used when the anchor
+            // isn't BMH-eligible (contains a NOT_SEQUENCE element).
             while (candidate <= ceiling) {
                 if (matchesAt(region, candidate, sub.anchor)) {
                     long beforeLeft = verifyLeftFragmentChain(region, candidate, sub.groupedLeftFragments);
                     if (beforeLeft >= 0) {
-                        // BUG FIX: previously this check was skipped entirely when there were
-                        // no left fragments ("sub.leftFragments.isEmpty() || ..."), on the wrong
-                        // assumption that "nothing to check" meant "no offset constraint at all".
-                        // That let signature 10 (TIFF, anchor "4D4D002A", SubSeqMinOffset=0,
-                        // SubSeqMaxOffset=0, NO fragments) match a byte-4 coincidence anywhere
-                        // within MAX_ANCHOR_SEARCH_DISTANCE, instead of requiring it AT byte 0
-                        // exactly - found via a real MP3 file where those 4 bytes happened to
-                        // occur at offset 339, inside an ID3v2 tag, and were wrongly accepted.
-                        // When there are no left fragments, verifyLeftFragmentChain returns
-                        // `candidate` unchanged, so this check now correctly constrains the
-                        // ANCHOR's own position directly - exactly what SubSeqMinOffset/
-                        // SubSeqMaxOffset mean for a fragment-less SubSequence.
                         long distanceFromReference = beforeLeft - referencePosition;
                         boolean leftOk = distanceFromReference >= minOffset && distanceFromReference <= maxOffset;
                         if (leftOk) {
@@ -1107,6 +1250,7 @@ public class DroidSignatureVerifier {
                     sub.groupedLeftFragments = groupByPosition(sub.leftFragments);
                     if (sub.anchor != null) {
                         sub.anchorForwardShifts = computeForwardShifts(sub.anchor);
+                        sub.anchorBackwardShifts = computeBackwardShifts(sub.anchor);
                     }
                     for (Fragment f : sub.rightFragments) f.forwardShifts = computeForwardShifts(f.pattern);
                     for (Fragment f : sub.leftFragments) f.forwardShifts = computeForwardShifts(f.pattern);
@@ -1430,16 +1574,39 @@ public class DroidSignatureVerifier {
 
         // Stream is larger than the head window - keep reading, maintaining a
         // circular tail buffer of the last `windowSize` bytes seen, until EOF.
+        //
+        // PERFORMANCE: fills the circular buffer using bulk System.arraycopy
+        // calls (at most 2 per incoming chunk - one before the wrap point, one
+        // after, if the chunk happens to cross it), instead of a per-byte loop
+        // with a modulo operation on every single byte. That per-byte version
+        // was found to be a real, measurable cost in production: a real 39MB
+        // MP4 spent ~95ms of its ~136ms total detect(InputStream) time outside
+        // the actual signature verification step, almost entirely in this read
+        // step - confirmed by comparing against real DROID's own timing, which
+        // does this same "read past the cache" work far faster. System.arraycopy
+        // is typically a highly-optimized native memmove, dramatically faster
+        // than a Java-level per-byte copy loop, especially once a modulo
+        // operation (one of the slower integer operations) is involved on every
+        // single byte rather than once per chunk.
         byte[] tailBuffer = new byte[windowSize];
         long totalLength = headFilled;
         int tailPos = 0;
         boolean tailWrapped = false;
         byte[] chunk = new byte[65536];
         while ((n = in.read(chunk)) != -1) {
-            for (int i = 0; i < n; i++) {
-                tailBuffer[tailPos] = chunk[i];
-                tailPos = (tailPos + 1) % windowSize;
-                if (tailPos == 0) tailWrapped = true;
+            int remaining = n;
+            int chunkOffset = 0;
+            while (remaining > 0) {
+                int spaceUntilWrap = windowSize - tailPos;
+                int toCopy = Math.min(remaining, spaceUntilWrap);
+                System.arraycopy(chunk, chunkOffset, tailBuffer, tailPos, toCopy);
+                tailPos += toCopy;
+                chunkOffset += toCopy;
+                remaining -= toCopy;
+                if (tailPos == windowSize) {
+                    tailPos = 0;
+                    tailWrapped = true;
+                }
             }
             totalLength += n;
         }
@@ -1516,12 +1683,4 @@ public class DroidSignatureVerifier {
         return results;
     }
 
-    // ------------------------------------------------------------------
-    // No main() method in this class - see project convention: this class is a
-    // library component, constructed and called from other code (e.g. a folder
-    // scanner, a test harness, or a real pipeline integration), not run directly.
-    // matchByteSequenceDebug() remains available as a package-visible utility for
-    // tracing one signature's matching attempt step by step, callable from a
-    // separate test/driver class if needed.
-    // ------------------------------------------------------------------
 }
