@@ -567,7 +567,7 @@ public class DroidSignatureVerifier {
      * ~259KB), small enough to keep a full 2,018-signature scan of a large file
      * from effectively hanging on every non-matching signature.
      */
-    static int MAX_ANCHOR_SEARCH_DISTANCE = 3000;
+    static int MAX_ANCHOR_SEARCH_DISTANCE = 150000;
 
     /**
      * Matches the FIXED SubSequence of a ByteSequence - the one directly anchored to
