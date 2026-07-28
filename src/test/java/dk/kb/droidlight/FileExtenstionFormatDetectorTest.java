@@ -13,9 +13,7 @@ public class FileExtenstionFormatDetectorTest {
         
          FormatInfo info =  fileMimeTypeDetector.detectFromFileName(testFilePath);
          System.out.println("ext:"+info);
-          info =  fileMimeTypeDetector.detectFromMimeType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-         System.out.println("ext:"+info);
-        
+       
     }
     
 }
