@@ -168,6 +168,25 @@ public class DroidSignatureVerifier {
             return (kind == Kind.NOT_SEQUENCE) ? notSequence.length : 1;
         }
 
+        /** Pure value check - "would this element match this specific byte
+         *  value", with no position/array involved. Used only to build BMH shift
+         *  tables (see computeForwardShifts()) - never called for NOT_SEQUENCE,
+         *  which spans multiple bytes and isn't part of the single-byte shift
+         *  model (patterns containing one are simply not BMH-eligible - see
+         *  computeForwardShifts()'s javadoc). */
+        boolean matchesByteValue(int unsignedByteValue) {
+            switch (kind) {
+                case LITERAL: return unsignedByteValue == a;
+                case NOT: return unsignedByteValue != a;
+                case RANGE: return unsignedByteValue >= a && unsignedByteValue <= b;
+                case BITMASK: {
+                    boolean allMaskBitsSet = (unsignedByteValue & a) == a;
+                    return inverted != allMaskBitsSet;
+                }
+                default: throw new UnsupportedOperationException("NOT_SEQUENCE has no single-byte value check");
+            }
+        }
+
         boolean matchesAt(byte[] data, int pos) {
             switch (kind) {
                 case LITERAL: return (data[pos] & 0xFF) == a;
@@ -291,6 +310,155 @@ public class DroidSignatureVerifier {
         return total;
     }
 
+    /**
+     * Precomputes a Boyer-Moore-Horspool forward shift table for a pattern, or
+     * returns null if the pattern isn't BMH-eligible.
+     *
+     * ADAPTED DIRECTLY FROM REAL DROID'S OWN SEARCH ENGINE: this is a port of
+     * net.byteseek.searcher.sequence.horspool.BoyerMooreHorspoolSearcher's
+     * ForwardInfoFactory.create() (github.com/nishihatapalmer/byteseek, BSD
+     * 3-clause licensed - same license family as this project), the actual
+     * search algorithm DROID itself uses (via its byteseek dependency). DROID's
+     * own signature XML already carries the DefaultShift/Shift skip-table
+     * values this algorithm needs (parsed by this class from day one, but never
+     * previously used for anything - every anchor/fragment search was a naive
+     * byte-by-byte position scan instead). This was found to be a major
+     * remaining source of DROID-light being slower than real DROID even after
+     * fixing the earlier per-call allocation overhead - a real production
+     * comparison showed ~10x slower on an ordinary small JPEG (32ms vs 3ms),
+     * with anchor-match counting confirming the raw scan-position volume was
+     * already roughly equal between content types, pointing squarely at
+     * algorithmic search efficiency as the remaining gap.
+     *
+     * HOW BMH WORKS (brief): rather than testing every candidate start position
+     * one at a time, it checks the byte aligned with the LAST position of the
+     * pattern first. If that byte couldn't possibly match anything at the last
+     * position, the precomputed shift table tells us how far we can safely
+     * skip ahead - up to the whole pattern length - without missing a possible
+     * match, based on where else (if anywhere) that byte value could appear in
+     * the pattern. Longer patterns tend to allow bigger skips, counterintuitively
+     * making BMH relatively BETTER on longer anchors, not worse.
+     *
+     * NOT BMH-ELIGIBLE: a pattern containing a NOT_SEQUENCE element (a
+     * multi-byte negated literal - see PatternElement.notSequence()'s javadoc)
+     * doesn't fit the single-byte-per-position shift model at all, so this
+     * returns null for those, and callers fall back to the naive scan for that
+     * specific pattern only - correctness is unaffected either way, only speed.
+     */
+    static int[] computeForwardShifts(List<PatternElement> pattern) {
+        for (PatternElement e : pattern) {
+            if (e.kind == Kind.NOT_SEQUENCE) return null; // not BMH-eligible - see javadoc above
+        }
+        int len = pattern.size(); // one element = one byte position, guaranteed (no NOT_SEQUENCE)
+        if (len == 0) return null;
+        int lastPos = len - 1;
+
+        // Pathological-case guard, exactly mirroring byteseek's own handling: if
+        // some position matches EVERY possible byte value (e.g. a RANGE covering
+        // the whole 00-FF range, or a BITMASK with mask 0), no shift can safely
+        // be bigger than the distance from that position to the end - otherwise
+        // a wildcard-like position would let unsafe, overly large skips through.
+        int maxShift = len;
+        for (int pos = lastPos; pos >= 0; pos--) {
+            if (matchesAllByteValues(pattern.get(pos))) {
+                maxShift = len - pos;
+                break;
+            }
+        }
+
+        int[] shifts = new int[256];
+        Arrays.fill(shifts, maxShift);
+
+        if (maxShift > 1) {
+            int processShiftsFromPos = len - maxShift;
+            // Shift for a given byte value = its distance from the end of the
+            // pattern, for every position that byte could appear at (except the
+            // very last position, which doesn't need a shift entry of its own).
+            for (int pos = processShiftsFromPos; pos < lastPos; pos++) {
+                PatternElement e = pattern.get(pos);
+                int distanceFromEnd = len - pos - 1;
+                for (int b = 0; b < 256; b++) {
+                    if (e.matchesByteValue(b)) {
+                        shifts[b] = distanceFromEnd;
+                    }
+                }
+            }
+        }
+        return shifts;
+    }
+
+    /** Whether a single PatternElement matches every possible byte value 0-255 -
+     *  the "wildcard position" case computeForwardShifts() needs to guard
+     *  against (see its javadoc). Checked by brute force (256 checks, only ever
+     *  run once per pattern at parse time, not per scan) rather than reasoning
+     *  about each Kind specially, to avoid a subtle correctness bug in that
+     *  reasoning for one kind quietly breaking the safety guard. */
+    static boolean matchesAllByteValues(PatternElement e) {
+        for (int b = 0; b < 256; b++) {
+            if (!e.matchesByteValue(b)) return false;
+        }
+        return true;
+    }
+
+    /**
+     * Boyer-Moore-Horspool forward search within a single contiguous byte[]
+     * array - e.g. a FileRegion's head or tail buffer on its own, never
+     * crossing between them (the caller, findFirstForward(), already handles
+     * splitting a search across the head/tail boundary - see its javadoc for
+     * why that split exists and must stay outside this method).
+     *
+     * ADAPTED DIRECTLY FROM byteseek's BoyerMooreHorspoolSearcher.searchForwards
+     * (byte[], int, int) - see computeForwardShifts()'s javadoc for provenance.
+     *
+     * @param fromLocal            first valid START position to consider, local
+     *                             to `array`
+     * @param toLocalInclusive     last valid START position to consider, local
+     *                             to `array`
+     * @return the local array index where pattern starts, or -1 if not found
+     */
+    static int bmhSearchForwardInArray(byte[] array, int fromLocal, int toLocalInclusive,
+                                        List<PatternElement> pattern, int[] shifts) {
+        int lastPos = pattern.size() - 1;
+        PatternElement lastElement = pattern.get(lastPos);
+
+        int searchPosition = fromLocal + lastPos;
+        int finalPosition = toLocalInclusive + lastPos;
+        int lastArrayIndex = array.length - 1;
+        if (finalPosition > lastArrayIndex) finalPosition = lastArrayIndex;
+
+        while (searchPosition <= finalPosition) {
+            int currentByte = array[searchPosition] & 0xFF;
+            while (!lastElement.matchesByteValue(currentByte)) {
+                searchPosition += shifts[currentByte];
+                if (searchPosition > finalPosition) return -1;
+                currentByte = array[searchPosition] & 0xFF;
+            }
+            int startMatchPosition = searchPosition - lastPos;
+            if (matchesAt(array, startMatchPosition, pattern)) {
+                return startMatchPosition;
+            }
+            searchPosition += shifts[currentByte];
+        }
+        return -1;
+    }
+
+    /** Same semantics as matchesAt(FileRegion, long, List) but operating on a
+     *  plain byte[] (used by bmhSearchForwardInArray, which already works
+     *  within a single fully-available contiguous array, so there's no
+     *  "unavailable position" case to handle here). Revives what was previously
+     *  dead code (this overload existed from before the FileRegion large-file
+     *  fix but had no remaining callers) for genuine use in the BMH path. */
+    static boolean matchesAt(byte[] data, int start, List<PatternElement> pattern) {
+        if (start < 0) return false;
+        int pos = start;
+        for (PatternElement e : pattern) {
+            if (pos + e.length() > data.length) return false;
+            if (!e.matchesAt(data, pos)) return false;
+            pos += e.length();
+        }
+        return true;
+    }
+
     static List<PatternElement> parsePattern(String text) {
         List<PatternElement> out = new ArrayList<>();
         int i = 0;
@@ -368,6 +536,15 @@ public class DroidSignatureVerifier {
         final int minOffset;
         final int maxOffset;
         final List<PatternElement> pattern;
+
+        // PERFORMANCE: precomputed once by precomputeOrdering() - see
+        // computeForwardShifts()'s javadoc for what this is and why it matters
+        // (real Boyer-Moore-Horspool searching instead of naive byte-by-byte
+        // position scanning). Null if this pattern isn't BMH-eligible (contains
+        // a NOT_SEQUENCE element), in which case findFirstForward() falls back
+        // to the naive scan for this pattern only.
+        int[] forwardShifts;
+
         Fragment(int position, int minOffset, int maxOffset, List<PatternElement> pattern) {
             this.position = position;
             this.minOffset = minOffset;
@@ -394,6 +571,10 @@ public class DroidSignatureVerifier {
         // "PERFORMANCE" note for the concrete numbers that motivated this.
         List<List<Fragment>> groupedRightFragments;
         List<List<Fragment>> groupedLeftFragments;
+
+        // PERFORMANCE: precomputed BMH shift table for the anchor itself - see
+        // Fragment.forwardShifts's comment and computeForwardShifts()'s javadoc.
+        int[] anchorForwardShifts;
     }
 
     enum Reference { BOF, EOF, ANYWHERE }
@@ -458,8 +639,18 @@ public class DroidSignatureVerifier {
      *  LARGE_FILE_THRESHOLD_BYTES and gets read as one single, ungapped
      *  buffer there). Fixed by searching the head sub-range first, then
      *  continuing into the tail sub-range (only the portion of it that falls
-     *  within [fromInclusive, toInclusive]) if nothing was found in head. */
-    static long findFirstForward(FileRegion region, long fromInclusive, long toInclusive, List<PatternElement> pattern) {
+     *  within [fromInclusive, toInclusive]) if nothing was found in head.
+     *
+     *  PERFORMANCE: uses real Boyer-Moore-Horspool search (see
+     *  computeForwardShifts()'s javadoc) via the precomputed `shifts` table
+     *  when one is available, instead of a naive byte-by-byte position scan -
+     *  applied separately within the head sub-range and the tail sub-range
+     *  (never crossing the boundary in one BMH call, since bmhSearchForwardInArray
+     *  operates on a single plain array). Falls back to the naive scan when
+     *  `shifts` is null (pattern contains a NOT_SEQUENCE element - see
+     *  computeForwardShifts()'s javadoc for why that's not BMH-eligible). */
+    static long findFirstForward(FileRegion region, long fromInclusive, long toInclusive,
+                                  List<PatternElement> pattern, int[] shifts) {
         long patLen = patternLength(pattern);
         long lo = Math.max(0, fromInclusive);
         long hi = Math.min(toInclusive, region.length - patLen);
@@ -469,8 +660,13 @@ public class DroidSignatureVerifier {
         // positions - preserves "leftmost match first").
         long headHi = Math.min(hi, region.head.length - 1);
         if (lo <= headHi) {
-            for (long start = lo; start <= headHi; start++) {
-                if (matchesAt(region, start, pattern)) return start;
+            if (shifts != null) {
+                int found = bmhSearchForwardInArray(region.head, (int) lo, (int) headHi, pattern, shifts);
+                if (found >= 0) return found;
+            } else {
+                for (long start = lo; start <= headHi; start++) {
+                    if (matchesAt(region, start, pattern)) return start;
+                }
             }
         }
 
@@ -483,8 +679,15 @@ public class DroidSignatureVerifier {
         if (region.tail != null) {
             long tailLo = Math.max(lo, region.tailStartAbsolute);
             if (tailLo <= hi) {
-                for (long start = tailLo; start <= hi; start++) {
-                    if (matchesAt(region, start, pattern)) return start;
+                if (shifts != null) {
+                    int localLo = (int) (tailLo - region.tailStartAbsolute);
+                    int localHi = (int) (hi - region.tailStartAbsolute);
+                    int found = bmhSearchForwardInArray(region.tail, localLo, localHi, pattern, shifts);
+                    if (found >= 0) return found + region.tailStartAbsolute;
+                } else {
+                    for (long start = tailLo; start <= hi; start++) {
+                        if (matchesAt(region, start, pattern)) return start;
+                    }
                 }
             }
         }
@@ -541,7 +744,7 @@ public class DroidSignatureVerifier {
             for (Fragment f : alternatives) {
                 long from = cursor + f.minOffset;
                 long to = cursor + f.maxOffset;
-                long found = findFirstForward(region, from, to, f.pattern);
+                long found = findFirstForward(region, from, to, f.pattern, f.forwardShifts);
                 if (found >= 0 && (bestFound < 0 || found < bestFound)) {
                     bestFound = found;
                     bestPatternLen = patternLength(f.pattern);
@@ -567,7 +770,7 @@ public class DroidSignatureVerifier {
                 int patLen = patternLength(f.pattern);
                 long to = cursor - f.minOffset - patLen;
                 long from = cursor - f.maxOffset - patLen;
-                long found = findFirstForward(region, from, to, f.pattern);
+                long found = findFirstForward(region, from, to, f.pattern, f.forwardShifts);
                 // "Earliest" for a left fragment means closest to the anchor, i.e.
                 // the LARGEST found offset (rightmost within its window).
                 if (found >= 0 && found > bestFound) {
@@ -596,7 +799,7 @@ public class DroidSignatureVerifier {
         if (sub.anchor == null) return -1;
         long from = cursor + sub.minSeqOffset;
         long to = (sub.maxSeqOffset >= 0) ? (cursor + sub.maxSeqOffset) : region.length;
-        long anchorPos = findFirstForward(region, from, to, sub.anchor);
+        long anchorPos = findFirstForward(region, from, to, sub.anchor, sub.anchorForwardShifts);
         if (anchorPos < 0) return -1;
         long afterAnchor = anchorPos + patternLength(sub.anchor);
         long afterRight = verifyRightFragmentChain(region, afterAnchor, sub.groupedRightFragments);
@@ -902,6 +1105,11 @@ public class DroidSignatureVerifier {
                 for (SubSequenceDef sub : bs.subSequences) {
                     sub.groupedRightFragments = groupByPosition(sub.rightFragments);
                     sub.groupedLeftFragments = groupByPosition(sub.leftFragments);
+                    if (sub.anchor != null) {
+                        sub.anchorForwardShifts = computeForwardShifts(sub.anchor);
+                    }
+                    for (Fragment f : sub.rightFragments) f.forwardShifts = computeForwardShifts(f.pattern);
+                    for (Fragment f : sub.leftFragments) f.forwardShifts = computeForwardShifts(f.pattern);
                 }
             }
         }
@@ -1308,5 +1516,12 @@ public class DroidSignatureVerifier {
         return results;
     }
 
-   
+    // ------------------------------------------------------------------
+    // No main() method in this class - see project convention: this class is a
+    // library component, constructed and called from other code (e.g. a folder
+    // scanner, a test harness, or a real pipeline integration), not run directly.
+    // matchByteSequenceDebug() remains available as a package-visible utility for
+    // tracing one signature's matching attempt step by step, callable from a
+    // separate test/driver class if needed.
+    // ------------------------------------------------------------------
 }
