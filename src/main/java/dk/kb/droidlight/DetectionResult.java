@@ -17,6 +17,10 @@ package dk.kb.droidlight;
  * "DroidSignatureVerifier.DetectionResult" qualifier for no real reason - the
  * two verifier classes are peers (same detect(File)/detect(InputStream)
  * contract), not one depending on the other's internals.
+ *
+ * Fields are public and final (so already directly readable), but explicit
+ * getters are also provided below for callers that prefer/require accessor
+ * methods over direct field access.
  */
 public final class DetectionResult {
     public final String code; // PUID, e.g. "fmt/471"
@@ -31,11 +35,32 @@ public final class DetectionResult {
         this.version = version;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
     /**
      * The MIME type combined with its version, in the exact format real DROID
      * itself reports (and that warc-indexer needs to index into Solr as
      * content_type_droid) - e.g. "text/html; version=5", or just "text/html"
      * when there's no version, or null if there's no mimeType at all.
+     *
+     * This is exactly the bracketed part of toString() below, unbracketed -
+     * e.g. for a PNG result whose toString() is
+     * "fmt/11  Portable Network Graphics  [image/png; version=1.0]",
+     * getMimeTypeWithVersion() returns "image/png; version=1.0" on its own.
      */
     public String getMimeTypeWithVersion() {
         if (mimeType == null) return null;
