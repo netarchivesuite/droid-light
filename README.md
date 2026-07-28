@@ -30,6 +30,14 @@ survived DROID's own priority-resolution rules (`HasPriorityOverFileFormatID`). 
 lost out to a higher-priority format are appended after, as lower-confidence "also matched" candidates. An empty
 array means no binary signature matched.
 
+Each `DetectionResult` carries `code` (PUID), `text` (format name), `mimeType`, and `version` - all read directly
+from the signature file's `FileFormat` entry. For indexing into Solr as `content_type_droid` (matching real
+DROID's own reporting format), use `getMimeTypeWithVersion()`:
+
+```java
+results[0].getMimeTypeWithVersion(); // "text/html; version=5", or "text/html" if there's no version
+```
+
 ### File or InputStream - both are accepted
 
 ```java

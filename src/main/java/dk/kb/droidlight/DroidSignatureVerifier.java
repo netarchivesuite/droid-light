@@ -1,4 +1,5 @@
 package dk.kb.droidlight;
+
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
@@ -566,7 +567,8 @@ public class DroidSignatureVerifier {
      * ~259KB), small enough to keep a full 2,018-signature scan of a large file
      * from effectively hanging on every non-matching signature.
      */
-    static int MAX_ANCHOR_SEARCH_DISTANCE = 130000; // JPG needs this high limit. Most other signatures just require 5000.
+    static int MAX_ANCHOR_SEARCH_DISTANCE = 3000;
+
     /**
      * Matches the FIXED SubSequence of a ByteSequence - the one directly anchored to
      * the reference point (BOF or EOF). This is where the corrected offset semantics
@@ -836,14 +838,16 @@ public class DroidSignatureVerifier {
         final String puid;
         final String name;
         final String mimeType; // may be null - not every FileFormat entry has one
+        final String version; // may be null - not every FileFormat entry has one
         final List<Integer> signatureIds;
         final List<Integer> hasPriorityOverFormatIds;
-        FileFormatDef(int id, String puid, String name, String mimeType,
+        FileFormatDef(int id, String puid, String name, String mimeType, String version,
                       List<Integer> signatureIds, List<Integer> hasPriorityOverFormatIds) {
             this.id = id;
             this.puid = puid;
             this.name = name;
             this.mimeType = mimeType;
+            this.version = version;
             this.signatureIds = signatureIds;
             this.hasPriorityOverFormatIds = hasPriorityOverFormatIds;
         }
@@ -855,7 +859,7 @@ public class DroidSignatureVerifier {
         try (InputStream in = new BufferedInputStream(new FileInputStream(xmlFile))) {
             XMLStreamReader r = factory.createXMLStreamReader(in);
             int id = -1;
-            String puid = null, name = null, mimeType = null;
+            String puid = null, name = null, mimeType = null, version = null;
             List<Integer> sigIds = null;
             List<Integer> priorityOverIds = null;
             boolean inFileFormat = false;
@@ -873,6 +877,7 @@ public class DroidSignatureVerifier {
                         puid = r.getAttributeValue(null, "PUID");
                         name = r.getAttributeValue(null, "Name");
                         mimeType = r.getAttributeValue(null, "MIMEType"); // may be null - not always present
+                        version = r.getAttributeValue(null, "Version"); // may be null - not always present
                         sigIds = new ArrayList<>();
                         priorityOverIds = new ArrayList<>();
                     } else if (local.equals("InternalSignatureID") && inFileFormat) {
@@ -894,7 +899,7 @@ public class DroidSignatureVerifier {
                         priorityOverIds.add(Integer.parseInt(text.toString().trim()));
                     } else if (local.equals("FileFormat")) {
                         inFileFormat = false;
-                        formats.add(new FileFormatDef(id, puid, name, mimeType, sigIds, priorityOverIds));
+                        formats.add(new FileFormatDef(id, puid, name, mimeType, version, sigIds, priorityOverIds));
                     }
                 }
             }
@@ -1215,9 +1220,17 @@ public class DroidSignatureVerifier {
         DetectionResult[] results = new DetectionResult[count];
         for (int i = 0; i < count; i++) {
             FileFormatDef fmt = ordered.get(i);
-            results[i] = new DetectionResult(fmt.puid, fmt.name, fmt.mimeType);
+            results[i] = new DetectionResult(fmt.puid, fmt.name, fmt.mimeType, fmt.version);
         }
         return results;
     }
-    
+
+    // ------------------------------------------------------------------
+    // No main() method in this class - see project convention: this class is a
+    // library component, constructed and called from other code (e.g. a folder
+    // scanner, a test harness, or a real pipeline integration), not run directly.
+    // matchByteSequenceDebug() remains available as a package-visible utility for
+    // tracing one signature's matching attempt step by step, callable from a
+    // separate test/driver class if needed.
+    // ------------------------------------------------------------------
 }

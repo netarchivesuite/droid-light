@@ -599,9 +599,14 @@ public class DroidSignatureAhoCorasickVerifier {
         DetectionResult[] results = new DetectionResult[count];
         for (int i = 0; i < count; i++) {
             DroidSignatureVerifier.FileFormatDef fmt = ordered.get(i);
-            results[i] = new DetectionResult(fmt.puid, fmt.name, fmt.mimeType);
+            results[i] = new DetectionResult(fmt.puid, fmt.name, fmt.mimeType, fmt.version);
         }
         return results;
     }
-    
+
+    // ------------------------------------------------------------------
+    // No main() method in this class - see project convention: this class is a
+    // library component, constructed and called from other code, not run
+    // directly.
+    // ------------------------------------------------------------------
 }

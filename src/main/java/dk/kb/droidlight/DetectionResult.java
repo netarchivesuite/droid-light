@@ -1,12 +1,14 @@
 package dk.kb.droidlight;
 
 /**
- * DetectionResult - one candidate format detection result: PUID ("code") and
- * human-readable format name ("text"), plus MIME type where the signature file
- * provides one (not every FileFormat entry does).
+ * DetectionResult - one candidate format detection result: PUID ("code"),
+ * human-readable format name ("text"), MIME type, and format version - all
+ * straight from the signature file's FileFormat entry (MIMEType, Name, and
+ * Version attributes respectively; each may be missing - not every FileFormat
+ * entry declares all of them).
  *
- * Example: code="fmt/18", text="Acrobat PDF 1.4 - Portable Document Format",
- * mimeType="application/pdf".
+ * Example: code="fmt/471", text="Hypertext Markup Language",
+ * mimeType="text/html", version="5".
  *
  * Shared by both DroidSignatureVerifier and DroidSignatureAhoCorasickVerifier -
  * pulled out to its own top-level class since both classes need to construct
@@ -17,18 +19,33 @@ package dk.kb.droidlight;
  * contract), not one depending on the other's internals.
  */
 public final class DetectionResult {
-    public final String code; // PUID, e.g. "fmt/18"
-    public final String text; // format name, e.g. "Acrobat PDF 1.4 - Portable Document Format"
-    public final String mimeType; // e.g. "application/pdf" - may be null, not every FileFormat entry has one
+    public final String code; // PUID, e.g. "fmt/471"
+    public final String text; // format name, e.g. "Hypertext Markup Language"
+    public final String mimeType; // e.g. "text/html" - may be null, not every FileFormat entry has one
+    public final String version; // e.g. "5" - may be null, not every FileFormat entry has one
 
-    public DetectionResult(String code, String text, String mimeType) {
+    public DetectionResult(String code, String text, String mimeType, String version) {
         this.code = code;
         this.text = text;
         this.mimeType = mimeType;
+        this.version = version;
+    }
+
+    /**
+     * The MIME type combined with its version, in the exact format real DROID
+     * itself reports (and that warc-indexer needs to index into Solr as
+     * content_type_droid) - e.g. "text/html; version=5", or just "text/html"
+     * when there's no version, or null if there's no mimeType at all.
+     */
+    public String getMimeTypeWithVersion() {
+        if (mimeType == null) return null;
+        if (version == null || version.isEmpty()) return mimeType;
+        return mimeType + "; version=" + version;
     }
 
     @Override
     public String toString() {
-        return code + "  " + text + (mimeType != null ? "  [" + mimeType + "]" : "");
+        String mime = getMimeTypeWithVersion();
+        return code + "  " + text + (mime != null ? "  [" + mime + "]" : "");
     }
 }
