@@ -878,6 +878,27 @@ public class DroidSignatureVerifier {
     static int MAX_ANCHOR_SEARCH_DISTANCE = 3000;
 
     /**
+     * Gates the per-file diagnostic console output in detect(File)/
+     * detect(InputStream)/detectFromRegion() (the "Verifying against...",
+     * "Verification of all X signatures completed...", "Raw matched signature
+     * IDs...", etc. lines) - NOT the one-time constructor parse summary, and
+     * NOT matchByteSequenceDebug()'s manual single-signature tracing output,
+     * both of which remain unconditional.
+     *
+     * Defaults to true (existing, unchanged behavior) so nothing silently
+     * changes for existing callers - set to false before a large-scale batch
+     * run to remove this as a cost entirely. Found to matter in practice: even
+     * a best-case measurement (single-threaded, output redirected to
+     * /dev/null) showed ~0.04ms per print call, ~0.2ms total per detect() call
+     * for the 5 lines this prints - and a real multi-threaded production
+     * environment, where System.out (a synchronized PrintStream) can see real
+     * lock contention across threads, is very likely worse. For a small file
+     * where actual verification is only a few ms, that's a proportionally
+     * significant, entirely avoidable cost during a bulk run.
+     */
+    static boolean VERBOSE = true;
+
+    /**
      * Matches the FIXED SubSequence of a ByteSequence - the one directly anchored to
      * the reference point (BOF or EOF). This is where the corrected offset semantics
      * apply: minSeqOffset/maxSeqOffset bound where the fragment chain's END lands
@@ -1445,7 +1466,7 @@ public class DroidSignatureVerifier {
      */
     public DetectionResult[] detect(File targetFile) throws Exception {
         FileRegion region = readBoundedRegion(targetFile);
-        System.out.println("\nVerifying against: " + targetFile + " (" + region.length + " bytes)");
+        if (VERBOSE) System.out.println("\nVerifying against: " + targetFile + " (" + region.length + " bytes)");
         return detectFromRegion(region);
     }
 
@@ -1492,9 +1513,11 @@ public class DroidSignatureVerifier {
             raf.seek(length - windowSize);
             raf.readFully(tail);
         }
-        System.out.printf("  Large file (%,d bytes) - reading bounded head+tail windows (%,d bytes each)"
-                        + " instead of the whole file (see FileRegion's javadoc for why this is safe).%n",
-                length, windowSize);
+        if (VERBOSE) {
+            System.out.printf("  Large file (%,d bytes) - reading bounded head+tail windows (%,d bytes each)"
+                            + " instead of the whole file (see FileRegion's javadoc for why this is safe).%n",
+                    length, windowSize);
+        }
         return new FileRegion(head, tail, length);
     }
 
@@ -1539,7 +1562,7 @@ public class DroidSignatureVerifier {
             }
         }
         FileRegion region = readBoundedRegion(in);
-        System.out.println("\nVerifying against: <input stream> (" + region.length + " bytes)");
+        if (VERBOSE) System.out.println("\nVerifying against: <input stream> (" + region.length + " bytes)");
         return detectFromRegion(region);
     }
 
@@ -1619,9 +1642,11 @@ public class DroidSignatureVerifier {
             System.arraycopy(tailBuffer, tailPos, tail, 0, windowSize - tailPos);
             System.arraycopy(tailBuffer, 0, tail, windowSize - tailPos, tailPos);
         }
-        System.out.printf("  Large stream (%,d bytes) - reading bounded head+tail windows (%,d bytes each)"
-                        + " instead of buffering the whole stream.%n",
-                totalLength, windowSize);
+        if (VERBOSE) {
+            System.out.printf("  Large stream (%,d bytes) - reading bounded head+tail windows (%,d bytes each)"
+                            + " instead of buffering the whole stream.%n",
+                    totalLength, windowSize);
+        }
         return new FileRegion(headBuffer, tail, totalLength);
     }
 
@@ -1639,11 +1664,13 @@ public class DroidSignatureVerifier {
             }
         }
         long t3 = System.nanoTime();
-        System.out.printf("  Verification of all %,d signatures completed in %.1f ms (no hang, no backtracking)%n",
-                signatures.size(), (t3 - t2) / 1e6);
+        if (VERBOSE) {
+            System.out.printf("  Verification of all %,d signatures completed in %.1f ms (no hang, no backtracking)%n",
+                    signatures.size(), (t3 - t2) / 1e6);
+        }
 
         if (matchedSignatureIds.isEmpty()) {
-            System.out.println("  No signatures matched.");
+            if (VERBOSE) System.out.println("  No signatures matched.");
             return new DetectionResult[0];
         }
 
@@ -1656,13 +1683,17 @@ public class DroidSignatureVerifier {
                 }
             }
         }
-        System.out.println("  Raw matched signature IDs: " + matchedSignatureIds
-                + " (" + matchedFormats.size() + " format(s) before priority resolution)");
+        if (VERBOSE) {
+            System.out.println("  Raw matched signature IDs: " + matchedSignatureIds
+                    + " (" + matchedFormats.size() + " format(s) before priority resolution)");
+        }
 
         List<FileFormatDef> resolved = applyPriorityResolution(matchedFormats);
-        System.out.println("  After priority resolution:");
-        for (FileFormatDef fmt : resolved) {
-            System.out.println("    -> " + fmt.puid + "  " + fmt.name);
+        if (VERBOSE) {
+            System.out.println("  After priority resolution:");
+            for (FileFormatDef fmt : resolved) {
+                System.out.println("    -> " + fmt.puid + "  " + fmt.name);
+            }
         }
 
         // Build the final ordered list: priority-resolution survivors first (best
@@ -1683,4 +1714,12 @@ public class DroidSignatureVerifier {
         return results;
     }
 
+    // ------------------------------------------------------------------
+    // No main() method in this class - see project convention: this class is a
+    // library component, constructed and called from other code (e.g. a folder
+    // scanner, a test harness, or a real pipeline integration), not run directly.
+    // matchByteSequenceDebug() remains available as a package-visible utility for
+    // tracing one signature's matching attempt step by step, callable from a
+    // separate test/driver class if needed.
+    // ------------------------------------------------------------------
 }
