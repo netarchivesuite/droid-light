@@ -204,4 +204,81 @@ public class TentativeFormatDetector {
         if (normalized == null) return null;
         return byMimeType.get(normalized);
     }
+
+    /** The generic "I couldn't identify this" MIME type - both DROID/nanite's
+     *  own external convention when nothing at all is confidently identified,
+     *  AND, confirmed directly against the real signature file, a genuine
+     *  declared MIMEType on 9 real PUIDs (mostly extension-only entries like
+     *  various CAD/Revit formats, but also x-fmt/450 Adobe InDesign Document,
+     *  which HAS a real binary signature - so this value can legitimately come
+     *  from binary matching itself, not just from an empty/no-match result). */
+    private static final String GENERIC_OCTET_STREAM = "application/octet-stream";
+
+    /**
+     * Pipeline helper: given the result of a binary-signature detect() call
+     * (from DroidSignatureVerifier, DroidSignatureAhoCorasickVerifier, or
+     * DroidSignatureVerifierHeuristic - any of them, since they all return the
+     * same DetectionResult[] shape), tries to do BETTER using this class's
+     * extension-based lookup, in exactly two situations where binary matching
+     * alone isn't a useful answer:
+     *
+     *   1. No binary match at all (binaryResult is empty) - the common case for
+     *      formats with zero binary signature, like plain text, CSS, JSON.
+     *   2. A binary match WAS found, but it's the generic
+     *      "application/octet-stream" catch-all (see GENERIC_OCTET_STREAM's
+     *      javadoc for why this is a real, not just theoretical, case) - not
+     *      wrong, just unhelpfully generic, worth trying to improve on.
+     *
+     * In every OTHER case (a real, specific binary match), the original result
+     * is returned completely unchanged - this method never overrides a
+     * confident binary-signature result, only fills in for the cases where
+     * binary matching had nothing useful to say.
+     *
+     * @param binaryResult the result of calling detect() on one of the binary
+     *                     verifier classes - may be null or empty
+     * @param filenameHint the last path segment of the file's URL, or a plain
+     *                     filename - may be null/empty (see detectFromFileName()
+     *                     for exactly how this is used)
+     * @return binaryResult unchanged if it was already a specific, useful match;
+     *         otherwise a single-element array wrapping this class's own
+     *         extension-based match, if it found one; otherwise binaryResult
+     *         unchanged (even if empty/octet-stream - there was nothing better
+     *         to offer)
+     */
+    public static DetectionResult[] withFallback(DetectionResult[] binaryResult, String filenameHint) {
+        return withFallback(binaryResult, filenameHint, null);
+    }
+
+    /**
+     * Same as withFallback(DetectionResult[], String), but also tries a MIME
+     * type hint (e.g. a WARC record's HTTP Content-Type header) if the
+     * filename hint alone doesn't resolve to anything - tried in that order
+     * (filename first) since a real file extension is typically a slightly
+     * more specific/reliable signal than a possibly-generic server-reported
+     * Content-Type, but either can resolve it.
+     *
+     * @param mimeTypeHint an HTTP Content-Type header value (with or without
+     *                     trailing parameters) - may be null/empty
+     */
+    public static DetectionResult[] withFallback(DetectionResult[] binaryResult, String filenameHint, String mimeTypeHint) {
+        boolean binaryResultIsUseless = (binaryResult == null || binaryResult.length == 0)
+                || (binaryResult[0].mimeType != null && binaryResult[0].mimeType.equalsIgnoreCase(GENERIC_OCTET_STREAM));
+        if (!binaryResultIsUseless) {
+            return binaryResult; // already a specific, useful result - never override it
+        }
+
+        FormatInfo fallback = detectFromFileName(filenameHint);
+        if (fallback == null) {
+            fallback = detectFromMimeType(mimeTypeHint);
+        }
+        if (fallback == null) {
+            return binaryResult; // couldn't do any better - keep the original (possibly empty/octet-stream) result
+        }
+
+        // FormatInfo has no version field (extension/MIME-based tentative
+        // formats generally don't carry one the way versioned binary signatures
+        // do) - passed as null, same as any other DetectionResult field that
+        // isn't available for a given match.
+        return new DetectionResult[]{ new DetectionResult(fallback.puid, fallback.name, fallback.mimeType, null) };
+    }
 }
