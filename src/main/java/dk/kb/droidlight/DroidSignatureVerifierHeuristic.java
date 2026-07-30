@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.*;
 
 /**
- * DroidSignatureVerifierHeurestic - a fundamentally different matching STRATEGY
+ * DroidSignatureVerifierHeuristic - a fundamentally different matching STRATEGY
  * from DroidSignatureVerifier, kept as a completely separate class deliberately
  * (per explicit request) so the two can be A/B compared directly, rather than
  * replacing the existing, already-verified-correct DroidSignatureVerifier.
@@ -142,10 +142,39 @@ public class DroidSignatureVerifierHeuristic {
      * reverse-index, common-format list).
      */
     public DroidSignatureVerifierHeuristic(File signatureFile) throws Exception {
-        System.out.println("Parsing full signature structure (anchors + fragments + endianness): " + signatureFile);
+        this(new FileInputStream(signatureFile), signatureFile.toString());
+    }
+
+    /**
+     * Same as the File constructor, but reads from an already-open InputStream
+     * instead - e.g. a classpath resource stream
+     * (getClass().getClassLoader().getResourceAsStream("DROID_SignatureFile_V124.xml")),
+     * which is what you need once the signature file ships as a Maven resource
+     * packed inside a jar: a plain java.io.File can't represent a jar entry at
+     * all, but the classloader resolves the same resource name correctly
+     * whether it's running from an IDE, from Maven's test phase (src/main/
+     * resources is copied to target/classes - a real directory - before tests
+     * run), or from the packaged jar itself.
+     *
+     * Reads the ENTIRE stream into memory once (a DROID signature file is only
+     * a few MB), since the constructor needs to parse the same underlying XML
+     * three separate times (signatures, formats, extensions - the last of
+     * which isn't captured by DroidSignatureVerifier's own shared parser) and
+     * an InputStream can only be consumed once. Does not close the given
+     * stream - the caller retains ownership, e.g. to close a try-with-resources
+     * classpath resource stream themselves.
+     */
+    public DroidSignatureVerifierHeuristic(InputStream signatureStream) throws Exception {
+        this(signatureStream, "<input stream>");
+    }
+
+    private DroidSignatureVerifierHeuristic(InputStream signatureStream, String sourceDescription) throws Exception {
+        System.out.println("Parsing full signature structure (anchors + fragments + endianness): " + sourceDescription);
         long t0 = System.nanoTime();
-        this.signatures = DroidSignatureVerifier.parseSignatures(signatureFile);
-        this.formats = DroidSignatureVerifier.parseFileFormats(signatureFile);
+
+        byte[] xmlBytes = signatureStream.readAllBytes();
+        this.signatures = DroidSignatureVerifier.parseSignatures(new ByteArrayInputStream(xmlBytes));
+        this.formats = DroidSignatureVerifier.parseFileFormats(new ByteArrayInputStream(xmlBytes));
         DroidSignatureVerifier.precomputeOrdering(signatures); // essential - see its own javadoc
         long t1 = System.nanoTime();
         System.out.printf("  Parsed %,d signatures and %,d file formats in %.1f ms%n",
@@ -169,7 +198,7 @@ public class DroidSignatureVerifierHeuristic {
         // Extensions aren't captured by DroidSignatureVerifier.parseFileFormats() -
         // parsed here independently (small, self-contained pass) rather than
         // modifying that shared method.
-        Map<Integer, List<String>> extensionsByFormatId = parseExtensions(signatureFile);
+        Map<Integer, List<String>> extensionsByFormatId = parseExtensions(new ByteArrayInputStream(xmlBytes));
         for (DroidSignatureVerifier.FileFormatDef fmt : formats) {
             List<String> extensions = extensionsByFormatId.get(fmt.id);
             if (extensions == null) continue;
@@ -213,11 +242,15 @@ public class DroidSignatureVerifierHeuristic {
 
     /** Small, self-contained Extension parser - deliberately independent of
      *  DroidSignatureVerifier.parseFileFormats() (which doesn't capture this
-     *  data) rather than modifying that shared method. */
-    private static Map<Integer, List<String>> parseExtensions(File signatureFile) throws Exception {
+     *  data) rather than modifying that shared method. Takes an already-open
+     *  InputStream (doesn't close it) rather than a File, since the
+     *  InputStream-based constructor needs to parse the same underlying bytes
+     *  three separate times (signatures, formats, extensions) from a single
+     *  buffered-in-memory copy - see the InputStream constructor's javadoc. */
+    private static Map<Integer, List<String>> parseExtensions(InputStream in) throws Exception {
         Map<Integer, List<String>> result = new HashMap<>();
         XMLInputFactory factory = XMLInputFactory.newInstance();
-        try (InputStream in = new BufferedInputStream(new FileInputStream(signatureFile))) {
+        {
             XMLStreamReader r = factory.createXMLStreamReader(in);
             int currentId = -1;
             boolean inFileFormat = false;
@@ -267,6 +300,65 @@ public class DroidSignatureVerifierHeuristic {
     }
 
     /**
+     * @return the number of DROID signatures loaded from the signature file
+     *         (~2,258 for a typical current PRONOM release) - the total count
+     *         this class's fast-path/fallback strategy is choosing among, not
+     *         just the ones actually checked for any particular file.
+     */
+    public int getSignatureCount() {
+        return signatures.size();
+    }
+
+    /**
+     * A simple, one-line label per loaded signature, in the same order as
+     * getSignatureCount() reports - e.g. "1487: Hierarchical File System
+     * (fmt/1105)". A signature has no name of its own in the DROID data model
+     * (only the FileFormat(s) that reference it do); most signatures belong to
+     * exactly one format, so this is usually unambiguous. The rare signature
+     * referenced by more than one format lists all of them, comma-separated;
+     * the rarer still signature referenced by none at all (present in the
+     * signature file but not wired to any FileFormat entry) is labeled as such
+     * rather than silently omitted, so the array length always matches
+     * getSignatureCount().
+     *
+     * @return one label per loaded signature - never null, never contains null
+     *         entries
+     */
+    public String[] getSignatureNames() {
+        String[] names = new String[signatures.size()];
+        for (int i = 0; i < signatures.size(); i++) {
+            DroidSignatureVerifier.InternalSignatureDef sig = signatures.get(i);
+            List<DroidSignatureVerifier.FileFormatDef> owners = formatsForSignatureId.get(sig.id);
+            String label;
+            if (owners == null || owners.isEmpty()) {
+                label = "(no format references this signature)";
+            } else {
+                StringBuilder sb = new StringBuilder();
+                for (int j = 0; j < owners.size(); j++) {
+                    if (j > 0) sb.append(", ");
+                    sb.append(owners.get(j).name).append(" (").append(owners.get(j).puid).append(")");
+                }
+                label = sb.toString();
+            }
+            names[i] = sig.id + ": " + label;
+        }
+        return names;
+    }
+
+    /**
+     * Same as detect(File, String), but with no hint at all - relies entirely
+     * on the common-format list and, if that finds nothing, the full fallback
+     * scan. Useful when no filename/URL is available to hint from, or simply
+     * for a simpler call site when you don't have one handy.
+     *
+     * @param targetFile the file to identify
+     * @return array of 1+ DetectionResults, index 0 = best guess
+     */
+    public DetectionResult[] detect(File targetFile) throws Exception {
+        return detect(targetFile, null);
+    }
+
+    /**
      * @param targetFile the file to identify
      * @param hint       the last path segment of the file's URL, or a plain
      *                   filename - may be empty or null. Only used if it ends
@@ -279,6 +371,16 @@ public class DroidSignatureVerifierHeuristic {
     public DetectionResult[] detect(File targetFile, String hint) throws Exception {
         DroidSignatureVerifier.FileRegion region = DroidSignatureVerifier.readBoundedRegion(targetFile);
         return detectFromRegion(region, hint);
+    }
+
+    /**
+     * Same as detect(InputStream, String), but with no hint - see
+     * detect(File)'s javadoc for when this is useful.
+     *
+     * @param in the stream to identify; not closed by this method
+     */
+    public DetectionResult[] detect(InputStream in) throws Exception {
+        return detect(in, null);
     }
 
     /**

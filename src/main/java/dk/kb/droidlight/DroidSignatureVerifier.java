@@ -1,4 +1,5 @@
 package dk.kb.droidlight;
+
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
@@ -1145,9 +1146,29 @@ public class DroidSignatureVerifier {
     // ------------------------------------------------------------------
 
     static List<InternalSignatureDef> parseSignatures(File xmlFile) throws Exception {
+        try (InputStream in = new BufferedInputStream(new FileInputStream(xmlFile))) {
+            return parseSignatures(in);
+        }
+    }
+
+    /**
+     * Same as parseSignatures(File), but reads from an already-open InputStream
+     * instead - needed once the signature file ships as a classpath resource
+     * packed inside a jar (e.g. via
+     * getClass().getClassLoader().getResourceAsStream("DROID_SignatureFile.xml")),
+     * where a plain java.io.File can no longer represent it at all (a jar entry
+     * isn't a real filesystem path). Works identically whether the resource
+     * comes from an IDE run, Maven's test phase (src/main/resources gets copied
+     * to target/classes, a real directory, before tests run), or the packaged
+     * jar itself - the classloader resolves all three the same way.
+     *
+     * Does NOT close the stream - the caller retains ownership, same convention
+     * as detect(InputStream).
+     */
+    static List<InternalSignatureDef> parseSignatures(InputStream in) throws Exception {
         List<InternalSignatureDef> signatures = new ArrayList<>();
         XMLInputFactory factory = XMLInputFactory.newInstance();
-        try (InputStream in = new BufferedInputStream(new FileInputStream(xmlFile))) {
+        {
             XMLStreamReader r = factory.createXMLStreamReader(in);
 
             InternalSignatureDef currentSig = null;
@@ -1310,9 +1331,19 @@ public class DroidSignatureVerifier {
     }
 
     static List<FileFormatDef> parseFileFormats(File xmlFile) throws Exception {
+        try (InputStream in = new BufferedInputStream(new FileInputStream(xmlFile))) {
+            return parseFileFormats(in);
+        }
+    }
+
+    /** Same as parseFileFormats(File), but reads from an already-open
+     *  InputStream instead - see parseSignatures(InputStream)'s javadoc for why
+     *  this exists (classpath resources packed inside a jar). Does not close
+     *  the stream. */
+    static List<FileFormatDef> parseFileFormats(InputStream in) throws Exception {
         List<FileFormatDef> formats = new ArrayList<>();
         XMLInputFactory factory = XMLInputFactory.newInstance();
-        try (InputStream in = new BufferedInputStream(new FileInputStream(xmlFile))) {
+        {
             XMLStreamReader r = factory.createXMLStreamReader(in);
             int id = -1;
             String puid = null, name = null, mimeType = null, version = null;
