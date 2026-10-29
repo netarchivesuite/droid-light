@@ -1,4 +1,5 @@
 package dk.kb.droidlight;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,9 +14,9 @@ import java.util.*;
  * WHY THIS EXISTS
  * -----------------
  * DroidSignatureVerifier - correct as it now is - still searches for each of its
- * ~2,258 signatures' anchors independently: one small window-scan per signature,
+ * 2,260 signatures' anchors independently: one small window-scan per signature,
  * even though MAX_ANCHOR_SEARCH_DISTANCE keeps each of those scans cheap. That's
- * 2,258 separate scans of (mostly) the same bytes. This class instead compiles
+ * 2,260 separate scans of (mostly) the same bytes. This class instead compiles
  * every signature's FIXED (reference-point-anchored) literal anchor into ONE
  * combined Aho-Corasick automaton and finds ALL of their occurrences across the
  * WHOLE target file in a SINGLE pass - O(file_length), independent of how many
@@ -24,26 +25,8 @@ import java.util.*;
  * positions, reusing DroidSignatureVerifier's own matchChainedSubSequence,
  * verifyRightFragmentChain, verifyLeftFragmentChain, and applyPriorityResolution
  * directly (all package-private static members of DroidSignatureVerifier, reused
- * here rather than duplicated, since both classes share the same default package).
- *
- * A NICE SIDE EFFECT: MAX_ANCHOR_SEARCH_DISTANCE BECOMES UNNECESSARY
- * ----------------------------------------------------------------------
- * DroidSignatureVerifier needed MAX_ANCHOR_SEARCH_DISTANCE as a pragmatic safety
- * cap AND, less desirably, as a de-facto (imprecise) false-positive-reduction
- * lever - shrinking the window reduced some coincidental matches, but also risked
- * cutting off genuine matches that legitimately needed a wider search (see the
- * whole MP3/ID3v2-tag saga earlier). Here, because Aho-Corasick finds ALL real
- * anchor occurrences across the entire file cheaply regardless of distance, there
- * is no need to guess a window size for correctness purposes at all - the
- * offset-window check (which DroidSignatureVerifier already validates correctly,
- * after its own earlier bug fix) is what legitimately decides whether a candidate
- * is valid, not an arbitrary distance cutoff. The only remaining reason to cap
- * anything is the same reason DROID itself needs a maxBytesToScan-style safety
- * valve: a pathological signature with many chained wildcard-range fragments (see
- * signature 280, the original hang bug) could still be expensive if tried against
- * too many candidate anchor positions - see MAX_CANDIDATES_TO_TRY below, which
- * bounds candidate COUNT (the real cost driver) rather than search DISTANCE (an
- * indirect, imprecise proxy for it).
+ * here rather than duplicated, since both classes live in the same package,
+ * uk.bl.wa.droidlight).
  *
  * WHAT IS NOT SPED UP BY THIS CLASS
  * -------------------------------------
@@ -55,27 +38,6 @@ import java.util.*;
  * bounded by their own SubSeqMinOffset/MaxOffset in practice, so this was judged
  * not worth the added complexity of compiling a second, chained-context automaton
  * - but it is a known asymmetry, not an oversight.
- *
- * MEASURED RESULT - UPDATE: THE EARLIER LARGE-FILE SLOWDOWN IS NOW FIXED
- * ---------------------------------------------------------------------------
- * An earlier version of this class read the ENTIRE file/stream into memory and
- * ran the Aho-Corasick scan over all of it - correct, but this both caused an
- * OutOfMemoryError on multi-GB files (Java arrays are int-indexed, capped
- * around 2GB) AND made this class measurably SLOWER than DroidSignatureVerifier
- * on large files (a real MP3/MP4 comparison showed ~2-3x slower), since the
- * O(file_length) full-file automaton pass became the dominant cost once files
- * got large.
- *
- * Both problems are fixed by the same change: scanForAnchors now runs only over
- * the bounded head+tail windows of a DroidSignatureVerifier.FileRegion (see its
- * javadoc, and readBoundedRegion()) instead of the whole file. This is not a
- * compromise - it is provably lossless for this class's own fragment-
- * verification stage, since that stage already only has byte access within
- * those same bounded windows (anything outside them can never be verified
- * anyway, so scanning for anchors there was always wasted work). See
- * scanForAnchors's javadoc for the full reasoning, including why this involves
- * no risk of a match being split across a scan boundary (each window is
- * scanned as one uninterrupted automaton pass).
  *
  * Net effect: this class should now be fast and memory-bounded regardless of
  * file size, converging with (and, for the anchor-finding stage specifically,
@@ -513,7 +475,7 @@ public class DroidSignatureAhoCorasickVerifier {
      */
     public DetectionResult[] detect(File targetFile) throws Exception {
         DroidSignatureVerifier.FileRegion region = DroidSignatureVerifier.readBoundedRegion(targetFile);
-        System.out.println("\nVerifying against: " + targetFile + " (" + region.length + " bytes)");
+        if (DroidSignatureVerifier.VERBOSE) System.out.println("\nVerifying against: " + targetFile + " (" + region.length + " bytes)");
         return detectFromRegion(region);
     }
 
@@ -537,7 +499,7 @@ public class DroidSignatureAhoCorasickVerifier {
             }
         }
         DroidSignatureVerifier.FileRegion region = DroidSignatureVerifier.readBoundedRegion(in);
-        System.out.println("\nVerifying against: <input stream> (" + region.length + " bytes)");
+        if (DroidSignatureVerifier.VERBOSE) System.out.println("\nVerifying against: <input stream> (" + region.length + " bytes)");
         return detectFromRegion(region);
     }
 
@@ -548,10 +510,22 @@ public class DroidSignatureAhoCorasickVerifier {
      * of independent per-signature scans.
      */
     private DetectionResult[] detectFromRegion(DroidSignatureVerifier.FileRegion region) throws Exception {
+        // PERFORMANCE: same reasoning as DroidSignatureVerifier's own
+        // detectFromRegion() - an empty region can never match anything, so
+        // skip the anchor scan and the signature loop entirely. See that
+        // class's comment for why this matters in practice (empty-payload
+        // HTTP redirect WARC records).
+        if (region.length == 0) {
+            if (DroidSignatureVerifier.VERBOSE) System.out.println("  Empty content - skipping signature verification entirely.");
+            return new DetectionResult[0];
+        }
+
         long t0 = System.nanoTime();
         Map<Integer, Map<Integer, List<Long>>> anchorHits = scanForAnchors(region);
         long t1 = System.nanoTime();
-        System.out.printf("  Single-pass Aho-Corasick anchor scan completed in %.1f ms%n", (t1 - t0) / 1e6);
+        if (DroidSignatureVerifier.VERBOSE) {
+            System.out.printf("  Single-pass Aho-Corasick anchor scan completed in %.1f ms%n", (t1 - t0) / 1e6);
+        }
 
         List<Integer> matchedSignatureIds = new ArrayList<>();
         for (int sigIdx = 0; sigIdx < signatures.size(); sigIdx++) {
@@ -561,11 +535,13 @@ public class DroidSignatureAhoCorasickVerifier {
             }
         }
         long t2 = System.nanoTime();
-        System.out.printf("  Verification of all %,d signatures (using precomputed anchors) completed in %.1f ms (no hang, no backtracking)%n",
-                signatures.size(), (t2 - t1) / 1e6);
+        if (DroidSignatureVerifier.VERBOSE) {
+            System.out.printf("  Verification of all %,d signatures (using precomputed anchors) completed in %.1f ms (no hang, no backtracking)%n",
+                    signatures.size(), (t2 - t1) / 1e6);
+        }
 
         if (matchedSignatureIds.isEmpty()) {
-            System.out.println("  No signatures matched.");
+            if (DroidSignatureVerifier.VERBOSE) System.out.println("  No signatures matched.");
             return new DetectionResult[0];
         }
 
@@ -578,13 +554,17 @@ public class DroidSignatureAhoCorasickVerifier {
                 }
             }
         }
-        System.out.println("  Raw matched signature IDs: " + matchedSignatureIds
-                + " (" + matchedFormats.size() + " format(s) before priority resolution)");
+        if (DroidSignatureVerifier.VERBOSE) {
+            System.out.println("  Raw matched signature IDs: " + matchedSignatureIds
+                    + " (" + matchedFormats.size() + " format(s) before priority resolution)");
+        }
 
         List<DroidSignatureVerifier.FileFormatDef> resolved = DroidSignatureVerifier.applyPriorityResolution(matchedFormats);
-        System.out.println("  After priority resolution:");
-        for (DroidSignatureVerifier.FileFormatDef fmt : resolved) {
-            System.out.println("    -> " + fmt.puid + "  " + fmt.name);
+        if (DroidSignatureVerifier.VERBOSE) {
+            System.out.println("  After priority resolution:");
+            for (DroidSignatureVerifier.FileFormatDef fmt : resolved) {
+                System.out.println("    -> " + fmt.puid + "  " + fmt.name);
+            }
         }
 
         List<DroidSignatureVerifier.FileFormatDef> ordered = new ArrayList<>(resolved);
@@ -600,5 +580,10 @@ public class DroidSignatureAhoCorasickVerifier {
         }
         return results;
     }
-  
+
+    // ------------------------------------------------------------------
+    // No main() method in this class - see project convention: this class is a
+    // library component, constructed and called from other code, not run
+    // directly.
+    // ------------------------------------------------------------------
 }

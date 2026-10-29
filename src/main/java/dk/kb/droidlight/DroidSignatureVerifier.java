@@ -681,21 +681,6 @@ public class DroidSignatureVerifier {
      *  performance note this class carries elsewhere for why that matters on a
      *  multi-GB file with a common/short anchor).
      *
-     *  BUG FIX: an earlier version of this method clamped the search to stop
-     *  at the end of whichever buffer `fromInclusive` fell within, and never
-     *  even attempted the other buffer - even when the two are directly
-     *  contiguous (no real gap at all) or when `toInclusive` genuinely extends
-     *  into the tail. This broke real, ordinary files: a real 39MB MP4 (not
-     *  "fast-start" optimized) had its "moov" box at offset ~39.07M, about 19MB
-     *  past the head/tail boundary when read via detect(InputStream) - fully
-     *  available in the tail buffer, but never reached, causing a real,
-     *  everyday MP4 to go completely undetected via the InputStream entry
-     *  point (while detect(File) worked fine, since a 39MB file is well under
-     *  LARGE_FILE_THRESHOLD_BYTES and gets read as one single, ungapped
-     *  buffer there). Fixed by searching the head sub-range first, then
-     *  continuing into the tail sub-range (only the portion of it that falls
-     *  within [fromInclusive, toInclusive]) if nothing was found in head.
-     *
      *  PERFORMANCE: uses real Boyer-Moore-Horspool search (see
      *  computeForwardShifts()'s javadoc) via the precomputed `shifts` table
      *  when one is available, instead of a naive byte-by-byte position scan -
@@ -873,7 +858,7 @@ public class DroidSignatureVerifier {
      * safety cap for the same reason. This value is a pragmatic, undocumented choice
      * (not taken from DROID's real default) - large enough to comfortably cover the
      * ID3v2-tag case that motivated this rewrite (real tags seen so far: ~2.5KB and
-     * ~259KB), small enough to keep a full 2,018-signature scan of a large file
+     * ~259KB), small enough to keep a full signature scan of a large file
      * from effectively hanging on every non-matching signature.
      */
     static int MAX_ANCHOR_SEARCH_DISTANCE = 3000;
@@ -897,7 +882,7 @@ public class DroidSignatureVerifier {
      * where actual verification is only a few ms, that's a proportionally
      * significant, entirely avoidable cost during a bulk run.
      */
-    static boolean VERBOSE = true;
+    static boolean VERBOSE = false;
 
     /**
      * Matches the FIXED SubSequence of a ByteSequence - the one directly anchored to
@@ -915,7 +900,37 @@ public class DroidSignatureVerifier {
      * @return the new cursor (end of this SubSequence's full match, for chaining to
      *         the next SubSequence, if any), or -1 if no valid candidate exists.
      */
+    /** Convenience overload using the shared static MAX_ANCHOR_SEARCH_DISTANCE -
+     *  see the parameterized overload below for why an explicit-parameter
+     *  version also exists (thread-safe targeted re-scanning at a different
+     *  distance, without touching shared mutable state at all). */
     static long matchFixedSubSequence(FileRegion region, SubSequenceDef sub, long referencePosition, boolean searchBackward) {
+        return matchFixedSubSequence(region, sub, referencePosition, searchBackward, MAX_ANCHOR_SEARCH_DISTANCE);
+    }
+
+    /**
+     * Same as the 4-argument overload above, but takes the search distance as
+     * an explicit parameter instead of reading the shared static
+     * MAX_ANCHOR_SEARCH_DISTANCE field directly.
+     *
+     * WHY THIS EXISTS: a production case needed re-scanning specific
+     * signatures at a LARGER distance than the fast default (3000) when the
+     * fast scan finds nothing - e.g. certain JPEGs need up to ~65536 to reach
+     * their EOF trailer (see MAX_ANCHOR_SEARCH_DISTANCE's own javadoc). The
+     * naive way to do this would be to temporarily mutate the static field,
+     * scan, then restore it - but MAX_ANCHOR_SEARCH_DISTANCE is shared across
+     * every thread, and a production pipeline processing WARC records with
+     * many concurrent threads (48, in the motivating case) can't safely
+     * mutate shared state like that without synchronizing the ENTIRE detect()
+     * call for every thread, all the time, just to guard a rare special case -
+     * a real, avoidable bottleneck at that scale. Threading the distance
+     * through as a parameter instead means each thread's own call stack holds
+     * its own value - nothing shared, nothing to synchronize, and the normal
+     * fast path (using the 4-argument overload, unaffected) stays fully
+     * parallel with zero contention.
+     */
+    static long matchFixedSubSequence(FileRegion region, SubSequenceDef sub, long referencePosition, boolean searchBackward,
+                                       long maxAnchorSearchDistance) {
         if (sub.anchor == null) return -1;
         int anchorLen = patternLength(sub.anchor);
         long maxOffset = (sub.maxSeqOffset >= 0) ? sub.maxSeqOffset : Long.MAX_VALUE / 2;
@@ -926,7 +941,7 @@ public class DroidSignatureVerifier {
             // point and moving further back (away from EOF) until the RIGHT fragment
             // chain's end satisfies [referencePosition-maxOffset, referencePosition-minOffset].
             long candidate = referencePosition - anchorLen; // closest possible to reference point
-            long floor = Math.max(0, referencePosition - MAX_ANCHOR_SEARCH_DISTANCE);
+            long floor = Math.max(0, referencePosition - maxAnchorSearchDistance);
             int[] shifts = sub.anchorBackwardShifts;
 
             // PERFORMANCE: BMH-accelerated candidate search (see
@@ -998,7 +1013,7 @@ public class DroidSignatureVerifier {
             // satisfies [referencePosition+minOffset, referencePosition+maxOffset].
             // (Symmetric to the EOF case above; see real source's forward branch.)
             long candidate = referencePosition; // closest possible to reference point
-            long ceiling = Math.min(region.length - anchorLen, referencePosition + MAX_ANCHOR_SEARCH_DISTANCE);
+            long ceiling = Math.min(region.length - anchorLen, referencePosition + maxAnchorSearchDistance);
             int[] shifts = sub.anchorForwardShifts;
 
             // PERFORMANCE: BMH-accelerated, symmetric to the backward branch above,
@@ -1080,6 +1095,14 @@ public class DroidSignatureVerifier {
      * iterates seq.length-1 down to 0 for EOFoffset ByteSequences).
      */
     static boolean matchByteSequence(FileRegion region, ByteSequenceDef bs) {
+        return matchByteSequence(region, bs, MAX_ANCHOR_SEARCH_DISTANCE);
+    }
+
+    /** Same as the 2-argument overload above, but with an explicit search
+     *  distance - see matchFixedSubSequence's parameterized overload for the
+     *  full rationale (thread-safe targeted re-scanning without shared
+     *  mutable state). */
+    static boolean matchByteSequence(FileRegion region, ByteSequenceDef bs, long maxAnchorSearchDistance) {
         List<SubSequenceDef> subs = bs.orderedSubSequences;
         boolean backward = (bs.reference == Reference.EOF);
 
@@ -1088,7 +1111,7 @@ public class DroidSignatureVerifier {
         long cursor = -1;
         for (SubSequenceDef sub : subs) {
             long result = first
-                    ? matchFixedSubSequence(region, sub, referencePosition, backward)
+                    ? matchFixedSubSequence(region, sub, referencePosition, backward, maxAnchorSearchDistance)
                     : matchChainedSubSequence(region, sub, cursor);
             if (result < 0) return false;
             cursor = result;
@@ -1099,8 +1122,16 @@ public class DroidSignatureVerifier {
 
     /** A signature matches only if ALL of its ByteSequences match. */
     static boolean matchSignature(FileRegion region, InternalSignatureDef sig) {
+        return matchSignature(region, sig, MAX_ANCHOR_SEARCH_DISTANCE);
+    }
+
+    /** Same as the 2-argument overload above, but with an explicit search
+     *  distance - see matchFixedSubSequence's parameterized overload for the
+     *  full rationale (thread-safe targeted re-scanning without shared
+     *  mutable state). */
+    static boolean matchSignature(FileRegion region, InternalSignatureDef sig, long maxAnchorSearchDistance) {
         for (ByteSequenceDef bs : sig.byteSequences) {
-            if (!matchByteSequence(region, bs)) return false;
+            if (!matchByteSequence(region, bs, maxAnchorSearchDistance)) return false;
         }
         return true;
     }
@@ -1449,11 +1480,77 @@ public class DroidSignatureVerifier {
 
     // ------------------------------------------------------------------
     // DetectionResult is now its own standalone top-level class (see
-    // DetectionResult.java), shared with DroidSignatureAhoCorasickVerifier.
+    // DetectionResult.java), shared with DroidSignatureAhoCorasickVerifier -
+    // a separate, faster (single-pass Aho-Corasick anchor scan) verifier not
+    // currently wired into warc-indexer, kept for possible future use on very
+    // large files specifically, where its speed advantage matters most.
     // ------------------------------------------------------------------
 
     private final List<InternalSignatureDef> signatures;
     private final List<FileFormatDef> formats;
+
+    /**
+     * Common web-content MIME types, checked by detectCommonMimeTypes() below
+     * before falling back to a full scan (or, if the caller chooses, before
+     * the caller falls back to detect() themselves). A REASONABLE DEFAULT
+     * based on general knowledge of typical web-archive content, NOT derived
+     * from any real frequency data - DROID's own signature file has no notion
+     * of "how common is this format" at all. Deliberately a plain, mutable,
+     * public static field so it can be tuned once real distribution data is
+     * available.
+     */
+    public static List<String> COMMON_MIME_TYPES = new ArrayList<>(Arrays.asList(
+            "text/html",
+            "text/plain",
+            "text/css",
+            "application/javascript",
+            "text/javascript",
+            "application/json",
+            "image/jpeg",
+            "image/png",
+            "image/gif",
+            "image/webp",
+            "image/svg+xml",
+            "image/vnd.microsoft.icon",
+            "image/x-icon",
+            "application/pdf",
+            "video/mp4",
+            "audio/mpeg",
+            "application/xml",
+            "text/xml",
+            "application/zip",
+            "font/woff",
+            "font/woff2"
+    ));
+
+    // Precomputed once at construction time (see precomputeCommonMimeTypeSignatures()):
+    // signatures belonging to a format that declares one of COMMON_MIME_TYPES,
+    // indexed by that specific MIME type - used by detectCommonMimeTypes() to
+    // check only the signatures for the caller's given mimeType, when that
+    // mimeType is one of the ones we've indexed.
+    private final Map<String, List<InternalSignatureDef>> commonMimeTypeSignatures = new HashMap<>();
+    // Union of ALL of the above, deduplicated - used as the fallback when the
+    // caller's mimeType isn't one we've specifically indexed.
+    private final List<InternalSignatureDef> allCommonSignatures = new ArrayList<>();
+
+    /**
+     * Search distance used automatically for JPEG (and known variants) within
+     * detectCommonMimeTypes() - see MAX_ANCHOR_SEARCH_DISTANCE's own javadoc
+     * for why the fast default (3000) isn't always enough: a real JPEG with a
+     * large embedded EXIF thumbnail can push its EOF trailer up to ~65,536
+     * bytes from the end. This value (150,000) gives comfortable margin,
+     * confirmed working against a real such file. Applied automatically, not
+     * as a separate opt-in call - detectCommonMimeTypes() checks whether the
+     * given mimeType is JPEG or a known variant and uses this distance for
+     * that one call only; every other mimetype still uses the fast default.
+     */
+    public static long JPEG_ANCHOR_SEARCH_DISTANCE = 150_000;
+
+    /** Known real-world MIME type variants for JPEG - "image/pjpeg" is a
+     *  legacy Internet-Explorer-specific alternate for progressive JPEG. */
+    private static final Set<String> JPEG_MIME_TYPES = new HashSet<>(Arrays.asList(
+            "image/jpeg", "image/pjpeg"
+    ));
 
     /**
      * Parses the given DROID signature file once, keeping the resulting
@@ -1463,13 +1560,129 @@ public class DroidSignatureVerifier {
      * @param signatureFile the DROID_SignatureFile*.xml to parse
      */
     public DroidSignatureVerifier(File signatureFile) throws Exception {
-        System.out.println("Parsing full signature structure (anchors + fragments + endianness): " + signatureFile);
+        this(new FileInputStream(signatureFile), signatureFile.toString());
+    }
+
+    /**
+     * Same as the File constructor, but reads from an already-open InputStream
+     * instead - e.g. a classpath resource stream
+     * (getClass().getClassLoader().getResourceAsStream("DROID_SignatureFile_V124.xml")),
+     * which is what you need once the signature file ships as a Maven resource
+     * packed inside a jar - a plain java.io.File can't represent a jar entry at
+     * all. Does not close the given stream - the caller retains ownership.
+     *
+     * @param signatureStream an already-open stream over the signature XML
+     */
+    public DroidSignatureVerifier(InputStream signatureStream) throws Exception {
+        this(signatureStream, "<input stream>");
+    }
+
+    private DroidSignatureVerifier(InputStream signatureStream, String sourceDescription) throws Exception {
+        System.out.println("Parsing full signature structure (anchors + fragments + endianness): " + sourceDescription);
         long t0 = System.nanoTime();
-        this.signatures = parseSignatures(signatureFile);
-        this.formats = parseFileFormats(signatureFile);
+        // Read once into memory since the constructor needs to parse the same
+        // underlying XML twice (signatures, formats) and an InputStream can
+        // only be consumed once.
+        byte[] xmlBytes = signatureStream.readAllBytes();
+        this.signatures = parseSignatures(new ByteArrayInputStream(xmlBytes));
+        this.formats = parseFileFormats(new ByteArrayInputStream(xmlBytes));
         long t1 = System.nanoTime();
         System.out.printf("  Parsed %,d signatures and %,d file formats in %.1f ms%n",
                 signatures.size(), formats.size(), (t1 - t0) / 1e6);
+
+        precomputeCommonMimeTypeSignatures();
+    }
+
+    /**
+     * @return the number of DROID signatures loaded from the signature file
+     *         (2,260 for the current file: the stock V124 PRONOM release,
+     *         2,258, plus two local signature additions - EOT version 1.2,
+     *         and SVG without an XML declaration).
+     */
+    public int getSignatureCount() {
+        return signatures.size();
+    }
+
+    /**
+     * @param mimeType a MIME type - see normalizeMimeType() for how it's
+     *                 matched (parameters stripped, case-insensitive)
+     * @return how many signatures detectCommonMimeTypes() would actually
+     *         check for this exact mimeType. A return value of 0 means
+     *         detectCommonMimeTypes() would do no work at all for this
+     *         mimetype and always return empty - either because it's
+     *         unrecognized, or because it's recognized but genuinely has no
+     *         binary signature anywhere (e.g. "text/css",
+     *         "application/javascript") - useful as a direct signal for
+     *         whether it's worth calling detectCommonMimeTypes() at all for
+     *         a given mimetype, skipping it (and the stream read it
+     *         requires) entirely when this is 0.
+     */
+    public int getSignatureCountForMimeType(String mimeType) {
+        String normalized = normalizeMimeType(mimeType);
+        List<InternalSignatureDef> candidates = (normalized != null) ? commonMimeTypeSignatures.get(normalized) : null;
+        return (candidates != null) ? candidates.size() : 0;
+    }
+
+    /**
+     * @return the total size of the common-format signature set (the union
+     *         across all of COMMON_MIME_TYPES) - informational only; unlike
+     *         an earlier version of this class, detectCommonMimeTypes() no
+     *         longer falls back to checking this whole set for unrecognized
+     *         mimetypes (see its own javadoc for why).
+     */
+    public int getCommonSignatureCount() {
+        return allCommonSignatures.size();
+    }
+
+    /** Populates commonMimeTypeSignatures and allCommonSignatures - see their
+     *  own field javadocs. Called once, at construction time. */
+    private void precomputeCommonMimeTypeSignatures() {
+        Set<Integer> addedSigIds = new HashSet<>();
+        for (String mimeType : COMMON_MIME_TYPES) {
+            for (FileFormatDef fmt : formats) {
+                if (fmt.mimeType == null || !mimeTypeMatches(fmt.mimeType, mimeType)) continue;
+                List<InternalSignatureDef> forThisMimeType = commonMimeTypeSignatures.computeIfAbsent(mimeType, k -> new ArrayList<>());
+                for (int sigId : fmt.signatureIds) {
+                    InternalSignatureDef sig = signatureById(sigId);
+                    if (sig == null) continue;
+                    forThisMimeType.add(sig);
+                    if (addedSigIds.add(sigId)) {
+                        allCommonSignatures.add(sig);
+                    }
+                }
+            }
+        }
+
+        // "text/javascript" isn't declared anywhere in PRONOM - only
+        // "application/javascript" is (for x-fmt/423, which itself has zero
+        // signatures - JavaScript has no binary signature at all). Without
+        // this, "text/javascript" would simply be a missing key rather than
+        // a known-empty one, which used to mean falling back to scanning the
+        // entire common-format set for nothing. Explicitly aliasing it here
+        // means getSignatureCountForMimeType("text/javascript") correctly
+        // reports 0, same as "application/javascript" - both genuinely have
+        // no binary signature to check, not just "we don't recognize this".
+        commonMimeTypeSignatures.putIfAbsent("text/javascript",
+                commonMimeTypeSignatures.getOrDefault("application/javascript", new ArrayList<>()));
+    }
+
+    /** Linear lookup by signature ID - fine here since this only runs once,
+     *  during construction, not per detect() call. */
+    private InternalSignatureDef signatureById(int id) {
+        for (InternalSignatureDef sig : signatures) {
+            if (sig.id == id) return sig;
+        }
+        return null;
+    }
+
+    /** Whether a (possibly comma-joined, e.g. "image/vnd.microsoft.icon,
+     *  image/x-icon" - a real pattern in the signature file itself) MIMEType
+     *  attribute value contains the given target MIME type. */
+    private static boolean mimeTypeMatches(String mimeTypeAttribute, String target) {
+        for (String part : mimeTypeAttribute.split(",")) {
+            if (part.trim().equalsIgnoreCase(target)) return true;
+        }
+        return false;
     }
 
     /**
@@ -1687,6 +1900,20 @@ public class DroidSignatureVerifier {
      * lives here exactly once.
      */
     private DetectionResult[] detectFromRegion(FileRegion region) throws Exception {
+        // PERFORMANCE: an empty region can never match any DROID signature -
+        // every signature's anchor needs at least some bytes to compare against
+        // - so skip the whole 2,260-signature loop entirely for one. This is a
+        // real, common case in practice: HTTP redirect (e.g. 302) WARC records
+        // legitimately have no payload at all, and calling detect() on an
+        // empty stream was previously paying the full iteration cost (a quick,
+        // but real and entirely avoidable, per-signature overhead) just to
+        // arrive at the same "no signatures matched" conclusion this reaches
+        // immediately instead.
+        if (region.length == 0) {
+            if (VERBOSE) System.out.println("  Empty content - skipping signature verification entirely.");
+            return new DetectionResult[0];
+        }
+
         long t2 = System.nanoTime();
         List<Integer> matchedSignatureIds = new ArrayList<>();
         for (InternalSignatureDef sig : signatures) {
@@ -1705,6 +1932,16 @@ public class DroidSignatureVerifier {
             return new DetectionResult[0];
         }
 
+        return buildResults(matchedSignatureIds);
+    }
+
+    /** Shared by detectFromRegion() and detectCommonMimeTypes(): resolves
+     *  priority among the given matched signature IDs' formats and builds the
+     *  final, ordered DetectionResult[] (resolved survivors first, then any
+     *  suppressed raw matches, capped at 10) - see detectFromRegion()'s
+     *  javadoc/comments for the full rationale, kept here once rather than
+     *  duplicated in both callers. */
+    private DetectionResult[] buildResults(List<Integer> matchedSignatureIds) {
         List<FileFormatDef> matchedFormats = new ArrayList<>();
         for (FileFormatDef fmt : formats) {
             for (int sigId : fmt.signatureIds) {
@@ -1727,8 +1964,6 @@ public class DroidSignatureVerifier {
             }
         }
 
-        // Build the final ordered list: priority-resolution survivors first (best
-        // guess), then any suppressed raw matches after, capped at 10 total.
         List<FileFormatDef> ordered = new ArrayList<>(resolved);
         for (FileFormatDef fmt : matchedFormats) {
             if (!resolved.contains(fmt)) {
@@ -1743,6 +1978,91 @@ public class DroidSignatureVerifier {
             results[i] = new DetectionResult(fmt.puid, fmt.name, fmt.mimeType, fmt.version);
         }
         return results;
+    }
+
+    /**
+     * Fast, targeted detection restricted to COMMON_MIME_TYPES (see that
+     * field's javadoc) - checks ONLY the signatures for formats declaring the
+     * given mimeType, and only if that specific mimeType is one this instance
+     * has indexed with at least one real signature. If not - an unrecognized
+     * mimetype, or a recognized one that genuinely has zero binary signatures
+     * anywhere (e.g. "text/css", "application/javascript" - CSS and
+     * JavaScript have no binary signature in PRONOM at all) - this returns
+     * empty immediately, WITHOUT scanning anything. There is deliberately no
+     * "check the whole common set as a broader guess" fallback here: an HTTP
+     * Content-Type header can't be fully trusted, so a mimetype-only signal
+     * is never treated as license to report a less-specific match - either a
+     * real signature confirms it, or this reports nothing at all.
+     *
+     * Intended as an OPTIONAL, explicit fast-path attempt before falling back
+     * to the full, exhaustive detect() - this method deliberately does NOT do
+     * that fallback itself. If it returns an empty array, the caller decides
+     * whether to call detect() next.
+     *
+     * getSignatureCountForMimeType(mimeType) == 0 tells you IN ADVANCE whether
+     * this method would do any work at all for a given mimetype - useful to
+     * skip calling this entirely (and the stream read it requires) for
+     * mimetypes known to always find nothing, going straight to detect()
+     * instead. This applies uniformly whether the mimetype is genuinely
+     * signature-less (CSS, JS) or simply unrecognized/missing (e.g. a
+     * robots.txt response with no Content-Type at all) - both cases mean
+     * "nothing to check here".
+     *
+     * Unlike a filename/URL-based hint, this takes no filename or URL at all -
+     * just the MIME type - so it isn't affected by URL-parsing edge cases
+     * (query strings, WARC header-value angle-bracket wrapping, etc.).
+     *
+     * @param in       the stream to identify; not closed by this method - the
+     *                 caller retains ownership and is responsible for closing it
+     * @param mimeType a MIME type (e.g. from an HTTP Content-Type header), with
+     *                 or without trailing parameters (e.g. both "text/html" and
+     *                 "text/html; charset=UTF-8" work) - may be null/blank
+     * @return array of 0 to 10 DetectionResults, index 0 = top candidate -
+     *         empty if the mimetype isn't indexed, or if it is but nothing
+     *         in that specific, targeted set matched
+     */
+    public DetectionResult[] detectCommonMimeTypes(InputStream in, String mimeType) throws Exception {
+        String normalized = normalizeMimeType(mimeType);
+        List<InternalSignatureDef> candidates = (normalized != null) ? commonMimeTypeSignatures.get(normalized) : null;
+        if (candidates == null || candidates.isEmpty()) return new DetectionResult[0];
+
+        if (in.markSupported()) {
+            try {
+                in.reset();
+            } catch (IOException e) {
+                System.out.println("  (reset() failed on the supplied stream, reading from current position: " + e + ")");
+            }
+        }
+        FileRegion region = readBoundedRegion(in);
+        if (region.length == 0) return new DetectionResult[0];
+
+        // Automatically use the larger JPEG-specific distance for JPEG and
+        // known variants - see JPEG_ANCHOR_SEARCH_DISTANCE's javadoc. Every
+        // other mimetype still uses the fast default (MAX_ANCHOR_SEARCH_DISTANCE).
+        long searchDistance = JPEG_MIME_TYPES.contains(normalized)
+                ? JPEG_ANCHOR_SEARCH_DISTANCE : MAX_ANCHOR_SEARCH_DISTANCE;
+
+        List<Integer> matchedSignatureIds = new ArrayList<>();
+        for (InternalSignatureDef sig : candidates) {
+            if (matchSignature(region, sig, searchDistance)) {
+                matchedSignatureIds.add(sig.id);
+            }
+        }
+        if (matchedSignatureIds.isEmpty()) return new DetectionResult[0];
+
+        return buildResults(matchedSignatureIds);
+    }
+
+    /** Strips trailing parameters (e.g. "; charset=UTF-8") from a MIME type
+     *  and lowercases/trims it, matching how COMMON_MIME_TYPES entries are
+     *  declared. Returns null for a null/blank input. */
+    private static String normalizeMimeType(String mimeType) {
+        if (mimeType == null) return null;
+        String trimmed = mimeType.trim();
+        if (trimmed.isEmpty()) return null;
+        int semi = trimmed.indexOf(';');
+        if (semi >= 0) trimmed = trimmed.substring(0, semi).trim();
+        return trimmed.toLowerCase();
     }
 
     // ------------------------------------------------------------------
