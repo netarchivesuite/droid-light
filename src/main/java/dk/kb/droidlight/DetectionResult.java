@@ -12,11 +12,7 @@ package dk.kb.droidlight;
  *
  * Shared by both DroidSignatureVerifier and DroidSignatureAhoCorasickVerifier -
  * pulled out to its own top-level class since both classes need to construct
- * and return arrays of this type, and having one of them own it as a nested
- * class meant the other had to reach into it via a slightly awkward
- * "DroidSignatureVerifier.DetectionResult" qualifier for no real reason - the
- * two verifier classes are peers (same detect(File)/detect(InputStream)
- * contract), not one depending on the other's internals.
+ * and return arrays of this type.
  *
  * Fields are public and final (so already directly readable), but explicit
  * getters are also provided below for callers that prefer/require accessor
