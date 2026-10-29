@@ -53,8 +53,8 @@ import java.util.*;
  * 1795 bytes of true EOF, allowing room for a trailing ID3v1/APEv2 tag or similar".
  *
  * Concretely, from the real source (backward/EOF-search branch):
- *   if ((furthestFragmentPos) <= (referencePos - minSeqOffset)) {
- *       invalid = nearestFragmentPos < (referencePos - maxSeqOffset) && recheck(...);
+ *   if ((furthestFragmentPos) &lt;= (referencePos - minSeqOffset)) {
+ *       invalid = nearestFragmentPos &lt; (referencePos - maxSeqOffset) &amp;&amp; recheck(...);
  *   }
  * i.e. the LAST (nearest-to-reference) fragment's position must fall within
  * [referencePos - maxSeqOffset, referencePos - minSeqOffset].
@@ -1558,6 +1558,7 @@ public class DroidSignatureVerifier {
      * any number of detect() calls.
      *
      * @param signatureFile the DROID_SignatureFile*.xml to parse
+      * @throws Exception if reading or parsing fails
      */
     public DroidSignatureVerifier(File signatureFile) throws Exception {
         this(new FileInputStream(signatureFile), signatureFile.toString());
@@ -1572,6 +1573,7 @@ public class DroidSignatureVerifier {
      * all. Does not close the given stream - the caller retains ownership.
      *
      * @param signatureStream an already-open stream over the signature XML
+      * @throws Exception if reading or parsing fails
      */
     public DroidSignatureVerifier(InputStream signatureStream) throws Exception {
         this(signatureStream, "<input stream>");
@@ -1707,6 +1709,7 @@ public class DroidSignatureVerifier {
      *
      * @param targetFile the file to identify
      * @return array of 0 to 10 DetectionResults, index 0 = top candidate
+      * @throws Exception if reading or parsing fails
      */
     public DetectionResult[] detect(File targetFile) throws Exception {
         FileRegion region = readBoundedRegion(targetFile);
@@ -1793,6 +1796,7 @@ public class DroidSignatureVerifier {
      * @param in the stream to identify; not closed by this method - the caller
      *           retains ownership and is responsible for closing it
      * @return array of 0 to 10 DetectionResults, index 0 = top candidate
+      * @throws Exception if reading or parsing fails
      */
     public DetectionResult[] detect(InputStream in) throws Exception {
         if (in.markSupported()) {
@@ -2020,6 +2024,7 @@ public class DroidSignatureVerifier {
      * @return array of 0 to 10 DetectionResults, index 0 = top candidate -
      *         empty if the mimetype isn't indexed, or if it is but nothing
      *         in that specific, targeted set matched
+      * @throws Exception if reading or parsing fails
      */
     public DetectionResult[] detectCommonMimeTypes(InputStream in, String mimeType) throws Exception {
         String normalized = normalizeMimeType(mimeType);

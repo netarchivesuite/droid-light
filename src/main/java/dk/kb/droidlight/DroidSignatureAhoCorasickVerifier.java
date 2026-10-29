@@ -89,6 +89,9 @@ public class DroidSignatureAhoCorasickVerifier {
      * DroidSignatureVerifier's own parser directly - no duplicated parsing logic),
      * then compiles every signature's fixed anchor into one combined Aho-Corasick
      * automaton.
+      *
+      * @param signatureFile the DROID signature file
+      * @throws Exception if reading or parsing fails
      */
     public DroidSignatureAhoCorasickVerifier(File signatureFile) throws Exception {
         System.out.println("Parsing full signature structure (anchors + fragments + endianness): " + signatureFile);
@@ -472,6 +475,10 @@ public class DroidSignatureAhoCorasickVerifier {
      * fixing both this class's own OutOfMemoryError AND its earlier large-file
      * slowdown in the same change (see class javadoc "MEASURED RESULT" - that
      * regression was caused by the full-file scan this fix removes).
+      *
+      * @param targetFile the file to identify
+      * @return the detection results
+      * @throws Exception if reading or parsing fails
      */
     public DetectionResult[] detect(File targetFile) throws Exception {
         DroidSignatureVerifier.FileRegion region = DroidSignatureVerifier.readBoundedRegion(targetFile);
@@ -489,6 +496,7 @@ public class DroidSignatureAhoCorasickVerifier {
      * @param in the stream to identify; not closed by this method - the caller
      *           retains ownership and is responsible for closing it
      * @return array of 0 to 10 DetectionResults, index 0 = top candidate
+      * @throws Exception if reading or parsing fails
      */
     public DetectionResult[] detect(InputStream in) throws Exception {
         if (in.markSupported()) {

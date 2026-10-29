@@ -19,10 +19,14 @@ package dk.kb.droidlight;
  * methods over direct field access.
  */
 public final class DetectionResult {
-    public final String code; // PUID, e.g. "fmt/471"
-    public final String text; // format name, e.g. "Hypertext Markup Language"
-    public final String mimeType; // e.g. "text/html" - may be null, not every FileFormat entry has one
-    public final String version; // e.g. "5" - may be null, not every FileFormat entry has one
+    /** PUID, e.g. "fmt/471". */
+    public final String code;
+    /** Format name, e.g. "Hypertext Markup Language". */
+    public final String text;
+    /** E.g. "text/html" - may be null, not every FileFormat entry has one. */
+    public final String mimeType;
+    /** E.g. "5" - may be null, not every FileFormat entry has one. */
+    public final String version;
 
     /**
      * Explicit, manually-curated overrides for which single MIME type to
@@ -52,6 +56,14 @@ public final class DetectionResult {
         PRIMARY_MIME_TYPE_OVERRIDES.put("application/mp4, video/mp4", "video/mp4");
     }
 
+    /**
+     * Creates a new DetectionResult.
+     *
+     * @param code PUID of the format, e.g. fmt/471
+     * @param text format name
+     * @param mimeType MIME type; may be null
+     * @param version format version; may be null
+     */
     public DetectionResult(String code, String text, String mimeType, String version) {
         this.code = code;
         this.text = text;
@@ -59,18 +71,38 @@ public final class DetectionResult {
         this.version = version;
     }
 
+    /**
+     * Returns the PUID of the format, e.g. fmt/471.
+     *
+     * @return PUID of the format, e.g. fmt/471
+     */
     public String getCode() {
         return code;
     }
 
+    /**
+     * Returns the format name.
+     *
+     * @return format name
+     */
     public String getText() {
         return text;
     }
 
+    /**
+     * Returns the MIME type; may be null.
+     *
+     * @return MIME type; may be null
+     */
     public String getMimeType() {
         return mimeType;
     }
 
+    /**
+     * Returns the format version; may be null.
+     *
+     * @return format version; may be null
+     */
     public String getVersion() {
         return version;
     }
@@ -89,6 +121,8 @@ public final class DetectionResult {
      * Note: this deliberately drops any version information - use
      * getMimeTypeWithVersion() when you want the full "mimetype; version=X"
      * (or comma-joined multi-value) form instead, e.g. for Solr indexing.
+      *
+      * @return primary mime type
      */
     public String getPrimaryMimeType() {
         if (mimeType == null || mimeType.isEmpty()) return null;
@@ -105,6 +139,8 @@ public final class DetectionResult {
      * already guarantees a single, unambiguous MIME type, so this just appends
      * the version suffix once. Returns just the primary MIME type (no
      * "; version=") if there's no version, or null if there's no mimeType at all.
+      *
+      * @return primary mime type with version
      */
     public String getPrimaryMimeTypeWithVersion() {
         String primary = getPrimaryMimeType();
@@ -123,6 +159,8 @@ public final class DetectionResult {
      * e.g. for a PNG result whose toString() is
      * "fmt/11  Portable Network Graphics  [image/png; version=1.0]",
      * getMimeTypeWithVersion() returns "image/png; version=1.0" on its own.
+      *
+      * @return mime type with version
      */
     public String getMimeTypeWithVersion() {
         if (mimeType == null || mimeType.isEmpty()) return null;
