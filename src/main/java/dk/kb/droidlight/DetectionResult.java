@@ -46,10 +46,7 @@ public final class DetectionResult {
      * format in practice - "application/mp4" is the older, generic container
      * type that could in principle also cover audio-only MP4 content.
      *
-     * Package-private (not private) so FormatInfo.getPrimaryMimeType() can
-     * share this exact table rather than maintaining its own separate copy -
-     * a duplicated table would risk silently drifting out of sync the next
-     * time a case gets added to only one of the two.
+     * Package-private rather than private so tests can inspect it.
      */
     static final java.util.Map<String, String> PRIMARY_MIME_TYPE_OVERRIDES = new java.util.HashMap<>();
     static {
@@ -175,6 +172,59 @@ public final class DetectionResult {
             sb.append(parts[i].trim()).append("; version=").append(version);
         }
         return sb.toString();
+    }
+
+    /**
+     * Returns the value to store in Solr's {@code content_type_droid} field. Unlike
+     * {@link #getPrimaryMimeTypeWithVersion()} this is <b>never {@code null}</b>, so an empty
+     * {@code content_type_droid} can only mean "droid-light found no format at all".
+     *
+     * <p>The value is chosen in this order:
+     * <ol>
+     *   <li>The signature file declares a MIME type for the format: the primary MIME type with its
+     *       version, exactly as {@link #getPrimaryMimeTypeWithVersion()} returns it, for example
+     *       {@code "image/png; version=1.1"} or {@code "video/mp4"}.</li>
+     *   <li>Otherwise (the format has a signature but no {@code MIMEType} attribute): the format's name
+     *       ({@link #getText()}), followed by {@code "; version=X"} when the format has a version, for
+     *       example {@code "AV1 Image File Format"} or {@code "Matroska; version=1-4"}.</li>
+     *   <li>Otherwise (no name either - not expected for a real PRONOM entry): the PUID
+     *       ({@link #getCode()}), for example {@code "fmt/2062"}.</li>
+     * </ol>
+     *
+     * <p><b>Why this exists.</b> PRONOM declares no MIME type for a large share of the formats that do
+     * have signatures (about two thirds in signature file V124), for example AV1 Image File Format
+     * (AVIF, {@code fmt/2062}), SVG Tiny ({@code fmt/413}) and 7Zip ({@code fmt/484}). For those,
+     * {@link #getPrimaryMimeTypeWithVersion()} returns {@code null}, so a Solr field filled from it was
+     * left empty even though droid-light had identified the file - in one corpus all AVIF records were
+     * affected. This method closes that gap without adding anything of its own: the name is the signature
+     * file's own {@code Name} attribute, and no MIME types are invented. Once the signature file declares
+     * a MIME type for such a format, step 1 applies automatically and nothing here needs to change.
+     *
+     * <p><b>Caveat.</b> A returned name is not a valid media type (it contains no '/'), so the field ends up
+     * holding a mixture of MIME types and format names. Do not feed this value to a MIME parser such as
+     * Tika's {@code MediaType.parse()}; use {@link #getPrimaryMimeType()} - which stays {@code null} when
+     * there is no MIME type - wherever a real MIME type is required, for example when comparing droid-light's
+     * result with Tika's.
+     *
+     * <p>Examples:
+     * <pre>
+     * fmt/12   PNG 1.1 (image/png)      -&gt; "image/png; version=1.1"
+     * fmt/199  MPEG-4 Media File        -&gt; "video/mp4"
+     * fmt/2062 AV1 Image File Format    -&gt; "AV1 Image File Format"
+     * fmt/569  Matroska, version 1-4    -&gt; "Matroska; version=1-4"
+     * </pre>
+     *
+     * @return the MIME type with version when the format has one, otherwise the format name (plus
+     *         {@code "; version=X"} if it has a version), otherwise the PUID; never {@code null}
+     * @see #getPrimaryMimeTypeWithVersion()
+     * @see #getPrimaryMimeType()
+     */
+    public String getPrimaryMimeTypeWithVersionOrName() {
+        String withVersion = getPrimaryMimeTypeWithVersion();
+        if (withVersion != null) return withVersion;
+        String name = (text != null && !text.isEmpty()) ? text : code;
+        if (version == null || version.isEmpty()) return name;
+        return name + "; version=" + version;
     }
 
     @Override
