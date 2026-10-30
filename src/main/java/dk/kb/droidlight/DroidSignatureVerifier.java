@@ -610,6 +610,8 @@ public class DroidSignatureVerifier {
         List<PatternElement> anchor;
         int minSeqOffset;
         int maxSeqOffset; // -1 means "attribute absent" = unbounded
+        /** See computeAnchorReach(); set once after parsing. */
+        long anchorReach;
         final List<Fragment> leftFragments = new ArrayList<>();
         final List<Fragment> rightFragments = new ArrayList<>();
 
@@ -860,6 +862,17 @@ public class DroidSignatureVerifier {
      * ID3v2-tag case that motivated this rewrite (real tags seen so far: ~2.5KB and
      * ~259KB), small enough to keep a full signature scan of a large file
      * from effectively hanging on every non-matching signature.
+     *
+     * This is a MINIMUM, not an absolute limit: a byte sequence whose own first
+     * SubSeqMaxOffset in the signature file is FINITE and larger than this is
+     * searched as far as that limit allows (see SubSequenceDef.anchorReach and
+     * computeAnchorReach()) - e.g. the JPEG end marker up to 131,072 bytes from
+     * the end, the ZIP end record up to 65,531, an ISO 9660 descriptor from byte
+     * 32,700. In signature file V124 that is 103 of 2,661 byte sequences, so the
+     * cost is negligible; only byte sequences with NO limit at all (98 in V124,
+     * e.g. variable-position XMP markers) are held to this cap alone - those are
+     * what would make a blanket increase of the cap several times slower on
+     * large files.
      */
     static int MAX_ANCHOR_SEARCH_DISTANCE = 3000;
 
@@ -913,21 +926,12 @@ public class DroidSignatureVerifier {
      * an explicit parameter instead of reading the shared static
      * MAX_ANCHOR_SEARCH_DISTANCE field directly.
      *
-     * WHY THIS EXISTS: a production case needed re-scanning specific
-     * signatures at a LARGER distance than the fast default (3000) when the
-     * fast scan finds nothing - e.g. certain JPEGs need up to ~65536 to reach
-     * their EOF trailer (see MAX_ANCHOR_SEARCH_DISTANCE's own javadoc). The
-     * naive way to do this would be to temporarily mutate the static field,
-     * scan, then restore it - but MAX_ANCHOR_SEARCH_DISTANCE is shared across
-     * every thread, and a production pipeline processing WARC records with
-     * many concurrent threads (48, in the motivating case) can't safely
-     * mutate shared state like that without synchronizing the ENTIRE detect()
-     * call for every thread, all the time, just to guard a rare special case -
-     * a real, avoidable bottleneck at that scale. Threading the distance
-     * through as a parameter instead means each thread's own call stack holds
-     * its own value - nothing shared, nothing to synchronize, and the normal
-     * fast path (using the 4-argument overload, unaffected) stays fully
-     * parallel with zero contention.
+     * The distance is a minimum (see MAX_ANCHOR_SEARCH_DISTANCE): the caller of
+     * matchByteSequence() raises it for a sequence whose own offset limit is larger.
+     * Taking it as a parameter rather than mutating the shared static field means
+     * a caller (or a test) can use a different minimum without affecting any other
+     * thread - the pipeline runs many concurrent detect() calls (48 in production),
+     * so shared mutable state here would need synchronization on every call.
      */
     static long matchFixedSubSequence(FileRegion region, SubSequenceDef sub, long referencePosition, boolean searchBackward,
                                        long maxAnchorSearchDistance) {
@@ -1111,7 +1115,7 @@ public class DroidSignatureVerifier {
         long cursor = -1;
         for (SubSequenceDef sub : subs) {
             long result = first
-                    ? matchFixedSubSequence(region, sub, referencePosition, backward, maxAnchorSearchDistance)
+                    ? matchFixedSubSequence(region, sub, referencePosition, backward, Math.max(maxAnchorSearchDistance, sub.anchorReach))
                     : matchChainedSubSequence(region, sub, cursor);
             if (result < 0) return false;
             cursor = result;
@@ -1310,6 +1314,22 @@ public class DroidSignatureVerifier {
      * a naive per-signature scaling argument (signature_count x window_size)
      * does not explain on its own.
      */
+    /**
+     * How far from the reference point (start or end of file) the anchor of this sub-sequence may have to be
+     * searched for, when its own SubSeqMaxOffset allows more than MAX_ANCHOR_SEARCH_DISTANCE; 0 = no extension.
+     * SubSeqMaxOffset limits where the END of the fragment chain may lie, so the anchor can sit further out by the
+     * length of the chain (anchor plus its fragments' maximum gaps and lengths) - that span is added.
+     * An unbounded SubSeqMaxOffset (-1, e.g. a variable-position XMP string) is deliberately NOT extended: such a
+     * sequence would otherwise be scanned across the whole file; the shared cap remains its only limit.
+     */
+    static long computeAnchorReach(SubSequenceDef sub) {
+        if (sub.anchor == null || sub.maxSeqOffset < 0) return 0;
+        long span = patternLength(sub.anchor);
+        for (Fragment f : sub.rightFragments) span += Math.max(f.maxOffset, 0) + patternLength(f.pattern);
+        for (Fragment f : sub.leftFragments) span += Math.max(f.maxOffset, 0) + patternLength(f.pattern);
+        return (long) sub.maxSeqOffset + span;
+    }
+
     static void precomputeOrdering(List<InternalSignatureDef> signatures) {
         for (InternalSignatureDef sig : signatures) {
             for (ByteSequenceDef bs : sig.byteSequences) {
@@ -1319,6 +1339,7 @@ public class DroidSignatureVerifier {
                 bs.orderedSubSequences = ordered;
 
                 for (SubSequenceDef sub : bs.subSequences) {
+                    sub.anchorReach = computeAnchorReach(sub);
                     sub.groupedRightFragments = groupByPosition(sub.rightFragments);
                     sub.groupedLeftFragments = groupByPosition(sub.leftFragments);
                     if (sub.anchor != null) {
@@ -1534,25 +1555,6 @@ public class DroidSignatureVerifier {
     private final List<InternalSignatureDef> allCommonSignatures = new ArrayList<>();
 
     /**
-     * Search distance used automatically for JPEG (and known variants) within
-     * detectCommonMimeTypes() - see MAX_ANCHOR_SEARCH_DISTANCE's own javadoc
-     * for why the fast default (3000) isn't always enough: a real JPEG with a
-     * large embedded EXIF thumbnail can push its EOF trailer up to ~65,536
-     * bytes from the end. This value (150,000) gives comfortable margin,
-     * confirmed working against a real such file. Applied automatically, not
-     * as a separate opt-in call - detectCommonMimeTypes() checks whether the
-     * given mimeType is JPEG or a known variant and uses this distance for
-     * that one call only; every other mimetype still uses the fast default.
-     */
-    public static long JPEG_ANCHOR_SEARCH_DISTANCE = 150_000;
-
-    /** Known real-world MIME type variants for JPEG - "image/pjpeg" is a
-     *  legacy Internet-Explorer-specific alternate for progressive JPEG. */
-    private static final Set<String> JPEG_MIME_TYPES = new HashSet<>(Arrays.asList(
-            "image/jpeg", "image/pjpeg"
-    ));
-
-    /**
      * Parses the given DROID signature file once, keeping the resulting
      * signatures and file-format definitions in this instance for reuse across
      * any number of detect() calls.
@@ -1596,6 +1598,8 @@ public class DroidSignatureVerifier {
     }
 
     /**
+     * Returns the signature count.
+     *
      * @return the number of DROID signatures loaded from the signature file
      *         (2,260 for the current file: the stock V124 PRONOM release,
      *         2,258, plus two local signature additions - EOT version 1.2,
@@ -1606,6 +1610,8 @@ public class DroidSignatureVerifier {
     }
 
     /**
+     * Returns the signature count for mime type.
+     *
      * @param mimeType a MIME type - see normalizeMimeType() for how it's
      *                 matched (parameters stripped, case-insensitive)
      * @return how many signatures detectCommonMimeTypes() would actually
@@ -1626,6 +1632,8 @@ public class DroidSignatureVerifier {
     }
 
     /**
+     * Returns the common signature count.
+     *
      * @return the total size of the common-format signature set (the union
      *         across all of COMMON_MIME_TYPES) - informational only; unlike
      *         an earlier version of this class, detectCommonMimeTypes() no
@@ -2041,15 +2049,9 @@ public class DroidSignatureVerifier {
         FileRegion region = readBoundedRegion(in);
         if (region.length == 0) return new DetectionResult[0];
 
-        // Automatically use the larger JPEG-specific distance for JPEG and
-        // known variants - see JPEG_ANCHOR_SEARCH_DISTANCE's javadoc. Every
-        // other mimetype still uses the fast default (MAX_ANCHOR_SEARCH_DISTANCE).
-        long searchDistance = JPEG_MIME_TYPES.contains(normalized)
-                ? JPEG_ANCHOR_SEARCH_DISTANCE : MAX_ANCHOR_SEARCH_DISTANCE;
-
         List<Integer> matchedSignatureIds = new ArrayList<>();
         for (InternalSignatureDef sig : candidates) {
-            if (matchSignature(region, sig, searchDistance)) {
+            if (matchSignature(region, sig)) {
                 matchedSignatureIds.add(sig.id);
             }
         }
