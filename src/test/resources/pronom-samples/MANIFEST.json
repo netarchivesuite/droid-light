@@ -1,0 +1,984 @@
+[
+  {
+    "file": "fmt-101_Extensible_Markup_Language_1.0.xml",
+    "puid": "fmt/101",
+    "formatName": "Extensible Markup Language",
+    "formatVersion": "1.0",
+    "sizeBytes": 65670,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "knowledge-management/Mind Manager/COPAC.UKNUC.xml",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1087_FAT_Disk_Image.img",
+    "puid": "fmt/1087",
+    "formatName": "FAT Disk Image",
+    "formatVersion": "",
+    "sizeBytes": 1474560,
+    "sourceRepository": "https://github.com/digital-preservation/droid",
+    "originalPath": "droid-command-line/src/test/resources/testfiles/fat12.img",
+    "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-11_Portable_Network_Graphics_1.0.png",
+    "puid": "fmt/11",
+    "formatName": "Portable Network Graphics",
+    "formatVersion": "1.0",
+    "sizeBytes": 56807,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office/spreadsheet/wq2/vlookup-compat-demo/lo-recalc.png",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1105_Hierarchical_File_System.img",
+    "puid": "fmt/1105",
+    "formatName": "Hierarchical File System",
+    "formatVersion": "",
+    "sizeBytes": 1474560,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "disk-images/fat12/opf/blank-untitled-volume.img",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-111_OLE2_Compound_Document_Format.ppt",
+    "puid": "fmt/111",
+    "formatName": "OLE2 Compound Document Format",
+    "formatVersion": "",
+    "sizeBytes": 57856,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office-examples/powerpoint4-mac/ecdl paris.ppt",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-12_Portable_Network_Graphics_1.1.png",
+    "puid": "fmt/12",
+    "formatName": "Portable Network Graphics",
+    "formatVersion": "1.1",
+    "sizeBytes": 55950,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "fully-featured-pdf/appearance/placeholder-2.png",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/11"
+    ]
+  },
+  {
+    "file": "fmt-121_DROID_Signature_File_Format_1.0.xml",
+    "puid": "fmt/121",
+    "formatName": "DROID Signature File Format",
+    "formatVersion": "1.0",
+    "sizeBytes": 3105,
+    "sourceRepository": "https://github.com/digital-preservation/droid",
+    "originalPath": "cli-tests/testfiles/binary-signature.xml",
+    "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
+    "alsoDetectedAs": [
+      "fmt/101"
+    ]
+  },
+  {
+    "file": "fmt-126_Microsoft_Powerpoint_Presentation_97-2003.ppt",
+    "puid": "fmt/126",
+    "formatName": "Microsoft Powerpoint Presentation",
+    "formatVersion": "97-2003",
+    "sizeBytes": 45056,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office-examples/powerpoint4-mac/ecdl+paris2001.ppt",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/111"
+    ]
+  },
+  {
+    "file": "fmt-1280_NCH_Dictation_Audio_File.mov",
+    "puid": "fmt/1280",
+    "formatName": "NCH Dictation Audio File",
+    "formatVersion": "",
+    "sizeBytes": 383905,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "video/Quicktime/jpeg2000.mov",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/384"
+    ]
+  },
+  {
+    "file": "fmt-13_Portable_Network_Graphics_1.2.png",
+    "puid": "fmt/13",
+    "formatName": "Portable Network Graphics",
+    "formatVersion": "1.2",
+    "sizeBytes": 119695,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "fully-featured-pdf/appearance/page-3.png",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/11",
+      "fmt/12"
+    ]
+  },
+  {
+    "file": "fmt-1355_WARC_1.0.warc",
+    "puid": "fmt/1355",
+    "formatName": "WARC",
+    "formatVersion": "1.0",
+    "sizeBytes": 9783,
+    "sourceRepository": "https://github.com/digital-preservation/droid",
+    "originalPath": "droid-command-line/src/test/resources/testfiles/expanded.warc",
+    "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
+    "alsoDetectedAs": [
+      "fmt/289"
+    ]
+  },
+  {
+    "file": "fmt-1451_PDF_Portfolio_1.7.pdf",
+    "puid": "fmt/1451",
+    "formatName": "PDF Portfolio",
+    "formatVersion": "1.7",
+    "sizeBytes": 4723857,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "pdfCabinetOfHorrors/digitally_signed_3D_Portfolio.pdf",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/276"
+    ]
+  },
+  {
+    "file": "fmt-1452_Lotus_1-2-3_Worksheet_97.123",
+    "puid": "fmt/1452",
+    "formatName": "Lotus 1-2-3 Worksheet",
+    "formatVersion": "97",
+    "sizeBytes": 18768,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office/spreadsheet/123/testLotus123-lotusftp.123",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-15_Acrobat_PDF_1.1_-_Portable_Document_Format_1.1.pdf",
+    "puid": "fmt/15",
+    "formatName": "Acrobat PDF 1.1 - Portable Document Format",
+    "formatVersion": "1.1",
+    "sizeBytes": 953,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "pdfCabinetOfHorrors/javascript.pdf",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-151_JPX_JPEG_2000_part_2.jpf",
+    "puid": "fmt/151",
+    "formatName": "JPX (JPEG 2000 part 2)",
+    "formatVersion": "",
+    "sizeBytes": 628654,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "jp2k-formats/balloon.jpf",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-16_Acrobat_PDF_1.2_-_Portable_Document_Format_1.2.pdf",
+    "puid": "fmt/16",
+    "formatName": "Acrobat PDF 1.2 - Portable Document Format",
+    "formatVersion": "1.2",
+    "sizeBytes": 55969,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "govdocs1-error-pdfs/error_set_1/225188.pdf",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-17_Acrobat_PDF_1.3_-_Portable_Document_Format_1.3.pdf",
+    "puid": "fmt/17",
+    "formatName": "Acrobat PDF 1.3 - Portable Document Format",
+    "formatVersion": "1.3",
+    "sizeBytes": 43433,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "ebooks/calibre 0.9.0/lorem-ipsum.pdf",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1762_MacBinary_II.pdf",
+    "puid": "fmt/1762",
+    "formatName": "MacBinary",
+    "formatVersion": "II",
+    "sizeBytes": 157312,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "jhove-errors/PDF-HUL-137/reserve3.pdf",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1794_JPEG_2000_Codestream.j2c",
+    "puid": "fmt/1794",
+    "formatName": "JPEG 2000 Codestream",
+    "formatVersion": "",
+    "sizeBytes": 628385,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "jp2k-formats/balloon.j2c",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-18_Acrobat_PDF_1.4_-_Portable_Document_Format_1.4.pdf",
+    "puid": "fmt/18",
+    "formatName": "Acrobat PDF 1.4 - Portable Document Format",
+    "formatVersion": "1.4",
+    "sizeBytes": 57855,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "pdfCabinetOfHorrors/fileAttachment_fileAttachmentAnnotation.pdf",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-189_Microsoft_Office_Open_XML_2007_onwards.docx",
+    "puid": "fmt/189",
+    "formatName": "Microsoft Office Open XML",
+    "formatVersion": "2007 onwards",
+    "sizeBytes": 163671,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "variations/variations/application/vnd.openxmlformats-officedocument.wordprocessingml.document/lorem-ipsum.docx",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/263"
+    ]
+  },
+  {
+    "file": "fmt-19_Acrobat_PDF_1.5_-_Portable_Document_Format_1.5.pdf",
+    "puid": "fmt/19",
+    "formatName": "Acrobat PDF 1.5 - Portable Document Format",
+    "formatVersion": "1.5",
+    "sizeBytes": 207305,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "pdfCabinetOfHorrors/test_fontArialNotEmbedded.pdf",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1936_PCRaster.MAP",
+    "puid": "fmt/1936",
+    "formatName": "PCRaster",
+    "formatVersion": "",
+    "sizeBytes": 167512,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "pcraster/AREA2.MAP",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1937_Amazon_Kindle_eBook_File.azw3",
+    "puid": "fmt/1937",
+    "formatName": "Amazon Kindle eBook File",
+    "formatVersion": "",
+    "sizeBytes": 12856,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "ebooks/calibre 0.8.57/Lorem Ipsum - Andrew Jackson.azw3",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/396"
+    ]
+  },
+  {
+    "file": "fmt-196_Adobe_InDesign_Document_CS.indd",
+    "puid": "fmt/196",
+    "formatName": "Adobe InDesign Document",
+    "formatVersion": "CS",
+    "sizeBytes": 1503232,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "desktop-publishing/InDesign/Neddy_Flyer_HeatherRyan.indd",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/450"
+    ]
+  },
+  {
+    "file": "fmt-20_Acrobat_PDF_1.6_-_Portable_Document_Format_1.6.pdf",
+    "puid": "fmt/20",
+    "formatName": "Acrobat PDF 1.6 - Portable Document Format",
+    "formatVersion": "1.6",
+    "sizeBytes": 24341,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office-examples/OpenOffice.org 3.2.0 OSX/pdf-features/simple-annotated-in-adobe-x.pdf",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-2050_PDF_UA_Portable_Document_Format_1.pdf",
+    "puid": "fmt/2050",
+    "formatName": "PDF/UA Portable Document Format",
+    "formatVersion": "1",
+    "sizeBytes": 167873,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "jhove-errors/PDF-HUL-80/Rosen--Caring-Work.pdf",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/276"
+    ]
+  },
+  {
+    "file": "fmt-276_Acrobat_PDF_1.7_-_Portable_Document_Format_1.7.pdf",
+    "puid": "fmt/276",
+    "formatName": "Acrobat PDF 1.7 - Portable Document Format",
+    "formatVersion": "1.7",
+    "sizeBytes": 33411,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "pdfCabinetOfHorrors/text_only_fontsEmbeddedSubset.pdf",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-289_WARC.warc",
+    "puid": "fmt/289",
+    "formatName": "WARC",
+    "formatVersion": "",
+    "sizeBytes": 9783,
+    "sourceRepository": "https://github.com/digital-preservation/droid",
+    "originalPath": "droid-core-interfaces/src/test/resources/expanded.warc",
+    "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
+    "alsoDetectedAs": [
+      "fmt/1355"
+    ]
+  },
+  {
+    "file": "fmt-290_OpenDocument_Text_1.1.odt",
+    "puid": "fmt/290",
+    "formatName": "OpenDocument Text",
+    "formatVersion": "1.1",
+    "sizeBytes": 9683,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office-examples/LibreOffice7-ODF-1.3/LibreOfficeWriter_odt_1.3.odt",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/263"
+    ]
+  },
+  {
+    "file": "fmt-291_OpenDocument_Text_1.2.odt",
+    "puid": "fmt/291",
+    "formatName": "OpenDocument Text",
+    "formatVersion": "1.2",
+    "sizeBytes": 42579,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "variations/variations/application/vnd.oasis.opendocument.text/lorem-ipsum.oo3.2.odt",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/290",
+      "x-fmt/263"
+    ]
+  },
+  {
+    "file": "fmt-292_OpenDocument_Presentation_1.1.odp",
+    "puid": "fmt/292",
+    "formatName": "OpenDocument Presentation",
+    "formatVersion": "1.1",
+    "sizeBytes": 24035,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office-examples/LibreOffice7-ODF-1.3/LibreOfficeImpress_odp_1.3.odp",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/263"
+    ]
+  },
+  {
+    "file": "fmt-294_OpenDocument_Spreadsheet_1.1.ods",
+    "puid": "fmt/294",
+    "formatName": "OpenDocument Spreadsheet",
+    "formatVersion": "1.1",
+    "sizeBytes": 8812,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office-examples/LibreOffice7-ODF-1.3/LibreOfficeCalc_ods_1.3.ods",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/263"
+    ]
+  },
+  {
+    "file": "fmt-296_OpenDocument_Graphics_1.1.odg",
+    "puid": "fmt/296",
+    "formatName": "OpenDocument Graphics",
+    "formatVersion": "1.1",
+    "sizeBytes": 9166,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office-examples/LibreOffice7-ODF-1.3/LibreOfficeDraw_odg_1.3.odg",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/263"
+    ]
+  },
+  {
+    "file": "fmt-337_MJ2_Motion_JPEG_2000.mj2",
+    "puid": "fmt/337",
+    "formatName": "MJ2 (Motion JPEG 2000)",
+    "formatVersion": "",
+    "sizeBytes": 3018267,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "jp2k-formats/Speedway.mj2",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-353_Tagged_Image_File_Format.tif",
+    "puid": "fmt/353",
+    "formatName": "Tagged Image File Format",
+    "formatVersion": "",
+    "sizeBytes": 213760,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "tiff-examples/old-style-jpeg-compression/old-style-jpeg-compression.tif",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-354_Acrobat_PDF_A_-_Portable_Document_Format_1b.pdf",
+    "puid": "fmt/354",
+    "formatName": "Acrobat PDF/A - Portable Document Format",
+    "formatVersion": "1b",
+    "sizeBytes": 39513,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "pdfCabinetOfHorrors/text_only_pdfa1b.pdf",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/18"
+    ]
+  },
+  {
+    "file": "fmt-38_Microsoft_Word_for_Windows_Document_2.0.DOC",
+    "puid": "fmt/38",
+    "formatName": "Microsoft Word for Windows Document",
+    "formatVersion": "2.0",
+    "sizeBytes": 10405,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office-examples/Old Word file/NEWSSLID.DOC",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-394_DS_Store_File_MAC",
+    "puid": "fmt/394",
+    "formatName": "DS_Store File (MAC)",
+    "formatVersion": "",
+    "sizeBytes": 10244,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": ".DS_Store",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-396_PocketMobi_Palm_Resource_File.mobi",
+    "puid": "fmt/396",
+    "formatName": "PocketMobi (Palm Resource) File",
+    "formatVersion": "",
+    "sizeBytes": 11328,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "ebooks/calibre 0.8.57/Lorem Ipsum - Andrew Jackson.mobi",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-4_Graphics_Interchange_Format_89a.gif",
+    "puid": "fmt/4",
+    "formatName": "Graphics Interchange Format",
+    "formatVersion": "89a",
+    "sizeBytes": 51218,
+    "sourceRepository": "https://github.com/digital-preservation/droid",
+    "originalPath": "droid-swing-ui/src/main/resources/uk/gov/nationalarchives/droid/icons/splash_image.gif",
+    "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-41_Raw_JPEG_Stream.jpg",
+    "puid": "fmt/41",
+    "formatName": "Raw JPEG Stream",
+    "formatVersion": "",
+    "sizeBytes": 1620612,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "desktop-publishing/InDesign/Neddy_Flyer_ft_HeatherRyan.jpg",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-411_RAR_Archive_2.9.rar",
+    "puid": "fmt/411",
+    "formatName": "RAR Archive",
+    "formatVersion": "2.9",
+    "sizeBytes": 958,
+    "sourceRepository": "https://github.com/digital-preservation/droid",
+    "originalPath": "droid-command-line/src/test/resources/testfiles/sample.rar",
+    "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-43_JPEG_File_Interchange_Format_1.01.jpg",
+    "puid": "fmt/43",
+    "formatName": "JPEG File Interchange Format",
+    "formatVersion": "1.01",
+    "sizeBytes": 261592,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "variations/variations/image/jpeg/lorem-ipsum.im.png.im.jpg",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/41"
+    ]
+  },
+  {
+    "file": "fmt-44_JPEG_File_Interchange_Format_1.02.jpg",
+    "puid": "fmt/44",
+    "formatName": "JPEG File Interchange Format",
+    "formatVersion": "1.02",
+    "sizeBytes": 12948899,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "jp2k-test/byteCorruption/balloon.jpg",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/41"
+    ]
+  },
+  {
+    "file": "fmt-463_JPM_JPEG_2000_part_6.jpm",
+    "puid": "fmt/463",
+    "formatName": "JPM (JPEG 2000 part 6)",
+    "formatVersion": "",
+    "sizeBytes": 888827,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "jp2k-formats/balloon.jpm",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-468_ISO_9660_Disk_Image_File.iso",
+    "puid": "fmt/468",
+    "formatName": "ISO 9660 Disk Image File",
+    "formatVersion": "",
+    "sizeBytes": 393216,
+    "sourceRepository": "https://github.com/digital-preservation/droid",
+    "originalPath": "droid-command-line/src/test/resources/testfiles/testiso.iso",
+    "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-477_Acrobat_PDF_A_-_Portable_Document_Format_2b.pdf",
+    "puid": "fmt/477",
+    "formatName": "Acrobat PDF/A - Portable Document Format",
+    "formatVersion": "2b",
+    "sizeBytes": 872857,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "jhove-errors/PDF-HUL-90/Arakawa-2025-Lab_Animal.pdf",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/18"
+    ]
+  },
+  {
+    "file": "fmt-482_Apple_iBook_format.ibooks",
+    "puid": "fmt/482",
+    "formatName": "Apple iBook format",
+    "formatVersion": "",
+    "sizeBytes": 339258,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "ebooks/iBooks Author 2.0 (327)/lorem-ipsum-plus-image-updated-standard-1.0.ibooks",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/263"
+    ]
+  },
+  {
+    "file": "fmt-483_ePub_Format.epub",
+    "puid": "fmt/483",
+    "formatName": "ePub Format",
+    "formatVersion": "",
+    "sizeBytes": 95529,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "ebooks/calibre 0.8.57/Lorem Ipsum - Andrew Jackson.epub",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/263"
+    ]
+  },
+  {
+    "file": "fmt-484_7Zip_format.7z",
+    "puid": "fmt/484",
+    "formatName": "7Zip format",
+    "formatVersion": "",
+    "sizeBytes": 276,
+    "sourceRepository": "https://github.com/digital-preservation/droid",
+    "originalPath": "droid-command-line/src/test/resources/testfiles/saved.7z",
+    "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-485_Rocket_Book_eBook_format.rb",
+    "puid": "fmt/485",
+    "formatName": "Rocket Book eBook format",
+    "formatVersion": "",
+    "sizeBytes": 2478,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "ebooks/calibre 0.8.57/Lorem Ipsum - Andrew Jackson.rb",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-50_Rich_Text_Format_1.5-1.6.rtf",
+    "puid": "fmt/50",
+    "formatName": "Rich Text Format",
+    "formatVersion": "1.5-1.6",
+    "sizeBytes": 1210,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "desktop-publishing/InDesign/Neddy_Flyer_README_HeatherRyan.md.rtf",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-503_AppleDouble_Resource_Fork_2.applesingle-double",
+    "puid": "fmt/503",
+    "formatName": "AppleDouble Resource Fork",
+    "formatVersion": "2",
+    "sizeBytes": 213,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "jhove-errors/PDF-HUL-137/124307818233765780864869607481066113457.pdf",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-518_Broad_Band_eBook_LRF.lrf",
+    "puid": "fmt/518",
+    "formatName": "Broad Band eBook",
+    "formatVersion": "LRF",
+    "sizeBytes": 3639,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "ebooks/calibre 0.9.0/lorem-ipsum.lrf",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-53_Rich_Text_Format_1.8.rtf",
+    "puid": "fmt/53",
+    "formatName": "Rich Text Format",
+    "formatVersion": "1.8",
+    "sizeBytes": 35834,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "variations/variations/application/rtf/lorem-ipsum.rtf",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-583_Vector_Markup_Language.htm",
+    "puid": "fmt/583",
+    "formatName": "Vector Markup Language",
+    "formatVersion": "",
+    "sizeBytes": 28124,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "variations/variations/text/html/4.0/lorem-ipsum.htm",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/96"
+    ]
+  },
+  {
+    "file": "fmt-610_ARJ_File_Format.ARJ",
+    "puid": "fmt/610",
+    "formatName": "ARJ File Format",
+    "formatVersion": "",
+    "sizeBytes": 206641,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "file-archive/arj/MAPS.ARJ",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-834_Quattro_Pro_Spreadsheet_for_Windows_1_5.wb1",
+    "puid": "fmt/834",
+    "formatName": "Quattro Pro Spreadsheet for Windows",
+    "formatVersion": "1/5",
+    "sizeBytes": 4813,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office/spreadsheet/wb1/testQuattro.wb1",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-835_Quattro_Pro_Spreadsheet_for_Windows_6.wb2",
+    "puid": "fmt/835",
+    "formatName": "Quattro Pro Spreadsheet for Windows",
+    "formatVersion": "6",
+    "sizeBytes": 4804,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office/spreadsheet/wb2/testQuattro.wb2",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-867_Microsoft_Reader_eBook.lit",
+    "puid": "fmt/867",
+    "formatName": "Microsoft Reader eBook",
+    "formatVersion": "",
+    "sizeBytes": 13484,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "ebooks/calibre 0.8.57/Lorem Ipsum - Andrew Jackson.lit",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-96_Hypertext_Markup_Language.xhtml",
+    "puid": "fmt/96",
+    "formatName": "Hypertext Markup Language",
+    "formatVersion": "",
+    "sizeBytes": 2401,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office-examples/OpenOffice.org 3.2.0 OSX/pdf-features/simple.xhtml",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/101"
+    ]
+  },
+  {
+    "file": "x-fmt-114_Lotus_1-2-3_Worksheet_2.0.WK1",
+    "puid": "x-fmt/114",
+    "formatName": "Lotus 1-2-3 Worksheet",
+    "formatVersion": "2.0",
+    "sizeBytes": 30565,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office/spreadsheet/wk1/PFVALUES.WK1",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-115_Lotus_1-2-3_Worksheet_3.0.WK3",
+    "puid": "x-fmt/115",
+    "formatName": "Lotus 1-2-3 Worksheet",
+    "formatVersion": "3.0",
+    "sizeBytes": 18635,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office/spreadsheet/wk3/PEYTREND.WK3",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-116_Lotus_1-2-3_Worksheet_4-5.wk4",
+    "puid": "x-fmt/116",
+    "formatName": "Lotus 1-2-3 Worksheet",
+    "formatVersion": "4-5",
+    "sizeBytes": 6168,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office/spreadsheet/wk4/testLotus123-lotusftp.wk4",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-117_Lotus_1-2-3_Worksheet_1.0.wks",
+    "puid": "x-fmt/117",
+    "formatName": "Lotus 1-2-3 Worksheet",
+    "formatVersion": "1.0",
+    "sizeBytes": 852,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office/spreadsheet/wks/testLotus123.wks",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-121_Quattro_Pro_Spreadsheet_for_DOS_1-4.WQ1",
+    "puid": "x-fmt/121",
+    "formatName": "Quattro Pro Spreadsheet for DOS",
+    "formatVersion": "1-4",
+    "sizeBytes": 18687,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office/spreadsheet/wq1/KSBASE.WQ1",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-122_Quattro_Pro_Spreadsheet_for_DOS_5.WQ2",
+    "puid": "x-fmt/122",
+    "formatName": "Quattro Pro Spreadsheet for DOS",
+    "formatVersion": "5",
+    "sizeBytes": 20668,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office/spreadsheet/wq2/KSBASE.WQ2",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-148_IBM_DisplayWrite_DCA_Text_File.rft",
+    "puid": "x-fmt/148",
+    "formatName": "IBM DisplayWrite DCA Text File",
+    "formatVersion": "",
+    "sizeBytes": 2851,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office/wordprocessing/IBM_DCA/testIBM_DCA.rft",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-191_AMI_Professional_Document.sam",
+    "puid": "x-fmt/191",
+    "formatName": "AMI Professional Document",
+    "formatVersion": "",
+    "sizeBytes": 3463,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office/wordprocessing/AmiPro12/testAmiPro12.sam",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-263_ZIP_Format.zip",
+    "puid": "x-fmt/263",
+    "formatName": "ZIP Format",
+    "formatVersion": "",
+    "sizeBytes": 57595,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "droid-jhove-datetest-files/images_severalformats_historicaldates.zip",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-265_Tape_Archive_Format.tar",
+    "puid": "x-fmt/265",
+    "formatName": "Tape Archive Format",
+    "formatVersion": "",
+    "sizeBytes": 51200,
+    "sourceRepository": "https://github.com/digital-preservation/droid",
+    "originalPath": "droid-command-line/src/test/resources/testfiles/test.tar",
+    "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-266_GZIP_Format.nmind",
+    "puid": "x-fmt/266",
+    "formatName": "GZIP Format",
+    "formatVersion": "",
+    "sizeBytes": 28731,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "knowledge-management/NovaMind/Curation outline 3.nmind",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-268_BZIP2_Compressed_Archive.bz2",
+    "puid": "x-fmt/268",
+    "formatName": "BZIP2 Compressed Archive",
+    "formatVersion": "",
+    "sizeBytes": 20449,
+    "sourceRepository": "https://github.com/digital-preservation/droid",
+    "originalPath": "droid-command-line/src/test/resources/testfiles/testXmlFile.xml.bz2",
+    "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-274_Microsoft_Word_for_MS-DOS_Document_1.x_-_4.0.wri",
+    "puid": "x-fmt/274",
+    "formatName": "Microsoft Word for MS-DOS Document",
+    "formatVersion": "1.x - 4.0",
+    "sizeBytes": 1536,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office/wordprocessing/MSWrite/testWindowsWrite.wri",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-280_XML_Schema_Definition.xsd",
+    "puid": "x-fmt/280",
+    "formatName": "XML Schema Definition",
+    "formatVersion": "",
+    "sizeBytes": 5946,
+    "sourceRepository": "https://github.com/digital-preservation/droid",
+    "originalPath": "droid-report/src/main/resources/xsd/droidReport.xsd",
+    "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
+    "alsoDetectedAs": [
+      "fmt/101"
+    ]
+  },
+  {
+    "file": "x-fmt-384_Quicktime.mov",
+    "puid": "x-fmt/384",
+    "formatName": "Quicktime",
+    "formatVersion": "",
+    "sizeBytes": 47700,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "video/Quicktime/png.mov",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-387_Exchangeable_Image_File_Format_Uncompressed_2.2.tif",
+    "puid": "x-fmt/387",
+    "formatName": "Exchangeable Image File Format (Uncompressed)",
+    "formatVersion": "2.2",
+    "sizeBytes": 9807680,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "tiff-examples/NANETH_8bpp_grayscale/grayscale_8bpp_wrong_bpptag.tif",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/353"
+    ]
+  },
+  {
+    "file": "x-fmt-392_JP2_JPEG_2000_part_1.jp2",
+    "puid": "x-fmt/392",
+    "formatName": "JP2 (JPEG 2000 part 1)",
+    "formatVersion": "",
+    "sizeBytes": 628496,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "jp2k-test/resolution/balloon_kdu71.jp2",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-393_WordPerfect_for_MS-DOS_Document_5.0.doc",
+    "puid": "x-fmt/393",
+    "formatName": "WordPerfect for MS-DOS Document",
+    "formatVersion": "5.0",
+    "sizeBytes": 5095,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office/wordprocessing/WordPerfect50/testWordPerfect_50.doc",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-394_WordPerfect_for_MS-DOS_Windows_Document_5.1.doc",
+    "puid": "x-fmt/394",
+    "formatName": "WordPerfect for MS-DOS/Windows Document",
+    "formatVersion": "5.1",
+    "sizeBytes": 5212,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office/wordprocessing/WordPerfect51/testWordPerfect_51_52.doc",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-429_MHTML.mht",
+    "puid": "x-fmt/429",
+    "formatName": "MHTML",
+    "formatVersion": "",
+    "sizeBytes": 35934,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "variations/variations/multipart/related/lorem-ipsum.mht",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-44_WordPerfect_for_MS-DOS_Windows_Document_6.x.wpd",
+    "puid": "x-fmt/44",
+    "formatName": "WordPerfect for MS-DOS/Windows Document",
+    "formatVersion": "6.x",
+    "sizeBytes": 4048,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "office/wordprocessing/WordPerfect6/testWordPerfect_6_61.wpd",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-450_Adobe_InDesign_Document_Generic.indd",
+    "puid": "x-fmt/450",
+    "formatName": "Adobe InDesign Document",
+    "formatVersion": "Generic",
+    "sizeBytes": 1503232,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "desktop-publishing/InDesign/Neddy_Flyer_HeatherRyan.indd",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/196"
+    ]
+  }
+]

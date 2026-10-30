@@ -21,7 +21,7 @@ public class ScanFolderTest {
 
     public static void main(String[] args) throws Exception {
         String signatureFile = "/home/teg/eclipse-workspace/droid-light/src/main/resources/DROID_SignatureFile_V124.xml";
-        String scan_folder = "/home/teg/Downloads/";
+        String scan_folder = "/home/teg/eclipse-workspace/droid-light/src/test/resources/pronom-samples";
 
         File sigFile = new File(signatureFile);
         File folder = new File(scan_folder);
