@@ -1502,9 +1502,9 @@ public class DroidSignatureVerifier {
     // ------------------------------------------------------------------
     // DetectionResult is now its own standalone top-level class (see
     // DetectionResult.java), shared with DroidSignatureAhoCorasickVerifier -
-    // a separate, faster (single-pass Aho-Corasick anchor scan) verifier not
-    // currently wired into warc-indexer, kept for possible future use on very
-    // large files specifically, where its speed advantage matters most.
+    // a separate, faster (single-pass Aho-Corasick anchor scan) verifier,
+    // an alternative for very large files specifically, where its speed
+    // advantage matters most.
     // ------------------------------------------------------------------
 
     private final List<InternalSignatureDef> signatures;
@@ -1778,9 +1778,8 @@ public class DroidSignatureVerifier {
 
     /**
      * Same as detect(File), but reads from an InputStream instead - e.g. for use
-     * inside a pipeline (like warc-indexer's own WARCPayloadAnalyzers, which is
-     * where this whole investigation started) where the payload is already
-     * available as a stream rather than a standalone file on disk.
+     * inside a processing pipeline where the payload is already available as a
+     * stream rather than a standalone file on disk.
      *
      * If the stream supports mark/reset (InputStream.markSupported()), this
      * attempts stream.reset() before reading, on the assumption that an earlier
@@ -1839,10 +1838,20 @@ public class DroidSignatureVerifier {
      */
     static FileRegion readBoundedRegion(InputStream in) throws IOException {
         int windowSize = WINDOW_BYTES_FOR_LARGE_FILES;
-        byte[] headBuffer = new byte[windowSize];
+        // Start with a small buffer and double it up to the window size. Allocating (and zeroing) the full
+        // window for every stream costs ~3 ms and a GC pause per call, while the typical payload is only a
+        // few KB to a few hundred KB.
+        byte[] headBuffer = new byte[Math.min(windowSize, 64 * 1024)];
         int headFilled = 0;
         int n;
-        while (headFilled < windowSize && (n = in.read(headBuffer, headFilled, windowSize - headFilled)) != -1) {
+        while (headFilled < windowSize) {
+            if (headFilled == headBuffer.length) {
+                headBuffer = Arrays.copyOf(headBuffer, (int) Math.min(windowSize, headBuffer.length * 2L));
+            }
+            n = in.read(headBuffer, headFilled, headBuffer.length - headFilled);
+            if (n == -1) {
+                break;
+            }
             headFilled += n;
         }
         if (headFilled < windowSize) {
