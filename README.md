@@ -73,7 +73,7 @@ The signatures come from PRONOM. `src/main/resources/DROID_SignatureFile_V124.xm
 - **EOT font, version 1.2**
 - **SVG without an XML declaration**: the PRONOM signatures for SVG require `<?xml version="1.0"` at the very start of the file, so SVG files that begin directly with `<svg` were not recognised. The added signature maps them to the generic SVG format `fmt/91`.
 
-New releases of the signature file are published by PRONOM on the [DROID signature files page](https://www.nationalarchives.gov.uk/aboutapps/pronom/droid-signature-files.htm). To use another release, load it with the `File` or `InputStream` constructor.
+New releases of the signature file are published by PRONOM on the [DROID signature files page](https://pronom.nationalarchives.gov.uk/signature-list). To use another release, load it with the `File` or `InputStream` constructor.
 
 ## Limits
 
@@ -89,3 +89,11 @@ Java 11 or later: `mvn clean install`. The signature file is bundled in the jar.
 ## License
 
 BSD 3-Clause, see [LICENSE](LICENSE). DROID is released under the New BSD License as well. droid-light is an independent implementation that reads the same signature file; it is not affiliated with or endorsed by The National Archives.
+
+## Third-party material
+
+**The signature file.** `DROID_SignatureFile_V124.xml` was created by the PRONOM project of The National Archives, which publishes its content under the [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/). The file is not covered by this project's BSD license. Besides PRONOM's signatures it contains the two signatures added by this project (see above).
+
+> Contains public sector information licensed under the Open Government Licence v3.0.
+
+**DROID.** Parts of the matching behaviour follow [DROID](https://github.com/digital-preservation/droid), the file format identification tool developed by The National Archives and released under the New BSD License.
