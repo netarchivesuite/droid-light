@@ -45,6 +45,36 @@ import java.util.*;
  * "signature_count x window_size" per-signature cost DroidSignatureVerifier
  * still pays for its independent scans is replaced here by one shared pass over
  * the same small windows for ALL signatures at once.
+ *
+ * CORRECTNESS: WHEN THE PRECOMPUTED HITS CANNOT BE TRUSTED
+ * ----------------------------------------------------------
+ * MAX_CANDIDATES_TO_TRY bounds each anchor's HitBuffer to a fixed capacity -
+ * once full, DROID.addBof simply drops later hits and addEof overwrites
+ * earlier ones (both O(1), see HitBuffer's javadoc). Either way, a hit can go
+ * missing - and the fragment-chain verification stage only ever sees whatever
+ * HitBuffer kept, so a dropped/overwritten hit that would have verified is
+ * exactly as good as that signature not matching at all. This was confirmed
+ * concretely by x-fmt/265 (TAR): its anchor is a single 0x00 byte, and a
+ * ustar header's null-padded 100-byte file-name field can put dozens of
+ * zero-byte "hits" before the one real match, overflowing the buffer long
+ * before the real one is reached for a short file name.
+ *
+ * Two independent mechanisms route around this, both ending up at
+ * DroidSignatureVerifier.matchFixedSubSequence - the same live,
+ * distance-bounded (never candidate-COUNT-bounded) search the baseline class
+ * itself uses for every signature:
+ *  - PROACTIVE (shortAnchorBypass, see MIN_ANCHOR_LENGTH_FOR_TRIE): a literal
+ *    anchor under 3 bytes is disproportionately likely to recur often enough
+ *    in ordinary content to overflow, so it is never even added to the trie.
+ *  - REACTIVE (OVERFLOW_SENTINEL, see HitBuffer.overflowed): ANY anchor,
+ *    however long, can still overflow given enough repeats in a particular
+ *    file (e.g. a 4-byte all-zero anchor against a large zero-padded/sparse
+ *    file) - this is detected per scan, per (signature, ByteSequence) pair,
+ *    and handled the same way.
+ * See matchByteSequenceUsingHits for where both are applied. Signatures whose
+ * anchor neither overflows nor is short continue to use the precomputed hits
+ * exactly as before - this only affects the minority that would otherwise be
+ * silently wrong.
  */
 public class DroidSignatureAhoCorasickVerifier {
 
@@ -57,6 +87,17 @@ public class DroidSignatureAhoCorasickVerifier {
      *  large number of times in one file (as signature 280's did).
      */
     static int MAX_CANDIDATES_TO_TRY = 50;
+
+    /** Literal anchors shorter than this are never inserted into the trie at all -
+     *  they go straight into shortAnchorBypass (see its javadoc) and are verified
+     *  the same way an overflowed anchor is (see OVERFLOW_SENTINEL's javadoc). A
+     *  short anchor is disproportionately likely to occur very often in real
+     *  content (a single 0x00 byte matches every null-padding byte in a TAR
+     *  header's file-name field, for instance - exactly what originally exposed
+     *  this whole class of bug for x-fmt/265), so these are routed around
+     *  MAX_CANDIDATES_TO_TRY proactively instead of waiting to detect the overflow
+     *  at scan time. */
+    static final int MIN_ANCHOR_LENGTH_FOR_TRIE = 3;
 
     /** Aho-Corasick trie node - flat 256-entry array transition table (see
      *  AhoCorasickDroidPrototype2 for the earlier standalone version and its
@@ -72,6 +113,13 @@ public class DroidSignatureAhoCorasickVerifier {
     private final List<DroidSignatureVerifier.InternalSignatureDef> signatures;
     private final List<DroidSignatureVerifier.FileFormatDef> formats;
     private final TrieNode trieRoot = new TrieNode();
+
+    // (sigIdx -> set of bsIdx) pairs whose fixed anchor is shorter than
+    // MIN_ANCHOR_LENGTH_FOR_TRIE and was therefore never added to the trie -
+    // matchByteSequenceUsingHits verifies these directly via
+    // DroidSignatureVerifier.matchFixedSubSequence instead of looking up
+    // precomputed hits. Populated once, in the constructor.
+    private final Map<Integer, Set<Integer>> shortAnchorBypass = new HashMap<>();
 
     // Flat-array mapping from a compact "anchor slot" id (assigned during trie
     // construction, one per distinct (sigIdx,bsIdx) pair with a fixed anchor)
@@ -117,6 +165,12 @@ public class DroidSignatureAhoCorasickVerifier {
                 // (confirmed by inspection of the real V111/V124 signature files),
                 // but this is a defensive check, not an assumption.
                 if (literalAnchor == null || literalAnchor.length == 0) continue;
+                if (literalAnchor.length < MIN_ANCHOR_LENGTH_FOR_TRIE) {
+                    // Too short to trust the trie/HitBuffer stage for - verified
+                    // directly instead (see matchByteSequenceUsingHits).
+                    shortAnchorBypass.computeIfAbsent(sigIdx, k -> new HashSet<>()).add(bsIdx);
+                    continue;
+                }
                 boolean isEofDirected = (bs.reference == DroidSignatureVerifier.Reference.EOF);
                 int flatId = anchorCount;
                 addToTrie(literalAnchor, flatId, literalAnchor.length, isEofDirected);
@@ -259,10 +313,23 @@ public class DroidSignatureAhoCorasickVerifier {
             if (buf == null) continue;
             int sigIdx = flatSigIdx[flatId];
             int bsIdx = flatBsIdx[flatId];
-            hits.computeIfAbsent(sigIdx, k -> new HashMap<>()).put(bsIdx, buf.toAscendingList());
+            // An overflowed buffer may be missing exactly the occurrence that
+            // would have verified (see HitBuffer.overflowed's javadoc) - report
+            // that with the OVERFLOW_SENTINEL marker instead of the (possibly
+            // incomplete) positions, so matchByteSequenceUsingHits knows to fall
+            // back to a direct, unbounded-by-count search for this pair.
+            List<Long> value = buf.overflowed ? OVERFLOW_SENTINEL : buf.toAscendingList();
+            hits.computeIfAbsent(sigIdx, k -> new HashMap<>()).put(bsIdx, value);
         }
         return hits;
     }
+
+    /** Identity-compared marker (never a real result list - see scanForAnchors)
+     *  meaning "this (signature, ByteSequence) pair's anchor overflowed its
+     *  HitBuffer during this scan; its candidate positions cannot be trusted to
+     *  be complete". A fresh instance so it can never coincidentally equal (nor
+     *  be mistaken for, via equals()) a genuine, even if empty, positions list. */
+    private static final List<Long> OVERFLOW_SENTINEL = new ArrayList<>(0);
 
     /**
      * Bounded, O(1)-per-insertion holder for up to MAX_CANDIDATES_TO_TRY hit
@@ -290,12 +357,24 @@ public class DroidSignatureAhoCorasickVerifier {
         int nextWriteIndex = 0;
         boolean full = false;
 
+        /** Set the moment a hit is dropped (addBof) or overwrites an older one
+         *  (addEof) - i.e. the moment this buffer can no longer be trusted to hold
+         *  every occurrence of the anchor. Not specific to short anchors: ANY
+         *  anchor, however long, can overflow given a file with enough repeats of
+         *  it (e.g. a 4-byte all-zero anchor in a large zero-padded/sparse file).
+         *  See scanForAnchors/OVERFLOW_SENTINEL for how this is surfaced and
+         *  matchByteSequenceUsingHits for how an overflowed pair is then verified
+         *  directly instead of from these (possibly incomplete) positions. */
+        boolean overflowed = false;
+
         /** BOF-directed: once full, later (larger, less useful) positions are
          *  simply skipped - O(1) either way. */
         void addBof(long pos) {
             if (!full) {
                 positions[count++] = pos;
                 if (count == positions.length) full = true;
+            } else {
+                overflowed = true;
             }
         }
 
@@ -308,6 +387,7 @@ public class DroidSignatureAhoCorasickVerifier {
             } else {
                 positions[nextWriteIndex] = pos;
                 nextWriteIndex = (nextWriteIndex + 1) % positions.length;
+                overflowed = true;
             }
         }
 
@@ -416,9 +496,22 @@ public class DroidSignatureAhoCorasickVerifier {
     }
 
     /** Same structure as DroidSignatureVerifier.matchByteSequence: the fixed
-     *  (first/reference-anchored) SubSequence now uses precomputed hits; any
+     *  (first/reference-anchored) SubSequence normally uses precomputed hits; any
      *  chained (non-first) SubSequences reuse
-     *  DroidSignatureVerifier.matchChainedSubSequence unchanged. */
+     *  DroidSignatureVerifier.matchChainedSubSequence unchanged.
+     *
+     *  Two cases bypass the precomputed hits entirely and instead call
+     *  DroidSignatureVerifier.matchFixedSubSequence directly - the same
+     *  live, distance-bounded (not candidate-count-bounded) search the baseline
+     *  class itself relies on for every signature:
+     *   (1) (sigIdx, bsIdx) is in shortAnchorBypass - its anchor was never added
+     *       to the trie at all (see MIN_ANCHOR_LENGTH_FOR_TRIE's javadoc);
+     *   (2) the precomputed hits for this pair came back as OVERFLOW_SENTINEL -
+     *       its HitBuffer dropped or overwrote at least one occurrence during
+     *       THIS scan (see HitBuffer.overflowed's javadoc), so the stored
+     *       positions cannot be trusted to include the one that verifies.
+     *  Both use the same Math.max(MAX_ANCHOR_SEARCH_DISTANCE, sub.anchorReach)
+     *  distance DroidSignatureVerifier.matchByteSequence itself passes. */
     boolean matchByteSequenceUsingHits(DroidSignatureVerifier.FileRegion region, DroidSignatureVerifier.ByteSequenceDef bs,
                                         int sigIdx, int bsIdx,
                                         Map<Integer, Map<Integer, List<Long>>> anchorHits) {
@@ -431,10 +524,20 @@ public class DroidSignatureAhoCorasickVerifier {
         for (DroidSignatureVerifier.SubSequenceDef sub : subs) {
             long result;
             if (first) {
+                Set<Integer> shortBsIdx = shortAnchorBypass.get(sigIdx);
+                boolean bypass = shortBsIdx != null && shortBsIdx.contains(bsIdx);
                 List<Long> hits = null;
-                Map<Integer, List<Long>> bySig = anchorHits.get(sigIdx);
-                if (bySig != null) hits = bySig.get(bsIdx);
-                result = matchFixedSubSequenceUsingHits(region, sub, referencePosition, backward, hits);
+                if (!bypass) {
+                    Map<Integer, List<Long>> bySig = anchorHits.get(sigIdx);
+                    if (bySig != null) hits = bySig.get(bsIdx);
+                    if (hits == OVERFLOW_SENTINEL) bypass = true;
+                }
+                if (bypass) {
+                    long maxAnchorSearchDistance = Math.max(DroidSignatureVerifier.MAX_ANCHOR_SEARCH_DISTANCE, sub.anchorReach);
+                    result = DroidSignatureVerifier.matchFixedSubSequence(region, sub, referencePosition, backward, maxAnchorSearchDistance);
+                } else {
+                    result = matchFixedSubSequenceUsingHits(region, sub, referencePosition, backward, hits);
+                }
             } else {
                 result = DroidSignatureVerifier.matchChainedSubSequence(region, sub, cursor);
             }
