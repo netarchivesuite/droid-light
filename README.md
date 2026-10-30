@@ -1,124 +1,91 @@
 # droid-light
 
-A faster, standalone reimplementation of [DROID](https://github.com/digital-preservation/droid)'s core binary
-signature detection - built for scanning WARC files at scale with [warc-indexer](https://github.com/netarchivesuite/warc-indexer),
-where a single pathological file should never be able to hang or crash a batch job.
+droid-light is a small Java library that identifies file formats from the "magic bytes" inside a file, using the signature file of the [PRONOM](https://www.nationalarchives.gov.uk/PRONOM/) project, the file-format registry of The National Archives (UK) that [DROID](https://github.com/digital-preservation/droid) is built on.
 
-It provides two interchangeable detector classes with the same public API, and a signature-file-driven
-extension/MIME-type fallback detector.
-
-## Usage
-
-Both `DroidSignatureVerifier` and `DroidSignatureAhoCorasickVerifier` share the exact same shape:
+Give it a file or a stream and it tells you which format it is: the PRONOM identifier (PUID), the format name, the MIME type and the version.
 
 ```java
-// Construct once - this parses the DROID signature file (a few hundred ms to ~1.5s,
-// depending on its size). Reuse the same instance for every file/record you scan.
+// Create once - reading the signature file takes a second or two - and reuse it, also from many threads.
 DroidSignatureVerifier verifier = new DroidSignatureVerifier(new File("DROID_SignatureFile_V124.xml"));
-// or: DroidSignatureAhoCorasickVerifier verifier = new DroidSignatureAhoCorasickVerifier(sigFile);
 
-// Then call detect() as many times as you like:
-DetectionResult[] results = verifier.detect(new File("somefile.pdf"));
-
+DetectionResult[] results = verifier.detect(new File("somefile.pdf"));   // or verifier.detect(inputStream)
 if (results.length > 0) {
-    System.out.println(results[0]); // top candidate: "fmt/18  Acrobat PDF 1.4 - Portable Document Format  [application/pdf]"
+    System.out.println(results[0]);  // fmt/18  Acrobat PDF 1.4 - Portable Document Format  [application/pdf; version=1.4]
 }
 ```
 
-`detect()` returns up to 10 candidate `DetectionResult`s, **index 0 being the best guess** - the result(s) that
-survived DROID's own priority-resolution rules (`HasPriorityOverFileFormatID`). Any additional raw matches that
-lost out to a higher-priority format are appended after, as lower-confidence "also matched" candidates. An empty
-array means no binary signature matched.
+## Why this library exists
 
-Each `DetectionResult` carries `code` (PUID), `text` (format name), `mimeType`, and `version` - all read directly
-from the signature file's `FileFormat` entry. For indexing into Solr as `content_type_droid` (matching real
-DROID's own reporting format), use `getMimeTypeWithVersion()`:
+DROID checks a signature that consists of several byte patterns separated by flexible gaps with nested loops that try every possible position of every pattern. For some files the number of combinations explodes, and DROID keeps running at 100% CPU for practically forever. This was reported to the DROID project: [DROID hangs indefinitely (100% CPU) on WebP image](https://github.com/digital-preservation/droid/issues/1663). A tool that identifies files unattended, in large numbers, cannot afford a single file that never finishes.
 
-```java
-results[0].getMimeTypeWithVersion(); // "text/html; version=5", or "text/html" if there's no version
-```
+droid-light reads the same signature file and applies the same matching rules for binary signatures, but it never tries all combinations: every pattern is searched for in a limited window, and the first fitting position is used for the next pattern in the chain. The work per file is therefore bounded, whatever the content.
 
-### File or InputStream - both are accepted
+## The result
 
-```java
-DetectionResult[] r1 = verifier.detect(new File("/path/to/file.pdf"));
+`detect()` returns up to 10 candidates, **index 0 being the best match**. Formats that DROID's priority rules prefer come first; an empty array means that no signature matched.
 
-InputStream in = ...; // e.g. a WARC record's payload stream
-DetectionResult[] r2 = verifier.detect(in);
-```
+A `DetectionResult` holds the PUID (`getCode()`), the format name (`getText()`), the MIME type and the version, all taken from the signature file. There are three ways to get the MIME type:
 
-`detect(InputStream)` does **not** close the stream - the caller retains ownership. If the stream supports
-`mark()`/`reset()` (e.g. `TikaInputStream`, which `warc-indexer` already hands this code in practice), it is
-reset to the start before reading, so it's safe to call after something else has already peeked at the stream.
-If the stream doesn't support `mark`/`reset`, reading starts from wherever the stream's current position is.
+| Method | Returns |
+|---|---|
+| `getPrimaryMimeTypeWithVersion()` | e.g. `"text/html; version=5"`. **`null` when the signature file has no MIME type for the format**, which is the case for about two thirds of the formats that have a signature (AVIF, for example). |
+| `getPrimaryMimeType()` | the same without the version. When the signature file lists several MIME types, the first one. |
+| `getPrimaryMimeTypeWithVersionOrName()` | **never null**: the MIME type with version when there is one, otherwise the format name, e.g. `"AV1 Image File Format"`. Use it when a value is always needed, for example in a report or a search index. A returned name is not a valid MIME type. |
 
-Both entry points are safe on arbitrarily large input (multi-GB files/streams) without loading the whole thing
-into memory - see [Large files](#large-files) below.
+## Files, streams and large files
 
-### Extension / MIME-type fallback
+- `detect(File)` and `detect(InputStream)` do the same. A stream is not closed. If it supports `mark()`/`reset()` it is reset to its start before reading; otherwise reading starts at its current position.
+- Files up to 100 MB are read completely. Larger files, and streams longer than 40 MB, are examined through a window of 20 MB at the start and 20 MB at the end, because signatures look at the beginning and the end of a file. Memory use stays small and predictable, from a few bytes up to many gigabytes. A stream is still read to its end, because a stream cannot skip ahead.
 
-For content DROID can only ever identify by filename or by an HTTP `Content-Type` header - because it genuinely
-has no binary signature at all (e.g. plain text files) - use `TentativeFormatDetector`. DROID's own internal
-term for this is a **"tentative format"**: any signature-file entry with zero binary signatures.
+## Faster when you know the MIME type
+
+If you already know the MIME type, for example from an HTTP `Content-Type` header, you can check only the signatures of the formats that declare that type (between 1 and about 50 signatures instead of all of them). Such a header can be wrong, so always fall back to the full scan:
 
 ```java
-new TentativeFormatDetector(new File("DROID_SignatureFile_V124.xml")); // constructor loads the mapping once
-
-FormatInfo byName = TentativeFormatDetector.detectFromFileName("/some/path/report.csv");
-FormatInfo byMime = TentativeFormatDetector.detectFromMimeType("text/plain; charset=UTF-8");
+DetectionResult[] r = new DetectionResult[0];
+if (verifier.getSignatureCountForMimeType(contentType) > 0) {
+    r = verifier.detectCommonMimeTypes(stream, contentType);   // an empty array if nothing matched
+}
+if (r.length == 0) {
+    r = verifier.detect(stream);                               // the full scan
+}
 ```
 
-This class is fully independent of the two `DetectFormat` classes above (separate signature-file parsing, no
-shared code), and only ever returns a result for formats with **no** binary signature - it will never compete
-with or override a real binary-signature match.
+`getSignatureCountForMimeType()` returns 0 for types without any binary signature (CSS and JavaScript, for example) and for unknown types; skipping the shortcut then saves reading the stream twice.
 
-## The two detection algorithms
+## The two detector classes
 
-`DroidSignatureVerifier` and `DroidSignatureAhoCorasickVerifier` implement the **same** DROID signature semantics
-(offset windows, fragment chains, endianness, multi-`ByteSequence` AND logic, priority resolution) and return
-identical results on every file tested so far - they differ only in *how* they search for a signature's anchor
-byte pattern, which is where their performance characteristics diverge.
+There are two classes with the same purpose. Both read the same signature file, apply the same rules and give the same answer for ordinary files.
 
-### DroidSignatureVerifier - sequential per-signature search
+| | `DroidSignatureVerifier` | `DroidSignatureAhoCorasickVerifier` |
+|---|---|---|
+| How it searches | checks the signatures one after another, each in a small window | looks for the start patterns of all signatures in one pass ([Aho-Corasick](https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm)), then checks the candidates |
+| Created from | a `File` or an `InputStream` | a `File` |
+| `detect(File)`, `detect(InputStream)` | yes | yes |
+| `detectCommonMimeTypes()` | yes | no |
 
-For each of DROID's ~2,000+ signatures, independently: search a small window near the file's start or end
-(bounded by `MAX_ANCHOR_SEARCH_DISTANCE`) for that signature's anchor byte pattern, then verify its fragment
-chain. This is conceptually similar to what DROID itself does, minus the specific bug (an unbounded, combinatorial
-fragment-matching search) that caused the original hang this project set out to fix.
+Use `DroidSignatureVerifier` unless you have measured that the other one is faster for your data; which one is faster depends on the kind of files. They can differ only in rare cases: a signature that has no distance limit at all in the signature file (a marker that may occur anywhere) is searched with a different limit by each class.
 
-Cost is roughly `signature_count x window_size` - **independent of file size**, since the window per signature
-is small and fixed regardless of whether the file is 6 MB or 6 GB.
+## The signature file
 
-### DroidSignatureAhoCorasickVerifier - a single combined decision tree
+The signatures come from PRONOM. `src/main/resources/DROID_SignatureFile_V124.xml` is PRONOM's DROID signature file V124 (2,258 signatures) plus two signatures that PRONOM does not have yet, 2,260 in total:
 
-Instead of 2,000+ independent searches, every signature's anchor pattern is compiled **once**, at construction
-time, into a single combined [Aho-Corasick](https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm) trie -
-a decision-tree automaton that finds candidate matches for **all** signatures simultaneously in one pass over
-the input, rather than one pass per signature.
+- **EOT font, version 1.2**
+- **SVG without an XML declaration**: the PRONOM signatures for SVG require `<?xml version="1.0"` at the very start of the file, so SVG files that begin directly with `<svg` were not recognised. The added signature maps them to the generic SVG format `fmt/91`.
 
-Two important details:
+New releases of the signature file are published by PRONOM on the [DROID signature files page](https://www.nationalarchives.gov.uk/aboutapps/pronom/droid-signature-files.htm). To use another release, load it with the `File` or `InputStream` constructor.
 
-- **It scans the same bounded head/tail windows as `DroidSignatureVerifier`, not the whole file.** Since fragment
-  verification can only ever succeed within those windows anyway (anything further away can't be checked), there
-  is no benefit to scanning further - and doing so would cost real time on large files for no gain.
-- **It reuses `DroidSignatureVerifier`'s own signature-file parser and fragment-verification methods directly**
-  (`parseSignatures`, `verifyRightFragmentChain`, `verifyLeftFragmentChain`, `matchChainedSubSequence`,
-  `readBoundedRegion`, `applyPriorityResolution`). Only the *anchor-finding* stage is different - the trie
-  produces a short list of candidate positions per signature, and those candidates are then verified using
-  exactly the same logic `DroidSignatureVerifier` uses. This is deliberate: a correctness fix made in one class's
-  shared methods (e.g. the offset-semantics fix, or the DROID bitmask syntax fix) automatically applies to both
-  detectors, with nothing to keep in sync by hand.
+## Limits
 
-In practice this makes `DroidSignatureAhoCorasickVerifier` faster on small-to-medium files (one shared pass
-beats many independent small ones), while `DroidSignatureVerifier` can be faster on very large files with
-"noisy" repetitive content, where many short/common anchor byte patterns coincidentally recur often within the
-scanned window. Both are bounded and safe either way - which one is faster for a given corpus is worth measuring
-rather than assuming.
+- **No guessing.** Only binary signatures are used, never file extensions. Formats without a binary signature (plain text, CSS, JavaScript and others) are not identified.
+- **No container signatures.** DROID also looks inside ZIP and OLE2 containers to tell, for example, a Word document from a spreadsheet. droid-light does not; such files are reported by their binary signature only.
+- **Damaged or truncated files** are not identified when the signature needs something at the end of the file (the `%%EOF` of a PDF, the end of a PNG, the end marker of a JPEG). An empty result is the correct answer then.
+- **Search distance.** A pattern is looked for within the first or last 3,000 bytes of the file. Signatures that allow a larger distance in the signature file are searched that far; the end marker of a JPEG, for example, may be followed by up to 131,072 bytes of other data.
 
-## Large files
+## Building
 
-Neither class loads a whole file into memory. Above a size threshold (`LARGE_FILE_THRESHOLD_BYTES`, default
-100 MB), only a bounded **head** and **tail** window (`WINDOW_BYTES_FOR_LARGE_FILES`, default 20 MB each) are
-read - via seeking for a `File`, or a streaming head-buffer-plus-circular-tail-buffer for an `InputStream` whose
-total length isn't known in advance. This is what lets both classes run safely, with a small and predictable
-memory footprint, against files from a few KB up to many GB, without ever risking an `OutOfMemoryError`.
+Java 11 or later: `mvn clean install`. The signature file is bundled in the jar.
+
+## License
+
+BSD 3-Clause, see [LICENSE](LICENSE). DROID is released under the New BSD License as well. droid-light is an independent implementation that reads the same signature file; it is not affiliated with or endorsed by The National Archives.
