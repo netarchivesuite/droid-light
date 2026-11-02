@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FFSignatureFile DateCreated="2026-10-30T00:00:00" Version="1" xmlns="http://www.nationalarchives.gov.uk/pronom/SignatureFile">
+    <InternalSignatureCollection>
+        <InternalSignature ID="1" Specificity="Specific">
+            <ByteSequence Reference="BOFoffset">
+                <SubSequence Position="1" SubSeqMinOffset="0" SubSeqMaxOffset="2000">
+                    <Sequence>00000000</Sequence>
+                    <RightFragment MaxOffset="0" MinOffset="0" Position="1">AABB</RightFragment>
+                </SubSequence>
+            </ByteSequence>
+        </InternalSignature>
+    </InternalSignatureCollection>
+    <FileFormatCollection>
+        <FileFormat ID="1" Name="Synthetic Overflow Test Format" PUID="test-fmt/1">
+            <InternalSignatureID>1</InternalSignatureID>
+            <Extension>bin</Extension>
+        </FileFormat>
+    </FileFormatCollection>
+</FFSignatureFile>
