@@ -14,6 +14,7 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -51,6 +52,11 @@ import org.junit.jupiter.api.TestFactory;
  * not follow the naming rule fails {@link #everySampleFileNameStartsWithAPuidPrefix()}
  * instead of being skipped silently. <code>MANIFEST.json</code> and hidden files (a
  * name starting with a dot) are not samples and are ignored.
+ *
+ * <p>The folder holds exactly one sample per format: two files with the same PUID
+ * prefix fail {@link #everyFormatHasExactlyOneSample()}. A variant of a format that
+ * tests something different does not belong in this folder; it goes in a folder of
+ * its own, with the reason written next to it.
  *
  * <h2>Special cases</h2>
  * A few real files are matched by more than one format. PRONOM resolves this with
@@ -132,6 +138,27 @@ public class PronomSamplesDetectionTest {
             fail(badNames.size() + " file(s) in " + sampleFolder().getAbsolutePath()
                     + " do not start with a PUID prefix like 'fmt-477_' or 'x-fmt-88_' "
                     + "(the file name is the only source of the expected result): " + badNames);
+        }
+    }
+
+    /** One sample per format: no two files in the folder may carry the same PUID prefix. */
+    @Test
+    public void everyFormatHasExactlyOneSample() {
+        Map<String, List<String>> namesByPuid = new TreeMap<>();
+        for (File file : sampleFiles()) {
+            String puid = expectedPuid(file.getName());
+            if (puid != null) {
+                namesByPuid.computeIfAbsent(puid, key -> new ArrayList<>()).add(file.getName());
+            }
+        }
+        List<String> duplicates = namesByPuid.entrySet().stream()
+                .filter(entry -> entry.getValue().size() > 1)
+                .map(entry -> entry.getKey() + " -> " + entry.getValue())
+                .collect(Collectors.toList());
+        if (!duplicates.isEmpty()) {
+            fail("More than one sample for the same format in " + sampleFolder().getAbsolutePath()
+                    + " (a variant that tests something different belongs in its own folder, "
+                    + "with the reason written next to it): " + duplicates);
         }
     }
 

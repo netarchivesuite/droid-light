@@ -1,5 +1,19 @@
 [
   {
+    "file": "fmt-100_Hypertext_Markup_Language_4.01.html",
+    "puid": "fmt/100",
+    "formatName": "Hypertext Markup Language",
+    "formatVersion": "4.01",
+    "sizeBytes": 202,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-html-module/src/test/resources/test-documents/testHTML_script_in_body.html",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/96"
+    ]
+  },
+  {
     "file": "fmt-101_Extensible_Markup_Language_1.0.xml",
     "puid": "fmt/101",
     "formatName": "Extensible Markup Language",
@@ -8,6 +22,109 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "knowledge-management/Mind Manager/COPAC.UKNUC.xml",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1015_Statistical_Analysis_System_Data_Windows_Generic.sas7bdat",
+    "puid": "fmt/1015",
+    "formatName": "Statistical Analysis System Data (Windows)",
+    "formatVersion": "Generic",
+    "sizeBytes": 131072,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-code-module/src/test/resources/test-documents/test-columnar.sas7bdat",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-102_Extensible_Hypertext_Markup_Language_1.0.html",
+    "puid": "fmt/102",
+    "formatName": "Extensible Hypertext Markup Language",
+    "formatVersion": "1.0",
+    "sizeBytes": 764,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-html-module/src/test/resources/test-documents/boilerplate-whitespace.html",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/101",
+      "fmt/96"
+    ]
+  },
+  {
+    "file": "fmt-1021_Statistical_Analysis_System_Data_Windows_9.3.sas7bdat",
+    "puid": "fmt/1021",
+    "formatName": "Statistical Analysis System Data (Windows)",
+    "formatVersion": "9.3",
+    "sizeBytes": 17408,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-code-module/src/test/resources/test-documents/testSAS.sas7bdat",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/1015"
+    ]
+  },
+  {
+    "file": "fmt-1036_Stata_Data_DTA_Format_117.dta",
+    "puid": "fmt/1036",
+    "formatName": "Stata Data (DTA) Format",
+    "formatVersion": "117",
+    "sizeBytes": 1207,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testStataDTA.dta",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1040_DirectDraw_Surface.dds",
+    "puid": "fmt/1040",
+    "formatName": "DirectDraw Surface",
+    "formatVersion": "",
+    "sizeBytes": 132,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/unimplemented_pixel_format.dds",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1041_HDF_1-4.hdf",
+    "puid": "fmt/1041",
+    "formatName": "HDF",
+    "formatVersion": "1-4",
+    "sizeBytes": 542529,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-extended/tika-parser-scientific-module/src/test/resources/test-documents/test.hdf",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1063_Leaf_Mosaic_Raw_Image.mos",
+    "puid": "fmt/1063",
+    "formatName": "Leaf Mosaic Raw Image",
+    "formatVersion": "",
+    "sizeBytes": 564,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/resources/test-documents/testMOS.mos",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/353"
+    ]
+  },
+  {
+    "file": "fmt-1083_Hangul_Word_Processor_Document_3.hwp",
+    "puid": "fmt/1083",
+    "formatName": "Hangul Word Processor Document",
+    "formatVersion": "3",
+    "sizeBytes": 9287,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/resources/test-documents/testHWP_3.0.hwp",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
   },
   {
@@ -22,6 +139,18 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-109_Macromedia_Flash_6.swf",
+    "puid": "fmt/109",
+    "formatName": "Macromedia Flash",
+    "formatVersion": "6",
+    "sizeBytes": 21054,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/test1.swf",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
     "file": "fmt-11_Portable_Network_Graphics_1.0.png",
     "puid": "fmt/11",
     "formatName": "Portable Network Graphics",
@@ -30,6 +159,30 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "office/spreadsheet/wq2/vlookup-compat-demo/lo-recalc.png",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-110_Macromedia_Flash_7.swf",
+    "puid": "fmt/110",
+    "formatName": "Macromedia Flash",
+    "formatVersion": "7",
+    "sizeBytes": 51562,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/test3.swf",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1101_High_Efficiency_Image_File_Format.heic",
+    "puid": "fmt/1101",
+    "formatName": "High Efficiency Image File Format",
+    "formatVersion": "",
+    "sizeBytes": 3203,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/resources/test-documents/testHEIC_livePhoto.heic",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
   },
   {
@@ -52,6 +205,102 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "office-examples/powerpoint4-mac/ecdl paris.ppt",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1129_PDF_2.0_-_Portable_Document_Format_2.0.pdf",
+    "puid": "fmt/1129",
+    "formatName": "PDF 2.0 - Portable Document Format",
+    "formatVersion": "2.0",
+    "sizeBytes": 290327,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testMicrosoftIRMServices.pdf",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-115_Windows_Bitmap_2.0.bmp",
+    "puid": "fmt/115",
+    "formatName": "Windows Bitmap",
+    "formatVersion": "2.0",
+    "sizeBytes": 8986,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/bmp/g/pal8os2.bmp",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-116_Windows_Bitmap_3.0.bmp",
+    "puid": "fmt/116",
+    "formatName": "Windows Bitmap",
+    "formatVersion": "3.0",
+    "sizeBytes": 1086,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/bmp/g/pal1.bmp",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-117_Windows_Bitmap_3.0_NT.bmp",
+    "puid": "fmt/117",
+    "formatName": "Windows Bitmap",
+    "formatVersion": "3.0 NT",
+    "sizeBytes": 16450,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/bmp/g/rgb16-565.bmp",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-118_Windows_Bitmap_4.0.bmp",
+    "puid": "fmt/118",
+    "formatName": "Windows Bitmap",
+    "formatVersion": "4.0",
+    "sizeBytes": 1202,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/eps/1.bmp",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1185_Apple_Icon_Image_Format.icns",
+    "puid": "fmt/1185",
+    "formatName": "Apple Icon Image Format",
+    "formatVersion": "",
+    "sizeBytes": 2472,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/resources/test-documents/testICNS.icns",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-119_Windows_Bitmap_5.0.bmp",
+    "puid": "fmt/119",
+    "formatName": "Windows Bitmap",
+    "formatVersion": "5.0",
+    "sizeBytes": 9338,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/bmp/g/pal8v5.bmp",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1197_MyISAM_Indexes_File.MYI",
+    "puid": "fmt/1197",
+    "formatName": "MyISAM Indexes File",
+    "formatVersion": "",
+    "sizeBytes": 1024,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testMYSQL.MYI",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
   },
   {
@@ -78,6 +327,59 @@
     "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
     "alsoDetectedAs": [
       "fmt/101"
+    ]
+  },
+  {
+    "file": "fmt-1215_Reduced_Resolution_Dataset.hfa",
+    "puid": "fmt/1215",
+    "formatName": "Reduced Resolution Dataset",
+    "formatVersion": "",
+    "sizeBytes": 1024,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testHFA.hfa",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [],
+    "extensionException": "Extension exception: the file starts with the Erdas HFA container tag 'EHFA_HEADER_TAG', which the fmt/1215 signature matches; PRONOM lists only .rrd, this sample is a .hfa."
+  },
+  {
+    "file": "fmt-1218_SubRip_Subtitle_File.srt",
+    "puid": "fmt/1218",
+    "formatName": "SubRip Subtitle File",
+    "formatVersion": "",
+    "sizeBytes": 658,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/test_subrip.srt",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-123_Encapsulated_PostScript_File_Format_2.0.eps",
+    "puid": "fmt/123",
+    "formatName": "Encapsulated PostScript File Format",
+    "formatVersion": "2.0",
+    "sizeBytes": 26367,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/eps/non_zero_bb.eps",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/406"
+    ]
+  },
+  {
+    "file": "fmt-124_Encapsulated_PostScript_File_Format_3.eps",
+    "puid": "fmt/124",
+    "formatName": "Encapsulated PostScript File Format",
+    "formatVersion": "3",
+    "sizeBytes": 81368,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/eps/pil_sample_cmyk.eps",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/408"
     ]
   },
   {
@@ -121,6 +423,45 @@
     ]
   },
   {
+    "file": "fmt-131_Advanced_Systems_Format.asf",
+    "puid": "fmt/131",
+    "formatName": "Advanced Systems Format",
+    "formatVersion": "",
+    "sizeBytes": 62439,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testASF.asf",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-133_Windows_Media_Video.wmv",
+    "puid": "fmt/133",
+    "formatName": "Windows Media Video",
+    "formatVersion": "",
+    "sizeBytes": 554297,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testWMV_WMV2.wmv",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/131",
+      "fmt/132"
+    ]
+  },
+  {
+    "file": "fmt-134_MPEG_1_2_Audio_Layer_3.mp3",
+    "puid": "fmt/134",
+    "formatName": "MPEG 1/2 Audio Layer 3",
+    "formatVersion": "",
+    "sizeBytes": 8255,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/resources/test-documents/testMP3mpeg2.mp3",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
     "file": "fmt-1355_WARC_1.0.warc",
     "puid": "fmt/1355",
     "formatName": "WARC",
@@ -131,6 +472,49 @@
     "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
     "alsoDetectedAs": [
       "fmt/289"
+    ]
+  },
+  {
+    "file": "fmt-136_OpenDocument_Text_1.0.odt",
+    "puid": "fmt/136",
+    "formatName": "OpenDocument Text",
+    "formatVersion": "1.0",
+    "sizeBytes": 18304,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/resources/test-documents/testNPEOpenDocument.odt",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/263",
+      "fmt/135",
+      "fmt/290"
+    ]
+  },
+  {
+    "file": "fmt-1395_AutoCAD_Drawing_2018_2019_2020_2021.dwg",
+    "puid": "fmt/1395",
+    "formatName": "AutoCAD Drawing",
+    "formatVersion": "2018/2019/2020/2021",
+    "sizeBytes": 158593,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-cad-module/src/test/resources/test-documents/testDWG-AC1032.dwg",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-141_Waveform_Audio_PCMWAVEFORMAT.wav",
+    "puid": "fmt/141",
+    "formatName": "Waveform Audio (PCMWAVEFORMAT)",
+    "formatVersion": "",
+    "sizeBytes": 3884,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/resources/test-documents/testWAV.wav",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/6",
+      "fmt/1886"
     ]
   },
   {
@@ -158,6 +542,42 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-1454_Web_Video_Text_Tracks_WebVTT_Format.vtt",
+    "puid": "fmt/1454",
+    "formatName": "Web Video Text Tracks (WebVTT) Format",
+    "formatVersion": "",
+    "sizeBytes": 179,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testWebVTT_simple.vtt",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1484_JPEG_XL_Codestream.jxl",
+    "puid": "fmt/1484",
+    "formatName": "JPEG XL Codestream",
+    "formatVersion": "",
+    "sizeBytes": 81,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/resources/test-documents/testJXL.jxl",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1485_JPEG_XL.jxl",
+    "puid": "fmt/1485",
+    "formatName": "JPEG XL",
+    "formatVersion": "",
+    "sizeBytes": 83814,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/resources/test-documents/testJXL_ISOBMFF.jxl",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
     "file": "fmt-15_Acrobat_PDF_1.1_-_Portable_Document_Format_1.1.pdf",
     "puid": "fmt/15",
     "formatName": "Acrobat PDF 1.1 - Portable Document Format",
@@ -167,6 +587,20 @@
     "originalPath": "pdfCabinetOfHorrors/javascript.pdf",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1507_Exchangeable_Image_File_Format_Compressed_2.3.x.jpg",
+    "puid": "fmt/1507",
+    "formatName": "Exchangeable Image File Format (Compressed)",
+    "formatVersion": "2.3.x",
+    "sizeBytes": 48197,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/ultrahdr.jpg",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/41"
+    ]
   },
   {
     "file": "fmt-151_JPX_JPEG_2000_part_2.jpf",
@@ -191,6 +625,18 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-1671_Z_Compressed_Data.Z",
+    "puid": "fmt/1671",
+    "formatName": "Z Compressed Data",
+    "formatVersion": "",
+    "sizeBytes": 103647,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pkg-module/src/test/resources/test-documents/test-documents.tar.Z",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
     "file": "fmt-17_Acrobat_PDF_1.3_-_Portable_Document_Format_1.3.pdf",
     "puid": "fmt/17",
     "formatName": "Acrobat PDF 1.3 - Portable Document Format",
@@ -199,6 +645,18 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "ebooks/calibre 0.9.0/lorem-ipsum.pdf",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1742_Hierarchical_File_System_Plus.dmg",
+    "puid": "fmt/1742",
+    "formatName": "Hierarchical File System Plus",
+    "formatVersion": "",
+    "sizeBytes": 524288,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pkg-module/src/test/resources/test-documents/test-documents.dmg",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
   },
   {
@@ -235,6 +693,43 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-1812_Audio_Data_Transport_Stream.aac",
+    "puid": "fmt/1812",
+    "formatName": "Audio Data Transport Stream",
+    "formatVersion": "",
+    "sizeBytes": 779,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testAAC.aac",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1835_Archiver_Format.ar",
+    "puid": "fmt/1835",
+    "formatName": "Archiver Format",
+    "formatVersion": "",
+    "sizeBytes": 116,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pkg-module/src/test/resources/test-documents/testARofText.ar",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [],
+    "extensionException": "Extension exception: the file starts with the Unix ar magic '!<arch>' followed by a member header; PRONOM lists no .ar extension for fmt/1835."
+  },
+  {
+    "file": "fmt-1844_GNU_Image_Manipulation_Program_Palette_File.gpl",
+    "puid": "fmt/1844",
+    "formatName": "GNU Image Manipulation Program Palette File",
+    "formatVersion": "",
+    "sizeBytes": 240,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/custom_gimp_palette.gpl",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
     "file": "fmt-189_Microsoft_Office_Open_XML_2007_onwards.docx",
     "puid": "fmt/189",
     "formatName": "Microsoft Office Open XML",
@@ -256,6 +751,18 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "pdfCabinetOfHorrors/test_fontArialNotEmbedded.pdf",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1917_BigTIFF.tif",
+    "puid": "fmt/1917",
+    "formatName": "BigTIFF",
+    "formatVersion": "",
+    "sizeBytes": 1148,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testBigTIFF.tif",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
   },
   {
@@ -296,6 +803,18 @@
     ]
   },
   {
+    "file": "fmt-199_MPEG-4_Media_File.mp4",
+    "puid": "fmt/199",
+    "formatName": "MPEG-4 Media File",
+    "formatVersion": "",
+    "sizeBytes": 200,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/resources/test-documents/testMP4_udtaLocation.mp4",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
     "file": "fmt-20_Acrobat_PDF_1.6_-_Portable_Document_Format_1.6.pdf",
     "puid": "fmt/20",
     "formatName": "Acrobat PDF 1.6 - Portable Document Format",
@@ -305,6 +824,20 @@
     "originalPath": "office-examples/OpenOffice.org 3.2.0 OSX/pdf-features/simple-annotated-in-adobe-x.pdf",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-203_Ogg_Vorbis_Codec_Compressed_Multimedia_File.ogg",
+    "puid": "fmt/203",
+    "formatName": "Ogg Vorbis Codec Compressed Multimedia File",
+    "formatVersion": "",
+    "sizeBytes": 4241,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testVORBIS.ogg",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/944"
+    ]
   },
   {
     "file": "fmt-2050_PDF_UA_Portable_Document_Format_1.pdf",
@@ -320,6 +853,85 @@
     ]
   },
   {
+    "file": "fmt-2055_Apple_Mail_EMLX_Format.emlx",
+    "puid": "fmt/2055",
+    "formatName": "Apple Mail EMLX Format",
+    "formatVersion": "",
+    "sizeBytes": 811,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-mail-module/src/test/resources/test-documents/testEMLX_single_part_html.emlx",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/96",
+      "fmt/950"
+    ]
+  },
+  {
+    "file": "fmt-2062_AV1_Image_File_Format.avif",
+    "puid": "fmt/2062",
+    "formatName": "AV1 Image File Format",
+    "formatVersion": "",
+    "sizeBytes": 185,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/resources/test-documents/testAVIF.avif",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-2094_M4A_Audio.m4a",
+    "puid": "fmt/2094",
+    "formatName": "M4A Audio",
+    "formatVersion": "",
+    "sizeBytes": 464,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/resources/test-documents/testMP4_drm.m4a",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/199"
+    ]
+  },
+  {
+    "file": "fmt-211_Kodak_Photo_CD_Image.pcd",
+    "puid": "fmt/211",
+    "formatName": "Kodak Photo CD Image",
+    "formatVersion": "",
+    "sizeBytes": 788480,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/hopper.pcd",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-244_Keyhole_Markup_Language_XML.kml",
+    "puid": "fmt/244",
+    "formatName": "Keyhole Markup Language (XML)",
+    "formatVersion": "",
+    "sizeBytes": 36073,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testKML.kml",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/101"
+    ]
+  },
+  {
+    "file": "fmt-255_DjVu_File_Format.djvu",
+    "puid": "fmt/255",
+    "formatName": "DjVu File Format",
+    "formatVersion": "",
+    "sizeBytes": 89,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testDJVU.djvu",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
     "file": "fmt-276_Acrobat_PDF_1.7_-_Portable_Document_Format_1.7.pdf",
     "puid": "fmt/276",
     "formatName": "Acrobat PDF 1.7 - Portable Document Format",
@@ -328,6 +940,42 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "pdfCabinetOfHorrors/text_only_fontsEmbeddedSubset.pdf",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-279_FLAC_Free_Lossless_Audio_Codec_1.2.1.flac",
+    "puid": "fmt/279",
+    "formatName": "FLAC (Free Lossless Audio Codec)",
+    "formatVersion": "1.2.1",
+    "sizeBytes": 10604,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testFLAC.flac",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-282_netCDF-3_Classic.nc",
+    "puid": "fmt/282",
+    "formatName": "netCDF-3 Classic",
+    "formatVersion": "",
+    "sizeBytes": 2767916,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-extended/tika-parser-scientific-module/src/test/resources/test-documents/sresa1b_ncar_ccsm3_0_run1_200001.nc",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-284_Gridded_Binary_1.0.grb",
+    "puid": "fmt/284",
+    "formatName": "Gridded Binary",
+    "formatVersion": "1.0",
+    "sizeBytes": 1362900,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-extended/tika-parser-scientific-module/src/test/resources/test-documents/GLDAS_CLM10SUBP_3H.A19790202.0000.001.grb",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
   },
   {
@@ -371,6 +1019,21 @@
     ]
   },
   {
+    "file": "fmt-293_OpenDocument_Presentation_1.2.odp",
+    "puid": "fmt/293",
+    "formatName": "OpenDocument Presentation",
+    "formatVersion": "1.2",
+    "sizeBytes": 13975,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/resources/test-documents/testMasterFooter.odp",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/263",
+      "fmt/292"
+    ]
+  },
+  {
     "file": "fmt-294_OpenDocument_Spreadsheet_1.1.ods",
     "puid": "fmt/294",
     "formatName": "OpenDocument Spreadsheet",
@@ -381,6 +1044,21 @@
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": [
       "x-fmt/263"
+    ]
+  },
+  {
+    "file": "fmt-295_OpenDocument_Spreadsheet_1.2.ods",
+    "puid": "fmt/295",
+    "formatName": "OpenDocument Spreadsheet",
+    "formatVersion": "1.2",
+    "sizeBytes": 7207,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/resources/test-documents/testFooter.ods",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/263",
+      "fmt/294"
     ]
   },
   {
@@ -397,6 +1075,42 @@
     ]
   },
   {
+    "file": "fmt-298_Autodesk_Animator_Pro_FLIC.flc",
+    "puid": "fmt/298",
+    "formatName": "Autodesk Animator Pro FLIC",
+    "formatVersion": "",
+    "sizeBytes": 14572,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/2422.flc",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-3_Graphics_Interchange_Format_87a.gif",
+    "puid": "fmt/3",
+    "formatName": "Graphics Interchange Format",
+    "formatVersion": "87a",
+    "sizeBytes": 368,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/test_extents.gif",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-328_EndNote_Import_File.enw",
+    "puid": "fmt/328",
+    "formatName": "EndNote Import File",
+    "formatVersion": "",
+    "sizeBytes": 209,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testEndNoteImportFile.enw",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
     "file": "fmt-337_MJ2_Motion_JPEG_2000.mj2",
     "puid": "fmt/337",
     "formatName": "MJ2 (Motion JPEG 2000)",
@@ -405,6 +1119,42 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "jp2k-formats/Speedway.mj2",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-341_Macintosh_PICT_Image_2.0.pct",
+    "puid": "fmt/341",
+    "formatName": "Macintosh PICT Image",
+    "formatVersion": "2.0",
+    "sizeBytes": 23454,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testPICT.pct",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-345_Microsoft_Windows_Enhanced_Metafile_3.0.emf",
+    "puid": "fmt/345",
+    "formatName": "Microsoft Windows Enhanced Metafile",
+    "formatVersion": "3.0",
+    "sizeBytes": 876,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/drawing.emf",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-35_AutoCAD_Drawing_2000-2002.dwg",
+    "puid": "fmt/35",
+    "formatName": "AutoCAD Drawing",
+    "formatVersion": "2000-2002",
+    "sizeBytes": 675048,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-cad-module/src/test/resources/test-documents/testDWG2000.dwg",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
   },
   {
@@ -432,6 +1182,30 @@
     ]
   },
   {
+    "file": "fmt-356_Adaptive_Multi-Rate_Audio.amr",
+    "puid": "fmt/356",
+    "formatName": "Adaptive Multi-Rate Audio",
+    "formatVersion": "",
+    "sizeBytes": 3620,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testAMR.amr",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-36_AutoCAD_Drawing_2004-2005.dwg",
+    "puid": "fmt/36",
+    "formatName": "AutoCAD Drawing",
+    "formatVersion": "2004-2005",
+    "sizeBytes": 38178,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-cad-module/src/test/resources/test-documents/testDWG2004_no_header.dwg",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
     "file": "fmt-38_Microsoft_Word_for_Windows_Document_2.0.DOC",
     "puid": "fmt/38",
     "formatName": "Microsoft Word for Windows Document",
@@ -440,6 +1214,42 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "office-examples/Old Word file/NEWSSLID.DOC",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-385_Microsoft_Windows_Cursor.cur",
+    "puid": "fmt/385",
+    "formatName": "Microsoft Windows Cursor",
+    "formatVersion": "",
+    "sizeBytes": 102,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/mask_1.cur",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-387_VCalendar_format.vcs",
+    "puid": "fmt/387",
+    "formatName": "VCalendar format",
+    "formatVersion": "",
+    "sizeBytes": 319,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-text-module/src/test/resources/test-documents/testVCalendar.vcs",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-388_Internet_Calendar_and_Scheduling_format.ics",
+    "puid": "fmt/388",
+    "formatName": "Internet Calendar and Scheduling format",
+    "formatVersion": "",
+    "sizeBytes": 957,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testICalendar.ics",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
   },
   {
@@ -476,6 +1286,69 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-402_Truevision_TGA_Bitmap_2.0.tga",
+    "puid": "fmt/402",
+    "formatName": "Truevision TGA Bitmap",
+    "formatVersion": "2.0",
+    "sizeBytes": 2714,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/tga/common/200x32_l_bl_rle.tga",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/367"
+    ]
+  },
+  {
+    "file": "fmt-406_Portable_Grey_Map_-_Binary.pgm",
+    "puid": "fmt/406",
+    "formatName": "Portable Grey Map - Binary",
+    "formatVersion": "",
+    "sizeBytes": 4016,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/16_bit_binary.pgm",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-407_Portable_Grey_Map_-_ASCII.pgm",
+    "puid": "fmt/407",
+    "formatName": "Portable Grey Map - ASCII",
+    "formatVersion": "",
+    "sizeBytes": 56747,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/hopper_8bit_plain.pgm",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-408_Portable_Pixel_Map_-_Binary.ppm",
+    "puid": "fmt/408",
+    "formatName": "Portable Pixel Map - Binary",
+    "formatVersion": "",
+    "sizeBytes": 49167,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/hopper_8bit.ppm",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-409_Portable_Bitmap_Image_-_Binary.pbm",
+    "puid": "fmt/409",
+    "formatName": "Portable Bitmap Image - Binary",
+    "formatVersion": "",
+    "sizeBytes": 2059,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/hopper_1bit.pbm",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": [],
+    "extensionException": "Extension exception: the file starts with the binary PBM magic 'P4' followed by the dimensions; PRONOM lists no .pbm extension for fmt/409."
+  },
+  {
     "file": "fmt-41_Raw_JPEG_Stream.jpg",
     "puid": "fmt/41",
     "formatName": "Raw JPEG Stream",
@@ -498,6 +1371,34 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-414_Audio_Interchange_File_Format.aif",
+    "puid": "fmt/414",
+    "formatName": "Audio Interchange File Format",
+    "formatVersion": "",
+    "sizeBytes": 3894,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/resources/test-documents/testAIFF.aif",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/157"
+    ]
+  },
+  {
+    "file": "fmt-423_Adobe_Illustrator_7.0.ai",
+    "puid": "fmt/423",
+    "formatName": "Adobe Illustrator",
+    "formatVersion": "7.0",
+    "sizeBytes": 755,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testAI_PS.ai",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/408"
+    ]
+  },
+  {
     "file": "fmt-43_JPEG_File_Interchange_Format_1.01.jpg",
     "puid": "fmt/43",
     "formatName": "JPEG File Interchange Format",
@@ -508,6 +1409,32 @@
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": [
       "fmt/41"
+    ]
+  },
+  {
+    "file": "fmt-434_AutoCAD_Drawing_2010_2011_2012.dwg",
+    "puid": "fmt/434",
+    "formatName": "AutoCAD Drawing",
+    "formatVersion": "2010/2011/2012",
+    "sizeBytes": 59562,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-cad-module/src/test/resources/test-documents/testDWG2010.dwg",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-438_Digital_Negative_Format_DNG_1.3.dng",
+    "puid": "fmt/438",
+    "formatName": "Digital Negative Format (DNG)",
+    "formatVersion": "1.3",
+    "sizeBytes": 1820,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testDNG.dng",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/353"
     ]
   },
   {
@@ -543,6 +1470,32 @@
     "sourceRepository": "https://github.com/digital-preservation/droid",
     "originalPath": "droid-command-line/src/test/resources/testfiles/testiso.iso",
     "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-471_Hypertext_Markup_Language_5.html",
+    "puid": "fmt/471",
+    "formatName": "Hypertext Markup Language",
+    "formatVersion": "5",
+    "sizeBytes": 251,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-html-module/src/test/resources/test-documents/testHTML_embedded_data_uri_js.html",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/96"
+    ]
+  },
+  {
+    "file": "fmt-473_Microsoft_Office_Owner_File",
+    "puid": "fmt/473",
+    "formatName": "Microsoft Office Owner File",
+    "formatVersion": "",
+    "sizeBytes": 162,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources/test-documents/testMSOwnerFile",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
   },
   {
@@ -640,6 +1593,20 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-52_Rich_Text_Format_1.7.rtf",
+    "puid": "fmt/52",
+    "formatName": "Rich Text Format",
+    "formatVersion": "1.7",
+    "sizeBytes": 8815,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources/test-documents/testRTFWithCurlyBraces.rtf",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/50"
+    ]
+  },
+  {
     "file": "fmt-53_Rich_Text_Format_1.8.rtf",
     "puid": "fmt/53",
     "formatName": "Rich Text Format",
@@ -648,6 +1615,147 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "variations/variations/application/rtf/lorem-ipsum.rtf",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-531_AutoCAD_Drawing_2013_2014.dwg",
+    "puid": "fmt/531",
+    "formatName": "AutoCAD Drawing",
+    "formatVersion": "2013/2014",
+    "sizeBytes": 265260,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-cad-module/src/test/resources/test-documents/testDWG-AC1027.dwg",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-536_Adobe_FrameMaker_Document_5.5.fm",
+    "puid": "fmt/536",
+    "formatName": "Adobe FrameMaker Document",
+    "formatVersion": "5.5",
+    "sizeBytes": 12477,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/resources/test-documents/testMIF.mif",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [],
+    "extensionException": "Extension exception: the file starts with '<MakerFile 5.5Q>', the binary FrameMaker 5.5 document header; the original is named .mif, so the sample was renamed to .fm (originalPath keeps the original name)."
+  },
+  {
+    "file": "fmt-552_Adobe_InDesign_Document_CS6.indd",
+    "puid": "fmt/552",
+    "formatName": "Adobe InDesign Document",
+    "formatVersion": "CS6",
+    "sizeBytes": 880640,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testINDD.indd",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/450"
+    ]
+  },
+  {
+    "file": "fmt-561_Adobe_Illustrator_12.0.pdf",
+    "puid": "fmt/561",
+    "formatName": "Adobe Illustrator",
+    "formatVersion": "12.0",
+    "sizeBytes": 491520,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-566_WebP_Lossy.webp",
+    "puid": "fmt/566",
+    "formatName": "WebP",
+    "formatVersion": "Lossy",
+    "sizeBytes": 288,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/anim_frame2.webp",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/1886"
+    ]
+  },
+  {
+    "file": "fmt-567_WebP_Lossless.webp",
+    "puid": "fmt/567",
+    "formatName": "WebP",
+    "formatVersion": "Lossless",
+    "sizeBytes": 22926,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/hopper_lossless.webp",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/1886"
+    ]
+  },
+  {
+    "file": "fmt-568_WebP_Extended.webp",
+    "puid": "fmt/568",
+    "formatName": "WebP",
+    "formatVersion": "Extended",
+    "sizeBytes": 3552,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/hopper_orientation_5.webp",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/1886"
+    ]
+  },
+  {
+    "file": "fmt-569_Matroska_1-4.mkv",
+    "puid": "fmt/569",
+    "formatName": "Matroska",
+    "formatVersion": "1-4",
+    "sizeBytes": 82969,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/resources/test-documents/testMKV.mkv",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-57_Microsoft_Excel_4.0_Worksheet_xls_4S.xls",
+    "puid": "fmt/57",
+    "formatName": "Microsoft Excel 4.0 Worksheet (xls)",
+    "formatVersion": "4S",
+    "sizeBytes": 39942,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources/test-documents/testEXCEL_4.xls",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-570_Extensible_Metadata_Platform_Packet.xmp",
+    "puid": "fmt/570",
+    "formatName": "Extensible Metadata Platform Packet",
+    "formatVersion": "",
+    "sizeBytes": 1826,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/xmp/testPDFX.xmp",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-573_WebM.webm",
+    "puid": "fmt/573",
+    "formatName": "WebM",
+    "formatVersion": "",
+    "sizeBytes": 39745,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testWEBM.webm",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
   },
   {
@@ -664,6 +1772,32 @@
     ]
   },
   {
+    "file": "fmt-584_Windows_Media_Metafile.asx",
+    "puid": "fmt/584",
+    "formatName": "Windows Media Metafile",
+    "formatVersion": "",
+    "sizeBytes": 169,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testWindowsMediaMeta.asx",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-592_Canon_RAW_2.0.cr2",
+    "puid": "fmt/592",
+    "formatName": "Canon RAW",
+    "formatVersion": "2.0",
+    "sizeBytes": 1673,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testCR2.cr2",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/353"
+    ]
+  },
+  {
     "file": "fmt-610_ARJ_File_Format.ARJ",
     "puid": "fmt/610",
     "formatName": "ARJ File Format",
@@ -672,6 +1806,224 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "file-archive/arj/MAPS.ARJ",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-63_Drawing_Interchange_File_Format_ASCII_Generic.dxf",
+    "puid": "fmt/63",
+    "formatName": "Drawing Interchange File Format (ASCII)",
+    "formatVersion": "Generic",
+    "sizeBytes": 187638,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testDXF_ascii.dxf",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-634_Microsoft_Compiled_HTML_Help.chm",
+    "puid": "fmt/634",
+    "formatName": "Microsoft Compiled HTML Help",
+    "formatVersion": "",
+    "sizeBytes": 4315,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources/test-documents/testChm_oom.chm",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-635_CPIO.cpio",
+    "puid": "fmt/635",
+    "formatName": "CPIO",
+    "formatVersion": "",
+    "sizeBytes": 116224,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pkg-module/src/test/resources/test-documents/test-documents.cpio",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-637_Microsoft_OneNote.one",
+    "puid": "fmt/637",
+    "formatName": "Microsoft OneNote",
+    "formatVersion": "",
+    "sizeBytes": 14744,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources/test-documents/testOneNote2016.one",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-643_ASTM_E57_3D_File_Format.e57",
+    "puid": "fmt/643",
+    "formatName": "ASTM E57 3D File Format",
+    "formatVersion": "",
+    "sizeBytes": 20,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testE57_header.e57",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-645_Exchangeable_Image_File_Format_Compressed_2.21.jpg",
+    "puid": "fmt/645",
+    "formatName": "Exchangeable Image File Format (Compressed)",
+    "formatVersion": "2.21",
+    "sizeBytes": 86491,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/flower2.jpg",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/41"
+    ]
+  },
+  {
+    "file": "fmt-668_Olympus_RAW.orf",
+    "puid": "fmt/668",
+    "formatName": "Olympus RAW",
+    "formatVersion": "",
+    "sizeBytes": 866,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/resources/test-documents/testORF_bigendian.orf",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-670_PKCS_7_Cryptographic_Message_File.p7m",
+    "puid": "fmt/670",
+    "formatName": "PKCS #7 Cryptographic Message File",
+    "formatVersion": "",
+    "sizeBytes": 350,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-crypto-module/src/test/resources/test-documents/testPKCS7_enveloped_def.p7m",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-687_Better_Portable_Graphics.bpg",
+    "puid": "fmt/687",
+    "formatName": "Better Portable Graphics",
+    "formatVersion": "",
+    "sizeBytes": 1824,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/resources/test-documents/testBPG.bpg",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-688_Executable_and_Linkable_Format_32bit_Little_Endian",
+    "puid": "fmt/688",
+    "formatName": "Executable and Linkable Format",
+    "formatVersion": "32bit Little Endian",
+    "sizeBytes": 5517,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-code-module/src/test/resources/test-documents/testLinux-arm-32le",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-689_Executable_and_Linkable_Format_32bit_Big_Endian",
+    "puid": "fmt/689",
+    "formatName": "Executable and Linkable Format",
+    "formatVersion": "32bit Big Endian",
+    "sizeBytes": 8125,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-code-module/src/test/resources/test-documents/testLinux-mips-32be",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-690_Executable_and_Linkable_Format_64bit_Little_Endian",
+    "puid": "fmt/690",
+    "formatName": "Executable and Linkable Format",
+    "formatVersion": "64bit Little Endian",
+    "sizeBytes": 6369,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testFreeBSD-x86-64",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-693_Mach-O_64bit",
+    "puid": "fmt/693",
+    "formatName": "Mach-O",
+    "formatVersion": "64bit",
+    "sizeBytes": 8448,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testMacOS-x86_64",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-720_MBOX.mbox",
+    "puid": "fmt/720",
+    "formatName": "MBOX",
+    "formatVersion": "",
+    "sizeBytes": 118,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-mail-module/src/test/resources/test-documents/multiline.mbox",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-729_SQLite_Database_File_Format_3.db",
+    "puid": "fmt/729",
+    "formatName": "SQLite Database File Format",
+    "formatVersion": "3",
+    "sizeBytes": 2048,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-extended/tika-parser-sqlite3-module/src/test/resources/test-documents/testSQLITE3.db",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-735_Dolby_Digital_AC-3.ac3",
+    "puid": "fmt/735",
+    "formatName": "Dolby Digital AC-3",
+    "formatVersion": "",
+    "sizeBytes": 768,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testAC3.ac3",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-806_MATLAB_Mat_File_Level_5.mat",
+    "puid": "fmt/806",
+    "formatName": "MATLAB Mat File",
+    "formatVersion": "Level 5",
+    "sizeBytes": 183,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-code-module/src/test/resources/test-documents/test_mat_text.mat",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-807_HDF5_0.h5",
+    "puid": "fmt/807",
+    "formatName": "HDF5",
+    "formatVersion": "0",
+    "sizeBytes": 26451,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/hdf5.h5",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
     "alsoDetectedAs": []
   },
   {
@@ -697,6 +2049,21 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-866_Apple_Safari_Webarchive.webarchive",
+    "puid": "fmt/866",
+    "formatName": "Apple Safari Webarchive",
+    "formatVersion": "",
+    "sizeBytes": 78692,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-apple-module/src/test/resources/test-documents/testWEBARCHIVE.webarchive",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/102",
+      "fmt/984"
+    ]
+  },
+  {
     "file": "fmt-867_Microsoft_Reader_eBook.lit",
     "puid": "fmt/867",
     "formatName": "Microsoft Reader eBook",
@@ -708,6 +2075,157 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-868_MySQL_Table_Definition_Format.frm",
+    "puid": "fmt/868",
+    "formatName": "MySQL Table Definition Format",
+    "formatVersion": "",
+    "sizeBytes": 8594,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testMYSQL.frm",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/367"
+    ]
+  },
+  {
+    "file": "fmt-899_Windows_Portable_Executable_32_bit.exe",
+    "puid": "fmt/899",
+    "formatName": "Windows Portable Executable",
+    "formatVersion": "32 bit",
+    "sizeBytes": 1024,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testTinyPE.exe",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/409",
+      "x-fmt/411"
+    ]
+  },
+  {
+    "file": "fmt-90_PCX_5.pcx",
+    "puid": "fmt/90",
+    "formatName": "PCX",
+    "formatVersion": "5",
+    "sizeBytes": 136,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/p_4_planes.pcx",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-900_Windows_Portable_Executable_64_bit.dll",
+    "puid": "fmt/900",
+    "formatName": "Windows Portable Executable",
+    "formatVersion": "64 bit",
+    "sizeBytes": 22528,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-code-module/src/test/resources/test-documents/testWindows-x86-64-icons-lang.dll",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/409",
+      "x-fmt/411"
+    ]
+  },
+  {
+    "file": "fmt-91_Scalable_Vector_Graphics_1.0.svg",
+    "puid": "fmt/91",
+    "formatName": "Scalable Vector Graphics",
+    "formatVersion": "1.0",
+    "sizeBytes": 179,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pkg-module/src/test/resources/test-documents/testSVG_no_xml_header.svg",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-92_Scalable_Vector_Graphics_1.1.svg",
+    "puid": "fmt/92",
+    "formatName": "Scalable Vector Graphics",
+    "formatVersion": "1.1",
+    "sizeBytes": 308,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pkg-module/src/test/resources/test-documents/testSVG.svg",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/91",
+      "fmt/101"
+    ]
+  },
+  {
+    "file": "fmt-935_Animated_Portable_Network_Graphics.png",
+    "puid": "fmt/935",
+    "formatName": "Animated Portable Network Graphics",
+    "formatVersion": "",
+    "sizeBytes": 211,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/blend_transparency.png",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/11"
+    ]
+  },
+  {
+    "file": "fmt-946_Ogg_Opus_Codec_Compressed_Multimedia_File.opus",
+    "puid": "fmt/946",
+    "formatName": "Ogg Opus Codec Compressed Multimedia File",
+    "formatVersion": "",
+    "sizeBytes": 1059,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testOPUS.opus",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/944"
+    ]
+  },
+  {
+    "file": "fmt-947_Ogg_FLAC_Compressed_Multimedia_File.oga",
+    "puid": "fmt/947",
+    "formatName": "Ogg FLAC Compressed Multimedia File",
+    "formatVersion": "",
+    "sizeBytes": 10820,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testFLAC.oga",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/944"
+    ],
+    "extensionException": "Extension exception: the file is an Ogg stream (OggS) whose first packet is FLAC ('fLaC'), i.e. Ogg FLAC; PRONOM lists no .oga extension for fmt/947."
+  },
+  {
+    "file": "fmt-950_MIME_Email_1.0.eml",
+    "puid": "fmt/950",
+    "formatName": "MIME Email",
+    "formatVersion": "1.0",
+    "sizeBytes": 1025,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testThunderbirdEml.eml",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-954_Adaptive_Multi-Rate_Wideband_Audio.amr",
+    "puid": "fmt/954",
+    "formatName": "Adaptive Multi-Rate Wideband Audio",
+    "formatVersion": "",
+    "sizeBytes": 3609,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testAMR-WB.amr",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [],
+    "extensionException": "Extension exception: the file starts with the AMR-WB magic '#!AMR-WB'; PRONOM lists no .amr extension for fmt/954."
+  },
+  {
     "file": "fmt-96_Hypertext_Markup_Language.html",
     "puid": "fmt/96",
     "formatName": "Hypertext Markup Language",
@@ -716,6 +2234,44 @@
     "sourceRepository": "https://github.com/netarchivesuite/droid-light",
     "originalPath": "original file, not taken from another repository",
     "license": "Same license as this repository (see LICENSE)",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-968_AppleSingle_2.as",
+    "puid": "fmt/968",
+    "formatName": "AppleSingle",
+    "formatVersion": "2",
+    "sizeBytes": 1893,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-apple-module/src/test/resources/test-documents/testAppleSingleFile.pdf",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [],
+    "extensionException": "Extension exception: the file starts with the AppleSingle magic 00 05 16 00 and version 2; the original is named .pdf, so the sample was renamed to .as (originalPath keeps the original name)."
+  },
+  {
+    "file": "fmt-984_Binary_Property_List.bplist",
+    "puid": "fmt/984",
+    "formatName": "Binary Property List",
+    "formatVersion": "",
+    "sizeBytes": 24433,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-apple-module/src/test/resources/test-documents/testBPList.bplist",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [],
+    "extensionException": "Extension exception: the file starts with the binary property list magic 'bplist00'; PRONOM lists no .bplist extension for fmt/984. The 24 KB sample was chosen over the 646 KB one."
+  },
+  {
+    "file": "x-fmt-108_STL_Standard_Tessellation_Language_ASCII.stl",
+    "puid": "x-fmt/108",
+    "formatName": "STL (Standard Tessellation Language) ASCII",
+    "formatVersion": "",
+    "sizeBytes": 301,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testSTL-ascii.stl",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
   },
   {
@@ -763,6 +2319,18 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "x-fmt-119_Windows_Metafile_Image.wmf",
+    "puid": "x-fmt/119",
+    "formatName": "Windows Metafile Image",
+    "formatVersion": "",
+    "sizeBytes": 610,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/drawing.wmf",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
     "file": "x-fmt-121_Quattro_Pro_Spreadsheet_for_DOS_1-4.WQ1",
     "puid": "x-fmt/121",
     "formatName": "Quattro Pro Spreadsheet for DOS",
@@ -785,6 +2353,30 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "x-fmt-139_NeXT_Sun_sound.au",
+    "puid": "x-fmt/139",
+    "formatName": "NeXT/Sun sound",
+    "formatVersion": "",
+    "sizeBytes": 3868,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/resources/test-documents/testAU.au",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-140_Silicon_Graphics_Image.bw",
+    "puid": "x-fmt/140",
+    "formatName": "Silicon Graphics Image",
+    "formatVersion": "",
+    "sizeBytes": 16896,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/hopper.bw",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
     "file": "x-fmt-148_IBM_DisplayWrite_DCA_Text_File.rft",
     "puid": "x-fmt/148",
     "formatName": "IBM DisplayWrite DCA Text File",
@@ -796,6 +2388,54 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "x-fmt-154_AutoDesk_FLIC_Animation.fli",
+    "puid": "x-fmt/154",
+    "formatName": "AutoDesk FLIC Animation",
+    "formatVersion": "",
+    "sizeBytes": 102180,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/a.fli",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-162_Adobe_FrameMaker_Interchange_Format.mif",
+    "puid": "x-fmt/162",
+    "formatName": "Adobe FrameMaker Interchange Format",
+    "formatVersion": "",
+    "sizeBytes": 301046,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/resources/test-documents/testFramemakerMif.mif",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-178_Portable_Pixel_Map_-_ASCII.ppm",
+    "puid": "x-fmt/178",
+    "formatName": "Portable Pixel Map - ASCII",
+    "formatVersion": "",
+    "sizeBytes": 167160,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/hopper_8bit_plain.ppm",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-184_Sun_Raster_Image.ras",
+    "puid": "x-fmt/184",
+    "formatName": "Sun Raster Image",
+    "formatVersion": "",
+    "sizeBytes": 49184,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/hopper.ras",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
     "file": "x-fmt-191_AMI_Professional_Document.sam",
     "puid": "x-fmt/191",
     "formatName": "AMI Professional Document",
@@ -804,6 +2444,54 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "office/wordprocessing/AmiPro12/testAmiPro12.sam",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-207_X-Windows_Bitmap_Image_X11.xbm",
+    "puid": "x-fmt/207",
+    "formatName": "X-Windows Bitmap Image",
+    "formatVersion": "X11",
+    "sizeBytes": 12884,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/hopper.xbm",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-214_Microsoft_Paint_1.msp",
+    "puid": "x-fmt/214",
+    "formatName": "Microsoft Paint",
+    "formatVersion": "1",
+    "sizeBytes": 2080,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/hopper.msp",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-230_MIDI_Audio.mid",
+    "puid": "x-fmt/230",
+    "formatName": "MIDI Audio",
+    "formatVersion": "",
+    "sizeBytes": 322,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/resources/test-documents/testMID.mid",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-249_Microsoft_Outlook_Personal_Folders_Unicode_2003-2007.pst",
+    "puid": "x-fmt/249",
+    "formatName": "Microsoft Outlook Personal Folders (Unicode)",
+    "formatVersion": "2003-2007",
+    "sizeBytes": 271360,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources/test-documents/testPST_variousBodyTypes.pst",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
   },
   {
@@ -851,6 +2539,18 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "x-fmt-270_OS_2_Bitmap_2.0.bmp",
+    "puid": "x-fmt/270",
+    "formatName": "OS/2 Bitmap",
+    "formatVersion": "2.0",
+    "sizeBytes": 9278,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/bmp/q/pal8os2v2.bmp",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
     "file": "x-fmt-274_Microsoft_Word_for_MS-DOS_Document_1.x_-_4.0.wri",
     "puid": "x-fmt/274",
     "formatName": "Microsoft Word for MS-DOS Document",
@@ -873,6 +2573,42 @@
     "alsoDetectedAs": [
       "fmt/101"
     ]
+  },
+  {
+    "file": "x-fmt-348_Multipage_Zsoft_Paintbrush_Bitmap_Graphics.dcx",
+    "puid": "x-fmt/348",
+    "formatName": "Multipage Zsoft Paintbrush Bitmap Graphics",
+    "formatVersion": "",
+    "sizeBytes": 28894,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testDCX.dcx",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-382_Macromedia_FLV_1.flv",
+    "puid": "x-fmt/382",
+    "formatName": "Macromedia FLV",
+    "formatVersion": "1",
+    "sizeBytes": 90580,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/resources/test-documents/testFLV.flv",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-383_Flexible_Image_Transport_System.fits",
+    "puid": "x-fmt/383",
+    "formatName": "Flexible Image Transport System",
+    "formatVersion": "",
+    "sizeBytes": 20160,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/hopper.fits",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
   },
   {
     "file": "x-fmt-384_Quicktime.mov",
@@ -932,6 +2668,69 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "x-fmt-406_PostScript_2.0.ps",
+    "puid": "x-fmt/406",
+    "formatName": "PostScript",
+    "formatVersion": "2.0",
+    "sizeBytes": 11949,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/eps/reqd_showpage.eps",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": [],
+    "extensionException": "Extension exception: the file starts with '%!PS-Adobe-2.0' without an EPSF marker, i.e. plain PostScript 2.0; the original is named .eps, so the sample was renamed to .ps (originalPath keeps the original name)."
+  },
+  {
+    "file": "x-fmt-412_Java_Archive_Format.jar",
+    "puid": "x-fmt/412",
+    "formatName": "Java Archive Format",
+    "formatVersion": "",
+    "sizeBytes": 441,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-zip-commons/src/test/resources/test-documents/testJAR.jar",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "x-fmt/263"
+    ]
+  },
+  {
+    "file": "x-fmt-414_Windows_Cabinet_File.cab",
+    "puid": "x-fmt/414",
+    "formatName": "Windows Cabinet File",
+    "formatVersion": "",
+    "sizeBytes": 68302,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pkg-module/src/test/resources/test-documents/test-documents.cab",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-415_Java_Class_File.class",
+    "puid": "x-fmt/415",
+    "formatName": "Java Class File",
+    "formatVersion": "",
+    "sizeBytes": 3794,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-code-module/src/test/resources/test-documents/AutoDetectParser.class",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-418_Icon_file_format.ico",
+    "puid": "x-fmt/418",
+    "formatName": "Icon file format",
+    "formatVersion": "",
+    "sizeBytes": 198,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/black_and_white.ico",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
     "file": "x-fmt-429_MHTML.mht",
     "puid": "x-fmt/429",
     "formatName": "MHTML",
@@ -951,6 +2750,66 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "office/wordprocessing/WordPerfect6/testWordPerfect_6_61.wpd",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-453_TrueType_Font.ttf",
+    "puid": "x-fmt/453",
+    "formatName": "TrueType Font",
+    "formatVersion": "",
+    "sizeBytes": 224592,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-font-module/src/test/resources/test-documents/testTrueType3.ttf",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-455_AutoCAD_Drawing_2007-2008.dwg",
+    "puid": "x-fmt/455",
+    "formatName": "AutoCAD Drawing",
+    "formatVersion": "2007-2008",
+    "sizeBytes": 73088,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-cad-module/src/test/resources/test-documents/testDWG2007.dwg",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-49_AutoCAD_Design_Web_Format_6.0.dwf",
+    "puid": "x-fmt/49",
+    "formatName": "AutoCAD Design Web Format",
+    "formatVersion": "6.0",
+    "sizeBytes": 101370,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testDWF2010.dwf",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-9_dBASE_Database_III.dbf",
+    "puid": "x-fmt/9",
+    "formatName": "dBASE Database",
+    "formatVersion": "III",
+    "sizeBytes": 144,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/resources/test-documents/testDBF_gb18030.dbf",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-92_Adobe_Photoshop.psd",
+    "puid": "x-fmt/92",
+    "formatName": "Adobe Photoshop",
+    "formatVersion": "",
+    "sizeBytes": 285,
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/combined_larger_than_size.psd",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
     "alsoDetectedAs": []
   }
 ]
