@@ -85,6 +85,18 @@ BSD 3-Clause, see [LICENSE](LICENSE). DROID is released under the New BSD Licens
 
 **DROID.** Parts of the matching behaviour follow [DROID](https://github.com/digital-preservation/droid), the file format identification tool developed by The National Archives and released under the New BSD License.
 
+**Test samples.** The files in `src/test/resources/pronom-samples` are unmodified files from other projects, or files written by ffmpeg from a clip; they are test data only and are not covered by this project's BSD license. `MANIFEST.json` records for every file where it comes from (repository, commit and path) and under which licence it is published. Newer samples come from these sources:
+
+- [Apache POI](https://github.com/apache/poi), [Apache Tika](https://github.com/apache/tika), [Apache Commons Compress](https://github.com/apache/commons-compress) and [Apache Commons Imaging](https://github.com/apache/commons-imaging), and [pdf.js](https://github.com/mozilla/pdf.js): Apache-2.0. For some files the repository does not document where the file itself comes from; the manifest says so.
+- [openexr-images](https://github.com/AcademySoftwareFoundation/openexr-images) (OpenEXR images): BSD-3-Clause.
+- [AOMediaCodec/av1-avif](https://github.com/AOMediaCodec/av1-avif): BSD-2-Clause.
+- [OpenImageIO-images](https://github.com/AcademySoftwareFoundation/OpenImageIO-images): the licence differs per file, and the manifest gives it for each one: the libtiff licence, Apache-2.0 (the OpenImageIO project), or "no expressive content" (as stated in the repository's THIRD-PARTY.md).
+- [ianare/exif-samples](https://github.com/ianare/exif-samples): CC BY-SA 4.0 (user-contributed). The three JPEG files taken from it are unmodified and stay under that licence.
+- [Nokia heif_conformance](https://github.com/nokiatech/heif_conformance) and [openjpeg-data](https://github.com/uclouvain/openjpeg-data): no licence is stated for the files taken from them.
+- [OpenMPT](https://github.com/OpenMPT/openmpt) (tracker modules): BSD-3-Clause.
+- [Ruffle](https://github.com/ruffle-rs/ruffle) test SWFs: MIT OR Apache-2.0. The files under `from_shumway` come from the Mozilla Shumway test corpus and are Apache-2.0; the manifest gives the licence for each file.
+- Big Buck Bunny clips from [opencv_extra](https://github.com/opencv/opencv_extra): the content is licensed CC BY 3.0, (c) Blender Foundation, [www.bigbuckbunny.org](https://www.bigbuckbunny.org). opencv_extra itself states no licence. Some media samples were made with ffmpeg from one such clip; for those the manifest gives the exact command line instead of a source path.
+
 ## Removed: Aho-Corasick detector
 
 An alternative detector based on the Aho-Corasick algorithm, which finds the start patterns of all signatures in a single pass, was removed. It meant maintaining two implementations of the same rules, and it only paid off when every signature had to be searched across very large parts of a file, which normal detection does not need. The last version is kept in the git tag `aho-corasick-archive`.

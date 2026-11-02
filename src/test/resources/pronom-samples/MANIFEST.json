@@ -14,6 +14,96 @@
     ]
   },
   {
+    "file": "fmt-1001_OpenEXR_2--b44-scanline.exr",
+    "puid": "fmt/1001",
+    "formatName": "OpenEXR",
+    "formatVersion": "2",
+    "sizeBytes": 758083,
+    "sourceRepository": "https://github.com/AcademySoftwareFoundation/openexr-images",
+    "sourceCommit": "e38ffb0790f62f05a6f083a6fa4cac150b3b7452",
+    "originalPath": "LuminanceChroma/Flowers.exr",
+    "license": "BSD-3-Clause",
+    "alsoDetectedAs": [],
+    "variantReason": "OpenEXR: B44-compressed scanline image (lossy)",
+    "independentCheck": "ILM/ASWF reference image set; header read directly: compression/layout as stated",
+    "sha256": "d1016a9177e723122f982fe79077dd71d42bf2b4da565d35f4c728f8a5688236"
+  },
+  {
+    "file": "fmt-1001_OpenEXR_2--deep-scanline.exr",
+    "puid": "fmt/1001",
+    "formatName": "OpenEXR",
+    "formatVersion": "2",
+    "sizeBytes": 587334,
+    "sourceRepository": "https://github.com/AcademySoftwareFoundation/openexr-images",
+    "sourceCommit": "e38ffb0790f62f05a6f083a6fa4cac150b3b7452",
+    "originalPath": "v2/LowResLeftView/Trunks.exr",
+    "license": "BSD-3-Clause",
+    "alsoDetectedAs": [],
+    "variantReason": "OpenEXR: deep-data scanline image (ZIPS)",
+    "independentCheck": "ILM/ASWF reference image set; header read directly: compression/layout as stated",
+    "sha256": "6867502b6ce564e1d3a909f307a2672511b0890ddc40eb9b5ba48ddae20299db"
+  },
+  {
+    "file": "fmt-1001_OpenEXR_2--multipart.exr",
+    "puid": "fmt/1001",
+    "formatName": "OpenEXR",
+    "formatVersion": "2",
+    "sizeBytes": 2807897,
+    "sourceRepository": "https://github.com/AcademySoftwareFoundation/openexr-images",
+    "sourceCommit": "e38ffb0790f62f05a6f083a6fa4cac150b3b7452",
+    "originalPath": "Beachball/multipart.0006.exr",
+    "license": "BSD-3-Clause",
+    "alsoDetectedAs": [],
+    "variantReason": "OpenEXR: multipart file (several images in one file)",
+    "independentCheck": "ILM/ASWF reference image set; header read directly: compression/layout as stated",
+    "sha256": "63f27c2ae8a95a1a957d174015f9d4ac241ac1c3a95846a425dc86475b8007c9"
+  },
+  {
+    "file": "fmt-1001_OpenEXR_2--piz-scanline.exr",
+    "puid": "fmt/1001",
+    "formatName": "OpenEXR",
+    "formatVersion": "2",
+    "sizeBytes": 251021,
+    "sourceRepository": "https://github.com/AcademySoftwareFoundation/openexr-images",
+    "sourceCommit": "e38ffb0790f62f05a6f083a6fa4cac150b3b7452",
+    "originalPath": "MultiResolution/WavyLinesSphere.exr",
+    "license": "BSD-3-Clause",
+    "alsoDetectedAs": [],
+    "variantReason": "OpenEXR: PIZ-compressed scanline image",
+    "independentCheck": "ILM/ASWF reference image set; header read directly: compression/layout as stated",
+    "sha256": "ac19827f128ef1c7b4561a45d7e253f7cb080009e696832b51d903eee76566ae"
+  },
+  {
+    "file": "fmt-1001_OpenEXR_2--pxr24-scanline.exr",
+    "puid": "fmt/1001",
+    "formatName": "OpenEXR",
+    "formatVersion": "2",
+    "sizeBytes": 437763,
+    "sourceRepository": "https://github.com/AcademySoftwareFoundation/openexr-images",
+    "sourceCommit": "e38ffb0790f62f05a6f083a6fa4cac150b3b7452",
+    "originalPath": "TestImages/SquaresSwirls.exr",
+    "license": "BSD-3-Clause",
+    "alsoDetectedAs": [],
+    "variantReason": "OpenEXR: PXR24-compressed scanline image",
+    "independentCheck": "ILM/ASWF reference image set; header read directly: compression/layout as stated",
+    "sha256": "6c9f67f3cd47aaa24cc57d30198305c81c286087bc2d1f2ea53c2bf77943858f"
+  },
+  {
+    "file": "fmt-1001_OpenEXR_2--zip-tiled.exr",
+    "puid": "fmt/1001",
+    "formatName": "OpenEXR",
+    "formatVersion": "2",
+    "sizeBytes": 228020,
+    "sourceRepository": "https://github.com/AcademySoftwareFoundation/openexr-images",
+    "sourceCommit": "e38ffb0790f62f05a6f083a6fa4cac150b3b7452",
+    "originalPath": "MultiResolution/PeriodicPattern.exr",
+    "license": "BSD-3-Clause",
+    "alsoDetectedAs": [],
+    "variantReason": "OpenEXR: ZIP-compressed tiled image",
+    "independentCheck": "ILM/ASWF reference image set; header read directly: compression/layout as stated",
+    "sha256": "8f5a8d17703a4c61f0a25f436eafb11f0042e836f269cdb63c6d63804f1992f9"
+  },
+  {
     "file": "fmt-101_Extensible_Markup_Language_1.0.xml",
     "puid": "fmt/101",
     "formatName": "Extensible Markup Language",
@@ -116,6 +206,34 @@
     ]
   },
   {
+    "file": "fmt-107_Macromedia_Flash_4.swf",
+    "puid": "fmt/107",
+    "formatName": "Macromedia Flash",
+    "formatVersion": "4",
+    "sizeBytes": 20788,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/avm1/lessthan_swf4/test.swf",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 4 (FWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "aa0289fac64dd59d1838c8004dfa412263c153b8cd98dd36999a7028a08041f9"
+  },
+  {
+    "file": "fmt-108_Macromedia_Flash_5.swf",
+    "puid": "fmt/108",
+    "formatName": "Macromedia Flash",
+    "formatVersion": "5",
+    "sizeBytes": 15427,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/avm1/focusrect_property_swf5/test.swf",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 5 (FWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "e40020958b0eb359dc857f2e0febd2a2cc8b044c60c621aec4aa73959d8f11fb"
+  },
+  {
     "file": "fmt-1083_Hangul_Word_Processor_Document_3.hwp",
     "puid": "fmt/1083",
     "formatName": "Hangul Word Processor Document",
@@ -149,6 +267,20 @@
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/test1.swf",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1098_XZ_File_Format.xz",
+    "puid": "fmt/1098",
+    "formatName": "XZ File Format",
+    "formatVersion": "",
+    "sizeBytes": 528,
+    "sourceRepository": "https://github.com/apache/commons-compress",
+    "sourceCommit": "69a29b75922f7e525412dc6b7454b70d1f2be2bd",
+    "originalPath": "src/test/resources/bla.tar.xz",
+    "license": "Apache-2.0",
+    "alsoDetectedAs": [],
+    "independentCheck": "libmagic: XZ compressed data",
+    "sha256": "35eaca88455f2e0212b868c526e56571ef1b81d82b29997b337860961cdd180b"
   },
   {
     "file": "fmt-11_Portable_Network_Graphics_1.0.png",
@@ -435,6 +567,21 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-132_Windows_Media_Audio.wma",
+    "puid": "fmt/132",
+    "formatName": "Windows Media Audio",
+    "formatVersion": "",
+    "sizeBytes": 55223,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vn -c:a wmav2 -f asf",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "alsoDetectedAs": [
+      "fmt/131"
+    ],
+    "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: asf; audio wmav2 44100 Hz 2 ch",
+    "sha256": "b9d01b455dbc0fe4c9f013cb1bdedb8f389aba5a68b57fd490a2975a812a8586"
+  },
+  {
     "file": "fmt-133_Windows_Media_Video.wmv",
     "puid": "fmt/133",
     "formatName": "Windows Media Video",
@@ -489,6 +636,20 @@
       "fmt/135",
       "fmt/290"
     ]
+  },
+  {
+    "file": "fmt-1384_Embedded_OpenType_EOT_File_Format_0x00020002.fntdata",
+    "puid": "fmt/1384",
+    "formatName": "Embedded OpenType (EOT) File Format",
+    "formatVersion": "0x00020002",
+    "sizeBytes": 17759,
+    "sourceRepository": "https://github.com/apache/poi",
+    "sourceCommit": "521b26fad979c1992538584c199fc75f2a1fd7aa",
+    "originalPath": "test-data/slideshow/font.fntdata",
+    "license": "Apache-2.0",
+    "alsoDetectedAs": [],
+    "independentCheck": "libmagic: Embedded OpenType (EOT), Harlow Solid Italic",
+    "sha256": "7d9d333770933d9c9837df962ba3c6c43a87ea8d4f58e06c05185af879a35213"
   },
   {
     "file": "fmt-1395_AutoCAD_Drawing_2018_2019_2020_2021.dwg",
@@ -772,6 +933,36 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-193_Digital_Moving_Picture_Exchange_Bitmap_1.0--10bit-rgb.dpx",
+    "puid": "fmt/193",
+    "formatName": "Digital Moving Picture Exchange Bitmap",
+    "formatVersion": "1.0",
+    "sizeBytes": 1050624,
+    "sourceRepository": "https://github.com/AcademySoftwareFoundation/OpenImageIO-images",
+    "sourceCommit": "d13e98f92b4e75ae7cd949cc5aa1df219560fb93",
+    "originalPath": "dpx/dpx_nuke_10bits_rgb.dpx",
+    "license": "no expressive content (OpenImageIO THIRD-PARTY.md); repository Apache-2.0",
+    "alsoDetectedAs": [],
+    "variantReason": "DPX written by Nuke: 10-bit RGB, 512x512",
+    "independentCheck": "libmagic: DPX image data 512x512",
+    "sha256": "fea09c07114a238cffa8a123963234df5b0afc1bb4c01a0654c7441eccf24aa2"
+  },
+  {
+    "file": "fmt-193_Digital_Moving_Picture_Exchange_Bitmap_1.0--16bit-rgba.dpx",
+    "puid": "fmt/193",
+    "formatName": "Digital Moving Picture Exchange Bitmap",
+    "formatVersion": "1.0",
+    "sizeBytes": 1400832,
+    "sourceRepository": "https://github.com/AcademySoftwareFoundation/OpenImageIO-images",
+    "sourceCommit": "d13e98f92b4e75ae7cd949cc5aa1df219560fb93",
+    "originalPath": "dpx/dpx_nuke_16bits_rgba.dpx",
+    "license": "no expressive content (OpenImageIO THIRD-PARTY.md); repository Apache-2.0",
+    "alsoDetectedAs": [],
+    "variantReason": "DPX written by Nuke: 16-bit RGBA, 512x512",
+    "independentCheck": "libmagic: DPX image data 512x512",
+    "sha256": "90d522bee688255b85e876033d9b7ab5254e844fc6dda6488735ad7e696f205f"
+  },
+  {
     "file": "fmt-1936_PCRaster.MAP",
     "puid": "fmt/1936",
     "formatName": "PCRaster",
@@ -807,6 +998,33 @@
     "alsoDetectedAs": [
       "x-fmt/450"
     ]
+  },
+  {
+    "file": "fmt-1964_JPH_JPEG_2000_part_15.jph",
+    "puid": "fmt/1964",
+    "formatName": "JPH (JPEG 2000 part 15)",
+    "formatVersion": "",
+    "sizeBytes": 990,
+    "sourceRepository": "https://github.com/uclouvain/openjpeg-data",
+    "sourceCommit": "39524bd3a601d90ed8e0177559400d23945f96a9",
+    "originalPath": "input/nonregression/htj2k/byte.jph",
+    "license": "no licence stated (included at user request)",
+    "alsoDetectedAs": [],
+    "independentCheck": "PIL decodes it; libmagic: JPEG 2000",
+    "sha256": "87841874ed8f530babe1ea49aef3cbdf1a605f1984b9c06713fc9d9ca0fcd5a0"
+  },
+  {
+    "file": "fmt-198_MPEG_Audio_Stream_Layer_II.mp2",
+    "puid": "fmt/198",
+    "formatName": "MPEG Audio Stream Layer II",
+    "formatVersion": "",
+    "sizeBytes": 144195,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vn -c:a mp2",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "alsoDetectedAs": [],
+    "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: mp3; audio mp2 44100 Hz 2 ch",
+    "sha256": "50508a84d5ceb3c059098289c6ac969169631fdb4dbd77b99a8177b63d93db43"
   },
   {
     "puid": "fmt/199",
@@ -889,6 +1107,20 @@
     ]
   },
   {
+    "file": "fmt-2051_Cineon.cin",
+    "puid": "fmt/2051",
+    "formatName": "Cineon",
+    "formatVersion": "",
+    "sizeBytes": 90368,
+    "sourceRepository": "https://github.com/AcademySoftwareFoundation/OpenImageIO-images",
+    "sourceCommit": "d13e98f92b4e75ae7cd949cc5aa1df219560fb93",
+    "originalPath": "cineon/checker.cin",
+    "license": "no expressive content (OpenImageIO THIRD-PARTY.md); repository Apache-2.0",
+    "alsoDetectedAs": [],
+    "independentCheck": "libmagic: Cineon image data 160 x 90",
+    "sha256": "3a59c01791b7d3d55cac744fc63ab703825da64072790d3ae57d769f19abe809"
+  },
+  {
     "file": "fmt-2055_Apple_Mail_EMLX_Format.emlx",
     "puid": "fmt/2055",
     "formatName": "Apple Mail EMLX Format",
@@ -902,6 +1134,36 @@
       "fmt/96",
       "fmt/950"
     ]
+  },
+  {
+    "file": "fmt-2062_AV1_Image_File_Format.avif",
+    "puid": "fmt/2062",
+    "formatName": "AV1 Image File Format",
+    "formatVersion": "",
+    "sizeBytes": 285949,
+    "sourceRepository": "https://github.com/AOMediaCodec/av1-avif",
+    "sourceCommit": "bf4c18d1f3971069b75e87d6ee469790589f4f09",
+    "originalPath": "testFiles/Netflix/avif/sdr_cosmos12920_cicp1-13-6_yuv444_full_qp10.avif",
+    "license": "BSD-2-Clause (repository)",
+    "alsoDetectedAs": [],
+    "independentCheck": "ffmpeg decodes it; libmagic: AVIF",
+    "sha256": "f6b6be6163f131dd7e3450db12ef3cb9e48d66acca3b79ef06b79954e8769b43"
+  },
+  {
+    "file": "fmt-2094_M4A_Audio.m4a",
+    "puid": "fmt/2094",
+    "formatName": "M4A Audio",
+    "formatVersion": "",
+    "sizeBytes": 424106,
+    "sourceRepository": "https://github.com/nokiatech/heif_conformance",
+    "sourceCommit": "6ff1e33481d325296d8a787432453ef3fa91f591",
+    "originalPath": "bitstreams/B034.m4a",
+    "license": "no licence stated (included at user request)",
+    "alsoDetectedAs": [
+      "fmt/199"
+    ],
+    "independentCheck": "ffmpeg decodes it",
+    "sha256": "a22085d5a789d64878c1c4e70425b6050d58234d2f7a6841cb82968b53a933c6"
   },
   {
     "file": "fmt-211_Kodak_Photo_CD_Image.pcd",
@@ -975,6 +1237,20 @@
     "originalPath": "tika-parsers/tika-parsers-extended/tika-parser-scientific-module/src/test/resources/test-documents/GLDAS_CLM10SUBP_3H.A19790202.0000.001.grb",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-285_Gridded_Binary_2.0.grib2",
+    "puid": "fmt/285",
+    "formatName": "Gridded Binary",
+    "formatVersion": "2.0",
+    "sizeBytes": 2489194,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-extended/tika-parser-scientific-module/src/test/resources/test-documents/gdas1.forecmwf.2014062612.grib2",
+    "license": "Apache-2.0 (repository; per-file origin not documented)",
+    "alsoDetectedAs": [],
+    "independentCheck": "libmagic: GRIB version 2",
+    "sha256": "c4beeaa512242e778e196abd30b2931e398d45f4a551f90130c89d9a212053e4"
   },
   {
     "file": "fmt-290_OpenDocument_Text_1.1.odt",
@@ -1097,6 +1373,20 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-323_Extended_Module_Audio_File.xm",
+    "puid": "fmt/323",
+    "formatName": "Extended Module Audio File",
+    "formatVersion": "",
+    "sizeBytes": 6279,
+    "sourceRepository": "https://github.com/OpenMPT/openmpt",
+    "sourceCommit": "52f41d55329d23b7dedcba894e703415dcde1058",
+    "originalPath": "test/test.xm",
+    "license": "BSD-3-Clause (OpenMPT project)",
+    "alsoDetectedAs": [],
+    "independentCheck": "libmagic: Fasttracker II module",
+    "sha256": "38995d872538fcf469efd9ef46840f397bdf6220f393cb7f849fe5258a208293"
+  },
+  {
     "file": "fmt-328_EndNote_Import_File.enw",
     "puid": "fmt/328",
     "formatName": "EndNote Import File",
@@ -1192,6 +1482,21 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-357_3GPP_Audio_Video_File.3gp",
+    "puid": "fmt/357",
+    "formatName": "3GPP Audio/Video File",
+    "formatVersion": "",
+    "sizeBytes": 189015,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vf scale=176:144 -c:v h263 -c:a aac -ar 16000 -ac 1 -f 3gp",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "alsoDetectedAs": [
+      "fmt/199"
+    ],
+    "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: mov,mp4,m4a,3gp,3g2,mj2; video h263 176x144, audio aac 16000 Hz 1 ch",
+    "sha256": "1aedb62e7bb3667b31a4bf021b22d43c06c8a42d465e1f154e874938f78513ef"
+  },
+  {
     "file": "fmt-36_AutoCAD_Drawing_2004-2005.dwg",
     "puid": "fmt/36",
     "formatName": "AutoCAD Drawing",
@@ -1249,6 +1554,22 @@
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testICalendar.ics",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-39_Microsoft_Word_Document_6.0_95.doc",
+    "puid": "fmt/39",
+    "formatName": "Microsoft Word Document",
+    "formatVersion": "6.0/95",
+    "sizeBytes": 20480,
+    "sourceRepository": "https://github.com/apache/poi",
+    "sourceCommit": "521b26fad979c1992538584c199fc75f2a1fd7aa",
+    "originalPath": "test-data/document/Bug60942.doc",
+    "license": "Apache-2.0",
+    "alsoDetectedAs": [
+      "fmt/111"
+    ],
+    "independentCheck": "libmagic: OLE2 Word document, OS Win16 3.10, template C:\\MSOFFICE (Word 6.0-era)",
+    "sha256": "6455da23aa1cdece9a7416b934a4d193290d028b3fcae62056dbb60cda3131da"
   },
   {
     "file": "fmt-394_DS_Store_File_MAC",
@@ -1592,6 +1913,56 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-5_Audio_Video_Interleaved_Format.avi",
+    "puid": "fmt/5",
+    "formatName": "Audio/Video Interleaved Format",
+    "formatVersion": "",
+    "sizeBytes": 295486,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vf scale=320:240 -c:v msmpeg4v2 -c:a libmp3lame -ar 44100 -f avi",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "alsoDetectedAs": [
+      "fmt/1886"
+    ],
+    "variantReason": "AVI with MS-MPEG4 v2 video (fourcc MP42, 320x240, 29.97 fps) and MP3 audio (44.1 kHz stereo), 3.0 s: the only fmt/5 sample with an audio stream",
+    "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: avi; video msmpeg4v2 320x240, audio mp3 44100 Hz 2 ch",
+    "sha256": "9395a116e50ad6a8a075cd4964225eace59cdc461de4403e245b797925b6038a"
+  },
+  {
+    "file": "fmt-5_Audio_Video_Interleaved_Format--mjpeg-video.avi",
+    "puid": "fmt/5",
+    "formatName": "Audio/Video Interleaved Format",
+    "formatVersion": "",
+    "sizeBytes": 1766350,
+    "sourceRepository": "https://github.com/opencv/opencv_extra",
+    "sourceCommit": "76309b76eb66fcc2875b2d4fb970f438e24ba394",
+    "originalPath": "testdata/highgui/video/big_buck_bunny.mjpg.avi",
+    "license": "Content: Big Buck Bunny (c) Blender Foundation, CC BY 3.0 (www.bigbuckbunny.org); opencv_extra states no licence",
+    "alsoDetectedAs": [
+      "fmt/1886"
+    ],
+    "variantReason": "AVI with Motion-JPEG video (fourcc MJPG, 672x384, 24 fps), video only with no audio stream, 5.2 s",
+    "independentCheck": "ffprobe: codec mjpeg; libmagic: AVI 672x384",
+    "sha256": "ec8cbe1a2e1185d275fbacb2696a1e442f716395cc2c759b7e37c63ace2c2fb5"
+  },
+  {
+    "file": "fmt-5_Audio_Video_Interleaved_Format--mpeg4-video.avi",
+    "puid": "fmt/5",
+    "formatName": "Audio/Video Interleaved Format",
+    "formatVersion": "",
+    "sizeBytes": 3809484,
+    "sourceRepository": "https://github.com/opencv/opencv_extra",
+    "sourceCommit": "76309b76eb66fcc2875b2d4fb970f438e24ba394",
+    "originalPath": "testdata/highgui/video/big_buck_bunny.avi",
+    "license": "Content: Big Buck Bunny (c) Blender Foundation, CC BY 3.0 (www.bigbuckbunny.org); opencv_extra states no licence",
+    "alsoDetectedAs": [
+      "fmt/1886"
+    ],
+    "variantReason": "AVI with MPEG-4 Part 2 video (fourcc XVID, 672x384, 24 fps), video only with no audio stream, 5.2 s",
+    "independentCheck": "ffprobe: codec mpeg4; libmagic: AVI 672x384",
+    "sha256": "5d38a1d38a7f086277c35b237f8da7a74f81831d437e9af826c1868419f85cf5"
+  },
+  {
     "file": "fmt-50_Rich_Text_Format_1.5-1.6.rtf",
     "puid": "fmt/50",
     "formatName": "Rich Text Format",
@@ -1612,6 +1983,48 @@
     "originalPath": "jhove-errors/PDF-HUL-137/124307818233765780864869607481066113457.pdf",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-505_Adobe_Flash_8.swf",
+    "puid": "fmt/505",
+    "formatName": "Adobe Flash",
+    "formatVersion": "8",
+    "sizeBytes": 28677,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/visual/video/colorconversion/vp6a/test.swf",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 8 (FWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "10a2c2df7d286aa6e1c1053a1fc2b2538a36018c013148ac88441cdfa5155ff2"
+  },
+  {
+    "file": "fmt-506_Adobe_Flash_9.swf",
+    "puid": "fmt/506",
+    "formatName": "Adobe Flash",
+    "formatVersion": "9",
+    "sizeBytes": 13928,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/from_shumway/bitmapbuttons/test.swf",
+    "license": "Apache-2.0 (Mozilla Shumway test corpus, via the Ruffle repository)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 9 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "97a001d3bac94a19a4d0a39fc0f6ea79031ddd4c54991c806908222d5af284e6"
+  },
+  {
+    "file": "fmt-507_Adobe_Flash_10.swf",
+    "puid": "fmt/507",
+    "formatName": "Adobe Flash",
+    "formatVersion": "10",
+    "sizeBytes": 3422,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/avm1/movieclip_state_values/test.swf",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 10 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "d25498c93f4a9e6f1a712b7c541c1966e3dfda3a8a76b253ee29c5235debe349"
   },
   {
     "file": "fmt-518_Broad_Band_eBook_LRF.lrf",
@@ -1689,6 +2102,20 @@
     ]
   },
   {
+    "file": "fmt-56_Microsoft_Excel_3.0_Worksheet_xls_3.xls",
+    "puid": "fmt/56",
+    "formatName": "Microsoft Excel 3.0 Worksheet (xls)",
+    "formatVersion": "3",
+    "sizeBytes": 11902,
+    "sourceRepository": "https://github.com/apache/poi",
+    "sourceCommit": "521b26fad979c1992538584c199fc75f2a1fd7aa",
+    "originalPath": "test-data/spreadsheet/testEXCEL_3.xls",
+    "license": "Apache-2.0",
+    "alsoDetectedAs": [],
+    "independentCheck": "NOT independently confirmed (libmagic: 'data'); name says EXCEL_3",
+    "sha256": "d3d60ffb5a4eb8943b4a9708888b1c9a2293d32feba0e8afe43d6627de4e7f9f"
+  },
+  {
     "file": "fmt-561_Adobe_Illustrator_12.0.pdf",
     "puid": "fmt/561",
     "formatName": "Adobe Illustrator",
@@ -1699,6 +2126,22 @@
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-564_Adobe_Illustrator_15.0.pdf",
+    "puid": "fmt/564",
+    "formatName": "Adobe Illustrator",
+    "formatVersion": "15.0",
+    "sizeBytes": 347690,
+    "sourceRepository": "https://github.com/mozilla/pdf.js",
+    "sourceCommit": "f70fabbe791d151b720451c239564237855814a5",
+    "originalPath": "test/pdfs/transparency_group.pdf",
+    "license": "Apache-2.0 (repository; per-file origin not documented)",
+    "alsoDetectedAs": [
+      "fmt/19"
+    ],
+    "independentCheck": "pypdf reads it; libmagic: PDF 1.5; Illustrator-saved PDF-compatible file",
+    "sha256": "029dd50635adee0711836095b76aab62226ca8731f6642a9454b25e2668226dd"
   },
   {
     "file": "fmt-566_WebP_Lossy.webp",
@@ -1816,6 +2259,19 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-585_MPEG-2_Transport_Stream.ts",
+    "puid": "fmt/585",
+    "formatName": "MPEG-2 Transport Stream",
+    "formatVersion": "",
+    "sizeBytes": 408712,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vf scale=320:240 -c:v mpeg2video -c:a mp2 -f mpegts",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "alsoDetectedAs": [],
+    "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: mpegts; video mpeg2video 320x240, audio mp2 44100 Hz 2 ch",
+    "sha256": "be3e6a68b15b73bb0e9003ab97abbf1fc3597f2194180965def33c87f704800e"
+  },
+  {
     "file": "fmt-592_Canon_RAW_2.0.cr2",
     "puid": "fmt/592",
     "formatName": "Canon RAW",
@@ -1839,6 +2295,65 @@
     "originalPath": "file-archive/arj/MAPS.ARJ",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-615_Gimp_Image_File_Format.xcf",
+    "puid": "fmt/615",
+    "formatName": "Gimp Image File Format",
+    "formatVersion": "",
+    "sizeBytes": 657750,
+    "sourceRepository": "https://github.com/AcademySoftwareFoundation/OpenImageIO-images",
+    "sourceCommit": "d13e98f92b4e75ae7cd949cc5aa1df219560fb93",
+    "originalPath": "src/grid/grid.xcf",
+    "license": "OpenImageIO project, Apache-2.0",
+    "alsoDetectedAs": [],
+    "independentCheck": "GIMP XCF written by the OpenImageIO project",
+    "sha256": "ac658d43f50256db87dfbcb2e22e289f4866a34b594b08e9f0f41b895cb463b4"
+  },
+  {
+    "file": "fmt-626_LHA_File_Format--method-lh4.lha",
+    "puid": "fmt/626",
+    "formatName": "LHA File Format",
+    "formatVersion": "",
+    "sizeBytes": 41623,
+    "sourceRepository": "https://github.com/apache/commons-compress",
+    "sourceCommit": "69a29b75922f7e525412dc6b7454b70d1f2be2bd",
+    "originalPath": "src/test/resources/test-amiga-l0-lh4.lha",
+    "license": "Apache-2.0",
+    "alsoDetectedAs": [],
+    "variantReason": "LHA archive, level 0, compression method lh4 (Amiga)",
+    "independentCheck": "libmagic: LHa archive [lh4]",
+    "sha256": "3c5b0725b498656aa0846c5d2267ca0078fd211b33ae7f1fc605543b8a49673e"
+  },
+  {
+    "file": "fmt-626_LHA_File_Format--method-lh5.lha",
+    "puid": "fmt/626",
+    "formatName": "LHA File Format",
+    "formatVersion": "",
+    "sizeBytes": 40051,
+    "sourceRepository": "https://github.com/apache/commons-compress",
+    "sourceCommit": "69a29b75922f7e525412dc6b7454b70d1f2be2bd",
+    "originalPath": "src/test/resources/test-macos-l0-lh5.lha",
+    "license": "Apache-2.0",
+    "alsoDetectedAs": [],
+    "variantReason": "LHA archive, level 0, compression method lh5",
+    "independentCheck": "libmagic: LHa archive [lh5]",
+    "sha256": "efc07b8d69859dc990ffdce4cbfc187ff9f28a9a063d1fb06a08c35c9007cd58"
+  },
+  {
+    "file": "fmt-626_LHA_File_Format--method-lh7.lha",
+    "puid": "fmt/626",
+    "formatName": "LHA File Format",
+    "formatVersion": "",
+    "sizeBytes": 37453,
+    "sourceRepository": "https://github.com/apache/commons-compress",
+    "sourceCommit": "69a29b75922f7e525412dc6b7454b70d1f2be2bd",
+    "originalPath": "src/test/resources/test-macos-l0-lh7.lha",
+    "license": "Apache-2.0",
+    "alsoDetectedAs": [],
+    "variantReason": "LHA archive, level 0, compression method lh7",
+    "independentCheck": "libmagic: LHa archive [lh7]",
+    "sha256": "5629631e7248411991e4509fa1c76c4a93131ac1557d2e315cd0880bdf9f6521"
   },
   {
     "file": "fmt-63_Drawing_Interchange_File_Format_ASCII_Generic.dxf",
@@ -1889,6 +2404,21 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-640_MPEG-2_Elementary_Stream.m2v",
+    "puid": "fmt/640",
+    "formatName": "MPEG-2 Elementary Stream",
+    "formatVersion": "",
+    "sizeBytes": 229669,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vf scale=320:240 -an -c:v mpeg2video -f mpeg2video",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "alsoDetectedAs": [
+      "fmt/649"
+    ],
+    "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: mpegvideo; video mpeg2video 320x240",
+    "sha256": "e9667e6809bfc5000e6c1c819146426afe01dd04371f9d7b3fdf8967a32a46bc"
+  },
+  {
     "file": "fmt-643_ASTM_E57_3D_File_Format.e57",
     "puid": "fmt/643",
     "formatName": "ASTM E57 3D File Format",
@@ -1913,6 +2443,19 @@
     "alsoDetectedAs": [
       "fmt/41"
     ]
+  },
+  {
+    "file": "fmt-649_MPEG-1_Elementary_Stream.m1v",
+    "puid": "fmt/649",
+    "formatName": "MPEG-1 Elementary Stream",
+    "formatVersion": "",
+    "sizeBytes": 230188,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vf scale=320:240 -an -c:v mpeg1video -f mpeg1video",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "alsoDetectedAs": [],
+    "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: mpegvideo; video mpeg1video 320x240",
+    "sha256": "2011a1083ce847314389f98070a0970f279bdb0f71a38cecca8d4247b54ee505"
   },
   {
     "file": "fmt-668_Olympus_RAW.orf",
@@ -1999,6 +2542,34 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-716_MOD_Audio_Module.mod",
+    "puid": "fmt/716",
+    "formatName": "MOD Audio Module",
+    "formatVersion": "",
+    "sizeBytes": 5400,
+    "sourceRepository": "https://github.com/OpenMPT/openmpt",
+    "sourceCommit": "52f41d55329d23b7dedcba894e703415dcde1058",
+    "originalPath": "test/test.mod",
+    "license": "BSD-3-Clause (OpenMPT project)",
+    "alsoDetectedAs": [],
+    "independentCheck": "libmagic: 4-channel Protracker module",
+    "sha256": "c505aeedfb08cd8645f607bc29388319b7f37d40587bc6f1ca12c41b7a69dc7c"
+  },
+  {
+    "file": "fmt-718_Scream_Tracker_Module_3.s3m",
+    "puid": "fmt/718",
+    "formatName": "Scream Tracker Module",
+    "formatVersion": "3",
+    "sizeBytes": 880,
+    "sourceRepository": "https://github.com/OpenMPT/openmpt",
+    "sourceCommit": "52f41d55329d23b7dedcba894e703415dcde1058",
+    "originalPath": "test/test.s3m",
+    "license": "BSD-3-Clause (OpenMPT project)",
+    "alsoDetectedAs": [],
+    "independentCheck": "libmagic: ScreamTracker III module",
+    "sha256": "8c06df94967dd66df35d2cf200ec155542c47d0346acb32d9725d739e9c348ab"
+  },
+  {
     "file": "fmt-720_MBOX.mbox",
     "puid": "fmt/720",
     "formatName": "MBOX",
@@ -2033,6 +2604,202 @@
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testAC3.ac3",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-757_Adobe_Flash_11.swf",
+    "puid": "fmt/757",
+    "formatName": "Adobe Flash",
+    "formatVersion": "11",
+    "sizeBytes": 11285,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/avm2/soundchannel_position/test.swf",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 11 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "08fb911e7caf0e02b1ecbb6b3f9c76c9becfdd6e4583e71f915bb966bc3c9b1b"
+  },
+  {
+    "file": "fmt-758_Adobe_Flash_12.swf",
+    "puid": "fmt/758",
+    "formatName": "Adobe Flash",
+    "formatVersion": "12",
+    "sizeBytes": 8710,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/visual/cache_as_bitmap/avm2_button_state/test.swf",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 12 (FWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "a8fecf06c8b8f834be117960fc3397f6703828eb082dc687e4a29725d1866a2b"
+  },
+  {
+    "file": "fmt-759_Adobe_Flash_13.swf",
+    "puid": "fmt/759",
+    "formatName": "Adobe Flash",
+    "formatVersion": "13",
+    "sizeBytes": 111705,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/avm2/stage3d_bitmap/test.swf",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 13 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "43577d1c033287c81d1f22c67837dd11cdb483762510b8b53afdbe7ee5ce18f9"
+  },
+  {
+    "file": "fmt-760_Adobe_Flash_14.swf",
+    "puid": "fmt/760",
+    "formatName": "Adobe Flash",
+    "formatVersion": "14",
+    "sizeBytes": 3552,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/avm1/as2_super_via_manual_prototype/test.swf",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 14 (FWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "23c8eef64d37ee8ed9df002b0c0daa2b7dd7dda451b62e423fb7a39250b4ba14"
+  },
+  {
+    "file": "fmt-761_Adobe_Flash_15.swf",
+    "puid": "fmt/761",
+    "formatName": "Adobe Flash",
+    "formatVersion": "15",
+    "sizeBytes": 203699,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/visual/definefont4/test.swf",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 15 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "6e1db859c9b0f5e6b666fc28752f4563bf614ea4e712764d85503b116076efb0"
+  },
+  {
+    "file": "fmt-762_Adobe_Flash_16.swf",
+    "puid": "fmt/762",
+    "formatName": "Adobe Flash",
+    "formatVersion": "16",
+    "sizeBytes": 8075,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/avm2/register_script_refresh/test.swf",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 16 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "56dd392c34379428523f2b1d149683451468cf67ebd51ab0231231133d234c88"
+  },
+  {
+    "file": "fmt-763_Adobe_Flash_17.swf",
+    "puid": "fmt/763",
+    "formatName": "Adobe Flash",
+    "formatVersion": "17",
+    "sizeBytes": 18996,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/from_shumway/slider_component/test.swf",
+    "license": "Apache-2.0 (Mozilla Shumway test corpus, via the Ruffle repository)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 17 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "bf6dbcb755b764beeb0c8d68af24438d803b2e39e7d171fc663551d364593e9b"
+  },
+  {
+    "file": "fmt-764_Adobe_Flash_18.swf",
+    "puid": "fmt/764",
+    "formatName": "Adobe Flash",
+    "formatVersion": "18",
+    "sizeBytes": 172011,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/avm2/sound_load_multiple/test.swf",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 18 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "e95366f26a244dfb7346cbace25a2ea3be343526f304e06c8cf5fb3e31c13f97"
+  },
+  {
+    "file": "fmt-766_Adobe_Flash_20.swf",
+    "puid": "fmt/766",
+    "formatName": "Adobe Flash",
+    "formatVersion": "20",
+    "sizeBytes": 7116,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/avm2/av_classes/test.swf",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 20 (FWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "e4802725b9a437f4510861571d91c6e5c723d8a689ef6a53b90b713bb922ec35"
+  },
+  {
+    "file": "fmt-767_Adobe_Flash_21.swf",
+    "puid": "fmt/767",
+    "formatName": "Adobe Flash",
+    "formatVersion": "21",
+    "sizeBytes": 135840,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/from_shumway/acid/acid-big/test.swf",
+    "license": "Apache-2.0 (Mozilla Shumway test corpus, via the Ruffle repository)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 21 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "7f06c3cf149cc7c75aa815d266da7d29c0973f2ac7aad47d0d8c99e1ea4b28b2"
+  },
+  {
+    "file": "fmt-769_Adobe_Flash_23.swf",
+    "puid": "fmt/769",
+    "formatName": "Adobe Flash",
+    "formatVersion": "23",
+    "sizeBytes": 5377,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/avm2/flash_media_video_constructor/test.swf",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 23 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "90163a9acdf55124a76a276137031deb20a6f9836ea96b97ec83365e7362a113"
+  },
+  {
+    "file": "fmt-773_Adobe_Flash_27.swf",
+    "puid": "fmt/773",
+    "formatName": "Adobe Flash",
+    "formatVersion": "27",
+    "sizeBytes": 9873,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/from_shumway/acid/acid-text-4/test.swf",
+    "license": "Apache-2.0 (Mozilla Shumway test corpus, via the Ruffle repository)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 27 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "20677cf2932157777ad1b0361cd2e35eb332f2ba09472c878028192c95231cb4"
+  },
+  {
+    "file": "fmt-774_Adobe_Flash_28.swf",
+    "puid": "fmt/774",
+    "formatName": "Adobe Flash",
+    "formatVersion": "28",
+    "sizeBytes": 222069,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/audio/stream_incomplete_loop/test.swf",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 28 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "5b1e021311491ca1003a9a5091b82e14498c89b8abec02df4dea41aa07502eb2"
+  },
+  {
+    "file": "fmt-776_Adobe_Flash_30.swf",
+    "puid": "fmt/776",
+    "formatName": "Adobe Flash",
+    "formatVersion": "30",
+    "sizeBytes": 3737,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
+    "originalPath": "tests/tests/swfs/avm2/textblock_recreateline/test.swf",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "alsoDetectedAs": [],
+    "independentCheck": "SWF header version byte = 30 (FWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
+    "sha256": "d5823f43468cc8503c0f5d3c1d524ddb556cd9e8d3b44705f9c305347dfb8c85"
   },
   {
     "file": "fmt-806_MATLAB_Mat_File_Level_5.mat",
@@ -2204,6 +2971,21 @@
     ]
   },
   {
+    "file": "fmt-945_Ogg_Theora_Video.ogv",
+    "puid": "fmt/945",
+    "formatName": "Ogg Theora Video",
+    "formatVersion": "",
+    "sizeBytes": 118371,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vf scale=320:240 -c:v libtheora -c:a libvorbis -f ogg",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "alsoDetectedAs": [
+      "fmt/944"
+    ],
+    "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: ogg; video theora 320x240, audio vorbis 44100 Hz 2 ch",
+    "sha256": "9b8468626b2cfc7d522f0b2159668fa314eb2999cd039157043f88b92ec509ef"
+  },
+  {
     "file": "fmt-946_Ogg_Opus_Codec_Compressed_Multimedia_File.opus",
     "puid": "fmt/946",
     "formatName": "Ogg Opus Codec Compressed Multimedia File",
@@ -2233,6 +3015,21 @@
     "extensionException": "Extension exception: the file is an Ogg stream (OggS) whose first packet is FLAC ('fLaC'), i.e. Ogg FLAC; PRONOM lists no .oga extension for fmt/947."
   },
   {
+    "file": "fmt-948_Ogg_Speex_Codec_Multimedia_File.spx",
+    "puid": "fmt/948",
+    "formatName": "Ogg Speex Codec Multimedia File",
+    "formatVersion": "",
+    "sizeBytes": 11072,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vn -c:a libspeex -ar 16000 -ac 1 -f ogg",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "alsoDetectedAs": [
+      "fmt/944"
+    ],
+    "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: ogg; audio speex 16000 Hz 1 ch",
+    "sha256": "42c0d41b3d88b815ce38b165cd80f2278fe563c9368bafdda915f18374de8813"
+  },
+  {
     "file": "fmt-950_MIME_Email_1.0.eml",
     "puid": "fmt/950",
     "formatName": "MIME Email",
@@ -2243,6 +3040,21 @@
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testThunderbirdEml.eml",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-951_Sonic_Foundry_WAVE_64.w64",
+    "puid": "fmt/951",
+    "formatName": "Sonic Foundry WAVE 64",
+    "formatVersion": "",
+    "sizeBytes": 529304,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vn -c:a pcm_s16le -f w64",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "alsoDetectedAs": [
+      "fmt/2025"
+    ],
+    "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: w64; audio pcm_s16le 44100 Hz 2 ch",
+    "sha256": "be9bc76df30906fd946b87e0bc5ac4377f431d4f01b23024cca3aaaf875003b5"
   },
   {
     "file": "fmt-954_Adaptive_Multi-Rate_Wideband_Audio.amr",
@@ -2422,6 +3234,20 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "x-fmt-153_Microsoft_Windows_Enhanced_Metafile_1.0.emf",
+    "puid": "x-fmt/153",
+    "formatName": "Microsoft Windows Enhanced Metafile",
+    "formatVersion": "1.0",
+    "sizeBytes": 5528,
+    "sourceRepository": "https://github.com/apache/poi",
+    "sourceCommit": "521b26fad979c1992538584c199fc75f2a1fd7aa",
+    "originalPath": "test-data/spreadsheet/61294.emf",
+    "license": "Apache-2.0",
+    "alsoDetectedAs": [],
+    "independentCheck": "libmagic: Windows Enhanced Metafile (EMF)",
+    "sha256": "f12cac49650756c5461cbb8bf893811d2a9a3a24d6cc0ac4daae14494e6b6764"
+  },
+  {
     "file": "x-fmt-154_AutoDesk_FLIC_Animation.fli",
     "puid": "x-fmt/154",
     "formatName": "AutoDesk FLIC Animation",
@@ -2468,6 +3294,19 @@
     "originalPath": "Tests/images/hopper.ras",
     "license": "MIT-CMU License, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-190_RealMedia.rm",
+    "puid": "x-fmt/190",
+    "formatName": "RealMedia",
+    "formatVersion": "",
+    "sizeBytes": 232388,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vf scale=320:240 -c:v rv20 -c:a real_144 -ar 8000 -ac 1 -f rm",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "alsoDetectedAs": [],
+    "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: rm; video rv20 320x240, audio ra_144 8000 Hz 1 ch",
+    "sha256": "cf4718f3e8bb779427e9244df2588899bd36a74f9c7c30069bdc151b8486190a"
   },
   {
     "file": "x-fmt-191_AMI_Professional_Document.sam",
@@ -2596,6 +3435,20 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "x-fmt-275_Microsoft_Word_for_MS-DOS_Document_5.0_-_5.4.wri",
+    "puid": "x-fmt/275",
+    "formatName": "Microsoft Word for MS-DOS Document",
+    "formatVersion": "5.0 - 5.4",
+    "sizeBytes": 74752,
+    "sourceRepository": "https://github.com/apache/poi",
+    "sourceCommit": "521b26fad979c1992538584c199fc75f2a1fd7aa",
+    "originalPath": "test-data/document/MSWriteOld.wri",
+    "license": "Apache-2.0",
+    "alsoDetectedAs": [],
+    "independentCheck": "libmagic: Microsoft Word 5.0-6.0 (DOS) Document",
+    "sha256": "4fbc42eabea40d0f20e3891a64bde7a10daebbc710ce69ddfc8829d380e0ab3b"
+  },
+  {
     "file": "x-fmt-280_XML_Schema_Definition.xsd",
     "puid": "x-fmt/280",
     "formatName": "XML Schema Definition",
@@ -2607,6 +3460,20 @@
     "alsoDetectedAs": [
       "fmt/101"
     ]
+  },
+  {
+    "file": "x-fmt-299_X-Windows_Bitmap_Image_X10.xbm",
+    "puid": "x-fmt/299",
+    "formatName": "X-Windows Bitmap Image",
+    "formatVersion": "X10",
+    "sizeBytes": 35709,
+    "sourceRepository": "https://github.com/apache/commons-imaging",
+    "sourceCommit": "116f4cf772c7af8e2f90b517f7d32ae43440fea3",
+    "originalPath": "src/test/resources/data/images/xbm/1/Oregon Scientific DS6639 - DSC_0307 - small X10.xbm",
+    "license": "Apache-2.0 (repository; per-file origin not documented)",
+    "alsoDetectedAs": [],
+    "independentCheck": "libmagic: xbm image 300x225",
+    "sha256": "a960170caea20ab0d98687412d05ae9c09a51475e8d2117b30b74eb963bc1c94"
   },
   {
     "file": "x-fmt-348_Multipage_Zsoft_Paintbrush_Bitmap_Graphics.dcx",
@@ -2656,6 +3523,50 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "x-fmt-385_MPEG-1_Program_Stream.mpg",
+    "puid": "x-fmt/385",
+    "formatName": "MPEG-1 Program Stream",
+    "formatVersion": "",
+    "sizeBytes": 368640,
+    "sourceRepository": "https://github.com/opencv/opencv_extra",
+    "sourceCommit": "76309b76eb66fcc2875b2d4fb970f438e24ba394",
+    "originalPath": "testdata/highgui/video/big_buck_bunny.mpg",
+    "license": "Content: Big Buck Bunny (c) Blender Foundation, CC BY 3.0 (www.bigbuckbunny.org); opencv_extra states no licence",
+    "alsoDetectedAs": [],
+    "variantReason": "MPEG-1 program stream with video only (mpeg1video, 672x384, 48 fps) and no audio stream, 5.1 s",
+    "independentCheck": "ffprobe: mpeg1video; libmagic: MPEG sequence v1, system multiplex",
+    "sha256": "9402282334f1a7e798146830e200f16491ac97108eeb888404fad3c7a9232467"
+  },
+  {
+    "file": "x-fmt-385_MPEG-1_Program_Stream--mp2-audio.mpg",
+    "puid": "x-fmt/385",
+    "formatName": "MPEG-1 Program Stream",
+    "formatVersion": "",
+    "sizeBytes": 380928,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vf scale=320:240 -c:v mpeg1video -c:a mp2 -f mpeg",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "alsoDetectedAs": [],
+    "variantReason": "MPEG-1 program stream with MPEG-1 video (320x240, 59.94 fps) and MP2 audio (44.1 kHz stereo, 384 kb/s), 3.0 s: the only x-fmt/385 sample with an audio stream",
+    "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: mpeg; video mpeg1video 320x240, audio mp2 44100 Hz 2 ch",
+    "sha256": "f35f6e7f987ed591d8655b40d33310c3c7a48c24e7ae1f386e5b90e6118ad3e3"
+  },
+  {
+    "file": "x-fmt-386_MPEG-2_Program_Stream.mpg",
+    "puid": "x-fmt/386",
+    "formatName": "MPEG-2 Program Stream",
+    "formatVersion": "",
+    "sizeBytes": 380928,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vf scale=320:240 -c:v mpeg2video -c:a mp2 -f vob",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "alsoDetectedAs": [
+      "x-fmt/385"
+    ],
+    "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: mpeg; video mpeg2video 320x240, audio mp2 44100 Hz 2 ch",
+    "sha256": "7915fe12702ef8fb0e56110295ce58da90a56a01b08af640b04ac4979470f081"
+  },
+  {
     "file": "x-fmt-387_Exchangeable_Image_File_Format_Uncompressed_2.2.tif",
     "puid": "x-fmt/387",
     "formatName": "Exchangeable Image File Format (Uncompressed)",
@@ -2667,6 +3578,54 @@
     "alsoDetectedAs": [
       "fmt/353"
     ]
+  },
+  {
+    "file": "x-fmt-388_Exchangeable_Image_File_Format_Uncompressed_2.1.tif",
+    "puid": "x-fmt/388",
+    "formatName": "Exchangeable Image File Format (Uncompressed)",
+    "formatVersion": "2.1",
+    "sizeBytes": 654030,
+    "sourceRepository": "https://github.com/AcademySoftwareFoundation/OpenImageIO-images",
+    "sourceCommit": "d13e98f92b4e75ae7cd949cc5aa1df219560fb93",
+    "originalPath": "libtiffpic/dscf0013.tif",
+    "license": "libtiff licence (OpenImageIO THIRD-PARTY.md)",
+    "alsoDetectedAs": [
+      "fmt/353"
+    ],
+    "independentCheck": "libtiff's own README: 640x480 YCbCr digital camera image with EXIF SubIFD, no compression",
+    "sha256": "534ef0986c7a39e33b117fe67c0d3f8b7509ceaa248e31b447360b6e4a36a7c9"
+  },
+  {
+    "file": "x-fmt-390_Exchangeable_Image_File_Format_Compressed_2.1.jpg",
+    "puid": "x-fmt/390",
+    "formatName": "Exchangeable Image File Format (Compressed)",
+    "formatVersion": "2.1",
+    "sizeBytes": 43183,
+    "sourceRepository": "https://github.com/ianare/exif-samples",
+    "sourceCommit": "5332a9cf0220e9c6c93f88a187daa90808051e10",
+    "originalPath": "jpg/exif-org/fujifilm-finepix40i.jpg",
+    "license": "CC BY-SA 4.0 (user-contributed)",
+    "alsoDetectedAs": [
+      "fmt/41"
+    ],
+    "independentCheck": "ExifVersion tag inside the file = 0210 (Exif 2.1); real camera JPEG",
+    "sha256": "722fa6b893b01d5970d9b0761df6ee97bcee28fcd5b8e78d761738058c6b7822"
+  },
+  {
+    "file": "x-fmt-391_Exchangeable_Image_File_Format_Compressed_2.2.jpg",
+    "puid": "x-fmt/391",
+    "formatName": "Exchangeable Image File Format (Compressed)",
+    "formatVersion": "2.2",
+    "sizeBytes": 150085,
+    "sourceRepository": "https://github.com/ianare/exif-samples",
+    "sourceCommit": "5332a9cf0220e9c6c93f88a187daa90808051e10",
+    "originalPath": "jpg/gps/DSCN0029.jpg",
+    "license": "CC BY-SA 4.0 (user-contributed)",
+    "alsoDetectedAs": [
+      "fmt/41"
+    ],
+    "independentCheck": "ExifVersion tag inside the file = 0220 (Exif 2.2); real camera JPEG (Nikon)",
+    "sha256": "941b9c7bfe35e0a3775f013e613748f55d1152736a74bd51e34f1b66bd646697"
   },
   {
     "file": "x-fmt-392_JP2_JPEG_2000_part_1.jp2",
@@ -2700,6 +3659,22 @@
     "originalPath": "office/wordprocessing/WordPerfect51/testWordPerfect_51_52.doc",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-398_Exchangeable_Image_File_Format_Compressed_2.0.jpg",
+    "puid": "x-fmt/398",
+    "formatName": "Exchangeable Image File Format (Compressed)",
+    "formatVersion": "2.0",
+    "sizeBytes": 62096,
+    "sourceRepository": "https://github.com/ianare/exif-samples",
+    "sourceCommit": "5332a9cf0220e9c6c93f88a187daa90808051e10",
+    "originalPath": "jpg/exif-org/sanyo-vpcg250.jpg",
+    "license": "CC BY-SA 4.0 (user-contributed)",
+    "alsoDetectedAs": [
+      "fmt/41"
+    ],
+    "independentCheck": "ExifVersion tag inside the file = 0200 (Exif 2.0); real camera JPEG (Sanyo)",
+    "sha256": "4723c892d4d3c200074f3a8a437b0d3e62e631e140b68e2386a54c45f0da2566"
   },
   {
     "file": "x-fmt-406_PostScript_2.0.ps",
