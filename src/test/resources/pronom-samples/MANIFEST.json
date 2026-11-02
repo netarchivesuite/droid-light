@@ -554,18 +554,6 @@
     "alsoDetectedAs": []
   },
   {
-    "file": "fmt-1484_JPEG_XL_Codestream.jxl",
-    "puid": "fmt/1484",
-    "formatName": "JPEG XL Codestream",
-    "formatVersion": "",
-    "sizeBytes": 81,
-    "sourceRepository": "https://github.com/apache/tika",
-    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
-    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/resources/test-documents/testJXL.jxl",
-    "license": "Apache License 2.0, unless otherwise stated in the repository",
-    "alsoDetectedAs": []
-  },
-  {
     "file": "fmt-1485_JPEG_XL.jxl",
     "puid": "fmt/1485",
     "formatName": "JPEG XL",
@@ -617,60 +605,8 @@
     "alsoDetectedAs": [
       "fmt/41"
     ],
-    "variantReason": "Content edge case and encoding variant: Exif, Photoshop, XMP and ICC segments (about 42,626 bytes) before the image data, restart markers (DRI), written by Adobe Photoshop; ends exactly with its last FF D9 (0 bytes after it), so it is the clean base of the trailing-data variants.",
+    "variantReason": "Content edge case and encoding variant: Exif, Photoshop, XMP and ICC segments (about 42,626 bytes) before the image data, restart markers (DRI), written by Adobe Photoshop; ends exactly with its last FF D9 (0 bytes after it).",
     "sha256": "b024c2d84839f63249b220e42480a2150d9540a7daf464cbd8f459ea575ff0e9"
-  },
-  {
-    "puid": "fmt/1507",
-    "formatName": "Exchangeable Image File Format (Compressed)",
-    "formatVersion": "2.3.x",
-    "sourceRepository": "https://github.com/python-pillow/Pillow",
-    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
-    "originalPath": "Tests/images/xmp_test.jpg",
-    "license": "MIT-CMU License, unless otherwise stated in the repository",
-    "file": "fmt-1507_Exchangeable_Image_File_Format_Compressed_2.3.x--trailing-131072.jpg",
-    "sizeBytes": 1930056,
-    "alsoDetectedAs": [],
-    "variantReason": "Bytes after the end marker: 131,072 zero bytes follow the last FF D9, exactly the 131,072 bytes between the last FF D9 and the end of the file that the fmt/1507 signature accepts (EOF offset 131,072); 131,073 is no longer detected.",
-    "modification": "Not an original file: Tests/images/xmp_test.jpg (sha256 b024c2d84839f63249b220e42480a2150d9540a7daf464cbd8f459ea575ff0e9, whose last FF D9 is its last two bytes, offset 1,798,982) with 131,072 zero bytes (00) appended.",
-    "originalSha256": "b024c2d84839f63249b220e42480a2150d9540a7daf464cbd8f459ea575ff0e9",
-    "sha256": "c7c7f3bfd6f3f49bb9f4cc8b0c8bd98ab07013b2122fa1e494455e1075e0affd"
-  },
-  {
-    "puid": "fmt/1507",
-    "formatName": "Exchangeable Image File Format (Compressed)",
-    "formatVersion": "2.3.x",
-    "sourceRepository": "https://github.com/python-pillow/Pillow",
-    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
-    "originalPath": "Tests/images/xmp_test.jpg",
-    "license": "MIT-CMU License, unless otherwise stated in the repository",
-    "file": "fmt-1507_Exchangeable_Image_File_Format_Compressed_2.3.x--trailing-2999.jpg",
-    "sizeBytes": 1801983,
-    "alsoDetectedAs": [
-      "fmt/41"
-    ],
-    "variantReason": "Bytes after the end marker: 2,999 zero bytes follow the last FF D9, just below the default 3,000-byte anchor distance.",
-    "modification": "Not an original file: Tests/images/xmp_test.jpg (sha256 b024c2d84839f63249b220e42480a2150d9540a7daf464cbd8f459ea575ff0e9, whose last FF D9 is its last two bytes, offset 1,798,982) with 2,999 zero bytes (00) appended.",
-    "originalSha256": "b024c2d84839f63249b220e42480a2150d9540a7daf464cbd8f459ea575ff0e9",
-    "sha256": "2e678abadae8f57b072b085ca5d3ceec804ae331efbdd7f9bed171953eb03cd1"
-  },
-  {
-    "puid": "fmt/1507",
-    "formatName": "Exchangeable Image File Format (Compressed)",
-    "formatVersion": "2.3.x",
-    "sourceRepository": "https://github.com/python-pillow/Pillow",
-    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
-    "originalPath": "Tests/images/xmp_test.jpg",
-    "license": "MIT-CMU License, unless otherwise stated in the repository",
-    "file": "fmt-1507_Exchangeable_Image_File_Format_Compressed_2.3.x--trailing-3001.jpg",
-    "sizeBytes": 1801985,
-    "alsoDetectedAs": [
-      "fmt/41"
-    ],
-    "variantReason": "Bytes after the end marker: 3,001 zero bytes follow the last FF D9, just above the default 3,000-byte anchor distance, so the anchor must be found by the signature's own reach.",
-    "modification": "Not an original file: Tests/images/xmp_test.jpg (sha256 b024c2d84839f63249b220e42480a2150d9540a7daf464cbd8f459ea575ff0e9, whose last FF D9 is its last two bytes, offset 1,798,982) with 3,001 zero bytes (00) appended.",
-    "originalSha256": "b024c2d84839f63249b220e42480a2150d9540a7daf464cbd8f459ea575ff0e9",
-    "sha256": "ea41f380e06326e8c7d710dfc884335cc1960cf12545840cc4ee16bc58f7bd27"
   },
   {
     "file": "fmt-151_JPX_JPEG_2000_part_2.jpf",
@@ -873,20 +809,6 @@
     ]
   },
   {
-    "file": "fmt-199_MPEG-4_Media_File.mp4",
-    "puid": "fmt/199",
-    "formatName": "MPEG-4 Media File",
-    "formatVersion": "",
-    "sizeBytes": 200,
-    "sourceRepository": "https://github.com/apache/tika",
-    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
-    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/resources/test-documents/testMP4_udtaLocation.mp4",
-    "license": "Apache License 2.0, unless otherwise stated in the repository",
-    "alsoDetectedAs": [],
-    "variantReason": "Smallest layout: major brand mp42 as the only brand, ftyp immediately followed by moov, no mdat and no media data (200 bytes), so \"moov\" is found at byte 20.",
-    "sha256": "d27a4e40da64fd0d111e0a4c75e084b9c860c45795144c9c92a6dc8269006b45"
-  },
-  {
     "puid": "fmt/199",
     "formatName": "MPEG-4 Media File",
     "formatVersion": "",
@@ -897,24 +819,8 @@
     "file": "fmt-199_MPEG-4_Media_File--brand-iso5-mp41.mp4",
     "sizeBytes": 1311,
     "alsoDetectedAs": [],
-    "variantReason": "Different brands: major brand iso5 with compatible brands iso6 and mp41, so only the compatible brand mp41 satisfies the signature's brand list (isom, iso2, mp41, mp42), and the file is an init segment (ftyp, moov with mvex) without any mdat.",
+    "variantReason": "Different brands: major brand iso5 with compatible brands iso6 and mp41, so only the compatible brand mp41 satisfies the signature's brand list (isom, iso2, mp41, mp42); the file is an init segment (ftyp, moov with mvex) with no media data (no mdat, no fragments), so it is real but not playable.",
     "sha256": "d63ffcf228e6c1c579fdc34e75c07aefd1cd1b0d27d59e602921136811f48623"
-  },
-  {
-    "puid": "fmt/199",
-    "formatName": "MPEG-4 Media File",
-    "formatVersion": "",
-    "sourceRepository": "https://github.com/videojs/mux.js",
-    "sourceCommit": "bd82121caa7edef3eddff1c1e821e46bf0072e04",
-    "originalPath": "test/segments/dash-608-captions-init.mp4 + test/segments/dash-608-captions-seg.m4s",
-    "license": "Apache License 2.0, unless otherwise stated in the repository",
-    "file": "fmt-199_MPEG-4_Media_File--fragmented.mp4",
-    "sizeBytes": 190314,
-    "alsoDetectedAs": [],
-    "variantReason": "Layout: fragmented MP4 (ftyp and a 720-byte moov with mvex as init segment, then two moof+mdat fragment pairs, 190,314 bytes in total), so \"moov\" is small and early and most of the file is moof/mdat; brands isom, iso2, avc1, mp41, iso5.",
-    "modification": "Not an original file: the DASH init segment dash-608-captions-init.mp4 (sha256 c3b4a3b75fb7f2e2d0d9ec6798ce178359ef8c95eaca44d09ef6020163f45454) and the media segment dash-608-captions-seg.m4s (sha256 e5e31b5dff71d7c6bcdc63d16043a598af083a676baa86a929ec4c34be1ca3d3) of the same repository, concatenated in that order without any other change.",
-    "originalSha256": "c3b4a3b75fb7f2e2d0d9ec6798ce178359ef8c95eaca44d09ef6020163f45454 + e5e31b5dff71d7c6bcdc63d16043a598af083a676baa86a929ec4c34be1ca3d3",
-    "sha256": "bc0aa724b641fa6040b963f19d7ff2587107bc45dbfc162d8b5f2552c91c2836"
   },
   {
     "puid": "fmt/199",
@@ -998,32 +904,6 @@
     ]
   },
   {
-    "file": "fmt-2062_AV1_Image_File_Format.avif",
-    "puid": "fmt/2062",
-    "formatName": "AV1 Image File Format",
-    "formatVersion": "",
-    "sizeBytes": 185,
-    "sourceRepository": "https://github.com/apache/tika",
-    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
-    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/resources/test-documents/testAVIF.avif",
-    "license": "Apache License 2.0, unless otherwise stated in the repository",
-    "alsoDetectedAs": []
-  },
-  {
-    "file": "fmt-2094_M4A_Audio.m4a",
-    "puid": "fmt/2094",
-    "formatName": "M4A Audio",
-    "formatVersion": "",
-    "sizeBytes": 464,
-    "sourceRepository": "https://github.com/apache/tika",
-    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
-    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/resources/test-documents/testMP4_drm.m4a",
-    "license": "Apache License 2.0, unless otherwise stated in the repository",
-    "alsoDetectedAs": [
-      "fmt/199"
-    ]
-  },
-  {
     "file": "fmt-211_Kodak_Photo_CD_Image.pcd",
     "puid": "fmt/211",
     "formatName": "Kodak Photo CD Image",
@@ -1048,18 +928,6 @@
     "alsoDetectedAs": [
       "fmt/101"
     ]
-  },
-  {
-    "file": "fmt-255_DjVu_File_Format.djvu",
-    "puid": "fmt/255",
-    "formatName": "DjVu File Format",
-    "formatVersion": "",
-    "sizeBytes": 89,
-    "sourceRepository": "https://github.com/apache/tika",
-    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
-    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testDJVU.djvu",
-    "license": "Apache License 2.0, unless otherwise stated in the repository",
-    "alsoDetectedAs": []
   },
   {
     "file": "fmt-276_Acrobat_PDF_1.7_-_Portable_Document_Format_1.7.pdf",
@@ -1540,7 +1408,7 @@
     "alsoDetectedAs": [
       "fmt/41"
     ],
-    "variantReason": "Base sample: baseline JFIF 1.01 without Exif, ICC or COM segments, 261,592 bytes, ends exactly with its last FF D9 (0 bytes after it, measured at offset 261,590); reference for the trailing-data variants.",
+    "variantReason": "Base sample: baseline JFIF 1.01 without Exif, ICC or COM segments, 261,592 bytes, ends exactly with its last FF D9 (0 bytes after it, measured at offset 261,590).",
     "sha256": "e132a8a4c461c0307a9bc89b85388245d21b4fbe09eab0360b7b6de5acc54f16"
   },
   {
@@ -1558,57 +1426,6 @@
     ],
     "variantReason": "Encoding variant: progressive JPEG (SOF2, several scans) instead of the baseline base sample; it also carries 7 ICC profile segments of 65,535 bytes before the first scan (image data starts at byte 400,152 of 511,999), and ends exactly with its last FF D9.",
     "sha256": "9329fadea9654d127bdf1f5c31d0583a5797282ffc45d668662da4df6ee4c3dd"
-  },
-  {
-    "puid": "fmt/43",
-    "formatName": "JPEG File Interchange Format",
-    "formatVersion": "1.01",
-    "sourceRepository": "https://github.com/openpreserve/format-corpus",
-    "originalPath": "variations/variations/image/jpeg/lorem-ipsum.im.png.im.jpg",
-    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "file": "fmt-43_JPEG_File_Interchange_Format_1.01--trailing-2999.jpg",
-    "sizeBytes": 264591,
-    "alsoDetectedAs": [
-      "fmt/41"
-    ],
-    "variantReason": "Bytes after the end marker: 2,999 zero bytes follow the last FF D9, just below the default 3,000-byte anchor distance.",
-    "modification": "Not an original file: the base sample fmt-43_JPEG_File_Interchange_Format_1.01.jpg (sha256 e132a8a4c461c0307a9bc89b85388245d21b4fbe09eab0360b7b6de5acc54f16, whose last FF D9 is its last two bytes, offset 261,590) with 2,999 zero bytes (00) appended.",
-    "originalSha256": "e132a8a4c461c0307a9bc89b85388245d21b4fbe09eab0360b7b6de5acc54f16",
-    "sha256": "07cd6ddeb65e3360caec964ece421975ce411cd6b39b254dea986c251497af77"
-  },
-  {
-    "puid": "fmt/43",
-    "formatName": "JPEG File Interchange Format",
-    "formatVersion": "1.01",
-    "sourceRepository": "https://github.com/openpreserve/format-corpus",
-    "originalPath": "variations/variations/image/jpeg/lorem-ipsum.im.png.im.jpg",
-    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "file": "fmt-43_JPEG_File_Interchange_Format_1.01--trailing-3001.jpg",
-    "sizeBytes": 264593,
-    "alsoDetectedAs": [
-      "fmt/41"
-    ],
-    "variantReason": "Bytes after the end marker: 3,001 zero bytes follow the last FF D9, just above the default 3,000-byte anchor distance, so the anchor must be found by the signature's own reach.",
-    "modification": "Not an original file: the base sample fmt-43_JPEG_File_Interchange_Format_1.01.jpg (sha256 e132a8a4c461c0307a9bc89b85388245d21b4fbe09eab0360b7b6de5acc54f16, whose last FF D9 is its last two bytes, offset 261,590) with 3,001 zero bytes (00) appended.",
-    "originalSha256": "e132a8a4c461c0307a9bc89b85388245d21b4fbe09eab0360b7b6de5acc54f16",
-    "sha256": "f56e27f3b6303549156a2d273d709540f14735ea57c2df7a1d5feca47824a8dc"
-  },
-  {
-    "puid": "fmt/43",
-    "formatName": "JPEG File Interchange Format",
-    "formatVersion": "1.01",
-    "sourceRepository": "https://github.com/openpreserve/format-corpus",
-    "originalPath": "variations/variations/image/jpeg/lorem-ipsum.im.png.im.jpg",
-    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "file": "fmt-43_JPEG_File_Interchange_Format_1.01--trailing-65536.jpg",
-    "sizeBytes": 327128,
-    "alsoDetectedAs": [
-      "fmt/41"
-    ],
-    "variantReason": "Bytes after the end marker: 65,536 zero bytes follow the last FF D9, exactly the 65,536 bytes between the last FF D9 and the end of the file that the fmt/43 signature accepts (EOF offset 65,536); 65,537 is no longer detected.",
-    "modification": "Not an original file: the base sample fmt-43_JPEG_File_Interchange_Format_1.01.jpg (sha256 e132a8a4c461c0307a9bc89b85388245d21b4fbe09eab0360b7b6de5acc54f16, whose last FF D9 is its last two bytes, offset 261,590) with 65,536 zero bytes (00) appended.",
-    "originalSha256": "e132a8a4c461c0307a9bc89b85388245d21b4fbe09eab0360b7b6de5acc54f16",
-    "sha256": "86ed2b768c811532dcca2ef2900fb4587758dd673be8bf81afdfa85869021990"
   },
   {
     "puid": "fmt/43",
@@ -2445,11 +2262,13 @@
     "puid": "fmt/96",
     "formatName": "Hypertext Markup Language",
     "formatVersion": "",
-    "sizeBytes": 461,
-    "sourceRepository": "https://github.com/netarchivesuite/droid-light",
-    "originalPath": "original file, not taken from another repository",
-    "license": "Same license as this repository (see LICENSE)",
-    "alsoDetectedAs": []
+    "sizeBytes": 1163,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-html-module/src/test/resources/test-documents/testHTML.html",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [],
+    "sha256": "c84561ac87f7339275f9d6619babcff230e2e6fe32e2e4cd3802caf16ffed1fd"
   },
   {
     "file": "fmt-968_AppleSingle_2.as",

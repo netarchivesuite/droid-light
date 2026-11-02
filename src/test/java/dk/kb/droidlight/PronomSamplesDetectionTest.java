@@ -69,7 +69,16 @@ import org.junit.jupiter.api.TestFactory;
  * reason names a property that could change detection (size tier, bytes after the end
  * marker, another writer, an encoding variant, a content edge case) cannot be tested and is
  * a matter for review. A file that must <i>not</i> be detected does not belong in the
- * folder; see {@link TrailingDataBeyondLimitTest}.
+ * folder; see {@link SyntheticAnchorReachTest}.
+ *
+ * <h2>Only unmodified files</h2>
+ * The folder holds only files exactly as written by real software, downloaded or produced
+ * by a real encoder from real input: nothing padded, joined, edited or written by hand.
+ * {@link #noSampleIsDescribedAsModifiedOrJoined()} checks the manifest for the signs of such
+ * a file: an <code>originalPath</code> that names several source files joined by
+ * <code>" + "</code>, or a <code>variantReason</code> that speaks of appended, padded,
+ * concatenated or inserted data. Files like that are built at run time by the tests that
+ * need them, for example {@link SyntheticAnchorReachTest}.
  *
  * <h2>Special cases</h2>
  * A few real files are matched by more than one format. PRONOM resolves this with
@@ -202,24 +211,64 @@ public class PronomSamplesDetectionTest {
         }
     }
 
+    /** Words in a <code>variantReason</code> that describe a file that was changed after it was written. */
+    private static final Pattern MODIFICATION_WORDS =
+            Pattern.compile("append|padded|padding|concatenat|insert", Pattern.CASE_INSENSITIVE);
+
     /**
-     * The <code>variantReason</code> of every manifest entry that has one, keyed by file name.
-     * The manifest is a JSON array of flat objects written with one <code>"key": "value"</code>
-     * line per string field (two spaces for the object braces, four for the fields), so it is
-     * read line by line; this avoids a JSON library for a single field.
+     * The folder holds only unmodified files: no manifest entry may name several source files
+     * (<code>originalPath</code> containing <code>" + "</code>), and no <code>variantReason</code>
+     * may mention appended, padded, concatenated or inserted data.
      */
+    @Test
+    public void noSampleIsDescribedAsModifiedOrJoined() throws Exception {
+        List<String> problems = new ArrayList<>();
+        for (Map<String, String> entry : manifestEntries()) {
+            String file = entry.getOrDefault("file", "(entry without file)");
+            String originalPath = entry.getOrDefault("originalPath", "");
+            if (originalPath.contains(" + ")) {
+                problems.add(file + ": originalPath names more than one source file: " + originalPath);
+            }
+            String reason = entry.getOrDefault("variantReason", "");
+            Matcher m = MODIFICATION_WORDS.matcher(reason);
+            if (m.find()) {
+                problems.add(file + ": variantReason mentions '" + m.group() + "': " + reason);
+            }
+        }
+        if (!problems.isEmpty()) {
+            fail(problems.size() + " manifest entr" + (problems.size() == 1 ? "y describes" : "ies describe")
+                    + " a modified or joined file; only unmodified files belong in "
+                    + sampleFolder().getAbsolutePath() + ": " + problems);
+        }
+    }
+
+    /** The <code>variantReason</code> of every manifest entry that has one, keyed by file name. */
     private static Map<String, String> variantReasonsByFile() throws Exception {
+        Map<String, String> reasons = new HashMap<>();
+        for (Map<String, String> entry : manifestEntries()) {
+            if (entry.containsKey("file") && entry.containsKey("variantReason")) {
+                reasons.put(entry.get("file"), entry.get("variantReason"));
+            }
+        }
+        return reasons;
+    }
+
+    /**
+     * The string fields of every manifest entry. The manifest is a JSON array of flat objects
+     * written with one <code>"key": "value"</code> line per string field (two spaces for the
+     * object braces, four for the fields), so it is read line by line; this avoids a JSON
+     * library. Fields that are not strings (numbers, lists) are not returned.
+     */
+    private static List<Map<String, String>> manifestEntries() throws Exception {
         File manifest = new File(sampleFolder(), MANIFEST);
         Pattern field = Pattern.compile("^ {4}\"(\\w+)\":\\s*\"((?:[^\"\\\\]|\\\\.)*)\",?\\s*$");
-        Map<String, String> reasons = new HashMap<>();
+        List<Map<String, String>> entries = new ArrayList<>();
         Map<String, String> current = null;
         for (String line : Files.readAllLines(manifest.toPath(), StandardCharsets.UTF_8)) {
             if (line.equals("  {")) {
                 current = new HashMap<>();
             } else if (line.startsWith("  }") && current != null) {
-                if (current.containsKey("file") && current.containsKey("variantReason")) {
-                    reasons.put(current.get("file"), current.get("variantReason"));
-                }
+                entries.add(current);
                 current = null;
             } else if (current != null) {
                 Matcher m = field.matcher(line);
@@ -228,7 +277,7 @@ public class PronomSamplesDetectionTest {
                 }
             }
         }
-        return reasons;
+        return entries;
     }
 
     private static String unescapeJson(String s) {
