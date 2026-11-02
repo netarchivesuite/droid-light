@@ -606,7 +606,9 @@ public class DroidSignatureAhoCorasickVerifier {
             try {
                 in.reset();
             } catch (IOException e) {
-                System.out.println("  (reset() failed on the supplied stream, reading from current position: " + e + ")");
+                // Reading from the current position is the documented behaviour,
+                // so this is only reported when VERBOSE is true.
+                if (DroidSignatureVerifier.VERBOSE) System.out.println("  (reset() failed on the supplied stream, reading from current position: " + e + ")");
             }
         }
         DroidSignatureVerifier.FileRegion region = DroidSignatureVerifier.readBoundedRegion(in);

@@ -331,19 +331,6 @@
     "alsoDetectedAs": []
   },
   {
-    "file": "fmt-289_WARC.warc",
-    "puid": "fmt/289",
-    "formatName": "WARC",
-    "formatVersion": "",
-    "sizeBytes": 9783,
-    "sourceRepository": "https://github.com/digital-preservation/droid",
-    "originalPath": "droid-core-interfaces/src/test/resources/expanded.warc",
-    "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
-    "alsoDetectedAs": [
-      "fmt/1355"
-    ]
-  },
-  {
     "file": "fmt-290_OpenDocument_Text_1.1.odt",
     "puid": "fmt/290",
     "formatName": "OpenDocument Text",
@@ -721,17 +708,15 @@
     "alsoDetectedAs": []
   },
   {
-    "file": "fmt-96_Hypertext_Markup_Language.xhtml",
+    "file": "fmt-96_Hypertext_Markup_Language.html",
     "puid": "fmt/96",
     "formatName": "Hypertext Markup Language",
     "formatVersion": "",
-    "sizeBytes": 2401,
-    "sourceRepository": "https://github.com/openpreserve/format-corpus",
-    "originalPath": "office-examples/OpenOffice.org 3.2.0 OSX/pdf-features/simple.xhtml",
-    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": [
-      "fmt/101"
-    ]
+    "sizeBytes": 461,
+    "sourceRepository": "https://github.com/netarchivesuite/droid-light",
+    "originalPath": "original file, not taken from another repository",
+    "license": "Same license as this repository (see LICENSE)",
+    "alsoDetectedAs": []
   },
   {
     "file": "x-fmt-114_Lotus_1-2-3_Worksheet_2.0.WK1",
@@ -967,18 +952,5 @@
     "originalPath": "office/wordprocessing/WordPerfect6/testWordPerfect_6_61.wpd",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": []
-  },
-  {
-    "file": "x-fmt-450_Adobe_InDesign_Document_Generic.indd",
-    "puid": "x-fmt/450",
-    "formatName": "Adobe InDesign Document",
-    "formatVersion": "Generic",
-    "sizeBytes": 1503232,
-    "sourceRepository": "https://github.com/openpreserve/format-corpus",
-    "originalPath": "desktop-publishing/InDesign/Neddy_Flyer_HeatherRyan.indd",
-    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": [
-      "fmt/196"
-    ]
   }
 ]

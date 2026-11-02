@@ -1813,7 +1813,9 @@ public class DroidSignatureVerifier {
                 // No prior mark() was set, or the stream doesn't actually support
                 // resetting despite markSupported() returning true - proceed from
                 // wherever the stream currently is rather than failing outright.
-                System.out.println("  (reset() failed on the supplied stream, reading from current position: " + e + ")");
+                // Reading from the current position is the documented behaviour,
+                // so this is only reported when VERBOSE is true.
+                if (VERBOSE) System.out.println("  (reset() failed on the supplied stream, reading from current position: " + e + ")");
             }
         }
         FileRegion region = readBoundedRegion(in);
@@ -2052,7 +2054,9 @@ public class DroidSignatureVerifier {
             try {
                 in.reset();
             } catch (IOException e) {
-                System.out.println("  (reset() failed on the supplied stream, reading from current position: " + e + ")");
+                // Reading from the current position is the documented behaviour,
+                // so this is only reported when VERBOSE is true.
+                if (VERBOSE) System.out.println("  (reset() failed on the supplied stream, reading from current position: " + e + ")");
             }
         }
         FileRegion region = readBoundedRegion(in);
