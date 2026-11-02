@@ -600,7 +600,77 @@
     "license": "MIT-CMU License, unless otherwise stated in the repository",
     "alsoDetectedAs": [
       "fmt/41"
-    ]
+    ],
+    "variantReason": "Content edge case: UltraHDR / multi-picture file (Exif, ICC, XMP and an MPF index) with a second image after the primary image; its last FF D9 is at offset 7,287 and 40,908 of the 48,197 bytes follow it, so it ends 40,908 bytes after the last end marker.",
+    "sha256": "50f8cdfc216b5b760b07f99a5a8cb17a2960a7e4bd1b4f9eeb2cc84e9a16a693"
+  },
+  {
+    "puid": "fmt/1507",
+    "formatName": "Exchangeable Image File Format (Compressed)",
+    "formatVersion": "2.3.x",
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/xmp_test.jpg",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "file": "fmt-1507_Exchangeable_Image_File_Format_Compressed_2.3.x--photoshop-xmp-icc-restart.jpg",
+    "sizeBytes": 1798984,
+    "alsoDetectedAs": [
+      "fmt/41"
+    ],
+    "variantReason": "Content edge case and encoding variant: Exif, Photoshop, XMP and ICC segments (about 42,626 bytes) before the image data, restart markers (DRI), written by Adobe Photoshop; ends exactly with its last FF D9 (0 bytes after it), so it is the clean base of the trailing-data variants.",
+    "sha256": "b024c2d84839f63249b220e42480a2150d9540a7daf464cbd8f459ea575ff0e9"
+  },
+  {
+    "puid": "fmt/1507",
+    "formatName": "Exchangeable Image File Format (Compressed)",
+    "formatVersion": "2.3.x",
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/xmp_test.jpg",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "file": "fmt-1507_Exchangeable_Image_File_Format_Compressed_2.3.x--trailing-131072.jpg",
+    "sizeBytes": 1930056,
+    "alsoDetectedAs": [],
+    "variantReason": "Bytes after the end marker: 131,072 zero bytes follow the last FF D9, exactly the 131,072 bytes between the last FF D9 and the end of the file that the fmt/1507 signature accepts (EOF offset 131,072); 131,073 is no longer detected.",
+    "modification": "Not an original file: Tests/images/xmp_test.jpg (sha256 b024c2d84839f63249b220e42480a2150d9540a7daf464cbd8f459ea575ff0e9, whose last FF D9 is its last two bytes, offset 1,798,982) with 131,072 zero bytes (00) appended.",
+    "originalSha256": "b024c2d84839f63249b220e42480a2150d9540a7daf464cbd8f459ea575ff0e9",
+    "sha256": "c7c7f3bfd6f3f49bb9f4cc8b0c8bd98ab07013b2122fa1e494455e1075e0affd"
+  },
+  {
+    "puid": "fmt/1507",
+    "formatName": "Exchangeable Image File Format (Compressed)",
+    "formatVersion": "2.3.x",
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/xmp_test.jpg",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "file": "fmt-1507_Exchangeable_Image_File_Format_Compressed_2.3.x--trailing-2999.jpg",
+    "sizeBytes": 1801983,
+    "alsoDetectedAs": [
+      "fmt/41"
+    ],
+    "variantReason": "Bytes after the end marker: 2,999 zero bytes follow the last FF D9, just below the default 3,000-byte anchor distance.",
+    "modification": "Not an original file: Tests/images/xmp_test.jpg (sha256 b024c2d84839f63249b220e42480a2150d9540a7daf464cbd8f459ea575ff0e9, whose last FF D9 is its last two bytes, offset 1,798,982) with 2,999 zero bytes (00) appended.",
+    "originalSha256": "b024c2d84839f63249b220e42480a2150d9540a7daf464cbd8f459ea575ff0e9",
+    "sha256": "2e678abadae8f57b072b085ca5d3ceec804ae331efbdd7f9bed171953eb03cd1"
+  },
+  {
+    "puid": "fmt/1507",
+    "formatName": "Exchangeable Image File Format (Compressed)",
+    "formatVersion": "2.3.x",
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/xmp_test.jpg",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "file": "fmt-1507_Exchangeable_Image_File_Format_Compressed_2.3.x--trailing-3001.jpg",
+    "sizeBytes": 1801985,
+    "alsoDetectedAs": [
+      "fmt/41"
+    ],
+    "variantReason": "Bytes after the end marker: 3,001 zero bytes follow the last FF D9, just above the default 3,000-byte anchor distance, so the anchor must be found by the signature's own reach.",
+    "modification": "Not an original file: Tests/images/xmp_test.jpg (sha256 b024c2d84839f63249b220e42480a2150d9540a7daf464cbd8f459ea575ff0e9, whose last FF D9 is its last two bytes, offset 1,798,982) with 3,001 zero bytes (00) appended.",
+    "originalSha256": "b024c2d84839f63249b220e42480a2150d9540a7daf464cbd8f459ea575ff0e9",
+    "sha256": "ea41f380e06326e8c7d710dfc884335cc1960cf12545840cc4ee16bc58f7bd27"
   },
   {
     "file": "fmt-151_JPX_JPEG_2000_part_2.jpf",
@@ -812,7 +882,67 @@
     "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/resources/test-documents/testMP4_udtaLocation.mp4",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [],
+    "variantReason": "Smallest layout: major brand mp42 as the only brand, ftyp immediately followed by moov, no mdat and no media data (200 bytes), so \"moov\" is found at byte 20.",
+    "sha256": "d27a4e40da64fd0d111e0a4c75e084b9c860c45795144c9c92a6dc8269006b45"
+  },
+  {
+    "puid": "fmt/199",
+    "formatName": "MPEG-4 Media File",
+    "formatVersion": "",
+    "sourceRepository": "https://github.com/videojs/mux.js",
+    "sourceCommit": "bd82121caa7edef3eddff1c1e821e46bf0072e04",
+    "originalPath": "test/segments/malformed-sei-init.mp4",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "file": "fmt-199_MPEG-4_Media_File--brand-iso5-mp41.mp4",
+    "sizeBytes": 1311,
+    "alsoDetectedAs": [],
+    "variantReason": "Different brands: major brand iso5 with compatible brands iso6 and mp41, so only the compatible brand mp41 satisfies the signature's brand list (isom, iso2, mp41, mp42), and the file is an init segment (ftyp, moov with mvex) without any mdat.",
+    "sha256": "d63ffcf228e6c1c579fdc34e75c07aefd1cd1b0d27d59e602921136811f48623"
+  },
+  {
+    "puid": "fmt/199",
+    "formatName": "MPEG-4 Media File",
+    "formatVersion": "",
+    "sourceRepository": "https://github.com/videojs/mux.js",
+    "sourceCommit": "bd82121caa7edef3eddff1c1e821e46bf0072e04",
+    "originalPath": "test/segments/dash-608-captions-init.mp4 + test/segments/dash-608-captions-seg.m4s",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "file": "fmt-199_MPEG-4_Media_File--fragmented.mp4",
+    "sizeBytes": 190314,
+    "alsoDetectedAs": [],
+    "variantReason": "Layout: fragmented MP4 (ftyp and a 720-byte moov with mvex as init segment, then two moof+mdat fragment pairs, 190,314 bytes in total), so \"moov\" is small and early and most of the file is moof/mdat; brands isom, iso2, avc1, mp41, iso5.",
+    "modification": "Not an original file: the DASH init segment dash-608-captions-init.mp4 (sha256 c3b4a3b75fb7f2e2d0d9ec6798ce178359ef8c95eaca44d09ef6020163f45454) and the media segment dash-608-captions-seg.m4s (sha256 e5e31b5dff71d7c6bcdc63d16043a598af083a676baa86a929ec4c34be1ca3d3) of the same repository, concatenated in that order without any other change.",
+    "originalSha256": "c3b4a3b75fb7f2e2d0d9ec6798ce178359ef8c95eaca44d09ef6020163f45454 + e5e31b5dff71d7c6bcdc63d16043a598af083a676baa86a929ec4c34be1ca3d3",
+    "sha256": "bc0aa724b641fa6040b963f19d7ff2587107bc45dbfc162d8b5f2552c91c2836"
+  },
+  {
+    "puid": "fmt/199",
+    "formatName": "MPEG-4 Media File",
+    "formatVersion": "",
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "release-tools/uat/test-files/testVideo_3s.mp4",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "file": "fmt-199_MPEG-4_Media_File--moov-at-end.mp4",
+    "sizeBytes": 48013,
+    "alsoDetectedAs": [],
+    "variantReason": "Layout: moov box at the end of the file (ftyp, free, a 45,768-byte mdat, then moov), the default layout of encoders that write the index last, so \"moov\" is 2,205 bytes from the end; brands isom, iso2, avc1, mp41.",
+    "sha256": "7357f30ac13c3ec754e15070168752adf8b1498285bc9f6c2579ae085d79340d"
+  },
+  {
+    "puid": "fmt/199",
+    "formatName": "MPEG-4 Media File",
+    "formatVersion": "",
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/resources/test-documents/testMP4Video.mp4",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "file": "fmt-199_MPEG-4_Media_File--moov-at-start.mp4",
+    "sizeBytes": 1810,
+    "alsoDetectedAs": [],
+    "variantReason": "Layout: moov box at the start of the file, directly after ftyp (fast-start layout: ftyp, moov, free, mdat), so \"moov\" is found at byte 32; brands isom, iso2, avc1, mp41.",
+    "sha256": "86cfcd8a978cbe012600afc34fa6183942b57e6a39228199a9809ec6b238231c"
   },
   {
     "file": "fmt-20_Acrobat_PDF_1.6_-_Portable_Document_Format_1.6.pdf",
@@ -1409,7 +1539,92 @@
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": [
       "fmt/41"
-    ]
+    ],
+    "variantReason": "Base sample: baseline JFIF 1.01 without Exif, ICC or COM segments, 261,592 bytes, ends exactly with its last FF D9 (0 bytes after it, measured at offset 261,590); reference for the trailing-data variants.",
+    "sha256": "e132a8a4c461c0307a9bc89b85388245d21b4fbe09eab0360b7b6de5acc54f16"
+  },
+  {
+    "puid": "fmt/43",
+    "formatName": "JPEG File Interchange Format",
+    "formatVersion": "1.01",
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/icc_profile_big.jpg",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "file": "fmt-43_JPEG_File_Interchange_Format_1.01--progressive.jpg",
+    "sizeBytes": 511999,
+    "alsoDetectedAs": [
+      "fmt/41"
+    ],
+    "variantReason": "Encoding variant: progressive JPEG (SOF2, several scans) instead of the baseline base sample; it also carries 7 ICC profile segments of 65,535 bytes before the first scan (image data starts at byte 400,152 of 511,999), and ends exactly with its last FF D9.",
+    "sha256": "9329fadea9654d127bdf1f5c31d0583a5797282ffc45d668662da4df6ee4c3dd"
+  },
+  {
+    "puid": "fmt/43",
+    "formatName": "JPEG File Interchange Format",
+    "formatVersion": "1.01",
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "variations/variations/image/jpeg/lorem-ipsum.im.png.im.jpg",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "file": "fmt-43_JPEG_File_Interchange_Format_1.01--trailing-2999.jpg",
+    "sizeBytes": 264591,
+    "alsoDetectedAs": [
+      "fmt/41"
+    ],
+    "variantReason": "Bytes after the end marker: 2,999 zero bytes follow the last FF D9, just below the default 3,000-byte anchor distance.",
+    "modification": "Not an original file: the base sample fmt-43_JPEG_File_Interchange_Format_1.01.jpg (sha256 e132a8a4c461c0307a9bc89b85388245d21b4fbe09eab0360b7b6de5acc54f16, whose last FF D9 is its last two bytes, offset 261,590) with 2,999 zero bytes (00) appended.",
+    "originalSha256": "e132a8a4c461c0307a9bc89b85388245d21b4fbe09eab0360b7b6de5acc54f16",
+    "sha256": "07cd6ddeb65e3360caec964ece421975ce411cd6b39b254dea986c251497af77"
+  },
+  {
+    "puid": "fmt/43",
+    "formatName": "JPEG File Interchange Format",
+    "formatVersion": "1.01",
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "variations/variations/image/jpeg/lorem-ipsum.im.png.im.jpg",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "file": "fmt-43_JPEG_File_Interchange_Format_1.01--trailing-3001.jpg",
+    "sizeBytes": 264593,
+    "alsoDetectedAs": [
+      "fmt/41"
+    ],
+    "variantReason": "Bytes after the end marker: 3,001 zero bytes follow the last FF D9, just above the default 3,000-byte anchor distance, so the anchor must be found by the signature's own reach.",
+    "modification": "Not an original file: the base sample fmt-43_JPEG_File_Interchange_Format_1.01.jpg (sha256 e132a8a4c461c0307a9bc89b85388245d21b4fbe09eab0360b7b6de5acc54f16, whose last FF D9 is its last two bytes, offset 261,590) with 3,001 zero bytes (00) appended.",
+    "originalSha256": "e132a8a4c461c0307a9bc89b85388245d21b4fbe09eab0360b7b6de5acc54f16",
+    "sha256": "f56e27f3b6303549156a2d273d709540f14735ea57c2df7a1d5feca47824a8dc"
+  },
+  {
+    "puid": "fmt/43",
+    "formatName": "JPEG File Interchange Format",
+    "formatVersion": "1.01",
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "originalPath": "variations/variations/image/jpeg/lorem-ipsum.im.png.im.jpg",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "file": "fmt-43_JPEG_File_Interchange_Format_1.01--trailing-65536.jpg",
+    "sizeBytes": 327128,
+    "alsoDetectedAs": [
+      "fmt/41"
+    ],
+    "variantReason": "Bytes after the end marker: 65,536 zero bytes follow the last FF D9, exactly the 65,536 bytes between the last FF D9 and the end of the file that the fmt/43 signature accepts (EOF offset 65,536); 65,537 is no longer detected.",
+    "modification": "Not an original file: the base sample fmt-43_JPEG_File_Interchange_Format_1.01.jpg (sha256 e132a8a4c461c0307a9bc89b85388245d21b4fbe09eab0360b7b6de5acc54f16, whose last FF D9 is its last two bytes, offset 261,590) with 65,536 zero bytes (00) appended.",
+    "originalSha256": "e132a8a4c461c0307a9bc89b85388245d21b4fbe09eab0360b7b6de5acc54f16",
+    "sha256": "86ed2b768c811532dcca2ef2900fb4587758dd673be8bf81afdfa85869021990"
+  },
+  {
+    "puid": "fmt/43",
+    "formatName": "JPEG File Interchange Format",
+    "formatVersion": "1.01",
+    "sourceRepository": "https://github.com/python-pillow/Pillow",
+    "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
+    "originalPath": "Tests/images/hopper.jpg",
+    "license": "MIT-CMU License, unless otherwise stated in the repository",
+    "file": "fmt-43_JPEG_File_Interchange_Format_1.01--writer-adobe-photoshop.jpg",
+    "sizeBytes": 6412,
+    "alsoDetectedAs": [
+      "fmt/41"
+    ],
+    "variantReason": "Different writer: written by Adobe Photoshop (COM segment \"File written by Adobe Photoshop 4.0\" right after the JFIF header, which the base sample does not have), 6,412 bytes, baseline, ends exactly with its last FF D9.",
+    "sha256": "ffe89a0ab0e94114e10777e7313d7fa83d634e34ebc2ea7479085cffa504c920"
   },
   {
     "file": "fmt-434_AutoCAD_Drawing_2010_2011_2012.dwg",

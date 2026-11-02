@@ -8,11 +8,15 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
@@ -53,10 +57,19 @@ import org.junit.jupiter.api.TestFactory;
  * instead of being skipped silently. <code>MANIFEST.json</code> and hidden files (a
  * name starting with a dot) are not samples and are ignored.
  *
- * <p>The folder holds exactly one sample per format: two files with the same PUID
- * prefix fail {@link #everyFormatHasExactlyOneSample()}. A variant of a format that
- * tests something different does not belong in this folder; it goes in a folder of
- * its own, with the reason written next to it.
+ * <h2>Several samples of one format</h2>
+ * A format may have several samples, each for a reason. The base sample keeps the plain
+ * name; every further sample adds <code>--&lt;variant&gt;</code> after the format name, for
+ * example <code>fmt-43_JPEG_File_Interchange_Format_1.01--progressive.jpg</code>. The
+ * variant part is not interpreted by this class. When a PUID has more than one sample,
+ * <code>MANIFEST.json</code> must give every one of them, the base sample included, a
+ * non-empty and distinct <code>variantReason</code>, and at most one of them may lack the
+ * <code>--</code> part; both are checked by
+ * {@link #everySampleOfAFormatWithSeveralSamplesHasADistinctVariantReason()}. Whether a
+ * reason names a property that could change detection (size tier, bytes after the end
+ * marker, another writer, an encoding variant, a content edge case) cannot be tested and is
+ * a matter for review. A file that must <i>not</i> be detected does not belong in the
+ * folder; see {@link TrailingDataBeyondLimitTest}.
  *
  * <h2>Special cases</h2>
  * A few real files are matched by more than one format. PRONOM resolves this with
@@ -141,9 +154,14 @@ public class PronomSamplesDetectionTest {
         }
     }
 
-    /** One sample per format: no two files in the folder may carry the same PUID prefix. */
+    /**
+     * Several samples of one format need a reason each: every sample of a PUID that has more
+     * than one sample, the base sample included, needs a non-empty <code>variantReason</code>
+     * in the manifest that differs from the reason of every other sample of that PUID, and at
+     * most one of them may be without a <code>--variant</code> part in its name.
+     */
     @Test
-    public void everyFormatHasExactlyOneSample() {
+    public void everySampleOfAFormatWithSeveralSamplesHasADistinctVariantReason() throws Exception {
         Map<String, List<String>> namesByPuid = new TreeMap<>();
         for (File file : sampleFiles()) {
             String puid = expectedPuid(file.getName());
@@ -151,15 +169,91 @@ public class PronomSamplesDetectionTest {
                 namesByPuid.computeIfAbsent(puid, key -> new ArrayList<>()).add(file.getName());
             }
         }
-        List<String> duplicates = namesByPuid.entrySet().stream()
-                .filter(entry -> entry.getValue().size() > 1)
-                .map(entry -> entry.getKey() + " -> " + entry.getValue())
-                .collect(Collectors.toList());
-        if (!duplicates.isEmpty()) {
-            fail("More than one sample for the same format in " + sampleFolder().getAbsolutePath()
-                    + " (a variant that tests something different belongs in its own folder, "
-                    + "with the reason written next to it): " + duplicates);
+        Map<String, String> reasons = variantReasonsByFile();
+        List<String> problems = new ArrayList<>();
+        for (Map.Entry<String, List<String>> entry : namesByPuid.entrySet()) {
+            List<String> names = entry.getValue();
+            if (names.size() < 2) {
+                continue;
+            }
+            List<String> withoutVariantPart = names.stream()
+                    .filter(name -> !name.contains("--")).collect(Collectors.toList());
+            if (withoutVariantPart.size() > 1) {
+                problems.add(entry.getKey() + ": more than one sample without a '--variant' part in its name: "
+                        + withoutVariantPart);
+            }
+            Map<String, String> fileByReason = new HashMap<>();
+            for (String name : names) {
+                String reason = reasons.get(name);
+                if (reason == null || reason.trim().isEmpty()) {
+                    problems.add(name + ": " + entry.getKey() + " has " + names.size()
+                            + " samples, so it needs a non-empty variantReason in " + MANIFEST);
+                    continue;
+                }
+                String other = fileByReason.put(reason.trim().toLowerCase(Locale.ROOT), name);
+                if (other != null) {
+                    problems.add(name + ": the same variantReason as " + other);
+                }
+            }
         }
+        if (!problems.isEmpty()) {
+            fail(problems.size() + " problem(s) with samples of the same format in "
+                    + sampleFolder().getAbsolutePath() + ": " + problems);
+        }
+    }
+
+    /**
+     * The <code>variantReason</code> of every manifest entry that has one, keyed by file name.
+     * The manifest is a JSON array of flat objects written with one <code>"key": "value"</code>
+     * line per string field (two spaces for the object braces, four for the fields), so it is
+     * read line by line; this avoids a JSON library for a single field.
+     */
+    private static Map<String, String> variantReasonsByFile() throws Exception {
+        File manifest = new File(sampleFolder(), MANIFEST);
+        Pattern field = Pattern.compile("^ {4}\"(\\w+)\":\\s*\"((?:[^\"\\\\]|\\\\.)*)\",?\\s*$");
+        Map<String, String> reasons = new HashMap<>();
+        Map<String, String> current = null;
+        for (String line : Files.readAllLines(manifest.toPath(), StandardCharsets.UTF_8)) {
+            if (line.equals("  {")) {
+                current = new HashMap<>();
+            } else if (line.startsWith("  }") && current != null) {
+                if (current.containsKey("file") && current.containsKey("variantReason")) {
+                    reasons.put(current.get("file"), current.get("variantReason"));
+                }
+                current = null;
+            } else if (current != null) {
+                Matcher m = field.matcher(line);
+                if (m.matches()) {
+                    current.put(m.group(1), unescapeJson(m.group(2)));
+                }
+            }
+        }
+        return reasons;
+    }
+
+    private static String unescapeJson(String s) {
+        StringBuilder out = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c != '\\' || i + 1 >= s.length()) {
+                out.append(c);
+                continue;
+            }
+            char next = s.charAt(++i);
+            switch (next) {
+                case 'n': out.append('\n'); break;
+                case 't': out.append('\t'); break;
+                case 'r': out.append('\r'); break;
+                case 'b': out.append('\b'); break;
+                case 'f': out.append('\f'); break;
+                case 'u':
+                    out.append((char) Integer.parseInt(s.substring(i + 1, i + 5), 16));
+                    i += 4;
+                    break;
+                default: out.append(next); // \" \\ \/
+            }
+        }
+        return out.toString();
     }
 
     /** Every special case must name a sample that exists and must say why. */

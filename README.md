@@ -34,7 +34,7 @@ A `DetectionResult` holds the PUID (`getCode()`), the format name (`getText()`),
 
 ## Files, streams and large files
 
-- `detect(File)` and `detect(InputStream)` do the same. A stream is not closed. If it supports `mark()`/`reset()` it is reset to its start before reading; otherwise reading starts at its current position.
+- `detect(File)` and `detect(InputStream)` give the same result, except for files between 40 and 100 MB that need a pattern in the middle: a file is read completely, a stream only at both ends. A stream is not closed. If it supports `mark()`/`reset()` it is reset to its start before reading; otherwise reading starts at its current position.
 - Files up to 100 MB are read completely. Larger files, and streams longer than 40 MB, are examined through a window of 20 MB at the start and 20 MB at the end, because signatures look at the beginning and the end of a file. Memory use stays small and predictable, from a few bytes up to many gigabytes. A stream is still read to its end, because a stream cannot skip ahead.
 
 ## Faster when you know the MIME type
