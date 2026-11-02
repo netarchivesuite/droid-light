@@ -10,10 +10,6 @@ package dk.kb.droidlight;
  * Example: code="fmt/471", text="Hypertext Markup Language",
  * mimeType="text/html", version="5".
  *
- * Shared by both DroidSignatureVerifier and DroidSignatureAhoCorasickVerifier -
- * pulled out to its own top-level class since both classes need to construct
- * and return arrays of this type.
- * 
  * Fields are public and final (so already directly readable), but explicit
  * getters are also provided below for callers that prefer/require accessor
  * methods over direct field access.

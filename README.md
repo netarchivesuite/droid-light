@@ -53,19 +53,6 @@ if (r.length == 0) {
 
 `getSignatureCountForMimeType()` returns 0 for types without any binary signature (CSS and JavaScript, for example) and for unknown types; skipping the shortcut then saves reading the stream twice.
 
-## The two detector classes
-
-There are two classes with the same purpose. Both read the same signature file, apply the same rules and give the same answer for ordinary files.
-
-| | `DroidSignatureVerifier` | `DroidSignatureAhoCorasickVerifier` |
-|---|---|---|
-| How it searches | checks the signatures one after another, each in a small window | looks for the start patterns of all signatures in one pass ([Aho-Corasick](https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm)), then checks the candidates |
-| Created from | a `File` or an `InputStream` | a `File` |
-| `detect(File)`, `detect(InputStream)` | yes | yes |
-| `detectCommonMimeTypes()` | yes | no |
-
-Use `DroidSignatureVerifier` unless you have measured that the other one is faster for your data; which one is faster depends on the kind of files. They can differ only in rare cases: a signature that has no distance limit at all in the signature file (a marker that may occur anywhere) is searched with a different limit by each class.
-
 ## The signature file
 
 The signatures come from PRONOM. `src/main/resources/DROID_SignatureFile_V124.xml` is PRONOM's DROID signature file V124 (2,258 signatures) plus two signatures that PRONOM does not have yet, 2,260 in total:
@@ -97,3 +84,7 @@ BSD 3-Clause, see [LICENSE](LICENSE). DROID is released under the New BSD Licens
 > Contains public sector information licensed under the Open Government Licence v3.0.
 
 **DROID.** Parts of the matching behaviour follow [DROID](https://github.com/digital-preservation/droid), the file format identification tool developed by The National Archives and released under the New BSD License.
+
+## Removed: Aho-Corasick detector
+
+An alternative detector based on the Aho-Corasick algorithm, which finds the start patterns of all signatures in a single pass, was removed. It meant maintaining two implementations of the same rules, and it only paid off when every signature had to be searched across very large parts of a file, which normal detection does not need. The last version is kept in the git tag `aho-corasick-archive`.

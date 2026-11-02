@@ -48,7 +48,6 @@ public class ScanFolderTest {
 
           //Switch which one to use.
           DroidSignatureVerifier verifier = new DroidSignatureVerifier(sigFile);
-        //DroidSignatureAhoCorasickVerifier verifier= new DroidSignatureAhoCorasickVerifier(sigFile);
         
         System.out.println("\n===== Scanning " + files.size() + " file(s) =====\n");
 

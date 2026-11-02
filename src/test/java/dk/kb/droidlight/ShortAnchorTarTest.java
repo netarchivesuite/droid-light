@@ -1,6 +1,13 @@
 package dk.kb.droidlight;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.File;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.TestFactory;
 
 /**
  * Regression test for TAR detection (x-fmt/265).
@@ -14,67 +21,42 @@ import java.io.File;
  * <p>This test scans six genuine archives, each created with the real
  * {@code tar --format=ustar} command (not hand-built bytes), whose single
  * entry's file name is exactly 1, 14, 52, 53, 60 or 99 characters long.
- * Both {@link DroidSignatureVerifier} and {@link DroidSignatureAhoCorasickVerifier}
- * must report x-fmt/265 as the top result for every one of them, regardless
- * of the first entry's file name length.
+ * {@link DroidSignatureVerifier} must report x-fmt/265 as the top result for
+ * every one of them, regardless of the first entry's file name length.
  *
  * Resource locations are found by locating the project root from the current
  * working directory (see ProjectPaths.projectRoot()) and reading directly from
  * src/main/resources / src/test/resources there - not via the classpath, which
  * depends on a build having already copied resources into an output folder.
  * This runs unchanged regardless of where the repository is checked out.
- *
- * No CLI args - meant to be run directly from an IDE, same style as
- * DroidSignatureVerifier's own main().
  */
 public class ShortAnchorTarTest {
 
     private static final String EXPECTED_PUID = "x-fmt/265";
 
-    public static void main(String[] args) throws Exception {
+    private static final int[] NAME_LENGTHS = {1, 14, 52, 53, 60, 99};
+
+    /** One test per archive, named after the length of the first entry's file name. */
+    @TestFactory
+    public Stream<DynamicTest> tarIsDetectedForEveryFileNameLength() throws Exception {
         File sigFile = ProjectPaths.mainResource("DROID_SignatureFile_V124.xml");
         File folder = ProjectPaths.testResource("short-anchor-tar");
 
-        int[] nameLengths = {1, 14, 52, 53, 60, 99};
+        DroidSignatureVerifier verifier = new DroidSignatureVerifier(sigFile);
 
-        DroidSignatureVerifier verifier1 = new DroidSignatureVerifier(sigFile);
-        DroidSignatureAhoCorasickVerifier verifier2 = new DroidSignatureAhoCorasickVerifier(sigFile);
-
-        System.out.println("First-entry name length | DroidSignatureVerifier | DroidSignatureAhoCorasickVerifier");
-        System.out.println("-------------------------------------------------------------------------------------");
-
-        int failures = 0;
-        for (int nameLength : nameLengths) {
+        Stream.Builder<DynamicTest> tests = Stream.builder();
+        for (int nameLength : NAME_LENGTHS) {
             File tarFile = new File(folder, "name-len-" + nameLength + ".tar");
-            if (!tarFile.isFile()) {
-                System.out.println(nameLength + " -> MISSING FIXTURE: " + tarFile);
-                failures++;
-                continue;
-            }
+            tests.add(DynamicTest.dynamicTest("first entry name length " + nameLength, () -> {
+                assertTrue(tarFile.isFile(), "Missing fixture: " + tarFile.getAbsolutePath());
 
-            String result1 = topCode(verifier1.detect(tarFile));
-            String result2 = topCode(verifier2.detect(tarFile));
+                DetectionResult[] results = verifier.detect(tarFile);
+                String actual = results.length == 0 ? "NO MATCH" : results[0].code;
 
-            boolean pass1 = EXPECTED_PUID.equals(result1);
-            boolean pass2 = EXPECTED_PUID.equals(result2);
-            if (!pass1 || !pass2) failures++;
-
-            System.out.printf("%-24d | %-22s | %-22s%n",
-                    nameLength,
-                    result1 + (pass1 ? " (PASS)" : " (FAIL, expected " + EXPECTED_PUID + ")"),
-                    result2 + (pass2 ? " (PASS)" : " (FAIL, expected " + EXPECTED_PUID + ")"));
+                assertEquals(EXPECTED_PUID, actual,
+                        tarFile.getName() + ": expected " + EXPECTED_PUID + " as the top result");
+            }));
         }
-
-        System.out.println();
-        if (failures == 0) {
-            System.out.println("ALL PASS: both verifiers returned " + EXPECTED_PUID + " for every file name length.");
-        } else {
-            System.out.println(failures + " length(s) FAILED.");
-        }
-    }
-
-    private static String topCode(DetectionResult[] results) {
-        if (results == null || results.length == 0) return "NO MATCH";
-        return results[0].code;
+        return tests.build();
     }
 }

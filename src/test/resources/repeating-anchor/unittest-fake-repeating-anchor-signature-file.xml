@@ -11,7 +11,7 @@
         </InternalSignature>
     </InternalSignatureCollection>
     <FileFormatCollection>
-        <FileFormat ID="1" Name="Synthetic Overflow Test Format" PUID="test-fmt/1">
+        <FileFormat ID="1" Name="Synthetic Repeating Anchor Test Format" PUID="test-fmt/1">
             <InternalSignatureID>1</InternalSignatureID>
             <Extension>bin</Extension>
         </FileFormat>

@@ -14,7 +14,7 @@ import java.util.*;
  * (uk.gov.nationalarchives.droid.core.signature.droid6.SubSequence / ByteSequence,
  * fetched from github.com/digital-preservation/droid, develop branch).
  *
- * GAPS IMPLEMENTED (relative to the earlier anchor-only Aho-Corasick prototypes):
+ * GAPS IMPLEMENTED:
  *   1. Wildcard fragment verification ([xx:yy] ranges, [!xx] single-byte negation,
  *      and [!xxxxxx...] multi-byte negation inside RightFragment/LeftFragment).
  *   2. Endianness: INVESTIGATED, found to be a no-op in the working interpretation -
@@ -1500,11 +1500,8 @@ public class DroidSignatureVerifier {
     // ------------------------------------------------------------------
 
     // ------------------------------------------------------------------
-    // DetectionResult is now its own standalone top-level class (see
-    // DetectionResult.java), shared with DroidSignatureAhoCorasickVerifier -
-    // a separate, faster (single-pass Aho-Corasick anchor scan) verifier,
-    // an alternative for very large files specifically, where its speed
-    // advantage matters most.
+    // DetectionResult is a standalone top-level class (see
+    // DetectionResult.java).
     // ------------------------------------------------------------------
 
     private final List<InternalSignatureDef> signatures;

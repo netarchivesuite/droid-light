@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.RandomAccessFile;
 
 /**
- * Reports how long each verifier class takes against a large, entirely
+ * Reports how long DroidSignatureVerifier takes against a large, entirely
  * zero-filled file - a stress case for anchor matching, since several
  * signatures' literal anchors are themselves runs of zero bytes, every one
  * of which occurs at every single position in such a file.
@@ -39,22 +39,16 @@ public class ZeroFillPerformanceTest {
 
         File sigFile = ProjectPaths.mainResource("DROID_SignatureFile_V124.xml");
 
-        DroidSignatureVerifier verifier1 = new DroidSignatureVerifier(sigFile);
-        DroidSignatureAhoCorasickVerifier verifier2 = new DroidSignatureAhoCorasickVerifier(sigFile);
+        DroidSignatureVerifier verifier = new DroidSignatureVerifier(sigFile);
 
         System.out.println();
         System.out.println("Timing DroidSignatureVerifier.detect() ...");
         long t0 = System.nanoTime();
-        DetectionResult[] results1 = verifier1.detect(tempFile);
+        DetectionResult[] results = verifier.detect(tempFile);
         long t1 = System.nanoTime();
 
-        System.out.println("Timing DroidSignatureAhoCorasickVerifier.detect() ...");
-        DetectionResult[] results2 = verifier2.detect(tempFile);
-        long t2 = System.nanoTime();
-
         System.out.println();
-        System.out.printf("DroidSignatureVerifier:             %,10.1f ms  (%d result(s))%n", (t1 - t0) / 1e6, results1.length);
-        System.out.printf("DroidSignatureAhoCorasickVerifier:   %,10.1f ms  (%d result(s))%n", (t2 - t1) / 1e6, results2.length);
+        System.out.printf("DroidSignatureVerifier: %,10.1f ms  (%d result(s))%n", (t1 - t0) / 1e6, results.length);
 
         tempFile.delete();
     }
