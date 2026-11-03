@@ -1488,7 +1488,7 @@ public class DroidSignatureVerifier {
     // Public instance API.
     //
     // Usage:
-    //   DroidSignatureVerifier verifier = new DroidSignatureVerifier(new File("DROID_SignatureFile_V124.xml"));
+    //   DroidSignatureVerifier verifier = new DroidSignatureVerifier(new File("DROID_SignatureFile_V124_experimental.xml"));
     //   DetectionResult[] results = verifier.detect(new File("somefile.mp4"));
     //
     // The constructor parses the (potentially large, ~2,000+ signature) XML file
@@ -1566,7 +1566,7 @@ public class DroidSignatureVerifier {
     /**
      * Same as the File constructor, but reads from an already-open InputStream
      * instead - e.g. a classpath resource stream
-     * (getClass().getClassLoader().getResourceAsStream("DROID_SignatureFile_V124.xml")),
+     * (getClass().getClassLoader().getResourceAsStream("DROID_SignatureFile_V124_experimental.xml")),
      * which is what you need once the signature file ships as a Maven resource
      * packed inside a jar - a plain java.io.File can't represent a jar entry at
      * all. Does not close the given stream - the caller retains ownership.
@@ -1598,9 +1598,10 @@ public class DroidSignatureVerifier {
      * Returns the signature count.
      *
      * @return the number of DROID signatures loaded from the signature file
-     *         (2,260 for the current file: the stock V124 PRONOM release,
+     *         (2,465 for the current file: the stock V124 PRONOM release,
      *         2,258, plus two local signature additions - EOT version 1.2,
-     *         and SVG without an XML declaration).
+     *         and SVG without an XML declaration - plus 205 heuristic
+     *         signatures for CSS, JavaScript and JSON).
      */
     public int getSignatureCount() {
         return signatures.size();

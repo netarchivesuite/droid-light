@@ -2826,6 +2826,36 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-817_JSON_Data_Interchange_Format.json",
+    "puid": "fmt/817",
+    "formatName": "JSON Data Interchange Format",
+    "formatVersion": "",
+    "sizeBytes": 17907,
+    "sourceRepository": "https://github.com/samayo/country-json",
+    "sourceCommit": "eeb9241cc9854cb1195d43d2af7e62412f1a69fd",
+    "originalPath": "src/country-by-capital-city.json",
+    "license": "MIT (LICENSE, Copyright (c) 2015 Samson Daniel)",
+    "alsoDetectedAs": [],
+    "variantReason": "JSON: pretty-printed, array at the top level, array of objects with string values",
+    "independentCheck": "Python json module parses it: a list of 245 objects",
+    "sha256": "448e7c9be3b58ee5b85bea786e3688c13cb82298f072dcfc1e7bf5d83724ce52"
+  },
+  {
+    "file": "fmt-817_JSON_Data_Interchange_Format--compact_object.json",
+    "puid": "fmt/817",
+    "formatName": "JSON Data Interchange Format",
+    "formatVersion": "",
+    "sizeBytes": 8347,
+    "sourceRepository": "https://github.com/Fyrd/caniuse",
+    "sourceCommit": "dfffa8fdef1b8b5896b85717c7d86df11644187d",
+    "originalPath": "region-usage-json/AD.json",
+    "license": "CC BY 4.0 (the repository's data licence, LICENSE)",
+    "alsoDetectedAs": [],
+    "variantReason": "JSON: compact, no whitespace between tokens, object at the top level with nested objects and null values",
+    "independentCheck": "Python json module parses it: an object with 6 keys",
+    "sha256": "6956e0cc2a4c730393ae1d1cb854bbfa76073bfeb3a48fb6cffba10ea9550b88"
+  },
+  {
     "file": "fmt-834_Quattro_Pro_Spreadsheet_for_Windows_1_5.wb1",
     "puid": "fmt/834",
     "formatName": "Quattro Pro Spreadsheet for Windows",
@@ -3344,6 +3374,36 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "x-fmt-224_Cascading_Style_Sheet.css",
+    "puid": "x-fmt/224",
+    "formatName": "Cascading Style Sheet",
+    "formatVersion": "",
+    "sizeBytes": 1696,
+    "sourceRepository": "https://github.com/pallets/flask",
+    "sourceCommit": "49943b5a94413a530761350f04e896f76e8d620e",
+    "originalPath": "examples/tutorial/flaskr/static/style.css",
+    "license": "BSD-3-Clause (examples/tutorial/LICENSE.txt, Copyright 2010 Pallets)",
+    "alsoDetectedAs": [],
+    "variantReason": "CSS: readable stylesheet, one declaration per line, starts with a selector",
+    "independentCheck": "postcss 8 parses it without error (26 rules, 57 declarations)",
+    "sha256": "b7724c7981be21b5a13484c8f7eb9df306f06a88406db3dc7619b80aa040e372"
+  },
+  {
+    "file": "x-fmt-224_Cascading_Style_Sheet--minified.css",
+    "puid": "x-fmt/224",
+    "formatName": "Cascading Style Sheet",
+    "formatVersion": "",
+    "sizeBytes": 2736,
+    "sourceRepository": "https://github.com/kognise/water.css",
+    "sourceCommit": "d950cbc9f8607521587fae1aa523f85e25f8396f",
+    "originalPath": "dist/light.min.css",
+    "license": "MIT (LICENSE.md, Copyright 2019 Kognise)",
+    "alsoDetectedAs": [],
+    "variantReason": "CSS: minified stylesheet, no line breaks, starts with an @charset rule",
+    "independentCheck": "postcss 8 parses it without error (40 rules, 79 declarations)",
+    "sha256": "dc05b25844db568760de80ab82edbf2663b843924a1a8f86ed46dfeba6c2961e"
+  },
+  {
     "file": "x-fmt-230_MIDI_Audio.mid",
     "puid": "x-fmt/230",
     "formatName": "MIDI Audio",
@@ -3738,6 +3798,38 @@
     "originalPath": "Tests/images/black_and_white.ico",
     "license": "MIT-CMU License, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-423_JavaScript_file.js",
+    "puid": "x-fmt/423",
+    "formatName": "JavaScript file",
+    "formatVersion": "",
+    "sizeBytes": 2760,
+    "sourceRepository": "https://github.com/git/git-scm.com",
+    "sourceCommit": "75ff5d74fd2a0e16d35b86d69443f053f9ade644",
+    "originalPath": "static/js/glossary.js",
+    "license": "MIT (repository source code, MIT-LICENSE.txt)",
+    "alsoDetectedAs": [],
+    "variantReason": "JavaScript: readable classic script, starts with a var declaration of an object literal",
+    "independentCheck": "acorn parses it without error as a script",
+    "sha256": "b976bfd3c22a4f545ae18a94d898b7acd575c3f65fb40fb60eb99ca657e4c1d8"
+  },
+  {
+    "file": "x-fmt-423_JavaScript_file--minified.js",
+    "puid": "x-fmt/423",
+    "formatName": "JavaScript file",
+    "formatVersion": "",
+    "sizeBytes": 93868,
+    "sourceRepository": "https://github.com/git/git-scm.com",
+    "sourceCommit": "75ff5d74fd2a0e16d35b86d69443f053f9ade644",
+    "originalPath": "static/js/jquery-1.7.1.min.js",
+    "license": "MIT (jQuery 1.7.1; the file header refers to jquery.org/license). The repository states MIT for its own source code.",
+    "alsoDetectedAs": [
+      "fmt/471"
+    ],
+    "variantReason": "JavaScript: minified library, starts with a licence banner comment and an immediately invoked function; also matched by fmt/471 (HTML) in V124",
+    "independentCheck": "acorn parses it without error as a script",
+    "sha256": "88171413fc76dda23ab32baa17b11e4fff89141c633ece737852445f1ba6c1bd"
   },
   {
     "file": "x-fmt-429_MHTML.mht",

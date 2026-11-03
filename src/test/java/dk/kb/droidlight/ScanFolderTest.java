@@ -20,7 +20,7 @@ import java.util.List;
 public class ScanFolderTest {
 
     public static void main(String[] args) throws Exception {
-        String signatureFile = "/home/teg/eclipse-workspace/droid-light/src/main/resources/DROID_SignatureFile_V124.xml";
+        String signatureFile = "/home/teg/eclipse-workspace/droid-light/src/main/resources/DROID_SignatureFile_V124_experimental.xml";
         String scan_folder = "/home/teg/eclipse-workspace/droid-light/src/test/resources/pronom-samples";
 
         File sigFile = new File(signatureFile);

@@ -6,7 +6,7 @@ Give it a file or a stream and it tells you which format it is: the PRONOM ident
 
 ```java
 // Create once - reading the signature file takes a second or two - and reuse it, also from many threads.
-DroidSignatureVerifier verifier = new DroidSignatureVerifier(new File("DROID_SignatureFile_V124.xml"));
+DroidSignatureVerifier verifier = new DroidSignatureVerifier(new File("DROID_SignatureFile_V124_experimental.xml"));
 
 DetectionResult[] results = verifier.detect(new File("somefile.pdf"));   // or verifier.detect(inputStream)
 if (results.length > 0) {
@@ -51,20 +51,21 @@ if (r.length == 0) {
 }
 ```
 
-`getSignatureCountForMimeType()` returns 0 for types without any binary signature (CSS and JavaScript, for example) and for unknown types; skipping the shortcut then saves reading the stream twice.
+`getSignatureCountForMimeType()` returns 0 for unknown types and for types without any signature; skipping the shortcut then saves reading the stream twice.
 
 ## The signature file
 
-The signatures come from PRONOM. `src/main/resources/DROID_SignatureFile_V124.xml` is PRONOM's DROID signature file V124 (2,258 signatures) plus two signatures that PRONOM does not have yet, 2,260 in total:
+The signatures come from PRONOM. `src/main/resources/DROID_SignatureFile_V124_experimental.xml` is the signature file the library is built and tested with. It is PRONOM's DROID signature file V124 (2,258 signatures) plus 207 signatures that PRONOM does not have, 2,465 in total. The name says "experimental" because the file deviates from the official V124 file, which this project cannot change; the official file is kept unchanged next to it as `DROID_SignatureFile_V124.xml`. The additions are:
 
 - **EOT font, version 1.2**
 - **SVG without an XML declaration**: the PRONOM signatures for SVG require `<?xml version="1.0"` at the very start of the file, so SVG files that begin directly with `<svg` were not recognised. The added signature maps them to the generic SVG format `fmt/91`.
+- **CSS (`x-fmt/224`), JavaScript (`x-fmt/423`) and JSON (`fmt/817`)**: 205 heuristic signatures. PRONOM has no binary signature for these text formats, and web archives (WARC files) are full of them. The signatures look for the typical start and end of such a file: a JSON file starts with `{` or `[` and ends with the matching closing bracket, a stylesheet begins with a selector and a property list or an at-rule, a script begins with a JavaScript-only statement. They have priority over Plain Text (`x-fmt/111`) in the signature file. They are heuristics and not a parser: in tests on real files they identified about 98% of the CSS, JavaScript and JSON files, and files that are only a comment, TypeScript (identified as JavaScript), Sass and Less (as CSS) and JSON variants such as JSON Lines are outside what they can tell apart.
 
 New releases of the signature file are published by PRONOM on the [DROID signature files page](https://pronom.nationalarchives.gov.uk/signature-list). To use another release, load it with the `File` or `InputStream` constructor.
 
 ## Limits
 
-- **No guessing.** Only binary signatures are used, never file extensions. Formats without a binary signature (plain text, CSS, JavaScript and others) are not identified.
+- **No guessing.** Only binary signatures are used, never file extensions. Only the formats that have a signature in the signature file are identified; plain text, for example, is not. CSS, JavaScript and JSON are identified by heuristic signatures (see above), which can be wrong for unusual files.
 - **No container signatures.** DROID also looks inside ZIP and OLE2 containers to tell, for example, a Word document from a spreadsheet. droid-light does not; such files are reported by their binary signature only.
 - **Damaged or truncated files** are not identified when the signature needs something at the end of the file (the `%%EOF` of a PDF, the end of a PNG, the end marker of a JPEG). An empty result is the correct answer then.
 - **Search distance.** A pattern is looked for within the first or last 3,000 bytes of the file. Signatures that allow a larger distance in the signature file are searched that far; the end marker of a JPEG, for example, may be followed by up to 131,072 bytes of other data.
@@ -79,7 +80,7 @@ BSD 3-Clause, see [LICENSE](LICENSE). DROID is released under the New BSD Licens
 
 ## Third-party material
 
-**The signature file.** `DROID_SignatureFile_V124.xml` was created by the PRONOM project of The National Archives, which publishes its content under the [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/). The file is not covered by this project's BSD license. Besides PRONOM's signatures it contains the two signatures added by this project (see above).
+**The signature file.** `DROID_SignatureFile_V124_experimental.xml` is based on `DROID_SignatureFile_V124.xml`, which was created by the PRONOM project of The National Archives, which publishes its content under the [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/). The file is not covered by this project's BSD license. Besides PRONOM's signatures it contains the signatures added by this project (see above).
 
 > Contains public sector information licensed under the Open Government Licence v3.0.
 
@@ -96,6 +97,7 @@ BSD 3-Clause, see [LICENSE](LICENSE). DROID is released under the New BSD Licens
 - [OpenMPT](https://github.com/OpenMPT/openmpt) (tracker modules): BSD-3-Clause.
 - [Ruffle](https://github.com/ruffle-rs/ruffle) test SWFs: MIT OR Apache-2.0. The files under `from_shumway` come from the Mozilla Shumway test corpus and are Apache-2.0; the manifest gives the licence for each file.
 - Big Buck Bunny clips from [opencv_extra](https://github.com/opencv/opencv_extra): the content is licensed CC BY 3.0, (c) Blender Foundation, [www.bigbuckbunny.org](https://www.bigbuckbunny.org). opencv_extra itself states no licence. Some media samples were made with ffmpeg from one such clip; for those the manifest gives the exact command line instead of a source path.
+- CSS, JavaScript and JSON samples (these formats have no signature in PRONOM's own file): [pallets/flask](https://github.com/pallets/flask) (a tutorial stylesheet, BSD-3-Clause), [kognise/water.css](https://github.com/kognise/water.css) (a minified stylesheet, MIT), [git/git-scm.com](https://github.com/git/git-scm.com) (a script and a minified jQuery 1.7.1; the repository's own code is MIT, and jQuery is MIT), [samayo/country-json](https://github.com/samayo/country-json) (MIT) and [Fyrd/caniuse](https://github.com/Fyrd/caniuse) (data licensed CC BY 4.0).
 
 ## Removed: Aho-Corasick detector
 

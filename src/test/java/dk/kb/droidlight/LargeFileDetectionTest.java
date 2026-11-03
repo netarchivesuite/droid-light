@@ -70,7 +70,7 @@ import org.junit.jupiter.api.TestFactory;
 @Tag("large")
 public class LargeFileDetectionTest {
 
-    private static final String SIGNATURE_FILE = "DROID_SignatureFile_V124.xml";
+    private static final String SIGNATURE_FILE = "DROID_SignatureFile_V124_experimental.xml";
     private static final String JPEG_SAMPLE = "pronom-samples/fmt-43_JPEG_File_Interchange_Format_1.01.jpg";
     private static final String MP4_SAMPLE = "pronom-samples/fmt-199_MPEG-4_Media_File--moov-at-end.mp4";
 

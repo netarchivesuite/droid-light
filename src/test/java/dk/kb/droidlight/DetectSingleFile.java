@@ -5,8 +5,8 @@ import java.io.File;
 public class DetectSingleFile {
 public static void main(String[] args) throws Exception{
     
-    String signatureFile = "/home/teg/eclipse-workspace/droid-light/src/main/resources/DROID_SignatureFile_V124.xml";
-    String file="/home/teg/Downloads/400K.dsk";
+    String signatureFile = "/home/teg/eclipse-workspace/droid-light/src/main/resources/DROID_SignatureFile_V124_experimental.xml";
+    String file="/home/teg/Downloads/1000000659.jpg";
 
     File sigFile = new File(signatureFile);
     File scanFile= new File(file);

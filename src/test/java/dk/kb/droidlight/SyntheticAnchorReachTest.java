@@ -39,7 +39,7 @@ import org.junit.jupiter.api.io.TempDir;
  */
 public class SyntheticAnchorReachTest {
 
-    private static final String SIGNATURE_FILE = "DROID_SignatureFile_V124.xml";
+    private static final String SIGNATURE_FILE = "DROID_SignatureFile_V124_experimental.xml";
     private static final String JFIF_SAMPLE = "pronom-samples/fmt-43_JPEG_File_Interchange_Format_1.01.jpg";
     private static final String EXIF_SAMPLE =
             "pronom-samples/fmt-1507_Exchangeable_Image_File_Format_Compressed_2.3.x--photoshop-xmp-icc-restart.jpg";
