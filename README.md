@@ -55,17 +55,29 @@ if (r.length == 0) {
 
 ## The signature file
 
-The signatures come from PRONOM. `src/main/resources/DROID_SignatureFile_V124_experimental.xml` is the signature file the library is built and tested with. It is PRONOM's DROID signature file V124 (2,258 signatures) plus 207 signatures that PRONOM does not have, 2,465 in total. The name says "experimental" because the file deviates from the official V124 file, which this project cannot change; the official file is kept unchanged next to it as `DROID_SignatureFile_V124.xml`. The additions are:
+The signatures come from PRONOM. `src/main/resources/DROID_SignatureFile_V124_experimental.xml` is the signature file the library is built and tested with. It is PRONOM's DROID signature file V124 (2,258 signatures) plus ten signatures that PRONOM does not have, 2,268 in total. The name says "experimental" because the file deviates from the official V124 file, which this project cannot change; the V124 file of the project (PRONOM's V124 and the first two additions below) is kept unchanged next to it as `DROID_SignatureFile_V124.xml`. The additions are:
 
 - **EOT font, version 1.2**
 - **SVG without an XML declaration**: the PRONOM signatures for SVG require `<?xml version="1.0"` at the very start of the file, so SVG files that begin directly with `<svg` were not recognised. The added signature maps them to the generic SVG format `fmt/91`.
-- **CSS (`x-fmt/224`), JavaScript (`x-fmt/423`) and JSON (`fmt/817`)**: 205 heuristic signatures. PRONOM has no binary signature for these text formats, and web archives (WARC files) are full of them. The signatures look for the typical start and end of such a file: a JSON file starts with `{` or `[` and ends with the matching closing bracket, a stylesheet begins with a selector and a property list or an at-rule, a script begins with a JavaScript-only statement. They have priority over Plain Text (`x-fmt/111`) in the signature file. They are heuristics and not a parser: in tests on real files they identified about 98% of the CSS, JavaScript and JSON files, and files that are only a comment, TypeScript (identified as JavaScript), Sass and Less (as CSS) and JSON variants such as JSON Lines are outside what they can tell apart.
+- **JSON, JavaScript and CSS**: eight heuristic signatures, because PRONOM has no binary signature for these text formats and web archives (WARC files) are full of them. They are described below.
 
 New releases of the signature file are published by PRONOM on the [DROID signature files page](https://pronom.nationalarchives.gov.uk/signature-list). To use another release, load it with the `File` or `InputStream` constructor.
 
+### Heuristic signatures for JSON, JavaScript and CSS
+
+JSON, JavaScript and CSS are text formats without magic bytes, so these signatures only look for syntax that is typical of the format:
+
+- **JSON** (`fmt/817`): an opening `{` in the first 3 bytes followed by a `"` within 16 bytes (an object), or an opening `[` in the first 3 bytes followed within 16 bytes by `{`, `"`, `[`, a digit or `-` (an array).
+- **JavaScript** (`x-fmt/423`): one of `return`, `module.exports`, `export `, `use strict` or `import {` within the first 3,000 bytes.
+- **CSS** (`x-fmt/224`): a `{` within the first 3,000 bytes, followed by a `:` within 200 bytes and then a `;` within 200 bytes (a declaration such as `color: red;`).
+
+The three formats are the last ones in the format list of the signature file, in the order JSON, JavaScript, CSS. When several formats match a file, they are reported in the order of the format list, except that a format that another matching format outranks by a PRONOM priority rule comes after the others. So a file that matches one of these three and a format with a real PRONOM signature is reported as the real format first, and a file that matches several of the three is reported as JSON before JavaScript before CSS.
+
+The results are heuristic. Measured on 9,105 real files from 58 npm packages, the signatures identified 99.1% of the JavaScript files (1.1% false positives), 98.6% of the CSS files (0.44% false positives) and 100% of the JSON files (0.09% false positives). Other files, such as images, may carry CSS or JavaScript and then show these as a lower-ranked second result after their own format. One case among the test samples: jQuery 1.7.1 (a minified JavaScript file) contains the text `<!doctype html>` and is therefore reported as HTML5 (`fmt/471`) first and as JavaScript second.
+
 ## Limits
 
-- **No guessing.** Only binary signatures are used, never file extensions. Only the formats that have a signature in the signature file are identified; plain text, for example, is not. CSS, JavaScript and JSON are identified by heuristic signatures (see above), which can be wrong for unusual files.
+- **No guessing.** Only binary signatures are used, never file extensions. Only the formats that have a signature in the signature file are identified; plain text, for example, is not. CSS, JavaScript and JSON are identified by heuristic signatures (see above), which can be wrong.
 - **No container signatures.** DROID also looks inside ZIP and OLE2 containers to tell, for example, a Word document from a spreadsheet. droid-light does not; such files are reported by their binary signature only.
 - **Damaged or truncated files** are not identified when the signature needs something at the end of the file (the `%%EOF` of a PDF, the end of a PNG, the end marker of a JPEG). An empty result is the correct answer then.
 - **Search distance.** A pattern is looked for within the first or last 3,000 bytes of the file. Signatures that allow a larger distance in the signature file are searched that far; the end marker of a JPEG, for example, may be followed by up to 131,072 bytes of other data.
@@ -97,7 +109,7 @@ BSD 3-Clause, see [LICENSE](LICENSE). DROID is released under the New BSD Licens
 - [OpenMPT](https://github.com/OpenMPT/openmpt) (tracker modules): BSD-3-Clause.
 - [Ruffle](https://github.com/ruffle-rs/ruffle) test SWFs: MIT OR Apache-2.0. The files under `from_shumway` come from the Mozilla Shumway test corpus and are Apache-2.0; the manifest gives the licence for each file.
 - Big Buck Bunny clips from [opencv_extra](https://github.com/opencv/opencv_extra): the content is licensed CC BY 3.0, (c) Blender Foundation, [www.bigbuckbunny.org](https://www.bigbuckbunny.org). opencv_extra itself states no licence. Some media samples were made with ffmpeg from one such clip; for those the manifest gives the exact command line instead of a source path.
-- CSS, JavaScript and JSON samples (these formats have no signature in PRONOM's own file): [pallets/flask](https://github.com/pallets/flask) (a tutorial stylesheet, BSD-3-Clause), [kognise/water.css](https://github.com/kognise/water.css) (a minified stylesheet, MIT), [git/git-scm.com](https://github.com/git/git-scm.com) (a script and a minified jQuery 1.7.1; the repository's own code is MIT, and jQuery is MIT), [samayo/country-json](https://github.com/samayo/country-json) (MIT) and [Fyrd/caniuse](https://github.com/Fyrd/caniuse) (data licensed CC BY 4.0).
+- CSS, JavaScript and JSON samples (these formats have no binary signature in PRONOM's file): [pallets/flask](https://github.com/pallets/flask) (a tutorial stylesheet, BSD-3-Clause), [kognise/water.css](https://github.com/kognise/water.css) (a minified stylesheet, MIT), [git/git-scm.com](https://github.com/git/git-scm.com) (a script and a minified jQuery 1.7.1; the repository's own code is MIT, and jQuery is MIT), [samayo/country-json](https://github.com/samayo/country-json) (MIT) and [Fyrd/caniuse](https://github.com/Fyrd/caniuse) (data licensed CC BY 4.0).
 
 ## Removed: Aho-Corasick detector
 

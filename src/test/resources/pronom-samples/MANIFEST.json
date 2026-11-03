@@ -83,7 +83,9 @@
     "sourceCommit": "e38ffb0790f62f05a6f083a6fa4cac150b3b7452",
     "originalPath": "TestImages/SquaresSwirls.exr",
     "license": "BSD-3-Clause",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "variantReason": "OpenEXR: PXR24-compressed scanline image",
     "independentCheck": "ILM/ASWF reference image set; header read directly: compression/layout as stated",
     "sha256": "6c9f67f3cd47aaa24cc57d30198305c81c286087bc2d1f2ea53c2bf77943858f"
@@ -98,7 +100,9 @@
     "sourceCommit": "e38ffb0790f62f05a6f083a6fa4cac150b3b7452",
     "originalPath": "MultiResolution/PeriodicPattern.exr",
     "license": "BSD-3-Clause",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "variantReason": "OpenEXR: ZIP-compressed tiled image",
     "independentCheck": "ILM/ASWF reference image set; header read directly: compression/layout as stated",
     "sha256": "8f5a8d17703a4c61f0a25f436eafb11f0042e836f269cdb63c6d63804f1992f9"
@@ -229,7 +233,9 @@
     "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
     "originalPath": "tests/tests/swfs/avm1/focusrect_property_swf5/test.swf",
     "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "SWF header version byte = 5 (FWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
     "sha256": "e40020958b0eb359dc857f2e0febd2a2cc8b044c60c621aec4aa73959d8f11fb"
   },
@@ -243,7 +249,9 @@
     "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/resources/test-documents/testHWP_3.0.hwp",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-1087_FAT_Disk_Image.img",
@@ -254,7 +262,9 @@
     "sourceRepository": "https://github.com/digital-preservation/droid",
     "originalPath": "droid-command-line/src/test/resources/testfiles/fat12.img",
     "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-109_Macromedia_Flash_6.swf",
@@ -266,7 +276,9 @@
     "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/test1.swf",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-1098_XZ_File_Format.xz",
@@ -278,7 +290,9 @@
     "sourceCommit": "69a29b75922f7e525412dc6b7454b70d1f2be2bd",
     "originalPath": "src/test/resources/bla.tar.xz",
     "license": "Apache-2.0",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "libmagic: XZ compressed data",
     "sha256": "35eaca88455f2e0212b868c526e56571ef1b81d82b29997b337860961cdd180b"
   },
@@ -291,7 +305,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "office/spreadsheet/wq2/vlookup-compat-demo/lo-recalc.png",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-110_Macromedia_Flash_7.swf",
@@ -315,7 +331,9 @@
     "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/resources/test-documents/testHEIC_livePhoto.heic",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-1105_Hierarchical_File_System.img",
@@ -445,6 +463,7 @@
     "originalPath": "fully-featured-pdf/appearance/placeholder-2.png",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/11"
     ]
   },
@@ -524,6 +543,7 @@
     "originalPath": "office-examples/powerpoint4-mac/ecdl+paris2001.ppt",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/111"
     ]
   },
@@ -537,7 +557,8 @@
     "originalPath": "video/Quicktime/jpeg2000.mov",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": [
-      "x-fmt/384"
+      "x-fmt/384",
+      "x-fmt/224"
     ]
   },
   {
@@ -550,6 +571,7 @@
     "originalPath": "fully-featured-pdf/appearance/page-3.png",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/11",
       "fmt/12"
     ]
@@ -606,7 +628,9 @@
     "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/resources/test-documents/testMP3mpeg2.mp3",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-1355_WARC_1.0.warc",
@@ -632,6 +656,7 @@
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/resources/test-documents/testNPEOpenDocument.odt",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "x-fmt/263",
       "fmt/135",
       "fmt/290"
@@ -647,7 +672,9 @@
     "sourceCommit": "521b26fad979c1992538584c199fc75f2a1fd7aa",
     "originalPath": "test-data/slideshow/font.fntdata",
     "license": "Apache-2.0",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "libmagic: Embedded OpenType (EOT), Harlow Solid Italic",
     "sha256": "7d9d333770933d9c9837df962ba3c6c43a87ea8d4f58e06c05185af879a35213"
   },
@@ -688,6 +715,7 @@
     "originalPath": "pdfCabinetOfHorrors/digitally_signed_3D_Portfolio.pdf",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/276"
     ]
   },
@@ -735,7 +763,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "pdfCabinetOfHorrors/javascript.pdf",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-1507_Exchangeable_Image_File_Format_Compressed_2.3.x.jpg",
@@ -748,6 +778,7 @@
     "originalPath": "Tests/images/ultrahdr.jpg",
     "license": "MIT-CMU License, unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/41"
     ],
     "variantReason": "Content edge case: UltraHDR / multi-picture file (Exif, ICC, XMP and an MPF index) with a second image after the primary image; its last FF D9 is at offset 7,287 and 40,908 of the 48,197 bytes follow it, so it ends 40,908 bytes after the last end marker.",
@@ -764,6 +795,7 @@
     "file": "fmt-1507_Exchangeable_Image_File_Format_Compressed_2.3.x--photoshop-xmp-icc-restart.jpg",
     "sizeBytes": 1798984,
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/41"
     ],
     "variantReason": "Content edge case and encoding variant: Exif, Photoshop, XMP and ICC segments (about 42,626 bytes) before the image data, restart markers (DRI), written by Adobe Photoshop; ends exactly with its last FF D9 (0 bytes after it).",
@@ -778,7 +810,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "jp2k-formats/balloon.jpf",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-16_Acrobat_PDF_1.2_-_Portable_Document_Format_1.2.pdf",
@@ -812,7 +846,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "ebooks/calibre 0.9.0/lorem-ipsum.pdf",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-1742_Hierarchical_File_System_Plus.dmg",
@@ -835,7 +871,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "jhove-errors/PDF-HUL-137/reserve3.pdf",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-1794_JPEG_2000_Codestream.j2c",
@@ -846,7 +884,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "jp2k-formats/balloon.j2c",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-18_Acrobat_PDF_1.4_-_Portable_Document_Format_1.4.pdf",
@@ -857,7 +897,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "pdfCabinetOfHorrors/fileAttachment_fileAttachmentAnnotation.pdf",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-1812_Audio_Data_Transport_Stream.aac",
@@ -918,7 +960,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "pdfCabinetOfHorrors/test_fontArialNotEmbedded.pdf",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-1917_BigTIFF.tif",
@@ -1009,7 +1053,9 @@
     "sourceCommit": "39524bd3a601d90ed8e0177559400d23945f96a9",
     "originalPath": "input/nonregression/htj2k/byte.jph",
     "license": "no licence stated (included at user request)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "PIL decodes it; libmagic: JPEG 2000",
     "sha256": "87841874ed8f530babe1ea49aef3cbdf1a605f1984b9c06713fc9d9ca0fcd5a0"
   },
@@ -1077,7 +1123,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "office-examples/OpenOffice.org 3.2.0 OSX/pdf-features/simple-annotated-in-adobe-x.pdf",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-203_Ogg_Vorbis_Codec_Compressed_Multimedia_File.ogg",
@@ -1103,6 +1151,7 @@
     "originalPath": "jhove-errors/PDF-HUL-80/Rosen--Caring-Work.pdf",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/276"
     ]
   },
@@ -1145,7 +1194,9 @@
     "sourceCommit": "bf4c18d1f3971069b75e87d6ee469790589f4f09",
     "originalPath": "testFiles/Netflix/avif/sdr_cosmos12920_cicp1-13-6_yuv444_full_qp10.avif",
     "license": "BSD-2-Clause (repository)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "ffmpeg decodes it; libmagic: AVIF",
     "sha256": "f6b6be6163f131dd7e3450db12ef3cb9e48d66acca3b79ef06b79954e8769b43"
   },
@@ -1200,7 +1251,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "pdfCabinetOfHorrors/text_only_fontsEmbeddedSubset.pdf",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-279_FLAC_Free_Lossless_Audio_Codec_1.2.1.flac",
@@ -1248,7 +1301,9 @@
     "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
     "originalPath": "tika-parsers/tika-parsers-extended/tika-parser-scientific-module/src/test/resources/test-documents/gdas1.forecmwf.2014062612.grib2",
     "license": "Apache-2.0 (repository; per-file origin not documented)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "libmagic: GRIB version 2",
     "sha256": "c4beeaa512242e778e196abd30b2931e398d45f4a551f90130c89d9a212053e4"
   },
@@ -1262,6 +1317,7 @@
     "originalPath": "office-examples/LibreOffice7-ODF-1.3/LibreOfficeWriter_odt_1.3.odt",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "x-fmt/263"
     ]
   },
@@ -1276,7 +1332,8 @@
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": [
       "fmt/290",
-      "x-fmt/263"
+      "x-fmt/263",
+      "x-fmt/224"
     ]
   },
   {
@@ -1289,6 +1346,7 @@
     "originalPath": "office-examples/LibreOffice7-ODF-1.3/LibreOfficeImpress_odp_1.3.odp",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "x-fmt/263"
     ]
   },
@@ -1303,6 +1361,7 @@
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/resources/test-documents/testMasterFooter.odp",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "x-fmt/263",
       "fmt/292"
     ]
@@ -1317,6 +1376,7 @@
     "originalPath": "office-examples/LibreOffice7-ODF-1.3/LibreOfficeCalc_ods_1.3.ods",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "x-fmt/263"
     ]
   },
@@ -1331,6 +1391,7 @@
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/resources/test-documents/testFooter.ods",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "x-fmt/263",
       "fmt/294"
     ]
@@ -1345,6 +1406,7 @@
     "originalPath": "office-examples/LibreOffice7-ODF-1.3/LibreOfficeDraw_odg_1.3.odg",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "x-fmt/263"
     ]
   },
@@ -1407,7 +1469,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "jp2k-formats/Speedway.mj2",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-341_Macintosh_PICT_Image_2.0.pct",
@@ -1479,7 +1543,9 @@
     "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testAMR.amr",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-357_3GPP_Audio_Video_File.3gp",
@@ -1602,7 +1668,9 @@
     "sourceRepository": "https://github.com/digital-preservation/droid",
     "originalPath": "droid-swing-ui/src/main/resources/uk/gov/nationalarchives/droid/icons/splash_image.gif",
     "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-402_Truevision_TGA_Bitmap_2.0.tga",
@@ -1652,7 +1720,9 @@
     "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
     "originalPath": "Tests/images/hopper_8bit.ppm",
     "license": "MIT-CMU License, unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-409_Portable_Bitmap_Image_-_Binary.pbm",
@@ -1676,7 +1746,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "desktop-publishing/InDesign/Neddy_Flyer_ft_HeatherRyan.jpg",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-411_RAR_Archive_2.9.rar",
@@ -1727,6 +1799,7 @@
     "originalPath": "variations/variations/image/jpeg/lorem-ipsum.im.png.im.jpg",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/41"
     ],
     "variantReason": "Base sample: baseline JFIF 1.01 without Exif, ICC or COM segments, 261,592 bytes, ends exactly with its last FF D9 (0 bytes after it, measured at offset 261,590).",
@@ -1743,6 +1816,7 @@
     "file": "fmt-43_JPEG_File_Interchange_Format_1.01--progressive.jpg",
     "sizeBytes": 511999,
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/41"
     ],
     "variantReason": "Encoding variant: progressive JPEG (SOF2, several scans) instead of the baseline base sample; it also carries 7 ICC profile segments of 65,535 bytes before the first scan (image data starts at byte 400,152 of 511,999), and ends exactly with its last FF D9.",
@@ -1759,6 +1833,7 @@
     "file": "fmt-43_JPEG_File_Interchange_Format_1.01--writer-adobe-photoshop.jpg",
     "sizeBytes": 6412,
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/41"
     ],
     "variantReason": "Different writer: written by Adobe Photoshop (COM segment \"File written by Adobe Photoshop 4.0\" right after the JFIF header, which the base sample does not have), 6,412 bytes, baseline, ends exactly with its last FF D9.",
@@ -1812,7 +1887,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "jp2k-formats/balloon.jpm",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-468_ISO_9660_Disk_Image_File.iso",
@@ -1874,6 +1951,7 @@
     "originalPath": "ebooks/iBooks Author 2.0 (327)/lorem-ipsum-plus-image-updated-standard-1.0.ibooks",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "x-fmt/263"
     ]
   },
@@ -1887,6 +1965,7 @@
     "originalPath": "ebooks/calibre 0.8.57/Lorem Ipsum - Andrew Jackson.epub",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "x-fmt/263"
     ]
   },
@@ -1910,7 +1989,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "ebooks/calibre 0.8.57/Lorem Ipsum - Andrew Jackson.rb",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-5_Audio_Video_Interleaved_Format.avi",
@@ -1994,7 +2075,9 @@
     "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
     "originalPath": "tests/tests/swfs/visual/video/colorconversion/vp6a/test.swf",
     "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "SWF header version byte = 8 (FWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
     "sha256": "10a2c2df7d286aa6e1c1053a1fc2b2538a36018c013148ac88441cdfa5155ff2"
   },
@@ -2022,7 +2105,9 @@
     "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
     "originalPath": "tests/tests/swfs/avm1/movieclip_state_values/test.swf",
     "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "SWF header version byte = 10 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
     "sha256": "d25498c93f4a9e6f1a712b7c541c1966e3dfda3a8a76b253ee29c5235debe349"
   },
@@ -2035,7 +2120,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "ebooks/calibre 0.9.0/lorem-ipsum.lrf",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-52_Rich_Text_Format_1.7.rtf",
@@ -2168,6 +2255,7 @@
     "originalPath": "Tests/images/hopper_lossless.webp",
     "license": "MIT-CMU License, unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/1886"
     ]
   },
@@ -2182,6 +2270,7 @@
     "originalPath": "Tests/images/hopper_orientation_5.webp",
     "license": "MIT-CMU License, unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/1886"
     ]
   },
@@ -2195,7 +2284,9 @@
     "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/resources/test-documents/testMKV.mkv",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-57_Microsoft_Excel_4.0_Worksheet_xls_4S.xls",
@@ -2231,7 +2322,9 @@
     "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testWEBM.webm",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-583_Vector_Markup_Language.htm",
@@ -2267,7 +2360,9 @@
     "sourceRepository": "made with ffmpeg",
     "originalPath": "ffmpeg -t 3 -i <clip> -vf scale=320:240 -c:v mpeg2video -c:a mp2 -f mpegts",
     "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: mpegts; video mpeg2video 320x240, audio mp2 44100 Hz 2 ch",
     "sha256": "be3e6a68b15b73bb0e9003ab97abbf1fc3597f2194180965def33c87f704800e"
   },
@@ -2294,7 +2389,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "file-archive/arj/MAPS.ARJ",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-615_Gimp_Image_File_Format.xcf",
@@ -2320,7 +2417,9 @@
     "sourceCommit": "69a29b75922f7e525412dc6b7454b70d1f2be2bd",
     "originalPath": "src/test/resources/test-amiga-l0-lh4.lha",
     "license": "Apache-2.0",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "variantReason": "LHA archive, level 0, compression method lh4 (Amiga)",
     "independentCheck": "libmagic: LHa archive [lh4]",
     "sha256": "3c5b0725b498656aa0846c5d2267ca0078fd211b33ae7f1fc605543b8a49673e"
@@ -2335,7 +2434,9 @@
     "sourceCommit": "69a29b75922f7e525412dc6b7454b70d1f2be2bd",
     "originalPath": "src/test/resources/test-macos-l0-lh5.lha",
     "license": "Apache-2.0",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "variantReason": "LHA archive, level 0, compression method lh5",
     "independentCheck": "libmagic: LHa archive [lh5]",
     "sha256": "efc07b8d69859dc990ffdce4cbfc187ff9f28a9a063d1fb06a08c35c9007cd58"
@@ -2350,7 +2451,9 @@
     "sourceCommit": "69a29b75922f7e525412dc6b7454b70d1f2be2bd",
     "originalPath": "src/test/resources/test-macos-l0-lh7.lha",
     "license": "Apache-2.0",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "variantReason": "LHA archive, level 0, compression method lh7",
     "independentCheck": "libmagic: LHa archive [lh7]",
     "sha256": "5629631e7248411991e4509fa1c76c4a93131ac1557d2e315cd0880bdf9f6521"
@@ -2413,6 +2516,7 @@
     "originalPath": "ffmpeg -t 3 -i <clip> -vf scale=320:240 -an -c:v mpeg2video -f mpeg2video",
     "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/649"
     ],
     "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: mpegvideo; video mpeg2video 320x240",
@@ -2441,6 +2545,7 @@
     "originalPath": "Tests/images/flower2.jpg",
     "license": "MIT-CMU License, unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/41"
     ]
   },
@@ -2453,7 +2558,9 @@
     "sourceRepository": "made with ffmpeg",
     "originalPath": "ffmpeg -t 3 -i <clip> -vf scale=320:240 -an -c:v mpeg1video -f mpeg1video",
     "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: mpegvideo; video mpeg1video 320x240",
     "sha256": "2011a1083ce847314389f98070a0970f279bdb0f71a38cecca8d4247b54ee505"
   },
@@ -2491,7 +2598,9 @@
     "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/resources/test-documents/testBPG.bpg",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "fmt-688_Executable_and_Linkable_Format_32bit_Little_Endian",
@@ -2615,7 +2724,9 @@
     "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
     "originalPath": "tests/tests/swfs/avm2/soundchannel_position/test.swf",
     "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "SWF header version byte = 11 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
     "sha256": "08fb911e7caf0e02b1ecbb6b3f9c76c9becfdd6e4583e71f915bb966bc3c9b1b"
   },
@@ -2629,7 +2740,9 @@
     "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
     "originalPath": "tests/tests/swfs/visual/cache_as_bitmap/avm2_button_state/test.swf",
     "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "SWF header version byte = 12 (FWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
     "sha256": "a8fecf06c8b8f834be117960fc3397f6703828eb082dc687e4a29725d1866a2b"
   },
@@ -2643,7 +2756,9 @@
     "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
     "originalPath": "tests/tests/swfs/avm2/stage3d_bitmap/test.swf",
     "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "SWF header version byte = 13 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
     "sha256": "43577d1c033287c81d1f22c67837dd11cdb483762510b8b53afdbe7ee5ce18f9"
   },
@@ -2671,7 +2786,9 @@
     "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
     "originalPath": "tests/tests/swfs/visual/definefont4/test.swf",
     "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "SWF header version byte = 15 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
     "sha256": "6e1db859c9b0f5e6b666fc28752f4563bf614ea4e712764d85503b116076efb0"
   },
@@ -2685,7 +2802,9 @@
     "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
     "originalPath": "tests/tests/swfs/avm2/register_script_refresh/test.swf",
     "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "SWF header version byte = 16 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
     "sha256": "56dd392c34379428523f2b1d149683451468cf67ebd51ab0231231133d234c88"
   },
@@ -2699,7 +2818,9 @@
     "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
     "originalPath": "tests/tests/swfs/from_shumway/slider_component/test.swf",
     "license": "Apache-2.0 (Mozilla Shumway test corpus, via the Ruffle repository)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "SWF header version byte = 17 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
     "sha256": "bf6dbcb755b764beeb0c8d68af24438d803b2e39e7d171fc663551d364593e9b"
   },
@@ -2713,7 +2834,9 @@
     "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
     "originalPath": "tests/tests/swfs/avm2/sound_load_multiple/test.swf",
     "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "SWF header version byte = 18 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
     "sha256": "e95366f26a244dfb7346cbace25a2ea3be343526f304e06c8cf5fb3e31c13f97"
   },
@@ -2755,7 +2878,9 @@
     "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
     "originalPath": "tests/tests/swfs/avm2/flash_media_video_constructor/test.swf",
     "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "SWF header version byte = 23 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
     "sha256": "90163a9acdf55124a76a276137031deb20a6f9836ea96b97ec83365e7362a113"
   },
@@ -2769,7 +2894,9 @@
     "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
     "originalPath": "tests/tests/swfs/from_shumway/acid/acid-text-4/test.swf",
     "license": "Apache-2.0 (Mozilla Shumway test corpus, via the Ruffle repository)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "SWF header version byte = 27 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
     "sha256": "20677cf2932157777ad1b0361cd2e35eb332f2ba09472c878028192c95231cb4"
   },
@@ -2783,7 +2910,9 @@
     "sourceCommit": "bad2f8fbc6e7c1ae741b664034ad19e4ad8af9d0",
     "originalPath": "tests/tests/swfs/audio/stream_incomplete_loop/test.swf",
     "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "independentCheck": "SWF header version byte = 28 (CWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
     "sha256": "5b1e021311491ca1003a9a5091b82e14498c89b8abec02df4dea41aa07502eb2"
   },
@@ -2888,6 +3017,7 @@
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-apple-module/src/test/resources/test-documents/testWEBARCHIVE.webarchive",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/102",
       "fmt/984"
     ]
@@ -3010,6 +3140,7 @@
     "originalPath": "ffmpeg -t 3 -i <clip> -vf scale=320:240 -c:v libtheora -c:a libvorbis -f ogg",
     "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/944"
     ],
     "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: ogg; video theora 320x240, audio vorbis 44100 Hz 2 ch",
@@ -3054,6 +3185,7 @@
     "originalPath": "ffmpeg -t 3 -i <clip> -vn -c:a libspeex -ar 16000 -ac 1 -f ogg",
     "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/944"
     ],
     "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: ogg; audio speex 16000 Hz 1 ch",
@@ -3323,7 +3455,9 @@
     "sourceCommit": "842928a0cace31c9b53aa7d304395d702c8fc553",
     "originalPath": "Tests/images/hopper.ras",
     "license": "MIT-CMU License, unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "x-fmt-190_RealMedia.rm",
@@ -3347,7 +3481,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "office/wordprocessing/AmiPro12/testAmiPro12.sam",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "fmt/817"
+    ]
   },
   {
     "file": "x-fmt-207_X-Windows_Bitmap_Image_X11.xbm",
@@ -3436,7 +3572,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "droid-jhove-datetest-files/images_severalformats_historicaldates.zip",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "x-fmt-265_Tape_Archive_Format.tar",
@@ -3447,7 +3585,9 @@
     "sourceRepository": "https://github.com/digital-preservation/droid",
     "originalPath": "droid-command-line/src/test/resources/testfiles/test.tar",
     "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/423"
+    ]
   },
   {
     "file": "x-fmt-266_GZIP_Format.nmind",
@@ -3458,7 +3598,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "knowledge-management/NovaMind/Curation outline 3.nmind",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "x-fmt-268_BZIP2_Compressed_Archive.bz2",
@@ -3469,7 +3611,9 @@
     "sourceRepository": "https://github.com/digital-preservation/droid",
     "originalPath": "droid-command-line/src/test/resources/testfiles/testXmlFile.xml.bz2",
     "license": "BSD 3-Clause License, Copyright (c) 2016, The National Archives (UK)",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "x-fmt-270_OS_2_Bitmap_2.0.bmp",
@@ -3592,7 +3736,9 @@
     "sourceCommit": "76309b76eb66fcc2875b2d4fb970f438e24ba394",
     "originalPath": "testdata/highgui/video/big_buck_bunny.mpg",
     "license": "Content: Big Buck Bunny (c) Blender Foundation, CC BY 3.0 (www.bigbuckbunny.org); opencv_extra states no licence",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "variantReason": "MPEG-1 program stream with video only (mpeg1video, 672x384, 48 fps) and no audio stream, 5.1 s",
     "independentCheck": "ffprobe: mpeg1video; libmagic: MPEG sequence v1, system multiplex",
     "sha256": "9402282334f1a7e798146830e200f16491ac97108eeb888404fad3c7a9232467"
@@ -3606,7 +3752,9 @@
     "sourceRepository": "made with ffmpeg",
     "originalPath": "ffmpeg -t 3 -i <clip> -vf scale=320:240 -c:v mpeg1video -c:a mp2 -f mpeg",
     "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "variantReason": "MPEG-1 program stream with MPEG-1 video (320x240, 59.94 fps) and MP2 audio (44.1 kHz stereo, 384 kb/s), 3.0 s: the only x-fmt/385 sample with an audio stream",
     "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: mpeg; video mpeg1video 320x240, audio mp2 44100 Hz 2 ch",
     "sha256": "f35f6e7f987ed591d8655b40d33310c3c7a48c24e7ae1f386e5b90e6118ad3e3"
@@ -3621,6 +3769,7 @@
     "originalPath": "ffmpeg -t 3 -i <clip> -vf scale=320:240 -c:v mpeg2video -c:a mp2 -f vob",
     "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "x-fmt/385"
     ],
     "independentCheck": "Made on 2026-11-02 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); ffprobe: mpeg; video mpeg2video 320x240, audio mp2 44100 Hz 2 ch",
@@ -3666,6 +3815,7 @@
     "originalPath": "jpg/exif-org/fujifilm-finepix40i.jpg",
     "license": "CC BY-SA 4.0 (user-contributed)",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/41"
     ],
     "independentCheck": "ExifVersion tag inside the file = 0210 (Exif 2.1); real camera JPEG",
@@ -3696,7 +3846,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "jp2k-test/resolution/balloon_kdu71.jp2",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "x-fmt-393_WordPerfect_for_MS-DOS_Document_5.0.doc",
@@ -3731,6 +3883,7 @@
     "originalPath": "jpg/exif-org/sanyo-vpcg250.jpg",
     "license": "CC BY-SA 4.0 (user-contributed)",
     "alsoDetectedAs": [
+      "x-fmt/224",
       "fmt/41"
     ],
     "independentCheck": "ExifVersion tag inside the file = 0200 (Exif 2.0); real camera JPEG (Sanyo)",
@@ -3809,7 +3962,9 @@
     "sourceCommit": "75ff5d74fd2a0e16d35b86d69443f053f9ade644",
     "originalPath": "static/js/glossary.js",
     "license": "MIT (repository source code, MIT-LICENSE.txt)",
-    "alsoDetectedAs": [],
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ],
     "variantReason": "JavaScript: readable classic script, starts with a var declaration of an object literal",
     "independentCheck": "acorn parses it without error as a script",
     "sha256": "b976bfd3c22a4f545ae18a94d898b7acd575c3f65fb40fb60eb99ca657e4c1d8"
@@ -3825,9 +3980,10 @@
     "originalPath": "static/js/jquery-1.7.1.min.js",
     "license": "MIT (jQuery 1.7.1; the file header refers to jquery.org/license). The repository states MIT for its own source code.",
     "alsoDetectedAs": [
-      "fmt/471"
+      "fmt/471",
+      "x-fmt/224"
     ],
-    "variantReason": "JavaScript: minified library, starts with a licence banner comment and an immediately invoked function; also matched by fmt/471 (HTML) in V124",
+    "variantReason": "JavaScript: minified library, starts with a licence banner comment and an immediately invoked function; contains the text <!doctype html> inside a string, so the HTML5 signature (fmt/471) matches first",
     "independentCheck": "acorn parses it without error as a script",
     "sha256": "88171413fc76dda23ab32baa17b11e4fff89141c633ece737852445f1ba6c1bd"
   },
@@ -3851,7 +4007,9 @@
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "office/wordprocessing/WordPerfect6/testWordPerfect_6_61.wpd",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "x-fmt-453_TrueType_Font.ttf",
@@ -3863,7 +4021,9 @@
     "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-font-module/src/test/resources/test-documents/testTrueType3.ttf",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "x-fmt-455_AutoCAD_Drawing_2007-2008.dwg",
@@ -3887,7 +4047,9 @@
     "sourceCommit": "202d9a86cf2993476164d316f6dd77ed8e125dae",
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testDWF2010.dwf",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "x-fmt/224"
+    ]
   },
   {
     "file": "x-fmt-9_dBASE_Database_III.dbf",

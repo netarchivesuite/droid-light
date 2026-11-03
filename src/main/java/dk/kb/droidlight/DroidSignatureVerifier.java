@@ -1598,10 +1598,10 @@ public class DroidSignatureVerifier {
      * Returns the signature count.
      *
      * @return the number of DROID signatures loaded from the signature file
-     *         (2,465 for the current file: the stock V124 PRONOM release,
+     *         (2,268 for the current file: the stock V124 PRONOM release,
      *         2,258, plus two local signature additions - EOT version 1.2,
-     *         and SVG without an XML declaration - plus 205 heuristic
-     *         signatures for CSS, JavaScript and JSON).
+     *         and SVG without an XML declaration - plus 8 heuristic
+     *         signatures for JSON, JavaScript and CSS).
      */
     public int getSignatureCount() {
         return signatures.size();

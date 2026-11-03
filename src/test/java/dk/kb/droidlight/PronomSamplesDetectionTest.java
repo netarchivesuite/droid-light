@@ -91,7 +91,10 @@ import org.junit.jupiter.api.TestFactory;
  * <li><b>ordered</b>: the results must start with exactly the listed PUIDs, in that order
  *     (the file is a sample of all of them, and the signature file defines their order);</li>
  * <li><b>unordered</b>: all listed PUIDs must be among the results, and no order is
- *     asserted (the signature file defines none).</li>
+ *     asserted (the signature file defines none);</li>
+ * <li><b>first, and among the results</b>: the results must start with one PUID, and the PUIDs
+ *     of the format the file is a sample of must be among the results after it (used when a
+ *     signature of another format matches the file's own content by accident).</li>
  * </ul>
  *
  * <h2>Streams</h2>
@@ -118,8 +121,7 @@ public class PronomSamplesDetectionTest {
     /**
      * Samples that deviate from "the PUID in the file name is the first result", keyed by
      * file name. Every entry carries the reason, taken from the priority data in
-     * DROID_SignatureFile_V124_experimental.xml, where they are unchanged from PRONOM's V124
-     * (the numbers are FileFormat IDs, not PUIDs).
+     * DROID_SignatureFile_V124_experimental.xml (the numbers are FileFormat IDs, not PUIDs).
      */
     private static final Map<String, SpecialCase> SPECIAL_CASES = new LinkedHashMap<>();
     static {
@@ -139,6 +141,13 @@ public class PronomSamplesDetectionTest {
                         + "which do outrank x-fmt/384, do not match this file. The order of the two is not defined "
                         + "by the signature file, so it is not asserted.",
                 "fmt/1280", "x-fmt/384"));
+
+        SPECIAL_CASES.put("x-fmt-423_JavaScript_file--minified.js", SpecialCase.firstAmong(
+                "This file is jQuery 1.7.1, a real JavaScript file, and it contains the text <!doctype html> at byte 478, "
+                        + "inside a string of the library. PRONOM's HTML5 signature (fmt/471) finds that text, so fmt/471 "
+                        + "is reported first. The JavaScript signatures are heuristic and rank last in the format list, "
+                        + "so x-fmt/423 is not the first result but must still be among the results.",
+                "fmt/471", "x-fmt/423"));
     }
 
     /** The sample folder must exist and contain at least one sample. */
@@ -342,6 +351,12 @@ public class PronomSamplesDetectionTest {
             if (codes.isEmpty() || !codes.get(0).equals(expected)) {
                 fail(name + ": expected " + expected + " as the first result but detection returned " + actual);
             }
+        } else if (special.first != null) {
+            if (codes.isEmpty() || !codes.get(0).equals(special.first) || !codes.containsAll(special.puids)) {
+                fail(name + ": expected " + special.first + " as the first result and all of " + special.puids
+                        + " among the results but detection returned " + actual
+                        + ". Reason for this expectation: " + special.reason);
+            }
         } else if (special.ordered) {
             if (codes.size() < special.puids.size() || !codes.subList(0, special.puids.size()).equals(special.puids)) {
                 fail(name + ": expected the results to start with " + special.puids + " but detection returned "
@@ -405,21 +420,29 @@ public class PronomSamplesDetectionTest {
         final List<String> puids;
         final boolean ordered;
         final String reason;
+        /** When not null: the PUID that must be the first result; {@link #puids} must then be among the results. */
+        final String first;
 
-        private SpecialCase(List<String> puids, boolean ordered, String reason) {
+        private SpecialCase(List<String> puids, boolean ordered, String reason, String first) {
             this.puids = puids;
             this.ordered = ordered;
             this.reason = reason;
+            this.first = first;
+        }
+
+        /** The first result must be <code>first</code>, and all <code>among</code> must be among the results. */
+        static SpecialCase firstAmong(String reason, String first, String... among) {
+            return new SpecialCase(Arrays.asList(among), true, reason, first);
         }
 
         /** The results must start with exactly these PUIDs, in this order. */
         static SpecialCase ordered(String reason, String... puids) {
-            return new SpecialCase(Arrays.asList(puids), true, reason);
+            return new SpecialCase(Arrays.asList(puids), true, reason, null);
         }
 
         /** All these PUIDs must be among the results; their order is not asserted. */
         static SpecialCase unordered(String reason, String... puids) {
-            return new SpecialCase(Arrays.asList(puids), false, reason);
+            return new SpecialCase(Arrays.asList(puids), false, reason, null);
         }
     }
 }
