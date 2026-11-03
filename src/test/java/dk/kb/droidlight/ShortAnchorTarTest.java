@@ -39,7 +39,7 @@ public class ShortAnchorTarTest {
     /** One test per archive, named after the length of the first entry's file name. */
     @TestFactory
     public Stream<DynamicTest> tarIsDetectedForEveryFileNameLength() throws Exception {
-        File sigFile = ProjectPaths.mainResource("DROID_SignatureFile_V124_experimental.xml");
+        File sigFile = ProjectPaths.mainResource("DROID_SignatureFile_V125_experimental.xml");
         File folder = ProjectPaths.testResource("short-anchor-tar");
 
         DroidSignatureVerifier verifier = new DroidSignatureVerifier(sigFile);

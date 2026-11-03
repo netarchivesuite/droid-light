@@ -6,7 +6,7 @@ Give it a file or a stream and it tells you which format it is: the PRONOM ident
 
 ```java
 // Create once - reading the signature file takes a second or two - and reuse it, also from many threads.
-DroidSignatureVerifier verifier = new DroidSignatureVerifier(new File("DROID_SignatureFile_V124_experimental.xml"));
+DroidSignatureVerifier verifier = new DroidSignatureVerifier(new File("DROID_SignatureFile_V125_experimental.xml"));
 
 DetectionResult[] results = verifier.detect(new File("somefile.pdf"));   // or verifier.detect(inputStream)
 if (results.length > 0) {
@@ -55,11 +55,11 @@ if (r.length == 0) {
 
 ## The signature file
 
-The signatures come from PRONOM. `src/main/resources/DROID_SignatureFile_V124_experimental.xml` is the signature file the library is built and tested with. It is PRONOM's DROID signature file V124 (2,258 signatures) plus ten signatures that PRONOM does not have, 2,268 in total. The name says "experimental" because the file deviates from the official V124 file, which this project cannot change; the V124 file of the project (PRONOM's V124 and the first two additions below) is kept unchanged next to it as `DROID_SignatureFile_V124.xml`. The additions are:
+The signatures come from PRONOM. `src/main/resources/DROID_SignatureFile_V125_experimental.xml` is the signature file the library is built and tested with. It is PRONOM's DROID signature file V125 (2,273 signatures) plus eleven signatures that PRONOM does not have, 2,284 in total. The name says "experimental" because the file deviates from the official V125 file, which this project cannot change; PRONOM's own file is kept unchanged next to it as `DROID_SignatureFile_V125.xml`. The additions are:
 
 - **EOT font, version 1.2**
 - **SVG without an XML declaration**: the PRONOM signatures for SVG require `<?xml version="1.0"` at the very start of the file, so SVG files that begin directly with `<svg` were not recognised. The added signature maps them to the generic SVG format `fmt/91`.
-- **JSON, JavaScript and CSS**: eight heuristic signatures, because PRONOM has no binary signature for these text formats and web archives (WARC files) are full of them. They are described below.
+- **JSON, JavaScript and CSS**: nine heuristic signatures, because PRONOM has no binary signature for these text formats and web archives (WARC files) are full of them. They are described below.
 
 New releases of the signature file are published by PRONOM on the [DROID signature files page](https://pronom.nationalarchives.gov.uk/signature-list). To use another release, load it with the `File` or `InputStream` constructor.
 
@@ -92,7 +92,7 @@ BSD 3-Clause, see [LICENSE](LICENSE). DROID is released under the New BSD Licens
 
 ## Third-party material
 
-**The signature file.** `DROID_SignatureFile_V124_experimental.xml` is based on `DROID_SignatureFile_V124.xml`, which was created by the PRONOM project of The National Archives, which publishes its content under the [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/). The file is not covered by this project's BSD license. Besides PRONOM's signatures it contains the signatures added by this project (see above).
+**The signature file.** `DROID_SignatureFile_V125_experimental.xml` is based on `DROID_SignatureFile_V125.xml`, which was created by the PRONOM project of The National Archives, which publishes its content under the [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/). The file is not covered by this project's BSD license. Besides PRONOM's signatures it contains the signatures added by this project (see above).
 
 > Contains public sector information licensed under the Open Government Licence v3.0.
 

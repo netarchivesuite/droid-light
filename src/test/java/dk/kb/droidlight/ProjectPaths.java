@@ -20,7 +20,7 @@ final class ProjectPaths {
     private ProjectPaths() {
     }
 
-    /** A file under src/main/resources, e.g. "DROID_SignatureFile_V124_experimental.xml". */
+    /** A file under src/main/resources, e.g. "DROID_SignatureFile_V125_experimental.xml". */
     static File mainResource(String relativePath) {
         return existing(new File(projectRoot(), "src/main/resources/" + relativePath));
     }
@@ -41,18 +41,18 @@ final class ProjectPaths {
 
     /** Walks upward from the current working directory until it finds a folder
      *  that looks like the droid-light project root: one containing both
-     *  pom.xml and src/main/resources/DROID_SignatureFile_V124_experimental.xml. */
+     *  pom.xml and src/main/resources/DROID_SignatureFile_V125_experimental.xml. */
     static File projectRoot() {
         File dir = new File(System.getProperty("user.dir")).getAbsoluteFile();
         while (dir != null) {
             if (new File(dir, "pom.xml").isFile()
-                    && new File(dir, "src/main/resources/DROID_SignatureFile_V124_experimental.xml").isFile()) {
+                    && new File(dir, "src/main/resources/DROID_SignatureFile_V125_experimental.xml").isFile()) {
                 return dir;
             }
             dir = dir.getParentFile();
         }
         throw new IllegalStateException("Could not locate the droid-light project root (looked for pom.xml "
-                + "and src/main/resources/DROID_SignatureFile_V124_experimental.xml in " + System.getProperty("user.dir")
+                + "and src/main/resources/DROID_SignatureFile_V125_experimental.xml in " + System.getProperty("user.dir")
                 + " and every parent folder above it).");
     }
 }

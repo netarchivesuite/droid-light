@@ -108,7 +108,7 @@ import org.junit.jupiter.api.TestFactory;
  */
 public class PronomSamplesDetectionTest {
 
-    private static final String SIGNATURE_FILE = "DROID_SignatureFile_V124_experimental.xml";
+    private static final String SIGNATURE_FILE = "DROID_SignatureFile_V125_experimental.xml";
     private static final String SAMPLE_FOLDER = "pronom-samples";
     private static final String MANIFEST = "MANIFEST.json";
 
@@ -121,7 +121,7 @@ public class PronomSamplesDetectionTest {
     /**
      * Samples that deviate from "the PUID in the file name is the first result", keyed by
      * file name. Every entry carries the reason, taken from the priority data in
-     * DROID_SignatureFile_V124_experimental.xml (the numbers are FileFormat IDs, not PUIDs).
+     * DROID_SignatureFile_V125_experimental.xml (the numbers are FileFormat IDs, not PUIDs).
      */
     private static final Map<String, SpecialCase> SPECIAL_CASES = new LinkedHashMap<>();
     static {

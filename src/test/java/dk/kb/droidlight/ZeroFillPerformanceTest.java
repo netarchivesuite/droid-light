@@ -37,7 +37,7 @@ public class ZeroFillPerformanceTest {
         }
         System.out.println("Generated " + sizeBytes + "-byte zero-filled file: " + tempFile);
 
-        File sigFile = ProjectPaths.mainResource("DROID_SignatureFile_V124_experimental.xml");
+        File sigFile = ProjectPaths.mainResource("DROID_SignatureFile_V125_experimental.xml");
 
         DroidSignatureVerifier verifier = new DroidSignatureVerifier(sigFile);
 

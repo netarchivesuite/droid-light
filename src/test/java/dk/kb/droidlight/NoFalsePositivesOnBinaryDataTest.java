@@ -40,7 +40,7 @@ import org.junit.jupiter.api.io.TempDir;
  */
 public class NoFalsePositivesOnBinaryDataTest {
 
-    private static final String SIGNATURE_FILE = "DROID_SignatureFile_V124_experimental.xml";
+    private static final String SIGNATURE_FILE = "DROID_SignatureFile_V125_experimental.xml";
     private static final String SAMPLE_FOLDER = "pronom-samples";
 
     private static final String SIZES_TEXT = "1,500, 4,000, 64,000 and 1,000,000";
