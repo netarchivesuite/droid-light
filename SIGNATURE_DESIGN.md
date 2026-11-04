@@ -48,7 +48,9 @@ touching a signature.
   then fails, so the longer alternative must be listed first. The CSS signature 21021 is
   ordered longest first for this reason; with the short names first, a style sheet whose first
   rule was `font-family: ...` or `border-radius: ...` was not recognised (two real CSS files
-  out of ten were lost in a test set).
+  out of ten were lost in a test set). This
+  is deliberate; see the section 'Signatures that need an exhaustive search' in README.md for
+  the reason.
 
 ## Why samples are not enough
 

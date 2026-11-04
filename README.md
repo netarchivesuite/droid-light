@@ -99,6 +99,12 @@ The results are heuristic. Measured on 9,105 real files from 58 npm packages, th
 - **Damaged or truncated files** are not identified when the signature needs something at the end of the file (the `%%EOF` of a PDF, the end of a PNG, the end marker of a JPEG). An empty result is the correct answer then.
 - **Search distance.** A pattern is looked for within the first or last 3,000 bytes of the file. Signatures that allow a larger distance in the signature file are searched that far; the end marker of a JPEG, for example, may be followed by up to 131,072 bytes of other data.
 
+### Signatures that need an exhaustive search
+
+droid-light does not try every combination of fragment options when it checks a signature. For each step of a signature's fragment chain (the parts that sit before or after the main byte pattern, separated by gaps of variable length, often with several alternatives per step) it takes the first place where a fragment matches, and it does not go back to try other places if a later step then fails. DROID itself explores all combinations. We chose this on purpose: exploring all combinations can take a time that grows very quickly with the number of steps, the number of alternatives and the length of the gaps, and this is what makes DROID hang on some files (see https://github.com/digital-preservation/droid/issues/1663). In our view this is a design flaw in the signature file format, not in the individual signatures: the format allows a signature to require an exhaustive search, and nothing limits how expensive that search can be. A signature that is meant to be checked quickly should not need one.
+
+The consequence is that a few signatures that DROID matches are not matched by droid-light: FictionBook 2 (fmt/2106), FASTQ files that start with an empty read (fmt/2118), and the alternative RTF rule of fmt/45 (it would only be a second result). In a test with 27,780 real files these cases affected 10 files, and no common web format was affected. Protection against hangs and speed have priority over completeness here.
+
 ## Building
 
 Java 11 or later: `mvn clean install`. The signature file is bundled in the jar.
