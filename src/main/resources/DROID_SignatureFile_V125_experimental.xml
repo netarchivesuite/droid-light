@@ -65834,7 +65834,7 @@
             <Extension>eot</Extension>
         </FileFormat> 
         <FileFormat ID="9202" MIMEType="image/jpeg"
-            Name="Motion Photo (JPEG with embedded video)" PUID="fmt/DRAFT-MotionPhoto-JPEG-1.0" Version="1.0">
+            Name="Motion Photo (JPEG with embedded video)" PUID="fmt/DRAFT-MotionPhoto-JPEG-1.0" Version="Motion Photo 1.0">
             <InternalSignatureID>9763</InternalSignatureID>
             <Extension>jpg</Extension>
             <Extension>jpeg</Extension>
@@ -65849,7 +65849,7 @@
             <HasPriorityOverFileFormatID>2330</HasPriorityOverFileFormatID>
         </FileFormat>
         <FileFormat ID="9203" MIMEType="image/heif"
-            Name="Motion Photo (HEIF with embedded video)" PUID="fmt/DRAFT-MotionPhoto-HEIF-1.0" Version="1.0">
+            Name="Motion Photo (HEIF with embedded video)" PUID="fmt/DRAFT-MotionPhoto-HEIF-1.0" Version="Motion Photo 1.0">
             <InternalSignatureID>9764</InternalSignatureID>
             <Extension>heic</Extension>
             <HasPriorityOverFileFormatID>1909</HasPriorityOverFileFormatID>
