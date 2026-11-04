@@ -39,6 +39,8 @@
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>11</java.version>
+		<!-- JUnit tags that surefire skips. 'slow' = PerformanceTest. Run it with: mvn test -Dtest=PerformanceTest -Dtest.excludedGroups=none -->
+		<test.excludedGroups>slow</test.excludedGroups>
 	</properties>
 
 	<dependencies>
@@ -71,6 +73,9 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.5.2</version>
+				<configuration>
+					<excludedGroups>${test.excludedGroups}</excludedGroups>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
