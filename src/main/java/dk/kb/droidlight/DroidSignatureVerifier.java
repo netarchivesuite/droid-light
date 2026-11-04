@@ -612,6 +612,12 @@ public class DroidSignatureVerifier {
         int maxSeqOffset; // -1 means "attribute absent" = unbounded
         /** See computeAnchorReach(); set once after parsing. */
         long anchorReach;
+        /**
+         * See computeAnchorScanLimit(); set once after parsing. The furthest the anchor of this sub-sequence can start
+         * from the reference point (BOF: after it; EOF: before it) and still satisfy the sub-sequence's own
+         * SubSeqMaxOffset, so the anchor search never has to look further. -1 = no such limit (SubSeqMaxOffset absent).
+         */
+        long anchorScanLimit = -1;
         final List<Fragment> leftFragments = new ArrayList<>();
         final List<Fragment> rightFragments = new ArrayList<>();
 
@@ -869,7 +875,9 @@ public class DroidSignatureVerifier {
      * computeAnchorReach()) - e.g. the JPEG end marker up to 131,072 bytes from
      * the end, the ZIP end record up to 65,531, an ISO 9660 descriptor from byte
      * 32,700. In the experimental signature file that is 103 of 2,690 byte sequences,
-     * so the cost is negligible; only byte sequences with NO limit at all (98 of them,
+     * so the cost is negligible. The window is also never searched beyond the sequence's own
+     * limit (see computeAnchorScanLimit()), so a sequence that can only match near the start or
+     * end of a file does not scan the shared window; only byte sequences with NO limit at all (98 of them,
      * e.g. variable-position XMP markers) are held to this cap alone - those are
      * what would make a blanket increase of the cap several times slower on
      * large files.
@@ -946,6 +954,7 @@ public class DroidSignatureVerifier {
             // chain's end satisfies [referencePosition-maxOffset, referencePosition-minOffset].
             long candidate = referencePosition - anchorLen; // closest possible to reference point
             long floor = Math.max(0, referencePosition - maxAnchorSearchDistance);
+            if (sub.anchorScanLimit >= 0) floor = Math.max(floor, referencePosition - sub.anchorScanLimit);
             int[] shifts = sub.anchorBackwardShifts;
 
             // PERFORMANCE: BMH-accelerated candidate search (see
@@ -1018,6 +1027,7 @@ public class DroidSignatureVerifier {
             // (Symmetric to the EOF case above; see real source's forward branch.)
             long candidate = referencePosition; // closest possible to reference point
             long ceiling = Math.min(region.length - anchorLen, referencePosition + maxAnchorSearchDistance);
+            if (sub.anchorScanLimit >= 0) ceiling = Math.min(ceiling, referencePosition + sub.anchorScanLimit);
             int[] shifts = sub.anchorForwardShifts;
 
             // PERFORMANCE: BMH-accelerated, symmetric to the backward branch above,
@@ -1330,6 +1340,30 @@ public class DroidSignatureVerifier {
         return (long) sub.maxSeqOffset + span;
     }
 
+    /**
+     * The furthest the anchor of a sub-sequence can lie from its reference point and still satisfy its own
+     * SubSeqMaxOffset, or -1 when SubSeqMaxOffset is absent (unbounded).
+     * SubSeqMaxOffset limits where the whole fragment chain starts (BOF) or ends (EOF), measured from the reference
+     * point. Going from the anchor to that point passes through the fragments on one side: a fragment lies at most
+     * its MaxOffset plus its own length further out, so the sum over those fragments (all of them, although fragments
+     * at the same Position are alternatives, which only makes the limit a little too large, never too small) is
+     * added. BOF: the left fragments (the right ones lie after the anchor and do not matter); EOF: the right
+     * fragments, plus the length of the anchor itself, because the offset is measured from the end of the chain.
+     * The anchor search stops there instead of at the shared search distance, so a signature that can only
+     * match near the start (or end) of a file no longer scans the whole shared window.
+     */
+    static long computeAnchorScanLimit(SubSequenceDef sub, boolean backward) {
+        if (sub.anchor == null || sub.maxSeqOffset < 0) return -1;
+        long span = 0;
+        if (backward) {
+            span = patternLength(sub.anchor);
+            for (Fragment f : sub.rightFragments) span += Math.max(f.maxOffset, 0) + patternLength(f.pattern);
+        } else {
+            for (Fragment f : sub.leftFragments) span += Math.max(f.maxOffset, 0) + patternLength(f.pattern);
+        }
+        return (long) sub.maxSeqOffset + span;
+    }
+
     static void precomputeOrdering(List<InternalSignatureDef> signatures) {
         for (InternalSignatureDef sig : signatures) {
             for (ByteSequenceDef bs : sig.byteSequences) {
@@ -1340,6 +1374,7 @@ public class DroidSignatureVerifier {
 
                 for (SubSequenceDef sub : bs.subSequences) {
                     sub.anchorReach = computeAnchorReach(sub);
+                    sub.anchorScanLimit = computeAnchorScanLimit(sub, bs.reference == Reference.EOF);
                     sub.groupedRightFragments = groupByPosition(sub.rightFragments);
                     sub.groupedLeftFragments = groupByPosition(sub.leftFragments);
                     if (sub.anchor != null) {
