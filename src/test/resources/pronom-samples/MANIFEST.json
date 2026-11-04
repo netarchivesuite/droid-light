@@ -6558,5 +6558,19 @@
     "variantReason": "Negative: legacy MicroVideo layout (GCamera:MicroVideo, MicroVideoOffset), not covered by the Motion Photo 1.0 signature",
     "independentCheck": "git blob identical to the upstream file; whole file searched: no Item:Semantic=\"MotionPhoto\" item",
     "sha256": "54f01b8dcdde43e0b2395dd5429b73f85a4db59dde921d58c906b6fe15293142"
+  },
+  {
+    "file": "fmt-DRAFT-EOT-2.1_Embedded_OpenType_EOT_File_Format_0x00020001.eot",
+    "puid": "fmt/DRAFT-EOT-2.1",
+    "formatName": "Embedded OpenType (EOT) File Format",
+    "formatVersion": "0x00020001",
+    "sizeBytes": 165742,
+    "sourceRepository": "https://github.com/FortAwesome/Font-Awesome",
+    "sourceCommit": "a8386aae19e200ddb0f6845b5feeee5eb7013687",
+    "originalPath": "fonts/fontawesome-webfont.eot",
+    "license": "SIL OFL 1.1 (the font; the repository's CSS is MIT)",
+    "alsoDetectedAs": [],
+    "independentCheck": "file(1): Embedded OpenType (EOT), FontAwesome family; EOT size field equals the file size; version bytes 01 00 02 00 (little-endian 0x00020001), flags 0 (not compressed), magic LP; the embedded data is a valid TrueType font (FontAwesome 4.7.0, 707 glyphs); identical to the file in the npm package font-awesome@4.7.0",
+    "sha256": "7bfcab6db99d5cfbf1705ca0536ddc78585432cc5fa41bbd7ad0f009033b2979"
   }
 ]

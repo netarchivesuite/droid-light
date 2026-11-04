@@ -1,8 +1,8 @@
 # Designing and changing signatures
 
 droid-light uses the official PRONOM signature file unchanged and adds a small number of
-**local signatures** on top of it (EOT 1.2, SVG without an XML declaration, Motion Photo, and heuristics for
-JSON, CSS and JavaScript, whose formats have no byte signature in PRONOM). This page explains
+**local signatures** on top of it (EOT 2.1, SVG without an XML declaration, Motion Photo, and heuristics for
+JSON, CSS and JavaScript, whose formats have no byte signature in PRONOM). The EOT signature exists because PRONOM's fmt/1383 (0x00020001) expects the version bytes in the opposite order (`02 00 01 00`) and never matches a real file, while 22 of 26 real EOT fonts have `01 00 02 00`; it should be removed if PRONOM corrects fmt/1383. This page explains
 the rules for adding or changing local signatures, and how to test a change. Read it before
 touching a signature.
 
@@ -161,7 +161,7 @@ signature file under test (the official file, the current file, the candidate), 
 
 Both files are in the project, so a change can be checked for false detections by running both
 on the same corpus (positive and negative files, as described above) and comparing the results.
-Only these formats may differ, because only they have local signatures: fmt/91, fmt/DRAFT-EOT-1.2,
+Only these formats may differ, because only they have local signatures: fmt/91, fmt/DRAFT-EOT-2.1,
 fmt/DRAFT-MotionPhoto-JPEG-1.0, fmt/DRAFT-MotionPhoto-HEIF-1.0, fmt/817, x-fmt/224 and x-fmt/423.
 For every other format the results must be identical, and where the official file finds nothing
 the experimental file may only add one of those seven formats. A Motion Photo format is added in

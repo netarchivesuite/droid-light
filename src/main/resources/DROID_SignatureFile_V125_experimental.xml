@@ -65829,7 +65829,7 @@
             <Extension>eot</Extension>
         </FileFormat>
         <FileFormat ID="9201" MIMEType="application/vnd.ms-fontobject"
-            Name="Embedded OpenType (EOT) File Format" PUID="fmt/DRAFT-EOT-1.2" Version="0x00010002">
+            Name="Embedded OpenType (EOT) File Format" PUID="fmt/DRAFT-EOT-2.1" Version="0x00020001">
             <InternalSignatureID>9761</InternalSignatureID>
             <Extension>eot</Extension>
         </FileFormat> 

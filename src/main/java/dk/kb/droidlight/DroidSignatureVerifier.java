@@ -1600,7 +1600,7 @@ public class DroidSignatureVerifier {
      * @return the number of DROID signatures loaded from the signature file
      *         (2,289 for the experimental file: the official V125 PRONOM
      *         release, 2,273, plus four local signature additions - EOT
-     *         version 1.2, SVG without an XML declaration and two Motion Photo
+     *         version 2.1, SVG without an XML declaration and two Motion Photo
      *         signatures (JPEG, HEIF) - plus 12
      *         heuristic signatures for JSON, JavaScript and CSS).
      */

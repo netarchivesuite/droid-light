@@ -62,7 +62,7 @@ The signatures come from PRONOM. The project contains two signature files in `sr
 
 The local additions are:
 
-- **EOT font, version 1.2**
+- **EOT font, version 2.1** (`fmt/DRAFT-EOT-2.1`): EOT files whose version field is 0x00020001 (bytes `01 00 02 00` at offset 8), the version written by most converters for web fonts. PRONOM's fmt/1383 has the same label but expects the four bytes in the opposite order (`02 00 01 00`), and therefore never matches a real file; fmt/1382 has the same problem, and only fmt/1384 (0x00020002, compressed fonts) is correct. In a test of 26 distinct EOT fonts from 20 npm packages, 22 had version 2.1 and none had the bytes of fmt/1383. If PRONOM corrects fmt/1383, this local signature will match the same files and should be removed.
 - **SVG without an XML declaration**: the PRONOM signatures for SVG require `<?xml version="1.0"` at the very start of the file, so SVG files that begin directly with `<svg` were not recognised. The added signature maps them to the generic SVG format `fmt/91`.
 - **Motion Photo (Android and Samsung)**: two signatures, for a JPEG and for a HEIC with an MP4 video appended (see below). They are two new formats, `fmt/DRAFT-MotionPhoto-JPEG-1.0` and `fmt/DRAFT-MotionPhoto-HEIF-1.0`, and they come before the plain JPEG and HEIC formats in the result.
 - **JSON, JavaScript and CSS**: twelve heuristic signatures (two for JSON, eight for JavaScript and two for CSS), because PRONOM has no binary signature for these text formats and web archives (WARC files) are full of them. The rules are strict, to avoid false labels, and are described below.
