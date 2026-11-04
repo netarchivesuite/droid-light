@@ -190,13 +190,13 @@ CSS files from npm packages, 7,287 other npm files and 2,454 source and text fil
 | Format | Recall | Notes |
 |---|---|---|
 | JavaScript | 95.6% | 3 of 3,402 non-JavaScript text files labelled JavaScript |
-| CSS | 97.5% | 13 of 7,287 other npm files and 2 of 2,454 source and text files (Python, Ruby, PHP, C, Java, Go, prose) labelled CSS |
+| CSS | 98.2% (819 files) | 13 of 7,287 other npm files and 4 of 2,454 source and text files (Python, Ruby, PHP, C, Java, Go, prose) labelled CSS |
 | JSON | 100% | false positives about 0.06% |
 | unidentified binary data | n/a | 0 of 288 labelled CSS, JavaScript or JSON |
 
 On an independent set (Python packages) JavaScript recall is lower (about 66%) because most of
 the misses are one package's generated files without any JavaScript keyword, and CSS recall is
-89.2% on 37 CSS files. Known CSS misses are style sheets with a very long header comment (Font
+91.9% on 37 CSS files (34 files). Known CSS misses are style sheets with a very long header comment (Font
 Awesome) and style sheets that contain only `@import` lines (animate.css). Known false
 positives are template source files (`{% ... %}`), which a web server does not deliver. Use
 these figures as the baseline to beat or match, never to excuse a regression.
