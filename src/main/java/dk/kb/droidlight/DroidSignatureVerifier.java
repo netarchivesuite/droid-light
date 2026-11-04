@@ -882,7 +882,7 @@ public class DroidSignatureVerifier {
      * what would make a blanket increase of the cap several times slower on
      * large files.
      */
-    static int MAX_ANCHOR_SEARCH_DISTANCE = 3000;
+    static int MAX_ANCHOR_SEARCH_DISTANCE = 35000;
 
     /**
      * Gates the per-file diagnostic console output in detect(File)/

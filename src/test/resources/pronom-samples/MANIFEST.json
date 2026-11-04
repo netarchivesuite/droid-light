@@ -491,15 +491,18 @@
     "alsoDetectedAs": []
   },
   {
-    "file": "fmt-111_OLE2_Compound_Document_Format.ppt",
-    "puid": "fmt/111",
-    "formatName": "OLE2 Compound Document Format",
-    "formatVersion": "",
+    "file": "x-fmt-88_Microsoft_PowerPoint_Presentation.ppt",
+    "puid": "x-fmt/88",
+    "formatName": "Microsoft PowerPoint Presentation",
+    "formatVersion": "4.x",
     "sizeBytes": 57856,
     "sourceRepository": "https://github.com/openpreserve/format-corpus",
     "originalPath": "office-examples/powerpoint4-mac/ecdl paris.ppt",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
-    "alsoDetectedAs": []
+    "alsoDetectedAs": [
+      "fmt/111"
+    ],
+    "independentCheck": "file(1) 5.45: Composite Document File V2 Document, Name of Creating Application: Microsoft PowerPoint 4.0 (Os: MacOS); source folder powerpoint4-mac. Found only with an anchor search distance of at least 31,025 bytes: the text \"Microsoft PowerPoint\" is at byte 31,025. With a distance of 3,000 or 5,000 bytes the file gets only the generic OLE2 result fmt/111."
   },
   {
     "file": "fmt-1129_PDF_2.0_-_Portable_Document_Format_2.0.pdf",
@@ -6572,5 +6575,65 @@
     "alsoDetectedAs": [],
     "independentCheck": "file(1): Embedded OpenType (EOT), FontAwesome family; EOT size field equals the file size; version bytes 01 00 02 00 (little-endian 0x00020001), flags 0 (not compressed), magic LP; the embedded data is a valid TrueType font (FontAwesome 4.7.0, 707 glyphs); identical to the file in the npm package font-awesome@4.7.0",
     "sha256": "7bfcab6db99d5cfbf1705ca0536ddc78585432cc5fa41bbd7ad0f009033b2979"
+  },
+  {
+    "file": "fmt-111_OLE2_Compound_Document_Format.qpw",
+    "puid": "fmt/111",
+    "formatName": "OLE2 Compound Document Format",
+    "formatVersion": "",
+    "sizeBytes": 4608,
+    "sourceRepository": "https://github.com/openpreserve/format-corpus",
+    "sourceCommit": "366f068cec399d0cdfd61fa473de3ab6dc858098",
+    "originalPath": "office/spreadsheet/qpw/testQUATTRO.qpw",
+    "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
+    "alsoDetectedAs": [],
+    "independentCheck": "file(1) 5.45: Composite Document File V2 Document, Name of Creating Application: Quattro Pro for Windows 7; the OLE2 directory has the streams SummaryInformation and NativeContent_MAIN (a Quattro Pro file, for which this signature file has no specific format, so it is the generic OLE2 result); the same result at every anchor search distance",
+    "sha256": "d4339d473d2ef066870c02e1370c029f00bd82e9fc6d0bd49382d2a54ca3e544"
+  },
+  {
+    "file": "fmt-40_Microsoft_Word_Document_97-2003.doc",
+    "puid": "fmt/40",
+    "formatName": "Microsoft Word Document",
+    "formatVersion": "97-2003",
+    "sizeBytes": 9216,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "sw/qa/extras/ww8export/data/zoom.doc",
+    "license": "MPL-2.0 (LibreOffice core, COPYING.MPL), unless otherwise stated in the repository",
+    "alsoDetectedAs": [
+      "fmt/111"
+    ],
+    "independentCheck": "file(1) 5.45: Composite Document File V2 Document; the OLE2 directory contains the streams WordDocument and 1Table (a Word 97-2003 file). Found only with an anchor search distance of at least 8,832 bytes; with 3,000 or 5,000 bytes the file gets only the generic OLE2 result fmt/111",
+    "sha256": "6ecc9bee5262dc8fb7fab7c21697db59c572e39efeca8661194b1c03bf1d3f82"
+  },
+  {
+    "file": "x-fmt-430_Microsoft_Outlook_Email_Message_97-2003.msg",
+    "puid": "x-fmt/430",
+    "formatName": "Microsoft Outlook Email Message",
+    "formatVersion": "97-2003",
+    "sizeBytes": 10240,
+    "sourceRepository": "https://github.com/apache/poi",
+    "sourceCommit": "b8ed3af07928a9196c32551f32f34075d2fc6aeb",
+    "originalPath": "test-data/hsmf/51873.msg",
+    "license": "Apache-2.0",
+    "alsoDetectedAs": [
+      "fmt/111"
+    ],
+    "independentCheck": "file(1) 5.45: CDFV2 Microsoft Outlook Message; the OLE2 directory has the __substg1.0 property streams of an Outlook message. Found only with an anchor search distance of at least 8,064 bytes; with 3,000 or 5,000 bytes the file gets only the generic OLE2 result fmt/111",
+    "sha256": "21ccc86ef46abbacfbb9b49a7e5e510fa65befdf2116cd34cd4de8bdd57087a8"
+  },
+  {
+    "file": "x-fmt-239_Microsoft_Access_Database_File_97.mdb",
+    "puid": "x-fmt/239",
+    "formatName": "Microsoft Access Database File",
+    "formatVersion": "97",
+    "sizeBytes": 118784,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "48010f83ad3869119f54546cbb272fde88130283",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources/test-documents/testAccess_V1997.mdb",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "alsoDetectedAs": [],
+    "independentCheck": "file(1) 5.45: Microsoft Access Database; header text \"Standard Jet DB\" with Jet version byte 0 at offset 0x14 (Jet 3, Access 97). Found only with an anchor search distance of at least 34,182 bytes; with a smaller distance the file gets no result",
+    "sha256": "27788b47e17412427830e80c2cb69366885aa11b12c61422de73029194bef135"
   }
 ]
