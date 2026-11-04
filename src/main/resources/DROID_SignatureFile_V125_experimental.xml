@@ -55954,6 +55954,71 @@
                 </SubSequence>
             </ByteSequence>
         </InternalSignature>
+        <InternalSignature ID="9763" Specificity="Specific">
+            <ByteSequence Reference="BOFoffset">
+                <SubSequence MinFragLength="0" Position="1"
+                    SubSeqMaxOffset="0" SubSeqMinOffset="0">
+                    <Sequence>FFD8FF</Sequence>
+                    <DefaultShift>4</DefaultShift>
+                    <Shift Byte="D8">2</Shift>
+                    <Shift Byte="FF">1</Shift>
+                </SubSequence>
+                <SubSequence MinFragLength="0" Position="2"
+                    SubSeqMaxOffset="131072" SubSeqMinOffset="0">
+                    <Sequence>53656D616E7469633D224D6F74696F6E50686F746F22</Sequence>
+                    <DefaultShift>23</DefaultShift>
+                    <Shift Byte="22">1</Shift>
+                    <Shift Byte="3D">14</Shift>
+                    <Shift Byte="4D">12</Shift>
+                    <Shift Byte="50">6</Shift>
+                    <Shift Byte="53">22</Shift>
+                    <Shift Byte="61">19</Shift>
+                    <Shift Byte="63">15</Shift>
+                    <Shift Byte="65">21</Shift>
+                    <Shift Byte="68">5</Shift>
+                    <Shift Byte="69">9</Shift>
+                    <Shift Byte="6D">20</Shift>
+                    <Shift Byte="6E">7</Shift>
+                    <Shift Byte="6F">2</Shift>
+                    <Shift Byte="74">3</Shift>
+                </SubSequence>
+            </ByteSequence>
+        </InternalSignature>
+        <InternalSignature ID="9764" Specificity="Specific">
+            <ByteSequence Reference="BOFoffset">
+                <SubSequence MinFragLength="0" Position="1"
+                    SubSeqMaxOffset="4" SubSeqMinOffset="4">
+                    <Sequence>66747970</Sequence>
+                    <DefaultShift>5</DefaultShift>
+                    <Shift Byte="66">4</Shift>
+                    <Shift Byte="70">1</Shift>
+                    <Shift Byte="74">3</Shift>
+                    <Shift Byte="79">2</Shift>
+                    <RightFragment MaxOffset="0" MinOffset="0" Position="1">68656963</RightFragment>
+                    <RightFragment MaxOffset="0" MinOffset="0" Position="1">68656978</RightFragment>
+                    <RightFragment MaxOffset="0" MinOffset="0" Position="1">6D696631</RightFragment>
+                </SubSequence>
+                <SubSequence MinFragLength="0" Position="2"
+                    SubSeqMaxOffset="8388608" SubSeqMinOffset="0">
+                    <Sequence>53656D616E7469633D224D6F74696F6E50686F746F22</Sequence>
+                    <DefaultShift>23</DefaultShift>
+                    <Shift Byte="22">1</Shift>
+                    <Shift Byte="3D">14</Shift>
+                    <Shift Byte="4D">12</Shift>
+                    <Shift Byte="50">6</Shift>
+                    <Shift Byte="53">22</Shift>
+                    <Shift Byte="61">19</Shift>
+                    <Shift Byte="63">15</Shift>
+                    <Shift Byte="65">21</Shift>
+                    <Shift Byte="68">5</Shift>
+                    <Shift Byte="69">9</Shift>
+                    <Shift Byte="6D">20</Shift>
+                    <Shift Byte="6E">7</Shift>
+                    <Shift Byte="6F">2</Shift>
+                    <Shift Byte="74">3</Shift>
+                </SubSequence>
+            </ByteSequence>
+        </InternalSignature>
     </InternalSignatureCollection>
     <FileFormatCollection>
         <FileFormat ID="8" MIMEType="application/msword"
@@ -65768,6 +65833,27 @@
             <InternalSignatureID>9761</InternalSignatureID>
             <Extension>eot</Extension>
         </FileFormat> 
+        <FileFormat ID="9202" MIMEType="image/jpeg"
+            Name="Motion Photo (JPEG with embedded video)" PUID="fmt/DRAFT-MotionPhoto-JPEG-1.0" Version="1.0">
+            <InternalSignatureID>9763</InternalSignatureID>
+            <Extension>jpg</Extension>
+            <Extension>jpeg</Extension>
+            <HasPriorityOverFileFormatID>667</HasPriorityOverFileFormatID>
+            <HasPriorityOverFileFormatID>668</HasPriorityOverFileFormatID>
+            <HasPriorityOverFileFormatID>669</HasPriorityOverFileFormatID>
+            <HasPriorityOverFileFormatID>670</HasPriorityOverFileFormatID>
+            <HasPriorityOverFileFormatID>675</HasPriorityOverFileFormatID>
+            <HasPriorityOverFileFormatID>676</HasPriorityOverFileFormatID>
+            <HasPriorityOverFileFormatID>751</HasPriorityOverFileFormatID>
+            <HasPriorityOverFileFormatID>1444</HasPriorityOverFileFormatID>
+            <HasPriorityOverFileFormatID>2330</HasPriorityOverFileFormatID>
+        </FileFormat>
+        <FileFormat ID="9203" MIMEType="image/heif"
+            Name="Motion Photo (HEIF with embedded video)" PUID="fmt/DRAFT-MotionPhoto-HEIF-1.0" Version="1.0">
+            <InternalSignatureID>9764</InternalSignatureID>
+            <Extension>heic</Extension>
+            <HasPriorityOverFileFormatID>1909</HasPriorityOverFileFormatID>
+        </FileFormat>
         <FileFormat ID="2203" Name="Bruker PDZ" PUID="fmt/1385">
             <InternalSignatureID>1763</InternalSignatureID>
             <Extension>pdz</Extension>

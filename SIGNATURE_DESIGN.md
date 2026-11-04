@@ -1,7 +1,7 @@
 # Designing and changing signatures
 
 droid-light uses the official PRONOM signature file unchanged and adds a small number of
-**local signatures** on top of it (EOT 1.2, SVG without an XML declaration, and heuristics for
+**local signatures** on top of it (EOT 1.2, SVG without an XML declaration, Motion Photo, and heuristics for
 JSON, CSS and JavaScript, whose formats have no byte signature in PRONOM). This page explains
 the rules for adding or changing local signatures, and how to test a change. Read it before
 touching a signature.
@@ -162,9 +162,42 @@ signature file under test (the official file, the current file, the candidate), 
 Both files are in the project, so a change can be checked for false detections by running both
 on the same corpus (positive and negative files, as described above) and comparing the results.
 Only these formats may differ, because only they have local signatures: fmt/91, fmt/DRAFT-EOT-1.2,
-fmt/817, x-fmt/224 and x-fmt/423. For every other format the results must be identical, and where
-the official file finds nothing the experimental file may only add one of those five formats.
+fmt/DRAFT-MotionPhoto-JPEG-1.0, fmt/DRAFT-MotionPhoto-HEIF-1.0, fmt/817, x-fmt/224 and x-fmt/423.
+For every other format the results must be identical, and where the official file finds nothing
+the experimental file may only add one of those seven formats. A Motion Photo format is added in
+front of the result of a JPEG or HEIC; the rest of that result stays as it was, in the same order.
 Anything else is a mistake in a local signature.
+
+## Motion Photo signatures
+
+The two Motion Photo formats (JPEG and HEIF) are the only local formats that outrank PRONOM
+formats. A phone photo with an appended video is also a valid Exif JPEG or HEIC, so without a
+priority rule the Motion Photo would come after the plain format, and a consumer that uses the
+first result (the MIME type) would never see it. The new formats therefore list the formats
+they outrank in their own `HasPriorityOverFileFormatID` elements (JPEG: fmt/41, 42, 43, 44,
+645, 1507, x-fmt/390, 391, 398; HEIF: fmt/1101). This only adds data to the new formats; no
+existing format is changed (principle 2). droid-light reports a format that is outranked
+after the others instead of removing it, so the plain JPEG is still in the list.
+
+What was learned while designing them:
+
+* **Put a far search in a second SubSequence, not in a fragment of the first.** The first
+  SubSequence is searched for in a window that is at least as large as everything after its
+  anchor (`SubSeqMaxOffset` plus all fragment gaps and lengths), and that window is scanned on
+  every file, not only on JPEGs. A first version with the magic number as anchor and the XMP
+  text as a `RightFragment` with a gap of 131,072 (JPEG) or 8,388,608 (HEIF) bytes found the
+  same files, but made every large file scan megabytes for `ftyp`: about 8 ms more per file
+  for 3 to 8 MB files. The final form has the magic number alone in the first SubSequence
+  (the usual 3,000-byte window) and the XMP text in a chained second SubSequence, which is
+  searched only when the first one matched.
+* **The text to look for is `Semantic="MotionPhoto"`, not the `MotionPhoto="1"` flag.** The
+  flag is in the XMP of files that have no video (the Motion Photo format says the flag is not
+  definitive). The item with that semantic is the description of the video itself. Neither text
+  includes the XMP prefix (`GCamera:`, `Camera:` and `Item:` all occur).
+* **The offset of the XMP differs between phones** and the Samsung HEIC has it after the image
+  data, so the windows (131,072 and 8,388,608 bytes) come from the sample files with a margin,
+  not from the format description, which does not say where the XMP is. A phone with a larger
+  Exif block would be missed; more real samples are the only way to improve this.
 
 ## Design rules for heuristics
 

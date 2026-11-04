@@ -2948,7 +2948,8 @@
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": [
       "x-fmt/224"
-    ]
+    ],
+    "variantReason": "Base sample: 1.6 MB InDesign-exported JPEG that starts with an Exif APP1 segment and ends exactly with its last FF D9 (0 bytes after it)"
   },
   {
     "file": "fmt-411_RAR_Archive_2.9.rar",
@@ -6475,5 +6476,87 @@
     "originalPath": "Tests/images/combined_larger_than_size.psd",
     "license": "MIT-CMU License, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-DRAFT-MotionPhoto-JPEG-1.0_Motion_Photo_JPEG_with_embedded_video.jpg",
+    "puid": "fmt/DRAFT-MotionPhoto-JPEG-1.0",
+    "formatName": "Motion Photo (JPEG with embedded video)",
+    "formatVersion": "1.0",
+    "sizeBytes": 6061475,
+    "sourceRepository": "https://github.com/immich-app/test-assets",
+    "sourceCommit": "ec56cc6c1d76c45bc9615dc6ea232470a2b0a3a1",
+    "originalPath": "formats/motionphoto/pixel-8a.jpg",
+    "license": "AGPL-3.0 (repository LICENSE); the repository README states its assets are public domain",
+    "alsoDetectedAs": [
+      "fmt/41",
+      "fmt/1507"
+    ],
+    "variantReason": "Google Pixel 8a: Ultra HDR JPEG with a GainMap item; Semantic=\"MotionPhoto\" at byte 11,494",
+    "independentCheck": "XMP Item:Length=2979340: video starts at size-Length=3082135, ftyp box present there=True, brand isom; XMP at byte 11494",
+    "sha256": "c0f8317d1c2fca83df19aa2108d4754faf70d60a1baab60f7220a5d463dad1d0"
+  },
+  {
+    "file": "fmt-DRAFT-MotionPhoto-JPEG-1.0_Motion_Photo_JPEG_with_embedded_video--samsung-one-ui-6.jpg",
+    "puid": "fmt/DRAFT-MotionPhoto-JPEG-1.0",
+    "formatName": "Motion Photo (JPEG with embedded video)",
+    "formatVersion": "1.0",
+    "sizeBytes": 8212778,
+    "sourceRepository": "https://github.com/immich-app/test-assets",
+    "sourceCommit": "ec56cc6c1d76c45bc9615dc6ea232470a2b0a3a1",
+    "originalPath": "formats/motionphoto/samsung-one-ui-6.jpg",
+    "license": "AGPL-3.0 (repository LICENSE); the repository README states its assets are public domain",
+    "alsoDetectedAs": [
+      "x-fmt/391"
+    ],
+    "variantReason": "Samsung One UI 6: Samsung SEF trailer after the video; Google XMP deep in the file (Semantic=\"MotionPhoto\" at byte 56,682)",
+    "independentCheck": "XMP Item:Length=3274667: video starts at size-Length=4938111, ftyp box present there=True, brand mp42; XMP at byte 56682",
+    "sha256": "d193cbfc1967b8c319569fdb3c6e0c3ec5a5ebbe4f47080e9c6a86e8c6d327b3"
+  },
+  {
+    "file": "fmt-DRAFT-MotionPhoto-HEIF-1.0_Motion_Photo_HEIF_with_embedded_video.heic",
+    "puid": "fmt/DRAFT-MotionPhoto-HEIF-1.0",
+    "formatName": "Motion Photo (HEIF with embedded video)",
+    "formatVersion": "1.0",
+    "sizeBytes": 3678952,
+    "sourceRepository": "https://github.com/immich-app/test-assets",
+    "sourceCommit": "ec56cc6c1d76c45bc9615dc6ea232470a2b0a3a1",
+    "originalPath": "formats/motionphoto/samsung-one-ui-6.heic",
+    "license": "AGPL-3.0 (repository LICENSE); the repository README states its assets are public domain",
+    "alsoDetectedAs": [
+      "fmt/1101"
+    ],
+    "variantReason": "Samsung One UI 6 HEIC: video in a top-level mpvd box; Semantic=\"MotionPhoto\" at byte 443,072",
+    "independentCheck": "XMP item Semantic=\"MotionPhoto\" at byte 443072; top-level mpvd box at byte 452276 holds the MP4 (inner ftyp at byte 452288); file continues to EOF 3678952 (Samsung SEFT trailer follows)",
+    "sha256": "4a604f5f28dee41565f766585ab4b29026e0031389504a0d2152a3b844a7e19c"
+  },
+  {
+    "file": "fmt-41_Raw_JPEG_Stream--motionphoto-flag-without-video.jpg",
+    "puid": "fmt/41",
+    "formatName": "Raw JPEG Stream",
+    "formatVersion": "",
+    "sizeBytes": 1211,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "48010f83ad3869119f54546cbb272fde88130283",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/resources/test-documents/testJPEG_MotionPhoto_noVideo.jpg",
+    "license": "Apache-2.0",
+    "alsoDetectedAs": [],
+    "variantReason": "Negative: GCamera MotionPhoto flag set but no video item in the Container directory; must not be labelled Motion Photo",
+    "independentCheck": "git blob identical to the upstream file; whole file searched: no Item:Semantic=\"MotionPhoto\" item",
+    "sha256": "e025d8788be951637a70415135c3f02036ef1dbc451636a238722fe1b8cf99e9"
+  },
+  {
+    "file": "fmt-41_Raw_JPEG_Stream--legacy-microvideo.jpg",
+    "puid": "fmt/41",
+    "formatName": "Raw JPEG Stream",
+    "formatVersion": "",
+    "sizeBytes": 2662,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "48010f83ad3869119f54546cbb272fde88130283",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/resources/test-documents/testJPEG_MicroVideo.jpg",
+    "license": "Apache-2.0",
+    "alsoDetectedAs": [],
+    "variantReason": "Negative: legacy MicroVideo layout (GCamera:MicroVideo, MicroVideoOffset), not covered by the Motion Photo 1.0 signature",
+    "independentCheck": "git blob identical to the upstream file; whole file searched: no Item:Semantic=\"MotionPhoto\" item",
+    "sha256": "54f01b8dcdde43e0b2395dd5429b73f85a4db59dde921d58c906b6fe15293142"
   }
 ]

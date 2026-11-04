@@ -50,6 +50,12 @@ import org.junit.jupiter.api.TestFactory;
  * <p>The PUID from the prefix must be the <b>first</b> result of
  * {@link DroidSignatureVerifier#detect(File)}.
  *
+ * <p><b>Local PUIDs.</b> A format added by this project has no PRONOM number yet, so its PUID is
+ * <code>fmt/DRAFT-&lt;name&gt;-&lt;version&gt;</code> (a number invented here could collide with one PRONOM
+ * assigns later). Its prefix is written the same way, with the hyphen after the scheme and nothing else
+ * changed: <code>fmt-DRAFT-MotionPhoto-JPEG-1.0_Motion_Photo_JPEG.jpg</code> must be detected as
+ * <code>fmt/DRAFT-MotionPhoto-JPEG-1.0</code>. The text after <code>DRAFT-</code> contains no underscore.
+ *
  * <h2>Adding samples</h2>
  * Put a correctly named file in the folder - this class needs no change. Each file
  * shows up as its own test in the test report, named after the file. A file that does
@@ -114,9 +120,10 @@ public class PronomSamplesDetectionTest {
 
     /**
      * The text before the first underscore: a PUID scheme such as "fmt" or "x-fmt", a
-     * hyphen, and the number. Group 1 is the scheme, group 2 the number.
+     * hyphen, and the number, or, for a format added by this project, "DRAFT-" and a name
+     * (see "Local PUIDs" above). Group 1 is the scheme, group 2 the number or the DRAFT name.
      */
-    private static final Pattern PREFIX = Pattern.compile("^([a-z]+(?:-[a-z]+)*)-(\\d+)_.*");
+    private static final Pattern PREFIX = Pattern.compile("^([a-z]+(?:-[a-z]+)*)-(\\d+|DRAFT-[^_]+)_.*");
 
     /**
      * Samples that deviate from "the PUID in the file name is the first result", keyed by
@@ -141,6 +148,21 @@ public class PronomSamplesDetectionTest {
                         + "which do outrank x-fmt/384, do not match this file. The order of the two is not defined "
                         + "by the signature file, so it is not asserted.",
                 "fmt/1280", "x-fmt/384"));
+
+        String motionJpeg = "fmt/DRAFT-MotionPhoto-JPEG-1.0 (FileFormat ID 9202) has priority over fmt/42, 43, 44, 41, 645, 1507 and "
+                + "x-fmt/390, 391, 398 (HasPriorityOverFileFormatID 667, 668, 669, 670, 1444, 2330, 675, 676, 751); ";
+        SPECIAL_CASES.put("fmt-DRAFT-MotionPhoto-JPEG-1.0_Motion_Photo_JPEG_with_embedded_video.jpg", SpecialCase.ordered(
+                motionJpeg + "this Pixel file is the sample for the Motion Photo format, and fmt/41 and fmt/1507 are still reported after it.",
+                "fmt/DRAFT-MotionPhoto-JPEG-1.0", "fmt/41", "fmt/1507"));
+
+        SPECIAL_CASES.put("fmt-DRAFT-MotionPhoto-JPEG-1.0_Motion_Photo_JPEG_with_embedded_video--samsung-one-ui-6.jpg", SpecialCase.ordered(
+                motionJpeg + "this Samsung file is the sample for the Motion Photo format, and x-fmt/391 is still reported after it.",
+                "fmt/DRAFT-MotionPhoto-JPEG-1.0", "x-fmt/391"));
+
+        SPECIAL_CASES.put("fmt-DRAFT-MotionPhoto-HEIF-1.0_Motion_Photo_HEIF_with_embedded_video.heic", SpecialCase.ordered(
+                "fmt/DRAFT-MotionPhoto-HEIF-1.0 (FileFormat ID 9203) has priority over fmt/1101 (HEIC), HasPriorityOverFileFormatID 1909; "
+                        + "this Samsung file is the sample for the Motion Photo format, and fmt/1101 is still reported after it.",
+                "fmt/DRAFT-MotionPhoto-HEIF-1.0", "fmt/1101"));
 
         SPECIAL_CASES.put("x-fmt-423_JavaScript_file--minified.js", SpecialCase.firstAmong(
                 "This file is jQuery 1.7.1, a real JavaScript file, and it contains the text <!doctype html> at byte 478, "

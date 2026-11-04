@@ -58,17 +58,29 @@ if (r.length == 0) {
 The signatures come from PRONOM. The project contains two signature files in `src/main/resources`, and both are packaged in the jar:
 
 - `DROID_SignatureFile_V125.xml` is the official PRONOM signature file V125, released on 2 September 2026 and published by The National Archives under the [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) (2,273 signatures). It is kept exactly as downloaded and is never modified, reformatted or renamed; it is there for comparison. V125 adds 14 formats: ForTheRecord TRM audio, FictionBook 2, Aseprite, FAB2 Book Container, Clock RINEX 2.0 and 3.0, LabVIEW Virtual Instrument, NumPy, TIGER/Line ASCII, TIGER/Line Shapefile, HALO Photonics Doppler LiDAR, Hugin project files, Address Event DATa and FASTQ.
-- `DROID_SignatureFile_V125_experimental.xml` is the official file plus local additions, 14 signatures that PRONOM does not have, 2,287 in total. It is the **default**: the file the library is built and tested with, and the one used in the examples. The name says "experimental" because the file deviates from the official one, which this project cannot change.
+- `DROID_SignatureFile_V125_experimental.xml` is the official file plus local additions, 16 signatures that PRONOM does not have, 2,289 in total. It is the **default**: the file the library is built and tested with, and the one used in the examples. The name says "experimental" because the file deviates from the official one, which this project cannot change.
 
 The local additions are:
 
 - **EOT font, version 1.2**
 - **SVG without an XML declaration**: the PRONOM signatures for SVG require `<?xml version="1.0"` at the very start of the file, so SVG files that begin directly with `<svg` were not recognised. The added signature maps them to the generic SVG format `fmt/91`.
+- **Motion Photo (Android and Samsung)**: two signatures, for a JPEG and for a HEIC with an MP4 video appended (see below). They are two new formats, `fmt/DRAFT-MotionPhoto-JPEG-1.0` and `fmt/DRAFT-MotionPhoto-HEIF-1.0`, and they come before the plain JPEG and HEIC formats in the result.
 - **JSON, JavaScript and CSS**: twelve heuristic signatures (two for JSON, eight for JavaScript and two for CSS), because PRONOM has no binary signature for these text formats and web archives (WARC files) are full of them. The rules are strict, to avoid false labels, and are described below.
 
 The additions are exactly the difference between the two files, and can be listed at any time with `diff -u src/main/resources/DROID_SignatureFile_V125.xml src/main/resources/DROID_SignatureFile_V125_experimental.xml`. Anyone who adds or changes a local signature should read [SIGNATURE_DESIGN.md](SIGNATURE_DESIGN.md) first; it gives the rules and how to test a change.
 
 New releases of the signature file are published by PRONOM on the [DROID signature files page](https://pronom.nationalarchives.gov.uk/signature-list). To use another signature file, load it with the `File` or `InputStream` constructor.
+
+### Motion Photo signatures
+
+An Android Motion Photo (Google Pixel, recent Samsung phones) is a JPEG or HEIC still image with a short MP4 video appended to it, described by [Google's Motion Photo format 1.0](https://developer.android.com/media/platform/motion-photo-format). To the PRONOM signatures such a file is an ordinary Exif JPEG or HEIC, so droid-light reports it as that. Two local signatures recognise the Motion Photo itself:
+
+- **JPEG** (`fmt/DRAFT-MotionPhoto-JPEG-1.0`, MIME type `image/jpeg`): the file starts with `FFD8FF` and the text `Semantic="MotionPhoto"` occurs within the first 131,072 bytes. That text is the attribute of the item in the XMP container directory that describes the video, so the file says that it has a video. The offset of that text varies a lot between phones (about 11,000 to 57,000 in the sample files), because the Exif data comes before the XMP.
+- **HEIF** (`fmt/DRAFT-MotionPhoto-HEIF-1.0`, MIME type `image/heif`): `ftyp` at byte 4 with the brand `heic`, `heix` or `mif1`, followed by the same text within the next 8,388,608 bytes (it is at byte 443,072 in the Samsung HEIC sample, after the image data).
+
+The two formats have priority over the Exif, JFIF and raw JPEG formats (fmt/41, 42, 43, 44, 645, 1507 and x-fmt/390, 391, 398) and over HEIC (fmt/1101), so the Motion Photo is the first result and the plain format is still reported after it. A file that has the `MotionPhoto` flag in its XMP but no video item is not a Motion Photo and keeps its ordinary result. The samples are in `src/test/resources/pronom-samples` and are checked by `PronomSamplesDetectionTest` like all other samples: three files whose names start with `fmt-DRAFT-MotionPhoto-` (two JPEG, one HEIC; each must be detected as the Motion Photo format first and the plain format after it), and two `fmt-41_` JPEG samples that must stay plain JPEG (a Motion Photo flag without a video item, and the legacy MicroVideo layout).
+
+Not covered: Apple Live Photos (two separate files, a HEIC or JPEG and a MOV, where the still image cannot be told from any other HEIC), the older Google `MicroVideo` layout (`MVIMG_*.jpg`), Samsung photos from before the Google XMP was added, AVIF Motion Photos, and the Motion Photo variants of Xiaomi, OPPO, vivo and Huawei, for which no sample files were available.
 
 ### Heuristic signatures for JSON, JavaScript and CSS
 
@@ -121,7 +133,7 @@ BSD 3-Clause, see [LICENSE](LICENSE). DROID is released under the New BSD Licens
 
 **DROID.** Parts of the matching behaviour follow [DROID](https://github.com/digital-preservation/droid), the file format identification tool developed by The National Archives and released under the New BSD License.
 
-**Test samples.** The files in `src/test/resources/pronom-samples` are unmodified files from other projects, or files written by ffmpeg from a clip; they are test data only and are not covered by this project's BSD license. `MANIFEST.json` records for every file where it comes from (repository, commit and path) and under which licence it is published. Newer samples come from these sources:
+**Test samples.** The files in `src/test/resources/pronom-samples` are unmodified files from other projects, or files written by ffmpeg from a clip; they are test data only and are not covered by this project's BSD license. `MANIFEST.json` records for every file where it comes from (repository, commit and path) and under which licence it is published. The Motion Photo samples come from [immich-app/test-assets](https://github.com/immich-app/test-assets) (phone photos; the repository's LICENSE is AGPL-3.0, its README says the assets are public domain) and [Apache Tika](https://github.com/apache/tika) (two small synthetic test files, used as negatives, and a HEIC; Apache-2.0), with the same provenance in `MANIFEST.json`. Newer samples come from these sources:
 
 - [Apache POI](https://github.com/apache/poi), [Apache Tika](https://github.com/apache/tika), [Apache Commons Compress](https://github.com/apache/commons-compress) and [Apache Commons Imaging](https://github.com/apache/commons-imaging), and [pdf.js](https://github.com/mozilla/pdf.js): Apache-2.0. For some files the repository does not document where the file itself comes from; the manifest says so.
 - [openexr-images](https://github.com/AcademySoftwareFoundation/openexr-images) (OpenEXR images): BSD-3-Clause.
