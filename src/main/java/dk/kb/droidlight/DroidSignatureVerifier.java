@@ -144,7 +144,7 @@ public class DroidSignatureVerifier {
          * Bitmask matching - "[&XX]" / "[!&XX]" syntax, confirmed against DROID's
          * own real syntax documentation (github.com/digital-preservation/droid,
          * "Signature syntax.md"), found via two real signatures (1487 and 3426 in
-         * the V124 signature file) that this class was previously unable to parse
+         * the PRONOM signature file) that this class was previously unable to parse
          * at all - the parser had no concept of "&" inside brackets and threw a
          * NumberFormatException trying to read it as a hex digit.
          *
@@ -868,8 +868,8 @@ public class DroidSignatureVerifier {
      * searched as far as that limit allows (see SubSequenceDef.anchorReach and
      * computeAnchorReach()) - e.g. the JPEG end marker up to 131,072 bytes from
      * the end, the ZIP end record up to 65,531, an ISO 9660 descriptor from byte
-     * 32,700. In signature file V124 that is 103 of 2,661 byte sequences, so the
-     * cost is negligible; only byte sequences with NO limit at all (98 in V124,
+     * 32,700. In the experimental signature file that is 103 of 2,687 byte sequences,
+     * so the cost is negligible; only byte sequences with NO limit at all (98 of them,
      * e.g. variable-position XMP markers) are held to this cap alone - those are
      * what would make a blanket increase of the cap several times slower on
      * large files.
@@ -1598,10 +1598,10 @@ public class DroidSignatureVerifier {
      * Returns the signature count.
      *
      * @return the number of DROID signatures loaded from the signature file
-     *         (2,284 for the current file: the stock V125 PRONOM release,
-     *         2,273, plus two local signature additions - EOT version 1.2,
-     *         and SVG without an XML declaration - plus 9 heuristic
-     *         signatures for JSON, JavaScript and CSS).
+     *         (2,286 for the experimental file: the official V125 PRONOM
+     *         release, 2,273, plus two local signature additions - EOT
+     *         version 1.2, and SVG without an XML declaration - plus 11
+     *         heuristic signatures for JSON, JavaScript and CSS).
      */
     public int getSignatureCount() {
         return signatures.size();
@@ -1923,7 +1923,7 @@ public class DroidSignatureVerifier {
     private DetectionResult[] detectFromRegion(FileRegion region) throws Exception {
         // PERFORMANCE: an empty region can never match any DROID signature -
         // every signature's anchor needs at least some bytes to compare against
-        // - so skip the whole 2,260-signature loop entirely for one. This is a
+        // - so skip the whole signature loop entirely for one. This is a
         // real, common case in practice: HTTP redirect (e.g. 302) WARC records
         // legitimately have no payload at all, and calling detect() on an
         // empty stream was previously paying the full iteration cost (a quick,

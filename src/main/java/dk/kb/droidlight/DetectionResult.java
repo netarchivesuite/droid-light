@@ -188,7 +188,7 @@ public final class DetectionResult {
      * </ol>
      *
      * <p><b>Why this exists.</b> PRONOM declares no MIME type for a large share of the formats that do
-     * have signatures (about two thirds in signature file V124), for example AV1 Image File Format
+     * have signatures (about two thirds in the experimental signature file: 1,314 of 1,934), for example AV1 Image File Format
      * (AVIF, {@code fmt/2062}), SVG Tiny ({@code fmt/413}) and 7Zip ({@code fmt/484}). For those,
      * {@link #getPrimaryMimeTypeWithVersion()} returns {@code null}, so a Solr field filled from it was
      * left empty even though droid-light had identified the file - in one corpus all AVIF records were

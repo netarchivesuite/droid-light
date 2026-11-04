@@ -55,25 +55,38 @@ if (r.length == 0) {
 
 ## The signature file
 
-The signatures come from PRONOM. `src/main/resources/DROID_SignatureFile_V125_experimental.xml` is the signature file the library is built and tested with. It is PRONOM's DROID signature file V125 (2,273 signatures) plus eleven signatures that PRONOM does not have, 2,284 in total. The name says "experimental" because the file deviates from the official V125 file, which this project cannot change; PRONOM's own file is kept unchanged next to it as `DROID_SignatureFile_V125.xml`. The additions are:
+The signatures come from PRONOM. The project contains two signature files in `src/main/resources`, and both are packaged in the jar:
+
+- `DROID_SignatureFile_V125.xml` is the official PRONOM signature file V125, released on 2 September 2026 and published by The National Archives under the [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) (2,273 signatures). It is kept exactly as downloaded and is never modified, reformatted or renamed; it is there for comparison. V125 adds 14 formats: ForTheRecord TRM audio, FictionBook 2, Aseprite, FAB2 Book Container, Clock RINEX 2.0 and 3.0, LabVIEW Virtual Instrument, NumPy, TIGER/Line ASCII, TIGER/Line Shapefile, HALO Photonics Doppler LiDAR, Hugin project files, Address Event DATa and FASTQ.
+- `DROID_SignatureFile_V125_experimental.xml` is the official file plus local additions, 13 signatures that PRONOM does not have, 2,286 in total. It is the **default**: the file the library is built and tested with, and the one used in the examples. The name says "experimental" because the file deviates from the official one, which this project cannot change.
+
+The local additions are:
 
 - **EOT font, version 1.2**
 - **SVG without an XML declaration**: the PRONOM signatures for SVG require `<?xml version="1.0"` at the very start of the file, so SVG files that begin directly with `<svg` were not recognised. The added signature maps them to the generic SVG format `fmt/91`.
-- **JSON, JavaScript and CSS**: nine heuristic signatures, because PRONOM has no binary signature for these text formats and web archives (WARC files) are full of them. They are described below.
+- **JSON, JavaScript and CSS**: eleven heuristic signatures (two for JSON, eight for JavaScript and one for CSS), because PRONOM has no binary signature for these text formats and web archives (WARC files) are full of them. The rules are strict, to avoid false labels, and are described below.
 
-New releases of the signature file are published by PRONOM on the [DROID signature files page](https://pronom.nationalarchives.gov.uk/signature-list). To use another release, load it with the `File` or `InputStream` constructor.
+The additions are exactly the difference between the two files, and can be listed at any time with `diff -u src/main/resources/DROID_SignatureFile_V125.xml src/main/resources/DROID_SignatureFile_V125_experimental.xml`. Anyone who adds or changes a local signature should read [SIGNATURE_DESIGN.md](SIGNATURE_DESIGN.md) first; it gives the rules and how to test a change.
+
+New releases of the signature file are published by PRONOM on the [DROID signature files page](https://pronom.nationalarchives.gov.uk/signature-list). To use another signature file, load it with the `File` or `InputStream` constructor.
 
 ### Heuristic signatures for JSON, JavaScript and CSS
 
-JSON, JavaScript and CSS are text formats without magic bytes, so these signatures only look for syntax that is typical of the format:
+JSON, JavaScript and CSS are text formats without magic bytes, so these signatures only look for syntax that is typical of the format. They are deliberately strict: a missed file is better than a wrong label.
 
 - **JSON** (`fmt/817`): a `{` or `[` within the first 3 bytes. An object (`{`) must be followed directly by a quote or a whitespace character (space, tab, line feed or carriage return), and a quote must follow within the next 12 bytes. An array (`[`) must be followed within 12 bytes by `{`, a quote or `[`.
-- **JavaScript** (`x-fmt/423`): one of `return`, `module.exports`, `export `, `use strict`, `import {` or `var ` within the first 3,000 bytes.
+- **JavaScript** (`x-fmt/423`): one of these cues. Generic words such as `return`, `function` or `var` on their own are not enough.
+  - `module.exports` or `typeof` within the first 3,000 bytes;
+  - `"use strict"` or `'use strict'`, with quotes, within the first 1,000 bytes;
+  - `var ` within the first 64 bytes;
+  - `export ` within the first 1,000 bytes, directly followed by `default`, `const `, `function`, `{`, `*`, `class `, `let `, `var ` or `async `;
+  - `import {` within the first 256 bytes, with `} from` within the next 160 bytes;
+  - `define(` within the first 260 bytes, directly followed by `[`, a quote or `function`.
 - **CSS** (`x-fmt/224`): a `{` within the first 3,000 bytes, followed within 200 bytes by a common CSS property word (`color`, `margin`, `padding`, `display`, `font`, `background`, `border`, `width`, `height`, `position` and a few dozen more) or by `--`, and then a `:` shortly after that word.
 
 The three formats are the last ones in the format list of the signature file, in the order JSON, JavaScript, CSS. When several formats match a file, they are reported in the order of the format list, except that a format that another matching format outranks by a PRONOM priority rule comes after the others. So a file that matches one of these three and a format with a real PRONOM signature is reported as the real format first, and a file that matches several of the three is reported as JSON before JavaScript before CSS.
 
-The results are heuristic. Measured on 9,105 real files from 58 npm packages, the signatures identified 99.6% of the JavaScript files (1.3% false positives), 98.4% of the CSS files (0.11% false positives) and 100% of the JSON files (0.06% false positives). On an independent set of assets from Python packages they identified 100% of the JSON files, 92% of the CSS files and 78% of the JavaScript files; the JavaScript files that are missed are mostly data files without any of the keywords. None of 288 binary files that no PRONOM signature identifies was labelled as CSS, JavaScript or JSON, and `NoFalsePositivesOnBinaryDataTest` checks that random bytes and the payload of the binary test samples never get one of the three formats. Known false positives are text files of other kinds that contain the same syntax, for example Django and Jinja template files. One case among the test samples: jQuery 1.7.1 (a minified JavaScript file) contains the text `<!doctype html>` and is therefore reported as HTML5 (`fmt/471`) first and as JavaScript second.
+The results are heuristic. Measured on 9,105 real files from 58 npm packages, the signatures identified 95.6% of the JavaScript files, 98.4% of the CSS files (about 0.1% false positives) and 100% of the JSON files (about 0.06% false positives); 3 of 3,402 non-JavaScript text files were labelled JavaScript. On an independent set of assets from Python packages they identified 100% of the JSON files, 92% of the CSS files and about 66% of the JavaScript files; most of the JavaScript files that are missed are generated files without any JavaScript keyword. None of 288 binary files that no PRONOM signature identifies was labelled as CSS, JavaScript or JSON, and `NoFalsePositivesOnBinaryDataTest` checks that random bytes and the payload of the binary test samples never get one of the three formats. Known false positives are text files of other kinds that contain the same syntax, for example Django and Jinja template files. One case among the test samples: jQuery 1.7.1 (a minified JavaScript file) contains the text `<!doctype html>` and is therefore reported as HTML5 (`fmt/471`) first and as JavaScript second.
 
 ## Limits
 
@@ -92,7 +105,7 @@ BSD 3-Clause, see [LICENSE](LICENSE). DROID is released under the New BSD Licens
 
 ## Third-party material
 
-**The signature file.** `DROID_SignatureFile_V125_experimental.xml` is based on `DROID_SignatureFile_V125.xml`, which was created by the PRONOM project of The National Archives, which publishes its content under the [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/). The file is not covered by this project's BSD license. Besides PRONOM's signatures it contains the signatures added by this project (see above).
+**The signature files.** `DROID_SignatureFile_V125.xml` was created by the PRONOM project of The National Archives, which publishes its content under the [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/). `DROID_SignatureFile_V125_experimental.xml` is a copy of it with the signatures added by this project (see above). Neither file is covered by this project's BSD license.
 
 > Contains public sector information licensed under the Open Government Licence v3.0.
 

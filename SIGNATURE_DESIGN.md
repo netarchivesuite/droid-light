@@ -8,10 +8,18 @@ touching a signature.
 
 ## Principles
 
-1. **The official file is never edited.** `DROID_SignatureFile_V125.xml` is kept as downloaded
-   (its SHA-256 is recorded in `src/main/signature-overlay/README.md`). The file the library
-   loads, `DROID_SignatureFile_V125_experimental.xml`, is a copy plus local additions, kept as a
-   patch so it can be re-applied to every new PRONOM release.
+1. **The official file is never edited.** `DROID_SignatureFile_V125.xml` is kept as downloaded,
+   unmodified, next to the experimental file in `src/main/resources`. It is PRONOM V125,
+   released 2 September 2026 and published under the Open Government Licence v3.0
+   (https://pronom.nationalarchives.gov.uk/signatures/DROID_SignatureFile_V125.xml). Its SHA-256
+   is `c7c328dd0e131947667e9b94294c5d47e0b6ec8ec3040b7fd542ac605ecc6ec5` (3,713,176 bytes).
+   The file the library loads, `DROID_SignatureFile_V125_experimental.xml`, is a copy plus local
+   additions. The local additions are exactly the difference between the two files and can be
+   listed at any time with:
+
+   ```bash
+   diff -u src/main/resources/DROID_SignatureFile_V125.xml src/main/resources/DROID_SignatureFile_V125_experimental.xml
+   ```
 2. **Only add, never alter.** No existing PRONOM signature, extension, MIME type or priority is
    changed. A local addition is a new `InternalSignature` plus an `InternalSignatureID`
    reference on a format. Local IDs are 9761 and above, far from PRONOM's numbering.
@@ -137,6 +145,15 @@ signature file under test (the official file, the current file, the candidate), 
   several signatures.
 * All tests pass, and no sample, label or expectation was changed to make a test pass.
 
+## Comparing the official and the experimental file
+
+Both files are in the project, so a change can be checked for false detections by running both
+on the same corpus (positive and negative files, as described above) and comparing the results.
+Only these formats may differ, because only they have local signatures: fmt/91, fmt/DRAFT-EOT-1.2,
+fmt/817, x-fmt/224 and x-fmt/423. For every other format the results must be identical, and where
+the official file finds nothing the experimental file may only add one of those five formats.
+Anything else is a mistake in a local signature.
+
 ## Design rules for heuristics
 
 * Anchors of at least six bytes where possible; Boyer-Moore search skips quickly through them.
@@ -174,10 +191,20 @@ these figures as the baseline to beat or match, never to excuse a regression.
 
 1. Download the new release from https://pronom.nationalarchives.gov.uk/signature-list and
    verify it. Keep it unmodified in `src/main/resources`.
-2. Copy it to the experimental file name and apply
-   `src/main/signature-overlay/droidlight-local-additions.patch` to the copy.
-3. If the patch no longer applies, regenerate it against the new release: re-add the
-   signatures and references, never edit the official signatures.
-4. Run the full test suite and the corpus comparison above for the old and the new file.
+2. Save the local additions as a temporary diff, copy the new official file to the new
+   experimental file name, and apply the diff to the copy with `patch`:
+
+   ```bash
+   cd src/main/resources
+   diff -u DROID_SignatureFile_V125.xml DROID_SignatureFile_V125_experimental.xml > /tmp/local.diff
+   cp DROID_SignatureFile_V<new>.xml DROID_SignatureFile_V<new>_experimental.xml
+   patch DROID_SignatureFile_V<new>_experimental.xml < /tmp/local.diff
+   ```
+
+   If the diff does not apply cleanly, re-add the local signatures and their references by hand,
+   following the diff. Never edit the official signatures.
+3. Run the full test suite and the corpus comparison above for the old and the new file.
    Nothing in the results should change unless the new release itself changed a format.
-5. Update the recorded SHA-256 and the README.
+4. Delete the old official and experimental files, so that only the current pair remains in
+   `src/main/resources`, and update the version, the release date and the SHA-256 in this guide
+   and in the README.
