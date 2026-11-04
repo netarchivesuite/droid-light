@@ -42,7 +42,13 @@ touching a signature.
   deprecated in DROID's source ("not used in DROID 5 and above"). All PRONOM signatures are
   "Specific". droid-light ignores it. There is no "lowest priority" setting in the format.
 * A `RightFragment`/`LeftFragment` may have several alternatives at the same position. This is
-  the way to express "one of these words", at the cost of a few comparisons.
+  the way to express "one of these words", at the cost of a few comparisons. droid-light takes
+  the alternative that matches earliest, and when two match at the same place (`font` and
+  `font-family`) the one listed first. It does not go back and try the others if the next step
+  then fails, so the longer alternative must be listed first. The CSS signature 21021 is
+  ordered longest first for this reason; with the short names first, a style sheet whose first
+  rule was `font-family: ...` or `border-radius: ...` was not recognised (two real CSS files
+  out of ten were lost in a test set).
 
 ## Why samples are not enough
 
@@ -50,6 +56,10 @@ A heuristic that is only tested on files that should match always looks good. Th
 found so far were all invisible to tests that used positive samples only:
 
 * A CSS rule "`{`, then `:`, then `;` within 200 bytes" matched 78-98% of **random binary data**.
+* A CSS rule built from property-name prefixes within 200 bytes of a brace labelled about 4% of
+  Python, Ruby and prose files as CSS (100 of 2,454 source and text files). Full property names
+  with the colon immediately after them fixed it, as long as the names are listed longest
+  first (see "What DROID does").
 * The word `return` as a JavaScript anchor labelled about half of all plain-text, Python,
   PHP, C and Go files as JavaScript, because it is an ordinary word and keyword.
 * Unquoted `use strict` is also Perl; `export ` and `import {` occur in prose and
@@ -172,18 +182,22 @@ Anything else is a mistake in a local signature.
 
 ## Reference figures (PRONOM V125, strict rules)
 
-Measured on 9,105 real files from 58 npm packages, 3,402 non-JavaScript text files and 288
-unidentified binary files (random and damaged real files):
+The JavaScript and JSON figures were measured on 9,105 real files from 58 npm packages and 3,402
+non-JavaScript text files, and the binary figure on 288 unidentified binary files (random and
+damaged real files). The CSS figures are for the stricter CSS rule and were measured on 834 real
+CSS files from npm packages, 7,287 other npm files and 2,454 source and text files:
 
 | Format | Recall | Notes |
 |---|---|---|
 | JavaScript | 95.6% | 3 of 3,402 non-JavaScript text files labelled JavaScript |
-| CSS | 98.4% | false positives about 0.1% |
+| CSS | 97.5% | 13 of 7,287 other npm files and 2 of 2,454 source and text files (Python, Ruby, PHP, C, Java, Go, prose) labelled CSS |
 | JSON | 100% | false positives about 0.06% |
 | unidentified binary data | n/a | 0 of 288 labelled CSS, JavaScript or JSON |
 
 On an independent set (Python packages) JavaScript recall is lower (about 66%) because most of
-the misses are one package's generated files without any JavaScript keyword. Known false
+the misses are one package's generated files without any JavaScript keyword, and CSS recall is
+89.2% on 37 CSS files. Known CSS misses are style sheets with a very long header comment (Font
+Awesome) and style sheets that contain only `@import` lines (animate.css). Known false
 positives are template source files (`{% ... %}`), which a web server does not deliver. Use
 these figures as the baseline to beat or match, never to excuse a regression.
 
