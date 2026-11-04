@@ -1,5 +1,34 @@
 [
   {
+    "file": "fmt-1007_Digital_Speech_Standard.dss",
+    "puid": "fmt/1007",
+    "formatName": "Digital Speech Standard",
+    "formatVersion": "",
+    "sizeBytes": 80,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/Olympus.dss",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "7989c7cad6bafc215f1afe7b85091e46bc889c2ab3032503e44c8069ee9da051"
+  },
+  {
+    "file": "fmt-1009_FBX_Filmbox_Binary.fbx",
+    "puid": "fmt/1009",
+    "formatName": "FBX (Filmbox) Binary",
+    "formatVersion": "",
+    "sizeBytes": 26684,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/fbx.hexpat.fbx",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: Kaydara FBX model, version 7400",
+    "alsoDetectedAs": [],
+    "sha256": "05a9b57f012c8846290b3f4dad772ff6fecd15b3c98b16920fb186563a11d221",
+    "extensionException": "Extension exception: PRONOM lists none; this sample is named .fbx"
+  },
+  {
     "file": "fmt-100_Hypertext_Markup_Language_4.01.html",
     "puid": "fmt/100",
     "formatName": "Hypertext Markup Language",
@@ -172,6 +201,20 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-1038_Redcode_RAW_R3D_Media_File_2.r3d",
+    "puid": "fmt/1038",
+    "formatName": "Redcode RAW (R3D) Media File",
+    "formatVersion": "2",
+    "sizeBytes": 1160,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/Red.r3d",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "a3cecff1f8f7ace653a2e6f15b209b1915675b37f4e5d4ac3ce66ba412f8b730"
+  },
+  {
     "file": "fmt-1040_DirectDraw_Surface.dds",
     "puid": "fmt/1040",
     "formatName": "DirectDraw Surface",
@@ -196,6 +239,23 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-1061_Phase_One_IIQ_Raw_Image.iiq",
+    "puid": "fmt/1061",
+    "formatName": "Phase One IIQ Raw Image",
+    "formatVersion": "",
+    "sizeBytes": 3364,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/PhaseOne.iiq",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: TIFF image data, little-endian, direntries=17, height=1, bps=2778, compression=none, PhotometricInterpretation=RGB, manu",
+    "alsoDetectedAs": [
+      "x-fmt/387",
+      "fmt/353"
+    ],
+    "sha256": "306efa7671f144b56cc0af8f7e22e8d3f7e33efe422fd0135f894bd3739c27be"
+  },
+  {
     "file": "fmt-1063_Leaf_Mosaic_Raw_Image.mos",
     "puid": "fmt/1063",
     "formatName": "Leaf Mosaic Raw Image",
@@ -210,6 +270,35 @@
     ]
   },
   {
+    "file": "fmt-1070_Preferred_Executable_Format.pef",
+    "puid": "fmt/1070",
+    "formatName": "Preferred Executable Format",
+    "formatVersion": "",
+    "sizeBytes": 225150,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/pef.hexpat.pef",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: header for PowerPC PEF executable",
+    "alsoDetectedAs": [],
+    "sha256": "387b42e280f12cd76df0dadc16dbe53084abb1a03c8841ce450c41575f01a7db",
+    "extensionException": "Extension exception: PRONOM lists none; this sample is named .pef"
+  },
+  {
+    "file": "fmt-1071_Apple_Disk_Image.dmg",
+    "puid": "fmt/1071",
+    "formatName": "Apple Disk Image",
+    "formatVersion": "",
+    "sizeBytes": 281957,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/dmg.hexpat.dmg",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "25705117e03ad705bb493cc47044c3d29053bc4ae6be144d52e2825ab0229d7d"
+  },
+  {
     "file": "fmt-107_Macromedia_Flash_4.swf",
     "puid": "fmt/107",
     "formatName": "Macromedia Flash",
@@ -222,6 +311,20 @@
     "alsoDetectedAs": [],
     "independentCheck": "SWF header version byte = 4 (FWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
     "sha256": "aa0289fac64dd59d1838c8004dfa412263c153b8cd98dd36999a7028a08041f9"
+  },
+  {
+    "file": "fmt-1086_Monkey_s_Audio_File.ape",
+    "puid": "fmt/1086",
+    "formatName": "Monkey's Audio File",
+    "formatVersion": "",
+    "sizeBytes": 946,
+    "sourceRepository": "https://github.com/taglib/taglib",
+    "sourceCommit": "275029408cd4edbfabb05295c9694684a652875b",
+    "originalPath": "tests/data/zerodiv.ape",
+    "license": "LGPL-2.1 or MPL-1.1 (TagLib repository)",
+    "independentCheck": "file(1) 5.45: Monkey's Audio compressed format version 150, sample rate 0",
+    "alsoDetectedAs": [],
+    "sha256": "26b640761e13d7440106df44d5bfd5dfe3ccd804b0a9e4b6aa5a3ac397e72ff8"
   },
   {
     "file": "fmt-108_Macromedia_Flash_5.swf",
@@ -295,6 +398,47 @@
     ],
     "independentCheck": "libmagic: XZ compressed data",
     "sha256": "35eaca88455f2e0212b868c526e56571ef1b81d82b29997b337860961cdd180b"
+  },
+  {
+    "file": "fmt-1143_ZISRAW_CZI_File_Format.czi",
+    "puid": "fmt/1143",
+    "formatName": "ZISRAW (CZI) File Format",
+    "formatVersion": "",
+    "sizeBytes": 1856,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/ZISRAW.czi",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "2196f34100d6553aa0d870090ba275ae648d91cd684229ab3dc9e5da5e758f83"
+  },
+  {
+    "file": "fmt-1172_Web_Open_Font_Format_2.0.woff2",
+    "puid": "fmt/1172",
+    "formatName": "Web Open Font Format",
+    "formatVersion": "2.0",
+    "sizeBytes": 7724,
+    "sourceRepository": "https://github.com/web-platform-tests/wpt",
+    "sourceCommit": "f9ffb44def20275805ec20cab92a9f0c4c7ff31f",
+    "originalPath": "fonts/noto/NotoSansNko-regular-webfont.woff2",
+    "license": "SIL OFL 1.1 (Noto fonts, shipped in the web-platform-tests repository)",
+    "independentCheck": "file(1) 5.45: Web Open Font Format (Version 2), TrueType, length 7724, version 1.1311; fontTools opens it: flavor=woff2, 17 tables",
+    "alsoDetectedAs": [],
+    "sha256": "d3ede808ce743034e14ff8cdaeb911aa49e50c0b3c94af38745744f57e564db4"
+  },
+  {
+    "file": "fmt-1178_Synthetic_Music_Mobile_Application_Format.mmf",
+    "puid": "fmt/1178",
+    "formatName": "Synthetic Music Mobile Application Format",
+    "formatVersion": "",
+    "sizeBytes": 12380,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vn -c:a adpcm_yamaha -ar 8000 -ac 1 -f mmf",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "independentCheck": "Made on 2026-11-04 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); file(1) 5.45: Yamaha SMAF file; ffprobe: codec_name=adpcm_yamaha|sample_rate=8000|channels=1 format_name=mmf",
+    "alsoDetectedAs": [],
+    "sha256": "84cb411c9c174dac65b5da5f29e6fe01df9dd3af987449c9ba4754a945cce7f7"
   },
   {
     "file": "fmt-11_Portable_Network_Graphics_1.0.png",
@@ -454,6 +598,37 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-1220_WordPerfect_for_Macintosh_Document_2.x.wpd",
+    "puid": "fmt/1220",
+    "formatName": "WordPerfect for Macintosh Document",
+    "formatVersion": "2.x",
+    "sizeBytes": 504,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/writer/libwpd/pass/WP3.wpd",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: WordPerfect 3.5 document, v2.2",
+    "alsoDetectedAs": [],
+    "sha256": "812d181f1bef7da145ddb20370de0b50acbd48f40ab905b3bfc8fffe4e3b34a2",
+    "extensionException": "Extension exception: PRONOM lists none; this sample is named .wpd"
+  },
+  {
+    "file": "fmt-128_OpenOffice_Writer_1.0.sxw",
+    "puid": "fmt/128",
+    "formatName": "OpenOffice Writer",
+    "formatVersion": "1.0",
+    "sizeBytes": 6349,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "sw/qa/core/data/xml/pass/ooo32780-1.sxw",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: OpenOffice.org 1.x Writer document",
+    "alsoDetectedAs": [
+      "x-fmt/263"
+    ],
+    "sha256": "9980330e54b654313405688be7f3c1500c6d26ca1a7958f467cb7103a652a8e1"
+  },
+  {
     "file": "fmt-12_Portable_Network_Graphics_1.1.png",
     "puid": "fmt/12",
     "formatName": "Portable Network Graphics",
@@ -560,6 +735,38 @@
       "x-fmt/384",
       "x-fmt/224"
     ]
+  },
+  {
+    "file": "fmt-1316_GL_Transmission_Format_Binary.glb",
+    "puid": "fmt/1316",
+    "formatName": "GL Transmission Format (Binary)",
+    "formatVersion": "",
+    "sizeBytes": 1720,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/gltf.hexpat.glb",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: glTF binary model, version 2, length 1720 bytes",
+    "alsoDetectedAs": [],
+    "sha256": "27b4870ced8919411673512de55ba87ec38a0c989b733a872eb570f2681c3d59"
+  },
+  {
+    "file": "fmt-138_OpenDocument_Presentation_1.0.odp",
+    "puid": "fmt/138",
+    "formatName": "OpenDocument Presentation",
+    "formatVersion": "1.0",
+    "sizeBytes": 11326,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "sd/qa/unit/data/odp/pass/ooo56974-1.odp",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: OpenDocument Presentation",
+    "alsoDetectedAs": [
+      "x-fmt/263",
+      "fmt/135",
+      "fmt/292"
+    ],
+    "sha256": "64353855654bf4b769bba1c1dbf5632be3600af0b930991927217b489361ce1d"
   },
   {
     "file": "fmt-13_Portable_Network_Graphics_1.2.png",
@@ -691,6 +898,20 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-1402_Student_Writing_Center_Journal.jn",
+    "puid": "fmt/1402",
+    "formatName": "Student Writing Center Journal",
+    "formatVersion": "",
+    "sizeBytes": 1142,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/writer/libmwaw/pass/StudentWritingCenter",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "1053c331faa31f086f57b3c6f8da4118674948a758d9f654c687ca8708ed4fac"
+  },
+  {
     "file": "fmt-141_Waveform_Audio_PCMWAVEFORMAT.wav",
     "puid": "fmt/141",
     "formatName": "Waveform Audio (PCMWAVEFORMAT)",
@@ -704,6 +925,41 @@
       "fmt/6",
       "fmt/1886"
     ]
+  },
+  {
+    "file": "fmt-142_Waveform_Audio_WAVEFORMATEX.wav",
+    "puid": "fmt/142",
+    "formatName": "Waveform Audio (WAVEFORMATEX)",
+    "formatVersion": "",
+    "sizeBytes": 12819,
+    "sourceRepository": "https://github.com/chromium/chromium",
+    "sourceCommit": "0ad3103c0f6084b9a0ef2719c64848ef95c89f97",
+    "originalPath": "media/test/data/sfx_u8.wav",
+    "license": "BSD-3-Clause (Chromium repository; media/test/data/README.md documents how the media files were made)",
+    "independentCheck": "file(1) 5.45: RIFF (little-endian) data, WAVE audio, Microsoft PCM, 8 bit, mono 44100 Hz; ffprobe: codec_name=pcm_u8|sample_rate=44100|channels=1 format_name=wav",
+    "alsoDetectedAs": [
+      "fmt/6",
+      "fmt/1886"
+    ],
+    "sha256": "92a6919d84c6a5cd43fd56ecf6fd413c5a665ed0e07c4bdcae4ba027cac14d14"
+  },
+  {
+    "file": "fmt-143_Waveform_Audio_WAVEFORMATEXTENSIBLE.wav",
+    "puid": "fmt/143",
+    "formatName": "Waveform Audio (WAVEFORMATEXTENSIBLE)",
+    "formatVersion": "",
+    "sizeBytes": 35360,
+    "sourceRepository": "https://github.com/chromium/chromium",
+    "sourceCommit": "0ad3103c0f6084b9a0ef2719c64848ef95c89f97",
+    "originalPath": "media/test/data/4ch.wav",
+    "license": "BSD-3-Clause (Chromium repository; media/test/data/README.md documents how the media files were made)",
+    "independentCheck": "file(1) 5.45: RIFF (little-endian) data, WAVE audio, 4 channels 44100 Hz; ffprobe: codec_name=pcm_s16le|sample_rate=44100|channels=4 format_name=wav",
+    "alsoDetectedAs": [
+      "fmt/6",
+      "fmt/142",
+      "fmt/1886"
+    ],
+    "sha256": "eec5e708d4465be911600d4cf4318517c05f54804283ba6ce8750401cccd5ecc"
   },
   {
     "file": "fmt-1451_PDF_Portfolio_1.7.pdf",
@@ -731,6 +987,20 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-1453_Lotus_1-2-3_Worksheet_9.8_Millennium.123",
+    "puid": "fmt/1453",
+    "formatName": "Lotus 1-2-3 Worksheet",
+    "formatVersion": "9.8 Millennium",
+    "sizeBytes": 3980,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "sc/qa/unit/data/123/tdf148749.123",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: Targa image data - RLE 1 x 256 x 1",
+    "alsoDetectedAs": [],
+    "sha256": "55f5d9c90889352cbef0850918d625a334163b34cd277a41f6eda46d334f9afa"
+  },
+  {
     "file": "fmt-1454_Web_Video_Text_Tracks_WebVTT_Format.vtt",
     "puid": "fmt/1454",
     "formatName": "Web Video Text Tracks (WebVTT) Format",
@@ -743,6 +1013,35 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-1473_Archimedes_Tracker_Module.tracker",
+    "puid": "fmt/1473",
+    "formatName": "Archimedes Tracker Module",
+    "formatVersion": "",
+    "sizeBytes": 48784,
+    "sourceRepository": "https://github.com/libxmp/libxmp",
+    "sourceCommit": "06efa94d463d6202e9d553ab45aa797ad6b7a0a3",
+    "originalPath": "../../trees/libxmp/test-dev/data/m/AOM-Mind.Tracker",
+    "license": "MIT (libxmp repository); the module itself has no licence statement in the repository",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "3a058f71178cc141ea5c062640b3110de6dc868145d5c02cdb6317b1e91403b2",
+    "extensionException": "Extension exception: PRONOM lists musx; this sample is named .tracker"
+  },
+  {
+    "file": "fmt-1484_JPEG_XL_Codestream.jxl",
+    "puid": "fmt/1484",
+    "formatName": "JPEG XL Codestream",
+    "formatVersion": "",
+    "sizeBytes": 81,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "48010f83ad3869119f54546cbb272fde88130283",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/resources/test-documents/testJXL.jxl",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "independentCheck": "file(1) 5.45: JPEG XL codestream",
+    "alsoDetectedAs": [],
+    "sha256": "aaa960d53bb308c1a8752b068746cd37bea987cedb2d40751da21e8c40442caa"
+  },
+  {
     "file": "fmt-1485_JPEG_XL.jxl",
     "puid": "fmt/1485",
     "formatName": "JPEG XL",
@@ -753,6 +1052,69 @@
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/resources/test-documents/testJXL_ISOBMFF.jxl",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-152_Digital_Negative_Format_DNG_1.1.dng",
+    "puid": "fmt/152",
+    "formatName": "Digital Negative Format (DNG)",
+    "formatVersion": "1.1",
+    "sizeBytes": 13662,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/DNG.dng",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: TIFF image data, big-endian, direntries=42, height=0, bps=0, compression=none, PhotometricInterpretation=RGB, manufactur",
+    "alsoDetectedAs": [
+      "fmt/353"
+    ],
+    "sha256": "daa9ce7a2c6923815390d8566254ef4d4a75d68d1531afdb264bd4b39a8dfd89"
+  },
+  {
+    "file": "fmt-1549_Bentley_Microstation_Hidden_Line_File.dgn",
+    "puid": "fmt/1549",
+    "formatName": "Bentley Microstation Hidden Line File",
+    "formatVersion": "",
+    "sizeBytes": 33792,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "48010f83ad3869119f54546cbb272fde88130283",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-cad-module/src/test/resources/test-documents/testDGN7.dgn",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "independentCheck": "file(1) 5.45: Bentley/Intergraph Microstation CAD drawing 2D, units ft SU",
+    "alsoDetectedAs": [],
+    "sha256": "ecb9f22651ecb1e974e676fb22c9784d5be0fdadf0519b2d8493a42d527d678a",
+    "extensionException": "Extension exception: PRONOM lists hln; this sample is named .dgn"
+  },
+  {
+    "file": "fmt-155_Geographic_Tagged_Image_File_Format_GeoTIFF.tif",
+    "puid": "fmt/155",
+    "formatName": "Geographic Tagged Image File Format (GeoTIFF)",
+    "formatVersion": "",
+    "sizeBytes": 2660,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/GeoTiff.tif",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: TIFF image data, big-endian, direntries=16, height=0, bps=8, compression=none, PhotometricInterpretation=RGB Palette, wi; ImageMagick identify: TIFF 25x24 25x24+0+0 8-bit sRGB 256c 2660B 0.000u 0:00.000",
+    "alsoDetectedAs": [
+      "fmt/353"
+    ],
+    "sha256": "21a96e69afa8d01c6b79fa34a9c4697540854b0bed20efdf5b207b2a6bf4e1e3"
+  },
+  {
+    "file": "fmt-1595_Canon_Raw_3.0.cr3",
+    "puid": "fmt/1595",
+    "formatName": "Canon Raw",
+    "formatVersion": "3.0",
+    "sizeBytes": 52502,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/CanonRaw.cr3",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: ISO Media",
+    "alsoDetectedAs": [
+      "fmt/199"
+    ],
+    "sha256": "dc02aa55e277935b690879584e97c2d013f54d854afaec6f9d3274c99a918fd6"
   },
   {
     "file": "fmt-15_Acrobat_PDF_1.1_-_Portable_Document_Format_1.1.pdf",
@@ -815,6 +1177,108 @@
     ]
   },
   {
+    "file": "fmt-1617_Devicetree_Blob_DTB_17.dtb",
+    "puid": "fmt/1617",
+    "formatName": "Devicetree Blob (DTB)",
+    "formatVersion": "17",
+    "sizeBytes": 28367,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/fdt.hexpat.dtb",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: Device Tree Blob version 17, size=28367, boot CPU=0, string block size=2807, DT structure block size=25488",
+    "alsoDetectedAs": [],
+    "sha256": "b224b6df2ef2802611c96a78c1f18da2d4447d9786810abe8ab66b94acf3af9e"
+  },
+  {
+    "file": "fmt-1622_Asylum_Music_Format.amf",
+    "puid": "fmt/1622",
+    "formatName": "Asylum Music Format",
+    "formatVersion": "",
+    "sizeBytes": 149001,
+    "sourceRepository": "https://github.com/libxmp/libxmp",
+    "sourceCommit": "06efa94d463d6202e9d553ab45aa797ad6b7a0a3",
+    "originalPath": "../../trees/libxmp/test-dev/data/m/m07.amf",
+    "license": "MIT (libxmp repository); the module itself has no licence statement in the repository",
+    "independentCheck": "file(1) 5.45: data; ffprobe: codec_name=pcm_f32le|sample_rate=48000|channels=2 format_name=libopenmpt",
+    "alsoDetectedAs": [],
+    "sha256": "28e76d84428f66a7dcc3ca4136a193d92600efa25ca1f2d780179ea7ec96acc5"
+  },
+  {
+    "file": "fmt-163_Microsoft_Works_Word_Processor_1-3_for_DOS_and_2_for_Windows.wps",
+    "puid": "fmt/163",
+    "formatName": "Microsoft Works Word Processor 1-3 for DOS and 2 for Windows",
+    "formatVersion": "",
+    "sizeBytes": 660,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/writer/libwps/pass/Works_2.00A_DOS.wps",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: Microsoft Works 1-3 (DOS) or 2 (Windows) document",
+    "alsoDetectedAs": [],
+    "sha256": "65866a3e9c9716c05555277e8860e8a63be3126c3d8ed3e191f3b1252af2e611"
+  },
+  {
+    "file": "fmt-1641_Adobe_InDesign_Interchange_Document.inx",
+    "puid": "fmt/1641",
+    "formatName": "Adobe InDesign Interchange Document",
+    "formatVersion": "",
+    "sizeBytes": 6386,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/XMP.inx",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: XML 1.0 document, Unicode text, UTF-8 text",
+    "alsoDetectedAs": [
+      "fmt/101"
+    ],
+    "sha256": "475efdfa4fbf4aa00986dcaec0fd98056b20ff85f2f89961a89a17a0c9d84df4"
+  },
+  {
+    "file": "fmt-1651_Garmin_Flexible_and_Interoperable_Data_Transfer_File.fit",
+    "puid": "fmt/1651",
+    "formatName": "Garmin Flexible and Interoperable Data Transfer File",
+    "formatVersion": "",
+    "sizeBytes": 2983,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/Garmin.fit",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: FIT Map data, unit id 84050944, serial 2315255809, Thu Mar  6 19:43:39 1986, manufacturer 12248, product -188, type -1",
+    "alsoDetectedAs": [],
+    "sha256": "9679bedffe41b1bc16884a3da185a8a7d21a20c54af77c85753e00514270baae"
+  },
+  {
+    "file": "fmt-166_Microsoft_Works_Spreadsheet_1-5.wks",
+    "puid": "fmt/166",
+    "formatName": "Microsoft Works Spreadsheet",
+    "formatVersion": "1-5",
+    "sizeBytes": 1281,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/calc/libwps/pass/Works_2.0.wks",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [
+      "x-fmt/117"
+    ],
+    "sha256": "708c608b6fa5dcd0f1d11486045119cb3921d2ea0f98e2b0cbe2c17a2d9ff018"
+  },
+  {
+    "file": "fmt-1695_602_Text_file_1.0-1.51.602",
+    "puid": "fmt/1695",
+    "formatName": "602 Text file",
+    "formatVersion": "1.0-1.51",
+    "sizeBytes": 6503,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "sw/qa/core/data/602/pass/cti_t602.602",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: T602 document data, CP 852",
+    "alsoDetectedAs": [],
+    "sha256": "38d47a163161c7c3db33821fa07a97d86f8bf686e0f8e5efd8b9bc60ed454580"
+  },
+  {
     "file": "fmt-16_Acrobat_PDF_1.2_-_Portable_Document_Format_1.2.pdf",
     "puid": "fmt/16",
     "formatName": "Acrobat PDF 1.2 - Portable Document Format",
@@ -836,6 +1300,63 @@
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pkg-module/src/test/resources/test-documents/test-documents.tar.Z",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-1736_Creative_Voice_File.voc",
+    "puid": "fmt/1736",
+    "formatName": "Creative Voice File",
+    "formatVersion": "",
+    "sizeBytes": 66703,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vn -c:a pcm_u8 -ar 22050 -ac 1 -f voc",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "independentCheck": "Made on 2026-11-04 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); file(1) 5.45: Creative Labs voice data - version 1.20; ffprobe: codec_name=pcm_u8|sample_rate=22222|channels=1 format_name=voc",
+    "alsoDetectedAs": [],
+    "sha256": "fa47c49f28e0cc0696c59d479a98142e28cda17c3cb28a7f51bdc902a2a1314b"
+  },
+  {
+    "file": "fmt-1740_Apple_Partition_Map_Disk_Image.iso",
+    "puid": "fmt/1740",
+    "formatName": "Apple Partition Map Disk Image",
+    "formatVersion": "",
+    "sizeBytes": 40960,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/ISO.iso",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: ISO 9660 CD-ROM filesystem data (DOS/MBR boot sector) 'ExifTool Test Vol. 1' (bootable)",
+    "alsoDetectedAs": [
+      "fmt/468"
+    ],
+    "sha256": "e8a435bb0dd2920d0aadd46cdc120b320c8a18b2e0fd7551587708addc12d783"
+  },
+  {
+    "file": "fmt-1747_Microsoft_PowerPoint_Presentation_2.x.ppt",
+    "puid": "fmt/1747",
+    "formatName": "Microsoft PowerPoint Presentation",
+    "formatVersion": "2.x",
+    "sizeBytes": 3708,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/impress/libmwaw/pass/PowerPoint_2.ppt",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "045c345e9c17f42c993561ca57a4b395e86edecf548ebeebdf74f7d02076ada9"
+  },
+  {
+    "file": "fmt-1748_Microsoft_PowerPoint_Presentation_3.x.ppt",
+    "puid": "fmt/1748",
+    "formatName": "Microsoft PowerPoint Presentation",
+    "formatVersion": "3.x",
+    "sizeBytes": 8861,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/impress/libmwaw/pass/PowerPoint_3.ppt",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "ee594974fe4e5d845850031b2b1ddbd906ac6b8eec4cd1afdd02602fcabb4011"
   },
   {
     "file": "fmt-17_Acrobat_PDF_1.3_-_Portable_Document_Format_1.3.pdf",
@@ -887,6 +1408,79 @@
     "alsoDetectedAs": [
       "x-fmt/224"
     ]
+  },
+  {
+    "file": "fmt-1817_Direct_Stream_Digital_Stream_File.dsf",
+    "puid": "fmt/1817",
+    "formatName": "Direct Stream Digital Stream File",
+    "formatVersion": "",
+    "sizeBytes": 8284,
+    "sourceRepository": "https://github.com/taglib/taglib",
+    "sourceCommit": "275029408cd4edbfabb05295c9694684a652875b",
+    "originalPath": "tests/data/empty10ms.dsf",
+    "license": "LGPL-2.1 or MPL-1.1 (TagLib repository)",
+    "independentCheck": "file(1) 5.45: DSF audio bitstream data, 1 bit, stereo, \"DSD 64\" 2822400 Hz, no compression, ID3 missing",
+    "alsoDetectedAs": [],
+    "sha256": "f3b2de2c2e783e887771a95aa302496eb3a82fcb606c3276d40650e887a6f9aa"
+  },
+  {
+    "file": "fmt-1818_Direct_Stream_Digital_Interchange_File_Format.dff",
+    "puid": "fmt/1818",
+    "formatName": "Direct Stream Digital Interchange File Format",
+    "formatVersion": "",
+    "sizeBytes": 7186,
+    "sourceRepository": "https://github.com/taglib/taglib",
+    "sourceCommit": "275029408cd4edbfabb05295c9694684a652875b",
+    "originalPath": "tests/data/empty10ms.dff",
+    "license": "LGPL-2.1 or MPL-1.1 (TagLib repository)",
+    "independentCheck": "file(1) 5.45: DSDIFF audio bitstream data, 1 bit, stereo, \"DSD 64\" 2822400 Hz, no compression, ID3 missing (or unreachable)",
+    "alsoDetectedAs": [],
+    "sha256": "d7be2c9f3d539dffd49e73a9462a5daba3645ca4b20636f4518c8182ded8f8b5"
+  },
+  {
+    "file": "fmt-1866_Microsoft_Powerpoint_for_Macintosh_2.ppt",
+    "puid": "fmt/1866",
+    "formatName": "Microsoft Powerpoint for Macintosh",
+    "formatVersion": "2",
+    "sizeBytes": 1892,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/impress/libmwaw/pass/PowerPoint_Mac_2",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "fee2816b50369667ed3f8b2947a2bbf8e0aaf6c9887b37a4cb3f993f02a22bf8"
+  },
+  {
+    "file": "fmt-1880_vCard_3.vcf",
+    "puid": "fmt/1880",
+    "formatName": "vCard",
+    "formatVersion": "3",
+    "sizeBytes": 1691,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/VCard.vcf",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: vCard visiting card, version 3.0",
+    "alsoDetectedAs": [
+      "fmt/395"
+    ],
+    "sha256": "bd2bbb5f85d15d31045d697da4f352df5fede07b5135993533a876db1f2ad19d"
+  },
+  {
+    "file": "fmt-1895_RagTime_Document_File_4-6.rag",
+    "puid": "fmt/1895",
+    "formatName": "RagTime Document File",
+    "formatVersion": "4-6",
+    "sizeBytes": 14652,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/writer/libmwaw/pass/RagTime_5.5.rag",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "53090b57767294e5fa155c40d96898c5e42958ba43516f34abfe6840f04348d0",
+    "extensionException": "Extension exception: PRONOM lists rtd,rtt; this sample is named .rag"
   },
   {
     "file": "fmt-18_Acrobat_PDF_1.4_-_Portable_Document_Format_1.4.pdf",
@@ -950,6 +1544,48 @@
     "alsoDetectedAs": [
       "x-fmt/263"
     ]
+  },
+  {
+    "file": "fmt-1940_EBU_Subtitling_Data_Exchange_Format.stl",
+    "puid": "fmt/1940",
+    "formatName": "EBU Subtitling Data Exchange Format",
+    "formatVersion": "",
+    "sizeBytes": 2176,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/ebu_stl.hexpat.stl",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: EBU-STL subtitles, rate 30, v1, title \"stl\", created 90-05-22",
+    "alsoDetectedAs": [],
+    "sha256": "9c28fda92d330cec5b8ccb8067482e1589fc93a4b0559bf60030934269d610f0"
+  },
+  {
+    "file": "fmt-1961_Shorten_codec.shn",
+    "puid": "fmt/1961",
+    "formatName": "Shorten (codec)",
+    "formatVersion": "",
+    "sizeBytes": 47533,
+    "sourceRepository": "https://github.com/taglib/taglib",
+    "sourceCommit": "275029408cd4edbfabb05295c9694684a652875b",
+    "originalPath": "tests/data/2sec-silence.shn",
+    "license": "LGPL-2.1 or MPL-1.1 (TagLib repository)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "bb8dc3f69d5211d05e89f7d931991c4f6ad4bcd4b6196d9527bf08d80ed2c07b"
+  },
+  {
+    "file": "fmt-1975_ICC_Profile_2.icc",
+    "puid": "fmt/1975",
+    "formatName": "ICC Profile",
+    "formatVersion": "2",
+    "sizeBytes": 492,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/ICC_Profile.icc",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: ColorSync color profile 2.2, type NKON, RGB/XYZ-mntr device, 492 bytes, 7-12-1999 18:59:22 \"Nikon Adobe RGB 4.0.0.3000\"",
+    "alsoDetectedAs": [],
+    "sha256": "a8d0d753bd6129357cc2647435ce675e8637a679eb526fa180fba460874ce1d3"
   },
   {
     "file": "fmt-19_Acrobat_PDF_1.5_-_Portable_Document_Format_1.5.pdf",
@@ -1115,6 +1751,64 @@
     "sha256": "86cfcd8a978cbe012600afc34fa6183942b57e6a39228199a9809ec6b238231c"
   },
   {
+    "file": "fmt-200_Material_Exchange_Format_Operational_Pattern_1a.mxf",
+    "puid": "fmt/200",
+    "formatName": "Material Exchange Format",
+    "formatVersion": "Operational Pattern 1a",
+    "sizeBytes": 623664,
+    "sourceRepository": "https://github.com/harvard-lts/fits",
+    "sourceCommit": "8613bf6be83b7a4082cb7551702b241d63a20ba8",
+    "originalPath": "testfiles/input/freeMXF-mxf1a.mxf",
+    "license": "LGPL-3.0 (FITS repository)",
+    "independentCheck": "file(1) 5.45: Material exchange container format; ffprobe: codec_name=mpeg2video| format_name=mxf",
+    "alsoDetectedAs": [],
+    "sha256": "a674e8b412e0dcd554ce64acc2bbc5b331d136f536ef8336be8ea5a266e6951b"
+  },
+  {
+    "file": "fmt-2023_Parquet_File.parquet",
+    "puid": "fmt/2023",
+    "formatName": "Parquet File",
+    "formatVersion": "",
+    "sizeBytes": 21004,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/parquet.hexpat.parquet",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: Apache Parquet",
+    "alsoDetectedAs": [],
+    "sha256": "57ad1ecd921e4edc3ef0084e97b830acefa2b422d86ae4525c2180121db08861"
+  },
+  {
+    "file": "fmt-202_Nikon_Digital_SLR_Camera_Raw_Image_File.nef",
+    "puid": "fmt/202",
+    "formatName": "Nikon Digital SLR Camera Raw Image File",
+    "formatVersion": "",
+    "sizeBytes": 6188,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/Nikon.nef",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: TIFF image data, little-endian, direntries=25, height=106, bps=314, compression=none, PhotometricInterpretation=RGB, man",
+    "alsoDetectedAs": [
+      "fmt/353"
+    ],
+    "sha256": "6fae30a2809b52ece100316f33a3fade4b65cf5690af2d62bb00f44ae052bdd6"
+  },
+  {
+    "file": "fmt-2098_GGML_Universal_File_GGUF_3.gguf",
+    "puid": "fmt/2098",
+    "formatName": "GGML Universal File (GGUF)",
+    "formatVersion": "3",
+    "sizeBytes": 1715488,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/gguf.hexpat.gguf",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "06a635c0b6bfcbb0dfe9c24814a1fe6aec1d1ff1ede8e5f0aaa13ec6886b93a7"
+  },
+  {
     "file": "fmt-20_Acrobat_PDF_1.6_-_Portable_Document_Format_1.6.pdf",
     "puid": "fmt/20",
     "formatName": "Acrobat PDF 1.6 - Portable Document Format",
@@ -1229,6 +1923,22 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-243_GPS_Exchange_Format_1.0.gpx",
+    "puid": "fmt/243",
+    "formatName": "GPS Exchange Format",
+    "formatVersion": "1.0",
+    "sizeBytes": 1510,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/Geotag.gpx",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: XML 1.0 document, ASCII text",
+    "alsoDetectedAs": [
+      "fmt/101"
+    ],
+    "sha256": "69ae3fae6d0d5a0b8633738e96c27edf08de804ca5d94a21b06af10540d099e9"
+  },
+  {
     "file": "fmt-244_Keyhole_Markup_Language_XML.kml",
     "puid": "fmt/244",
     "formatName": "Keyhole Markup Language (XML)",
@@ -1243,6 +1953,20 @@
     ]
   },
   {
+    "file": "fmt-255_DjVu_File_Format.djvu",
+    "puid": "fmt/255",
+    "formatName": "DjVu File Format",
+    "formatVersion": "",
+    "sizeBytes": 89,
+    "sourceRepository": "https://github.com/apache/tika",
+    "sourceCommit": "48010f83ad3869119f54546cbb272fde88130283",
+    "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testDJVU.djvu",
+    "license": "Apache License 2.0, unless otherwise stated in the repository",
+    "independentCheck": "file(1) 5.45: DjVu multiple page document",
+    "alsoDetectedAs": [],
+    "sha256": "09921d5e7ac4418c79683a45139d36d49c072afb24dcb8b828c68c66d5c2e1bb"
+  },
+  {
     "file": "fmt-276_Acrobat_PDF_1.7_-_Portable_Document_Format_1.7.pdf",
     "puid": "fmt/276",
     "formatName": "Acrobat PDF 1.7 - Portable Document Format",
@@ -1254,6 +1978,20 @@
     "alsoDetectedAs": [
       "x-fmt/224"
     ]
+  },
+  {
+    "file": "fmt-277_ESRI_Arc_View_Shapefile_Index.shx",
+    "puid": "fmt/277",
+    "formatName": "ESRI Arc/View Shapefile Index",
+    "formatVersion": "",
+    "sizeBytes": 108,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/shx.hexpat.shx",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: ESRI Shapefile version 1000 length 54 type Polygon",
+    "alsoDetectedAs": [],
+    "sha256": "b4ccf7cf7b7df714bc6f75036d31c2a8594840a1528f084a223cfde559a1b41d"
   },
   {
     "file": "fmt-279_FLAC_Free_Lossless_Audio_Codec_1.2.1.flac",
@@ -1421,6 +2159,93 @@
     "originalPath": "Tests/images/2422.flc",
     "license": "MIT-CMU License, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-303_Computer_Graphics_Metafile_Binary_1.cgm",
+    "puid": "fmt/303",
+    "formatName": "Computer Graphics Metafile (Binary)",
+    "formatVersion": "1",
+    "sizeBytes": 4400,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "sd/qa/unit/data/cgm/pass/circles.cgm",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: binary Computer Graphics Metafile, parameter length 20 'CIRCLE AND GDP TEST', NOT_FOUND_END_METAFILE",
+    "alsoDetectedAs": [],
+    "sha256": "f6d2ad2fe35175d6d874e7d479c87017e340b5be3e6948f3bb8f0f5964cb2d58"
+  },
+  {
+    "file": "fmt-340_Lotus_WordPro_Document_97_Millennium.lwp",
+    "puid": "fmt/340",
+    "formatName": "Lotus WordPro Document",
+    "formatVersion": "97/Millennium",
+    "sizeBytes": 17632,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "lotuswordpro/qa/cppunit/data/pass/null-1.lwp",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: Lotus WordPro",
+    "alsoDetectedAs": [],
+    "sha256": "8f0146f79cef7c44bd41c2bb00bec8151f45fa33c25a6ecd68b35a27b25b17f2"
+  },
+  {
+    "file": "fmt-344_Microsoft_Windows_Enhanced_Metafile_2.0.emf",
+    "puid": "fmt/344",
+    "formatName": "Microsoft Windows Enhanced Metafile",
+    "formatVersion": "2.0",
+    "sizeBytes": 252,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "emfio/qa/cppunit/emf/data/TestExtSelectClipRgnCopy.emf",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: Windows Enhanced Metafile (EMF) image data version 0x10000",
+    "alsoDetectedAs": [],
+    "sha256": "20f31e8a4fb6db3ca4615b24632a75936b2ad3a6801a5d3a33c48f9c55974b4d"
+  },
+  {
+    "file": "fmt-349_Paint_Shop_Pro_Image_10.psp",
+    "puid": "fmt/349",
+    "formatName": "Paint Shop Pro Image",
+    "formatVersion": "10",
+    "sizeBytes": 1703,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/PSP.psp",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: Paint Shop Pro Image File",
+    "alsoDetectedAs": [],
+    "sha256": "13f0bc542c167f3e886b3708cb82f8f0880af09c230b63e62a9dd0096362ba13",
+    "extensionException": "Extension exception: PRONOM lists pspimage; this sample is named .psp"
+  },
+  {
+    "file": "fmt-37_Microsoft_Word_for_Windows_Document_1.0.doc",
+    "puid": "fmt/37",
+    "formatName": "Microsoft Word for Windows Document",
+    "formatVersion": "1.0",
+    "sizeBytes": 3698,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "sw/qa/core/data/ww5/pass/ooo40683-1-WW1.doc",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: OpenPGP Public Key",
+    "alsoDetectedAs": [],
+    "sha256": "21f1f8f0209b3c881ee969a723fb42e443af86db25fe2b5d999ce0f96010e9c1"
+  },
+  {
+    "file": "fmt-386_Microsoft_Animated_Cursor_Format.ani",
+    "puid": "fmt/386",
+    "formatName": "Microsoft Animated Cursor Format",
+    "formatVersion": "",
+    "sizeBytes": 9188,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/ani.compatibility.hexpat.ani",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: RIFF (little-endian) data, animated cursor \"Alien97 move cursor\" (P)1997 by Tony Varnas",
+    "alsoDetectedAs": [
+      "fmt/1886"
+    ],
+    "sha256": "81bcb03e2c8d4275095144d73ee1bad265a5223fe8d3da27db37d74e5f20e1b3"
   },
   {
     "file": "fmt-3_Graphics_Interchange_Format_87a.gif",
@@ -1658,6 +2483,97 @@
     "originalPath": "ebooks/calibre 0.8.57/Lorem Ipsum - Andrew Jackson.mobi",
     "license": "CC0 1.0 Universal (Public Domain Dedication), unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-404_RealAudio_4.ra",
+    "puid": "fmt/404",
+    "formatName": "RealAudio",
+    "formatVersion": "4",
+    "sizeBytes": 130,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/Real.ra",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: RealAudio sound file; ffprobe: codec_name=ac3|sample_rate=22050|channels=1 format_name=rm",
+    "alsoDetectedAs": [],
+    "sha256": "641afef3abe167d189fa739b92008e641069b1e84c3d2e8a091c35274fe1ec97"
+  },
+  {
+    "file": "fmt-413_Scalable_Vector_Graphics_Tiny_1.2.svg",
+    "puid": "fmt/413",
+    "formatName": "Scalable Vector Graphics Tiny",
+    "formatVersion": "1.2",
+    "sizeBytes": 1089,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "svgio/qa/cppunit/data/tdf156168.svg",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: SVG Scalable Vector Graphics image",
+    "alsoDetectedAs": [
+      "x-fmt/224",
+      "fmt/91",
+      "fmt/101"
+    ],
+    "sha256": "c92baac4e2cdd911571e30c5f71569e525ff3e664d1100bed6dba100bfbc5021"
+  },
+  {
+    "file": "fmt-416_Apple_Core_Audio_Format_1.0.caf",
+    "puid": "fmt/416",
+    "formatName": "Apple Core Audio Format",
+    "formatVersion": "1.0",
+    "sizeBytes": 529400,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vn -c:a pcm_s16be -f caf",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "independentCheck": "Made on 2026-11-04 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); file(1) 5.45: CoreAudio Format audio file version 1; ffprobe: codec_name=pcm_s16be|sample_rate=44100|channels=2 format_name=caf",
+    "alsoDetectedAs": [],
+    "sha256": "fc477c05a4ffc4aef1612a0d119dc1f11e387e8fce5c4ec1f442cc6f2336d1b1"
+  },
+  {
+    "file": "fmt-42_JPEG_File_Interchange_Format_1.00.jpg",
+    "puid": "fmt/42",
+    "formatName": "JPEG File Interchange Format",
+    "formatVersion": "1.00",
+    "sizeBytes": 187813,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "efd396d9bb47e0c890b93bd4e95bb96f20781abb",
+    "originalPath": "tests/tests/swfs/avm2/stage3d_texture/earth.jpg",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: JPEG image data, JFIF standard 1.00, aspect ratio, density 1x1, segment length 16, comment: \"JPEG Encoder Copyright 1998; ImageMagick identify: JPEG 512x512 512x512+0+0 8-bit sRGB 187813B 0.000u 0:00.000",
+    "alsoDetectedAs": [
+      "fmt/41"
+    ],
+    "sha256": "4ce29597d27a7bb9b2ef20ccb0287314c2f861c753f27482876991ccde94f68d"
+  },
+  {
+    "file": "fmt-430_CorelDraw_Drawing_X5.cdr",
+    "puid": "fmt/430",
+    "formatName": "CorelDraw Drawing",
+    "formatVersion": "X5",
+    "sizeBytes": 10755,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/draw/libcdr/pass/fdo65220-2.cdr",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: Zip archive data, at least v2.0 to extract, compression method=store",
+    "alsoDetectedAs": [
+      "x-fmt/263"
+    ],
+    "sha256": "88e62beb7a7ebe812f6ce06238017d07d215de9dbf76323dde93200f2d5dd348"
+  },
+  {
+    "file": "fmt-45_Rich_Text_Format_1.0-1.4.rtf",
+    "puid": "fmt/45",
+    "formatName": "Rich Text Format",
+    "formatVersion": "1.0-1.4",
+    "sizeBytes": 212,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "sw/qa/extras/rtfexport/data/tdf95706_2.rtf",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: ASCII text, with CRLF line terminators",
+    "alsoDetectedAs": [],
+    "sha256": "69a769e2dd1f88a9c9d29a49897e558497a372ae666624f84003f6121f12dc8c"
   },
   {
     "file": "fmt-4_Graphics_Interchange_Format_89a.gif",
@@ -1992,6 +2908,151 @@
     "alsoDetectedAs": [
       "x-fmt/224"
     ]
+  },
+  {
+    "file": "fmt-509_Adobe_PostScript_Font_Metrics_file.pfm",
+    "puid": "fmt/509",
+    "formatName": "Adobe PostScript Font Metrics file",
+    "formatVersion": "",
+    "sizeBytes": 240,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/Font.pfm",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: Printer Font Metrics URWGroteskT-Bold, 240 bytes, URWGroT",
+    "alsoDetectedAs": [],
+    "sha256": "9fbc0f2633f60a77f9791da5a559d500164c669aaa72d2062aa088ac8a23a449"
+  },
+  {
+    "file": "fmt-520_OpenType_Font_File.otf",
+    "puid": "fmt/520",
+    "formatName": "OpenType Font File",
+    "formatVersion": "",
+    "sizeBytes": 2160,
+    "sourceRepository": "https://github.com/web-platform-tests/wpt",
+    "sourceCommit": "f9ffb44def20275805ec20cab92a9f0c4c7ff31f",
+    "originalPath": "fonts/noto/cjk/NotoSansCJKjp-Regular-subset-halt-300C.otf",
+    "license": "SIL OFL 1.1 (Noto fonts, shipped in the web-platform-tests repository)",
+    "independentCheck": "file(1) 5.45: OpenType font data; fontTools opens it: flavor=None, 16 tables",
+    "alsoDetectedAs": [],
+    "sha256": "fb5a4c6aeac8a89e6dc8c8b3ba9cffadeeb9f0325ce2e895cb09c67e95bc16cc"
+  },
+  {
+    "file": "fmt-525_Adobe_Printer_Font_Binary.pfb",
+    "puid": "fmt/525",
+    "formatName": "Adobe Printer Font Binary",
+    "formatVersion": "",
+    "sizeBytes": 1423,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/Font.pfb",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: PostScript Type 1 font program data (NimbusSanL-ReguCondItal 1.06)",
+    "alsoDetectedAs": [],
+    "sha256": "0454f91e6ccc354e363cfe21d2395a32d7d61f2f24be3bd84d90fea108d72e06"
+  },
+  {
+    "file": "fmt-558_Adobe_Illustrator_9.0.ai",
+    "puid": "fmt/558",
+    "formatName": "Adobe Illustrator",
+    "formatVersion": "9.0",
+    "sizeBytes": 561633,
+    "sourceRepository": "https://github.com/harvard-lts/fits",
+    "sourceCommit": "8613bf6be83b7a4082cb7551702b241d63a20ba8",
+    "originalPath": "testfiles/input/MMS-82A.08.12.02.ai",
+    "license": "LGPL-3.0 (FITS repository)",
+    "independentCheck": "file(1) 5.45: PDF document, version 1.4, 1 page(s)",
+    "alsoDetectedAs": [
+      "fmt/18"
+    ],
+    "sha256": "4ea524f979f73f7042719e04e6f1e953deecef158e4c0eeef967679ba55b68b7"
+  },
+  {
+    "file": "fmt-55_Microsoft_Excel_2.x_Worksheet_xls_2.xls",
+    "puid": "fmt/55",
+    "formatName": "Microsoft Excel 2.x Worksheet (xls)",
+    "formatVersion": "2",
+    "sizeBytes": 90,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "sc/qa/unit/data/xls/tdf72470.xls",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "2ea857eddbb9c11989d1f3004a7c3712a00480f81a56c18161a997f4c36acd58"
+  },
+  {
+    "file": "fmt-574_Digital_Imaging_and_Communications_in_Medicine_File_Format.dcm",
+    "puid": "fmt/574",
+    "formatName": "Digital Imaging and Communications in Medicine File Format",
+    "formatVersion": "",
+    "sizeBytes": 1860,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/DICOM.dcm",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: DICOM medical imaging data",
+    "alsoDetectedAs": [],
+    "sha256": "18843b5c6993906809c4e892e664476f0267440b087d3d54f3aa2e65dd5538af"
+  },
+  {
+    "file": "fmt-590_JPEG_Extended_Range.jxr",
+    "puid": "fmt/590",
+    "formatName": "JPEG Extended Range",
+    "formatVersion": "",
+    "sizeBytes": 6624,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "efd396d9bb47e0c890b93bd4e95bb96f20781abb",
+    "originalPath": "tests/tests/swfs/avm2/loader_jpegxr_alpha/gradient.jxr",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: JPEG-XR",
+    "alsoDetectedAs": [],
+    "sha256": "1a73d3fdd4dc3f37cd24a2771e337650b10f75955f3b72951b066692b27bdb64"
+  },
+  {
+    "file": "fmt-591_Radiance_RGBE_Image_Format.hdr",
+    "puid": "fmt/591",
+    "formatName": "Radiance RGBE Image Format",
+    "formatVersion": "",
+    "sizeBytes": 587,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/Radiance.hdr",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: Radiance HDR image data; ImageMagick identify: HDR 1x1 1x1+0+0 16-bit RGB 587B 0.000u 0:00.000",
+    "alsoDetectedAs": [],
+    "sha256": "32b0c6b35700d8715c11f6ea803cb12c01b88f5cd77d22bc977e82e08e55cf37"
+  },
+  {
+    "file": "fmt-593_Canon_RAW_1.0.crw",
+    "puid": "fmt/593",
+    "formatName": "Canon RAW",
+    "formatVersion": "1.0",
+    "sizeBytes": 6816,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/CanonRaw.crw",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: Canon CIFF raw image data, version 1.2",
+    "alsoDetectedAs": [],
+    "sha256": "604bdd78c66b51b59a0868d9c9ee792a8bb89c60cbbf83a37566c0e8a0201a4f"
+  },
+  {
+    "file": "fmt-596_Apple_Lossless_Audio_Codec.m4a",
+    "puid": "fmt/596",
+    "formatName": "Apple Lossless Audio Codec",
+    "formatVersion": "",
+    "sizeBytes": 5380,
+    "sourceRepository": "https://github.com/taglib/taglib",
+    "sourceCommit": "275029408cd4edbfabb05295c9694684a652875b",
+    "originalPath": "tests/data/empty_alac.m4a",
+    "license": "LGPL-2.1 or MPL-1.1 (TagLib repository)",
+    "independentCheck": "file(1) 5.45: ISO Media, Apple iTunes ALAC/AAC-LC (.M4A) Audio; ffprobe: codec_name=alac|sample_rate=44100|channels=2 format_name=mov,mp4,m4a,3gp,3g2,mj2",
+    "alsoDetectedAs": [
+      "fmt/199",
+      "fmt/2094"
+    ],
+    "sha256": "48bda3993fc1731c35f73c8f9c8871aa9c3844682643d278c8dd66518e164332"
   },
   {
     "file": "fmt-5_Audio_Video_Interleaved_Format.avi",
@@ -2394,6 +3455,20 @@
     ]
   },
   {
+    "file": "fmt-613_RAR_Archive_5.0.rar",
+    "puid": "fmt/613",
+    "formatName": "RAR Archive",
+    "formatVersion": "5.0",
+    "sizeBytes": 74,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/ZIP.rar",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: RAR archive data, v5",
+    "alsoDetectedAs": [],
+    "sha256": "0c28216fcb4638a45b8b5fb98468278c717659c9a1273a68a53986a14d194483"
+  },
+  {
     "file": "fmt-615_Gimp_Image_File_Format.xcf",
     "puid": "fmt/615",
     "formatName": "Gimp Image File Format",
@@ -2406,6 +3481,20 @@
     "alsoDetectedAs": [],
     "independentCheck": "GIMP XCF written by the OpenImageIO project",
     "sha256": "ac658d43f50256db87dfbcb2e22e289f4866a34b594b08e9f0f41b895cb463b4"
+  },
+  {
+    "file": "fmt-616_Web_Open_Font_Format_1.0.woff",
+    "puid": "fmt/616",
+    "formatName": "Web Open Font Format",
+    "formatVersion": "1.0",
+    "sizeBytes": 1048,
+    "sourceRepository": "https://github.com/web-platform-tests/wpt",
+    "sourceCommit": "f9ffb44def20275805ec20cab92a9f0c4c7ff31f",
+    "originalPath": "fonts/math/xheight500.woff",
+    "license": "3-Clause BSD (web-platform-tests repository)",
+    "independentCheck": "file(1) 5.45: Web Open Font Format, CFF, length 1048, version 1.0; fontTools opens it: flavor=woff, 11 tables",
+    "alsoDetectedAs": [],
+    "sha256": "5f7cda11cc7ea75fe0b790c3e46e5097e3c1a3a0fcda2812802f4d0e00fd565b"
   },
   {
     "file": "fmt-626_LHA_File_Format--method-lh4.lha",
@@ -2457,6 +3546,20 @@
     "variantReason": "LHA archive, level 0, compression method lh7",
     "independentCheck": "libmagic: LHa archive [lh7]",
     "sha256": "5629631e7248411991e4509fa1c76c4a93131ac1557d2e315cd0880bdf9f6521"
+  },
+  {
+    "file": "fmt-639_Stuffit_Archive_File_5.sit",
+    "puid": "fmt/639",
+    "formatName": "Stuffit Archive File",
+    "formatVersion": "5",
+    "sizeBytes": 2827,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/sit5.hexpat.sit",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: StuffIt Archive",
+    "alsoDetectedAs": [],
+    "sha256": "7a6ffcd514f1e5486317646869067ba92435e9c239db455c4ddb06600d518134"
   },
   {
     "file": "fmt-63_Drawing_Interchange_File_Format_ASCII_Generic.dxf",
@@ -2523,6 +3626,20 @@
     "sha256": "e9667e6809bfc5000e6c1c819146426afe01dd04371f9d7b3fdf8967a32a46bc"
   },
   {
+    "file": "fmt-642_Fujifilm_RAW_Image_Format.raf",
+    "puid": "fmt/642",
+    "formatName": "Fujifilm RAW Image Format",
+    "formatVersion": "",
+    "sizeBytes": 38452,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/FujiFilm.raf",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: Fujifilm RAF raw image data, format version 0201, camera FinePix S5Pro",
+    "alsoDetectedAs": [],
+    "sha256": "e12e30bd0cf5f160b82b93f043696c04d1d5f4628f1fdd19abdab9f8328d8bf0"
+  },
+  {
     "file": "fmt-643_ASTM_E57_3D_File_Format.e57",
     "puid": "fmt/643",
     "formatName": "ASTM E57 3D File Format",
@@ -2565,6 +3682,34 @@
     "sha256": "2011a1083ce847314389f98070a0970f279bdb0f71a38cecca8d4247b54ee505"
   },
   {
+    "file": "fmt-661_Sigma_RAW_Image.x3f",
+    "puid": "fmt/661",
+    "formatName": "Sigma RAW Image",
+    "formatVersion": "",
+    "sizeBytes": 1464,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/Sigma.x3f",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: Foveon X3F raw image data, version 2.2, 2268x1512",
+    "alsoDetectedAs": [],
+    "sha256": "09b19f5cf6f01618871074697bb39af1542911a14a865bad53279b13bb91c7df"
+  },
+  {
+    "file": "fmt-662_Panasonic_Raw.rw2",
+    "puid": "fmt/662",
+    "formatName": "Panasonic Raw",
+    "formatVersion": "",
+    "sizeBytes": 12344,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/Panasonic.rw2",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "431a1239713ce1bca8f0b422b9a094372246669432060e2a0a21d1fd2f761678"
+  },
+  {
     "file": "fmt-668_Olympus_RAW.orf",
     "puid": "fmt/668",
     "formatName": "Olympus RAW",
@@ -2575,6 +3720,20 @@
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/resources/test-documents/testORF_bigendian.orf",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-669_Minolta_RAW.mrw",
+    "puid": "fmt/669",
+    "formatName": "Minolta RAW",
+    "formatVersion": "",
+    "sizeBytes": 2596,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/Minolta.mrw",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: Minolta Dimage camera raw image data",
+    "alsoDetectedAs": [],
+    "sha256": "9e7c235aec72b1e74517041cc226e38c320826770645bdc57ef19b508dbe92d5"
   },
   {
     "file": "fmt-670_PKCS_7_Cryptographic_Message_File.p7m",
@@ -2639,6 +3798,21 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-692_Mach-O_32bit.macho",
+    "puid": "fmt/692",
+    "formatName": "Mach-O",
+    "formatVersion": "32bit",
+    "sizeBytes": 9484,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/EXE.macho",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: Mach-O ppc executable, flags:<NOUNDEFS|DYLDLINK|TWOLEVEL>",
+    "alsoDetectedAs": [],
+    "sha256": "00acfbabbdec0f4eb6003aec3b4ea391d441ebb7c024691eee0f2a7c9d4058ab",
+    "extensionException": "Extension exception: PRONOM lists none; this sample is named .macho"
+  },
+  {
     "file": "fmt-693_Mach-O_64bit",
     "puid": "fmt/693",
     "formatName": "Mach-O",
@@ -2649,6 +3823,121 @@
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testMacOS-x86_64",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-694_Dalvik_Executable_Format.dex",
+    "puid": "fmt/694",
+    "formatName": "Dalvik Executable Format",
+    "formatVersion": "",
+    "sizeBytes": 628,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/dex.hexpat.dex",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: Dalvik dex file version 035",
+    "alsoDetectedAs": [],
+    "sha256": "260feb53562a18a811d6d946ff5e3c5bca0fe6c3ced306249c1990620312ed54"
+  },
+  {
+    "file": "fmt-6_Waveform_Audio.wav",
+    "puid": "fmt/6",
+    "formatName": "Waveform Audio",
+    "formatVersion": "",
+    "sizeBytes": 8591,
+    "sourceRepository": "https://github.com/chromium/chromium",
+    "sourceCommit": "0ad3103c0f6084b9a0ef2719c64848ef95c89f97",
+    "originalPath": "media/test/data/bear_mulaw.wav",
+    "license": "BSD-3-Clause (Chromium repository; media/test/data/README.md documents how the media files were made)",
+    "independentCheck": "file(1) 5.45: RIFF (little-endian) data, WAVE audio, ITU G.711 mu-law, mono 8000 Hz; ffprobe: codec_name=pcm_mulaw|sample_rate=8000|channels=1 format_name=wav",
+    "alsoDetectedAs": [
+      "fmt/1886"
+    ],
+    "sha256": "6a60057c95565571e0f6df8c7a8e60967de0f3b8d194169239a1cf4e55551ae5"
+  },
+  {
+    "file": "fmt-703_Broadcast_WAVE_0_PCM_Encoding.wav",
+    "puid": "fmt/703",
+    "formatName": "Broadcast WAVE",
+    "formatVersion": "0 PCM Encoding",
+    "sizeBytes": 898136,
+    "sourceRepository": "https://github.com/harvard-lts/fits",
+    "sourceCommit": "8613bf6be83b7a4082cb7551702b241d63a20ba8",
+    "originalPath": "testfiles/input/test.wav",
+    "license": "LGPL-3.0 (FITS repository)",
+    "independentCheck": "file(1) 5.45: RIFF (little-endian) data, WAVE audio, Microsoft PCM, 24 bit, mono 96000 Hz; ffprobe: codec_name=pcm_s24le|sample_rate=96000|channels=1 format_name=wav",
+    "alsoDetectedAs": [
+      "fmt/6",
+      "fmt/1",
+      "fmt/142",
+      "fmt/1886"
+    ],
+    "sha256": "deb1ead34fa1ae22a0c50032f6585189bb570fa8bc665c035d75eca9b66aa4a5"
+  },
+  {
+    "file": "fmt-704_Broadcast_WAVE_1_PCM_Encoding.wav",
+    "puid": "fmt/704",
+    "formatName": "Broadcast WAVE",
+    "formatVersion": "1 PCM Encoding",
+    "sizeBytes": 529888,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vn -c:a pcm_s16le -write_bext 1 -f wav",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "independentCheck": "Made on 2026-11-04 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); file(1) 5.45: RIFF (little-endian) data, WAVE audio, Microsoft PCM, 16 bit, stereo 44100 Hz; ffprobe: codec_name=pcm_s16le|sample_rate=44100|channels=2 format_name=wav",
+    "alsoDetectedAs": [],
+    "sha256": "a553ee1adb4c96613dc2cf55e06d41eda6b678fa1abbf5f2a0b22fde5537c115"
+  },
+  {
+    "file": "fmt-707_Broadcast_WAVE_1_MPEG_Encoding.wav",
+    "puid": "fmt/707",
+    "formatName": "Broadcast WAVE",
+    "formatVersion": "1 MPEG Encoding",
+    "sizeBytes": 144920,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vn -c:a mp2 -write_bext 1 -f wav",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "independentCheck": "Made on 2026-11-04 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); file(1) 5.45: RIFF (little-endian) data, WAVE audio, MPEG, stereo 44100 Hz; ffprobe: codec_name=mp2|sample_rate=44100|channels=2 format_name=wav",
+    "alsoDetectedAs": [],
+    "sha256": "b8abe64d266cf32f22bbdcbc69f10aec206fabf05cc7ca180c3d9eb7908289af"
+  },
+  {
+    "file": "fmt-712_RF64.wav",
+    "puid": "fmt/712",
+    "formatName": "RF64",
+    "formatVersion": "",
+    "sizeBytes": 529314,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vn -c:a pcm_s16le -rf64 always -f wav",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "independentCheck": "Made on 2026-11-04 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); file(1) 5.45: MBWF/RF64 audio, stereo 44100 Hz; ffprobe: codec_name=pcm_s16le|sample_rate=44100|channels=2 format_name=wav",
+    "alsoDetectedAs": [],
+    "sha256": "574928ac6b2ba15bfa728b737ea2ebbd5319c9b7a1778144f56c66b1d4424693"
+  },
+  {
+    "file": "fmt-713_RF64_Multichannel_Broadcast_Wave_format.wav",
+    "puid": "fmt/713",
+    "formatName": "RF64 Multichannel Broadcast Wave format",
+    "formatVersion": "",
+    "sizeBytes": 794548,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vn -c:a pcm_s24le -rf64 always -write_bext 1 -f wav",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "independentCheck": "Made on 2026-11-04 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); file(1) 5.45: MBWF/RF64 audio, stereo 44100 Hz; ffprobe: codec_name=pcm_s24le|sample_rate=44100|channels=2 format_name=wav",
+    "alsoDetectedAs": [],
+    "sha256": "335805298352b7163706992620b33a0366ee869511c9c05104f58bbc2def6c56"
+  },
+  {
+    "file": "fmt-715_Impulse_Tracker_Module.it",
+    "puid": "fmt/715",
+    "formatName": "Impulse Tracker Module",
+    "formatVersion": "",
+    "sizeBytes": 2300,
+    "sourceRepository": "https://github.com/libxmp/libxmp",
+    "sourceCommit": "06efa94d463d6202e9d553ab45aa797ad6b7a0a3",
+    "originalPath": "../../trees/libxmp/test/test.it",
+    "license": "MIT (libxmp repository); the module itself has no licence statement in the repository",
+    "independentCheck": "file(1) 5.45: Impulse Tracker module sound data - \"test\" compatible w/ITv136c created w/ITv214",
+    "alsoDetectedAs": [],
+    "sha256": "424d76d2ac417a070c7fe81ee92671361c4a8e5ba6917a43010747f0262f15a5"
   },
   {
     "file": "fmt-716_MOD_Audio_Module.mod",
@@ -2665,6 +3954,20 @@
     "sha256": "c505aeedfb08cd8645f607bc29388319b7f37d40587bc6f1ca12c41b7a69dc7c"
   },
   {
+    "file": "fmt-717_Scream_Tracker_Module_1-2.stm",
+    "puid": "fmt/717",
+    "formatName": "Scream Tracker Module",
+    "formatVersion": "1-2",
+    "sizeBytes": 61880,
+    "sourceRepository": "https://github.com/libxmp/libxmp",
+    "sourceCommit": "06efa94d463d6202e9d553ab45aa797ad6b7a0a3",
+    "originalPath": "../../trees/libxmp/test-dev/data/m/jimmy.stm",
+    "license": "MIT (libxmp repository); the module itself has no licence statement in the repository",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "d9c9a629f46bc836b0f964d3c1ae3b09239686c0f65c098850f5b30d56144dbb"
+  },
+  {
     "file": "fmt-718_Scream_Tracker_Module_3.s3m",
     "puid": "fmt/718",
     "formatName": "Scream Tracker Module",
@@ -2679,6 +3982,20 @@
     "sha256": "8c06df94967dd66df35d2cf200ec155542c47d0346acb32d9725d739e9c348ab"
   },
   {
+    "file": "fmt-719_MultiTracker_Module.mtm",
+    "puid": "fmt/719",
+    "formatName": "MultiTracker Module",
+    "formatVersion": "",
+    "sizeBytes": 74501,
+    "sourceRepository": "https://github.com/libxmp/libxmp",
+    "sourceCommit": "06efa94d463d6202e9d553ab45aa797ad6b7a0a3",
+    "originalPath": "../../trees/libxmp/test-dev/data/m/fall1.mtm",
+    "license": "MIT (libxmp repository); the module itself has no licence statement in the repository",
+    "independentCheck": "file(1) 5.45: Multitracker Version 1.00 title: \"- One Must Fall! 1 -3\"",
+    "alsoDetectedAs": [],
+    "sha256": "f3ddfd4521b2696a2474b674396925bd213dd636ebf4a9e55367b1eebe12574f"
+  },
+  {
     "file": "fmt-720_MBOX.mbox",
     "puid": "fmt/720",
     "formatName": "MBOX",
@@ -2689,6 +4006,34 @@
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-mail-module/src/test/resources/test-documents/multiline.mbox",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-722_Oktalyzer_Audio_file.okt",
+    "puid": "fmt/722",
+    "formatName": "Oktalyzer Audio file",
+    "formatVersion": "",
+    "sizeBytes": 136780,
+    "sourceRepository": "https://github.com/libxmp/libxmp",
+    "sourceCommit": "06efa94d463d6202e9d553ab45aa797ad6b7a0a3",
+    "originalPath": "../../trees/libxmp/test-dev/data/m/OKT.Yes-PartII",
+    "license": "MIT (libxmp repository); the module itself has no licence statement in the repository",
+    "independentCheck": "file(1) 5.45: Oktalyzer module data",
+    "alsoDetectedAs": [],
+    "sha256": "b21bc4aa594e0db4955cfa2faa255201a7df7bf8d580cea0a821ef63fae60b6b"
+  },
+  {
+    "file": "fmt-723_Farandole_Composer_Module.far",
+    "puid": "fmt/723",
+    "formatName": "Farandole Composer Module",
+    "formatVersion": "",
+    "sizeBytes": 458535,
+    "sourceRepository": "https://github.com/libxmp/libxmp",
+    "sourceCommit": "06efa94d463d6202e9d553ab45aa797ad6b7a0a3",
+    "originalPath": "../../trees/libxmp/test-dev/data/m/thunddrm.far",
+    "license": "MIT (libxmp repository); the module itself has no licence statement in the repository",
+    "independentCheck": "file(1) 5.45: Farandole Tracker Song Version 1.00, title: \"Thunder Dream by Ryan Cramer\"",
+    "alsoDetectedAs": [],
+    "sha256": "ab98b50362724da5c3648869284dc09c98c55dc1f55cd68db69f4dc8e3fa99ad"
   },
   {
     "file": "fmt-729_SQLite_Database_File_Format_3.db",
@@ -2703,6 +4048,20 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-731_Bink_Video_Format_1.bik",
+    "puid": "fmt/731",
+    "formatName": "Bink Video Format",
+    "formatVersion": "1",
+    "sizeBytes": 2461812,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/bink_container.hexpat.bik",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: Bink Video rev.i, 512x384, 280 frames at rate 1/25, 1 audio track 44100Hz stereo",
+    "alsoDetectedAs": [],
+    "sha256": "1c6318577b57f4ef60c0d861a7c8f4f26fd6e7119a3bdab68ae879062394a3d3"
+  },
+  {
     "file": "fmt-735_Dolby_Digital_AC-3.ac3",
     "puid": "fmt/735",
     "formatName": "Dolby Digital AC-3",
@@ -2713,6 +4072,132 @@
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testAC3.ac3",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "fmt-736_ClarisWorks_1_generic.cwk",
+    "puid": "fmt/736",
+    "formatName": "ClarisWorks",
+    "formatVersion": "1 (generic)",
+    "sizeBytes": 7716,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/writer/libmwaw/pass/ClarisWorks_1.0",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "7f580793734abdfc4afb0fa9f22d74f4e9d8c8fb717ef844aeb13021b40debaa"
+  },
+  {
+    "file": "fmt-745_ClarisWorks_AppleWorks_Spreadsheet_5.cwk",
+    "puid": "fmt/745",
+    "formatName": "ClarisWorks/AppleWorks Spreadsheet",
+    "formatVersion": "5",
+    "sizeBytes": 11256,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/calc/libmwaw/pass/ClarisWorks_5.0.cwk",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: AppleWorks/ClarisWorks CWK Document, version 5, 792x612",
+    "alsoDetectedAs": [],
+    "sha256": "50cc30926962cd9208db84d50abac461fac043f97a94895cd66392ac56ee8095"
+  },
+  {
+    "file": "fmt-746_ClarisWorks_AppleWorks_Database_5.cwk",
+    "puid": "fmt/746",
+    "formatName": "ClarisWorks/AppleWorks Database",
+    "formatVersion": "5",
+    "sizeBytes": 10691,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/calc/libmwaw/pass/ClarisWorks_DB_5.0.cwk",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: AppleWorks/ClarisWorks CWK Document, version 5, 792x612",
+    "alsoDetectedAs": [],
+    "sha256": "dd5a44486da9ab420e79324bcb7c14baa1017263ed127b63298f69d77e0c6f02"
+  },
+  {
+    "file": "fmt-747_ClarisWorks_AppleWorks_Painting_5.cwk",
+    "puid": "fmt/747",
+    "formatName": "ClarisWorks/AppleWorks Painting",
+    "formatVersion": "5",
+    "sizeBytes": 195344,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/draw/libmwaw/pass/ClarisWorks_5.0.cwk",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: AppleWorks/ClarisWorks CWK Document, version 5, 792x612",
+    "alsoDetectedAs": [],
+    "sha256": "d7e648509e0f536cf892c31b113de8332986e9e276717dd58bd2a0869fc47fe7"
+  },
+  {
+    "file": "fmt-749_AppleWorks_Word_Processor_6.cwk",
+    "puid": "fmt/749",
+    "formatName": "AppleWorks Word Processor",
+    "formatVersion": "6",
+    "sizeBytes": 55179,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/writer/libmwaw/pass/ClarisWorks_6.0.cwk",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: AppleWorks/ClarisWorks CWK Document, version 6, 842x595",
+    "alsoDetectedAs": [],
+    "sha256": "1b13048f8e947fcfe5113f428b469a6b43c4e391273ddc6cf567cdce6b625adc"
+  },
+  {
+    "file": "fmt-750_AppleWorks_Spreadsheet_6.cwk",
+    "puid": "fmt/750",
+    "formatName": "AppleWorks Spreadsheet",
+    "formatVersion": "6",
+    "sizeBytes": 24176,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/calc/libmwaw/pass/ClarisWorks_6.0.cwk",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: AppleWorks/ClarisWorks CWK Document, version 6, 792x612",
+    "alsoDetectedAs": [],
+    "sha256": "4826f0e8bb81746beb65b2f153c0b6d34b1ce4a8c9571d9c8944d7ebd3f45363"
+  },
+  {
+    "file": "fmt-751_AppleWorks_Database_6.cwk",
+    "puid": "fmt/751",
+    "formatName": "AppleWorks Database",
+    "formatVersion": "6",
+    "sizeBytes": 14607,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/calc/libmwaw/pass/ClarisWorks_DB.cwk",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: AppleWorks/ClarisWorks CWK Document, version 6, 792x612",
+    "alsoDetectedAs": [],
+    "sha256": "2e926a1c150f922e08335cb25578798503751db83138af02ff9cce9ef028cd1a"
+  },
+  {
+    "file": "fmt-752_AppleWorks_Painting_6.cwk",
+    "puid": "fmt/752",
+    "formatName": "AppleWorks Painting",
+    "formatVersion": "6",
+    "sizeBytes": 198376,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/draw/libmwaw/pass/ClarisWorks_6.0.cwk",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: AppleWorks/ClarisWorks CWK Document, version 6, 792x612",
+    "alsoDetectedAs": [],
+    "sha256": "2124f7a4fb44b92181291bb5ed50d54261e9583f783cc38a78d5aa65fc9fefad"
+  },
+  {
+    "file": "fmt-753_AppleWorks_Presentation_6.cwk",
+    "puid": "fmt/753",
+    "formatName": "AppleWorks Presentation",
+    "formatVersion": "6",
+    "sizeBytes": 16880,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/impress/libmwaw/pass/ClarisWorks_6.0.cwk",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: AppleWorks/ClarisWorks CWK Document, version 6, 792x612",
+    "alsoDetectedAs": [],
+    "sha256": "98546571dff6ed30a2bda705cf71565a575ec8599edcba232b49a8970a656b81"
   },
   {
     "file": "fmt-757_Adobe_Flash_11.swf",
@@ -2841,6 +4326,20 @@
     "sha256": "e95366f26a244dfb7346cbace25a2ea3be343526f304e06c8cf5fb3e31c13f97"
   },
   {
+    "file": "fmt-765_Adobe_Flash_19.swf",
+    "puid": "fmt/765",
+    "formatName": "Adobe Flash",
+    "formatVersion": "19",
+    "sizeBytes": 633,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "efd396d9bb47e0c890b93bd4e95bb96f20781abb",
+    "originalPath": "tests/tests/swfs/avm2/filefilter_properties/test.swf",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: Macromedia Flash data (compressed), version 19; ffprobe: format_name=swf",
+    "alsoDetectedAs": [],
+    "sha256": "8d4837b6048339c70aa830ec24da0780440dfc96b8c22304c3e54880c1f5ed62"
+  },
+  {
     "file": "fmt-766_Adobe_Flash_20.swf",
     "puid": "fmt/766",
     "formatName": "Adobe Flash",
@@ -2885,6 +4384,20 @@
     "sha256": "90163a9acdf55124a76a276137031deb20a6f9836ea96b97ec83365e7362a113"
   },
   {
+    "file": "fmt-771_Adobe_Flash_25.swf",
+    "puid": "fmt/771",
+    "formatName": "Adobe Flash",
+    "formatVersion": "25",
+    "sizeBytes": 471,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "efd396d9bb47e0c890b93bd4e95bb96f20781abb",
+    "originalPath": "tests/tests/swfs/from_shumway/as3-loader/bug1093712/loader/loadee.swf",
+    "license": "Apache-2.0 (Mozilla Shumway test corpus, via the Ruffle repository)",
+    "independentCheck": "file(1) 5.45: Macromedia Flash data (compressed), version 25",
+    "alsoDetectedAs": [],
+    "sha256": "de37f042b9364d5cfa0f5dc2c08e3fee1fd44414dcf11e806c25d20dffcb834c"
+  },
+  {
     "file": "fmt-773_Adobe_Flash_27.swf",
     "puid": "fmt/773",
     "formatName": "Adobe Flash",
@@ -2917,6 +4430,20 @@
     "sha256": "5b1e021311491ca1003a9a5091b82e14498c89b8abec02df4dea41aa07502eb2"
   },
   {
+    "file": "fmt-775_Adobe_Flash_29.swf",
+    "puid": "fmt/775",
+    "formatName": "Adobe Flash",
+    "formatVersion": "29",
+    "sizeBytes": 1198,
+    "sourceRepository": "https://github.com/ruffle-rs/ruffle",
+    "sourceCommit": "efd396d9bb47e0c890b93bd4e95bb96f20781abb",
+    "originalPath": "tests/tests/swfs/avm2/stage3d_errors_swf_29/test.swf",
+    "license": "MIT OR Apache-2.0 (Ruffle repository; test SWF written by Ruffle contributors, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: Macromedia Flash data (compressed), version 29",
+    "alsoDetectedAs": [],
+    "sha256": "497f23490fb9863ecb7f8832e267a78badc8db287c86c044aed3d376e68dfd52"
+  },
+  {
     "file": "fmt-776_Adobe_Flash_30.swf",
     "puid": "fmt/776",
     "formatName": "Adobe Flash",
@@ -2929,6 +4456,48 @@
     "alsoDetectedAs": [],
     "independentCheck": "SWF header version byte = 30 (FWS); structurally valid (declared length matches, End tag present); not a version-patched copy of any other file in the Ruffle test set",
     "sha256": "d5823f43468cc8503c0f5d3c1d524ddb556cd9e8d3b44705f9c305347dfb8c85"
+  },
+  {
+    "file": "fmt-779_pcap_Packet_Capture.pcap",
+    "puid": "fmt/779",
+    "formatName": "pcap Packet Capture",
+    "formatVersion": "",
+    "sizeBytes": 106,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/pcap.hexpat.pcap",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: pcap capture file, microsecond ts (little-endian) - version 2.4 (Ethernet, capture length 262144)",
+    "alsoDetectedAs": [],
+    "sha256": "786115ae8fd855f02f95da05fca3972370751de86eeb3a1e312dba33a7f20727"
+  },
+  {
+    "file": "fmt-780_pcap_Next_Generation_Packet_Capture.pcapng",
+    "puid": "fmt/780",
+    "formatName": "pcap Next Generation Packet Capture",
+    "formatVersion": "",
+    "sizeBytes": 380,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/PCAP.pcapng",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: pcapng capture file - version 1.0",
+    "alsoDetectedAs": [],
+    "sha256": "3bd082599351247409f301202f1311981ca760a82f9d08b9118877335f6ec395"
+  },
+  {
+    "file": "fmt-799_WriteNow",
+    "puid": "fmt/799",
+    "formatName": "WriteNow",
+    "formatVersion": "",
+    "sizeBytes": 23755,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/writer/libmwaw/pass/WriteNow_4.0",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: Maple worksheet, but weird",
+    "alsoDetectedAs": [],
+    "sha256": "238136a96f5778e17267810ca5dc5c4329c14257b7d91d57d2e936ec5338a44d"
   },
   {
     "file": "fmt-806_MATLAB_Mat_File_Level_5.mat",
@@ -3007,6 +4576,35 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "fmt-840_ADX_Audio_Format.adx",
+    "puid": "fmt/840",
+    "formatName": "ADX Audio Format",
+    "formatVersion": "",
+    "sizeBytes": 148914,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vn -c:a adpcm_adx -f adx",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "independentCheck": "Made on 2026-11-04 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); file(1) 5.45: CRI ADX ADPCM audio v3, standard ADX, 44100 Hz; ffprobe: codec_name=adpcm_adx|sample_rate=44100|channels=2 format_name=adx",
+    "alsoDetectedAs": [],
+    "sha256": "6d6bc86aad4e6c5622324b82dbfb93a3bc11c563480a433cb6b0f25090d10367"
+  },
+  {
+    "file": "fmt-846_ClarisWorks_Word_Processor_2-3.cwk",
+    "puid": "fmt/846",
+    "formatName": "ClarisWorks Word Processor",
+    "formatVersion": "2-3",
+    "sizeBytes": 7779,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/writer/libmwaw/pass/ClarisWorks_2.0",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [
+      "fmt/737"
+    ],
+    "sha256": "f430087f8b1ebddfebdcf8f2955531e182d178c512c456a9f1259dc46b9f8b63"
+  },
+  {
     "file": "fmt-866_Apple_Safari_Webarchive.webarchive",
     "puid": "fmt/866",
     "formatName": "Apple Safari Webarchive",
@@ -3048,6 +4646,36 @@
     ]
   },
   {
+    "file": "fmt-872_Free_Lossless_Image_Format_FLIF.flif",
+    "puid": "fmt/872",
+    "formatName": "Free Lossless Image Format (FLIF)",
+    "formatVersion": "",
+    "sizeBytes": 674,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/FLIF.flif",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: FLIF image data, 3855x25944, 8-bit/color,, RGB, non-interlaced",
+    "alsoDetectedAs": [],
+    "sha256": "e63ef515ca4ab9a7a8aef512f07a55439e0997c114210d799ccf20f241503e97"
+  },
+  {
+    "file": "fmt-890_AbiWord_Document.abw",
+    "puid": "fmt/890",
+    "formatName": "AbiWord Document",
+    "formatVersion": "",
+    "sizeBytes": 2615,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/writer/libabw/pass/hello.abw",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: XML 1.0 document, ASCII text, with very long lines (803)",
+    "alsoDetectedAs": [
+      "fmt/101"
+    ],
+    "sha256": "ddcde2c8876a316a8e02501202c1316e9e7c52d8728c7d78e43ccd41ade45d50"
+  },
+  {
     "file": "fmt-899_Windows_Portable_Executable_32_bit.exe",
     "puid": "fmt/899",
     "formatName": "Windows Portable Executable",
@@ -3061,6 +4689,20 @@
       "x-fmt/409",
       "x-fmt/411"
     ]
+  },
+  {
+    "file": "fmt-903_Blender_3D_64_bit.blend",
+    "puid": "fmt/903",
+    "formatName": "Blender 3D",
+    "formatVersion": "64 bit",
+    "sizeBytes": 932364,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/blend.hexpat/blend.hexpat.blend",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: Blender3D, saved as 64-bits little endian with version 4.02",
+    "alsoDetectedAs": [],
+    "sha256": "8a8ce3e4c690b4488657843a28abfcddafbc39dfb1fb6735a7b8563942a87f2e"
   },
   {
     "file": "fmt-90_PCX_5.pcx",
@@ -3117,6 +4759,20 @@
     ]
   },
   {
+    "file": "fmt-930_Magick_Image_File_Format.miff",
+    "puid": "fmt/930",
+    "formatName": "Magick Image File Format",
+    "formatVersion": "",
+    "sizeBytes": 3750,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/MIFF.miff",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: MIFF image data",
+    "alsoDetectedAs": [],
+    "sha256": "baf9f0a8d501c7779263b7478c982114b5cd7133b80da25320b46e55b926c539"
+  },
+  {
     "file": "fmt-935_Animated_Portable_Network_Graphics.png",
     "puid": "fmt/935",
     "formatName": "Animated Portable Network Graphics",
@@ -3129,6 +4785,20 @@
     "alsoDetectedAs": [
       "fmt/11"
     ]
+  },
+  {
+    "file": "fmt-944_Ogg_Multimedia_Container.ogg",
+    "puid": "fmt/944",
+    "formatName": "Ogg Multimedia Container",
+    "formatVersion": "",
+    "sizeBytes": 37383,
+    "sourceRepository": "https://github.com/chromium/chromium",
+    "sourceCommit": "0ad3103c0f6084b9a0ef2719c64848ef95c89f97",
+    "originalPath": "media/test/data/bear-opus-11ch-channelmapping2.ogg",
+    "license": "BSD-3-Clause (Chromium repository; media/test/data/README.md documents how the media files were made)",
+    "independentCheck": "file(1) 5.45: Ogg data, Opus audio, version 0.1, unknown channel mapping family 2, 11 channels, 48000 Hz (Input Sample Rate); ffprobe: codec_name=opus|sample_rate=48000|channels=11 format_name=ogg",
+    "alsoDetectedAs": [],
+    "sha256": "289869ae74e98657ed6ef4b385d9ce22fb80c60983e79199f6176ac3822ecc94"
   },
   {
     "file": "fmt-945_Ogg_Theora_Video.ogv",
@@ -3219,6 +4889,19 @@
     "sha256": "be9bc76df30906fd946b87e0bc5ac4377f431d4f01b23024cca3aaaf875003b5"
   },
   {
+    "file": "fmt-952_True_Audio_1.tta",
+    "puid": "fmt/952",
+    "formatName": "True Audio",
+    "formatVersion": "1",
+    "sizeBytes": 386097,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vn -c:a tta -f tta",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "independentCheck": "Made on 2026-11-04 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); file(1) 5.45: True Audio Lossless Audio; ffprobe: codec_name=tta|sample_rate=44100|channels=2 format_name=tta",
+    "alsoDetectedAs": [],
+    "sha256": "7b2308ee8439bb3c06a18bf8eaa5a5309bab4b5930b4adf1e1d59ac847649266"
+  },
+  {
     "file": "fmt-954_Adaptive_Multi-Rate_Wideband_Audio.amr",
     "puid": "fmt/954",
     "formatName": "Adaptive Multi-Rate Wideband Audio",
@@ -3230,6 +4913,36 @@
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": [],
     "extensionException": "Extension exception: the file starts with the AMR-WB magic '#!AMR-WB'; PRONOM lists no .amr extension for fmt/954."
+  },
+  {
+    "file": "fmt-95_Acrobat_PDF_A_-_Portable_Document_Format_1a.pdf",
+    "puid": "fmt/95",
+    "formatName": "Acrobat PDF/A - Portable Document Format",
+    "formatVersion": "1a",
+    "sizeBytes": 248559,
+    "sourceRepository": "https://github.com/harvard-lts/fits",
+    "sourceCommit": "8613bf6be83b7a4082cb7551702b241d63a20ba8",
+    "originalPath": "testfiles/input/PDFA_Document with tables.pdf",
+    "license": "LGPL-3.0 (FITS repository)",
+    "independentCheck": "file(1) 5.45: PDF document, version 1.4, 3 page(s)",
+    "alsoDetectedAs": [
+      "fmt/18"
+    ],
+    "sha256": "f043d6529a5ebe855710a289d85e5d5a3350a7c4aa1d3e0b5c17a848ad69a149"
+  },
+  {
+    "file": "fmt-960_DOS_Sound_and_Music_Interface_Advanced_Module_Format.amf",
+    "puid": "fmt/960",
+    "formatName": "DOS Sound and Music Interface Advanced Module Format",
+    "formatVersion": "",
+    "sizeBytes": 17892,
+    "sourceRepository": "https://github.com/libxmp/libxmp",
+    "sourceCommit": "06efa94d463d6202e9d553ab45aa797ad6b7a0a3",
+    "originalPath": "../../trees/libxmp/test-dev/data/m/reborning.amf",
+    "license": "MIT (libxmp repository); the module itself has no licence statement in the repository",
+    "independentCheck": "file(1) 5.45: AMF Module Title: \"reborning\"; ffprobe: codec_name=pcm_f32le|sample_rate=48000|channels=2 format_name=libopenmpt",
+    "alsoDetectedAs": [],
+    "sha256": "f23526d08dde689c94d304ca1a097cfeb69ec91c8cd3a8c447a6268695c0f3ec"
   },
   {
     "file": "fmt-96_Hypertext_Markup_Language.html",
@@ -3258,6 +4971,48 @@
     "extensionException": "Extension exception: the file starts with the AppleSingle magic 00 05 16 00 and version 2; the original is named .pdf, so the sample was renamed to .as (originalPath keeps the original name)."
   },
   {
+    "file": "fmt-970_Khronos_Texture_File.ktx",
+    "puid": "fmt/970",
+    "formatName": "Khronos Texture File",
+    "formatVersion": "",
+    "sizeBytes": 16480,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/ktx.hexpat/rgb-mipmap-reference.ktx",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: Khronos KTX texture (little-endian), 64 x 64, RGB",
+    "alsoDetectedAs": [],
+    "sha256": "144a9af1beb84939c74424062ee1ce53fcd64e6c36b32e71ffa79e2722dd84dd"
+  },
+  {
+    "file": "fmt-972_Dolby_MLP_Lossless_Audio.mlp",
+    "puid": "fmt/972",
+    "formatName": "Dolby MLP Lossless Audio",
+    "formatVersion": "",
+    "sizeBytes": 448556,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vn -c:a mlp -strict -2 -f mlp",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "independentCheck": "Made on 2026-11-04 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); file(1) 5.45: data; ffprobe: codec_name=mlp|sample_rate=44100|channels=2 format_name=mlp",
+    "alsoDetectedAs": [],
+    "sha256": "9ade0b1e576e433fcf6da9487b106056e7a08230651359c65d2ae67dcb9edd74"
+  },
+  {
+    "file": "fmt-973_DTS_Coherent_Acoustics_DCA_Audio.bin",
+    "puid": "fmt/973",
+    "formatName": "DTS Coherent Acoustics (DCA) Audio",
+    "formatVersion": "",
+    "sizeBytes": 1024,
+    "sourceRepository": "https://github.com/chromium/chromium",
+    "sourceCommit": "0ad3103c0f6084b9a0ef2719c64848ef95c89f97",
+    "originalPath": "media/test/data/dts.bin",
+    "license": "BSD-3-Clause (Chromium repository; media/test/data/README.md documents how the media files were made)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "3b15b72778cbe7a979e79fece6de76c802191bf5ad45d61c57ba92f838ad4f95",
+    "extensionException": "Extension exception: PRONOM lists dts; this sample is named .bin"
+  },
+  {
     "file": "fmt-984_Binary_Property_List.bplist",
     "puid": "fmt/984",
     "formatName": "Binary Property List",
@@ -3269,6 +5024,36 @@
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": [],
     "extensionException": "Extension exception: the file starts with the binary property list magic 'bplist00'; PRONOM lists no .bplist extension for fmt/984. The 24 KB sample was chosen over the 646 KB one."
+  },
+  {
+    "file": "fmt-99_Hypertext_Markup_Language_4.0.html",
+    "puid": "fmt/99",
+    "formatName": "Hypertext Markup Language",
+    "formatVersion": "4.0",
+    "sizeBytes": 312,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "sw/qa/extras/htmlimport/data/tdf122789.html",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: HTML document, ASCII text",
+    "alsoDetectedAs": [
+      "fmt/96"
+    ],
+    "sha256": "bb92d905e4c5814d71480c8bc54c7f361ac7e6ebf32fd67902dd4f8f4ffd88f8"
+  },
+  {
+    "file": "x-fmt-106_Microsoft_Symbolic_Link_SYLK_File.slk",
+    "puid": "x-fmt/106",
+    "formatName": "Microsoft Symbolic Link (SYLK) File",
+    "formatVersion": "",
+    "sizeBytes": 2581,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "sc/qa/unit/data/slk/pass/ooo80484-1.slk",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: spreadsheet interchange document, created by Excel",
+    "alsoDetectedAs": [],
+    "sha256": "bcfaae8f2ce55e393c100dcd95c37301129b9121af0429586de75b3ec99df420"
   },
   {
     "file": "x-fmt-108_STL_Standard_Tessellation_Language_ASCII.stl",
@@ -3361,6 +5146,19 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "x-fmt-136_Audio_Interchange_File_Format_compressed.aifc",
+    "puid": "x-fmt/136",
+    "formatName": "Audio Interchange File Format (compressed)",
+    "formatVersion": "",
+    "sizeBytes": 24072,
+    "sourceRepository": "made with ffmpeg",
+    "originalPath": "ffmpeg -t 3 -i <clip> -vn -c:a pcm_alaw -ar 8000 -ac 1 -f aiff",
+    "license": "CC BY 3.0 (clip: Big Buck Bunny, (c) Blender Foundation, www.bigbuckbunny.org; re-encoded with ffmpeg)",
+    "independentCheck": "Made on 2026-11-04 with ffmpeg 6.1.1-3ubuntu5 from sample-10s-360p.mp4 (sha256 0f0e75ac1549df331b170b5407afa8d3466c4144bae09ce00aa5b14ea44254f3); file(1) 5.45: IFF data, AIFF-C compressed audio; ffprobe: codec_name=pcm_alaw|sample_rate=8000|channels=1 format_name=aiff",
+    "alsoDetectedAs": [],
+    "sha256": "90bd07a09a0df72a4ab6af38bf065996667b79d9943990db5a32e7959d6ac4eb"
+  },
+  {
     "file": "x-fmt-139_NeXT_Sun_sound.au",
     "puid": "x-fmt/139",
     "formatName": "NeXT/Sun sound",
@@ -3422,6 +5220,20 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "x-fmt-157_Interchange_File.iff",
+    "puid": "x-fmt/157",
+    "formatName": "Interchange File",
+    "formatVersion": "",
+    "sizeBytes": 1064,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/writer/libmwaw/pass/WordMaker",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: IFF data",
+    "alsoDetectedAs": [],
+    "sha256": "e17bf19f1961736a3811b7c979b3121caf9d3ee1dc2d4c9ad4f22092e946c35b"
+  },
+  {
     "file": "x-fmt-162_Adobe_FrameMaker_Interchange_Format.mif",
     "puid": "x-fmt/162",
     "formatName": "Adobe FrameMaker Interchange Format",
@@ -3446,6 +5258,20 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "x-fmt-183_RealAudio_Metafile.ram",
+    "puid": "x-fmt/183",
+    "formatName": "RealAudio Metafile",
+    "formatVersion": "",
+    "sizeBytes": 69,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/Real.ram",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: ASCII text, with no line terminators",
+    "alsoDetectedAs": [],
+    "sha256": "0eed209725ca708592b19449e1af0fb2152e10c186445be02fa3d07093708652"
+  },
+  {
     "file": "x-fmt-184_Sun_Raster_Image.ras",
     "puid": "x-fmt/184",
     "formatName": "Sun Raster Image",
@@ -3458,6 +5284,20 @@
     "alsoDetectedAs": [
       "x-fmt/224"
     ]
+  },
+  {
+    "file": "x-fmt-187_Painter_RIFF_Image_File.rif",
+    "puid": "x-fmt/187",
+    "formatName": "Painter RIFF Image File",
+    "formatVersion": "",
+    "sizeBytes": 1944,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/draw/libmwaw/pass/CorelPainter_3_win.rif",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: Atari DEGAS Elite bitmap 640 x 400 x 2, color palette 0000 000c 0020 0002 0007 ...",
+    "alsoDetectedAs": [],
+    "sha256": "86c9e19e9b3c5b7cb3197db54d5ff35970ca5c12e3e5d23e83c77a94149422e4"
   },
   {
     "file": "x-fmt-190_RealMedia.rm",
@@ -3486,6 +5326,34 @@
     ]
   },
   {
+    "file": "x-fmt-19_3D_Studio.3ds",
+    "puid": "x-fmt/19",
+    "formatName": "3D Studio",
+    "formatVersion": "",
+    "sizeBytes": 32485,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/3ds.hexpat.3ds",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: 3D Studio model",
+    "alsoDetectedAs": [],
+    "sha256": "ab446bf967fe0393d989796b9346b385ed9ef182c342ac7c5651d9e807794340"
+  },
+  {
+    "file": "x-fmt-1_Microsoft_Word_for_Macintosh_Document_3.0.mcw",
+    "puid": "x-fmt/1",
+    "formatName": "Microsoft Word for Macintosh Document",
+    "formatVersion": "3.0",
+    "sizeBytes": 1024,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/writer/libmwaw/pass/MicrosoftWord_3.0",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: Microsoft Word for Macintosh 3.0",
+    "alsoDetectedAs": [],
+    "sha256": "6b03a76c532db57f8d15591119b1969f3c86df18b8118c50f72dee0d2c662afc"
+  },
+  {
     "file": "x-fmt-207_X-Windows_Bitmap_Image_X11.xbm",
     "puid": "x-fmt/207",
     "formatName": "X-Windows Bitmap Image",
@@ -3498,6 +5366,20 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "x-fmt-208_X-Windows_Pixmap_Image_X10.xpm",
+    "puid": "x-fmt/208",
+    "formatName": "X-Windows Pixmap Image",
+    "formatVersion": "X10",
+    "sizeBytes": 225,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "vcl/qa/cppunit/data/TypeDetectionExample.xpm",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: X pixmap image text, 10 x 10 x 2, 1 chars/pixel; ImageMagick identify: XPM 10x10 10x10+0+0 8-bit sRGB 2c 225B 0.000u 0:00.000",
+    "alsoDetectedAs": [],
+    "sha256": "6cb54c18213a742a693f1d35cea46063f44ef48c3c20a0b9bcf2f7dc6bae2b00"
+  },
+  {
     "file": "x-fmt-214_Microsoft_Paint_1.msp",
     "puid": "x-fmt/214",
     "formatName": "Microsoft Paint",
@@ -3508,6 +5390,22 @@
     "originalPath": "Tests/images/hopper.msp",
     "license": "MIT-CMU License, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-222_CD_Audio.cda",
+    "puid": "x-fmt/222",
+    "formatName": "CD Audio",
+    "formatVersion": "",
+    "sizeBytes": 44,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/cda.hexpat.cda",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: RIFF (little-endian) data",
+    "alsoDetectedAs": [
+      "fmt/1886"
+    ],
+    "sha256": "07bff553a64af347ace93ed4f0aab006b6945dd88d40b31f30446291aeaf657e"
   },
   {
     "file": "x-fmt-224_Cascading_Style_Sheet.css",
@@ -3550,6 +5448,20 @@
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/resources/test-documents/testMID.mid",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-235_ESRI_Arc_View_ShapeFile.shp",
+    "puid": "x-fmt/235",
+    "formatName": "ESRI Arc/View ShapeFile",
+    "formatVersion": "",
+    "sizeBytes": 300,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/shp.hexpat.shp",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: ESRI Shapefile version 1000 length 150 type Polygon",
+    "alsoDetectedAs": [],
+    "sha256": "2a931232d1d865b5537d52da924ca833a9074127b774086ebc355acbe1617e8e"
   },
   {
     "file": "x-fmt-249_Microsoft_Outlook_Personal_Folders_Unicode_2003-2007.pst",
@@ -3680,6 +5592,20 @@
     "sha256": "a960170caea20ab0d98687412d05ae9c09a51475e8d2117b30b74eb963bc1c94"
   },
   {
+    "file": "x-fmt-314_Digital_Terrain_Elevation_Data.dt0",
+    "puid": "x-fmt/314",
+    "formatName": "Digital Terrain Elevation Data",
+    "formatVersion": "",
+    "sizeBytes": 34162,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/dted.hexpat.dt0",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "023c29e253562845399246493b32c9f8be6fa6b70c687d8980052a3844799250"
+  },
+  {
     "file": "x-fmt-348_Multipage_Zsoft_Paintbrush_Bitmap_Graphics.dcx",
     "puid": "x-fmt/348",
     "formatName": "Multipage Zsoft Paintbrush Bitmap Graphics",
@@ -3690,6 +5616,36 @@
     "originalPath": "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testDCX.dcx",
     "license": "Apache License 2.0, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-35_Corel_Presentation_Exchange_File_6_and_Later.cmx",
+    "puid": "x-fmt/35",
+    "formatName": "Corel Presentation Exchange File",
+    "formatVersion": "6 and Later",
+    "sizeBytes": 35772,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/draw/libcdr-cmx/pass/fdo63782-1.cmx",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: RIFF (little-endian) data",
+    "alsoDetectedAs": [
+      "fmt/1886"
+    ],
+    "sha256": "14c29eedec0d6e2b2cc2588bdee9997d0875364a2e6b0cde7ee1ee4620493e80"
+  },
+  {
+    "file": "x-fmt-367_Truevision_TGA_Bitmap_1.0.tga",
+    "puid": "x-fmt/367",
+    "formatName": "Truevision TGA Bitmap",
+    "formatVersion": "1.0",
+    "sizeBytes": 123286,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "vcl/qa/cppunit/graphicfilter/data/tga/tdf174105.tga",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: Targa image data - Map (256) 350 x 350 x 8; ImageMagick identify: TGA 350x350 350x350+0+0 8-bit sRGB 256c 123286B 0.000u 0:00.000",
+    "alsoDetectedAs": [],
+    "sha256": "7c48de6076e8e7134dfd82c89c8ee23cc3b7664a0f393554033cabd1f0f252f7"
   },
   {
     "file": "x-fmt-382_Macromedia_FLV_1.flv",
@@ -3873,6 +5829,38 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "x-fmt-395_WordPerfect_Graphics_Metafile_1.0.wpg",
+    "puid": "x-fmt/395",
+    "formatName": "WordPerfect Graphics Metafile",
+    "formatVersion": "1.0",
+    "sizeBytes": 79,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/draw/libwpg/pass/WPG1.wpg",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: WordPerfect graphic image, at 0x10 document area, v1.0",
+    "alsoDetectedAs": [],
+    "sha256": "10dbb1c7b6c81e87c69a971bc39ec5a7773e128812d2fc71d7b620d51d885dc3"
+  },
+  {
+    "file": "x-fmt-396_Exchangeable_Image_File_Format_Audio_2.2.wav",
+    "puid": "x-fmt/396",
+    "formatName": "Exchangeable Image File Format (Audio)",
+    "formatVersion": "2.2",
+    "sizeBytes": 224,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/RIFF.wav",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: RIFF (little-endian) data, WAVE audio, Microsoft PCM, 8 bit, mono 7872 Hz; ffprobe: codec_name=pcm_u8|sample_rate=7872|channels=1 format_name=wav",
+    "alsoDetectedAs": [
+      "fmt/141",
+      "fmt/6",
+      "fmt/1886"
+    ],
+    "sha256": "9cb1dcc30bd66f13642d39bea9b29d2c763480b1600bcc3a5b6c73cb3de61b8c"
+  },
+  {
     "file": "x-fmt-398_Exchangeable_Image_File_Format_Compressed_2.0.jpg",
     "puid": "x-fmt/398",
     "formatName": "Exchangeable Image File Format (Compressed)",
@@ -3901,6 +5889,22 @@
     "license": "MIT-CMU License, unless otherwise stated in the repository",
     "alsoDetectedAs": [],
     "extensionException": "Extension exception: the file starts with '%!PS-Adobe-2.0' without an EPSF marker, i.e. plain PostScript 2.0; the original is named .eps, so the sample was renamed to .ps (originalPath keeps the original name)."
+  },
+  {
+    "file": "x-fmt-410_Windows_New_Executable.exe",
+    "puid": "x-fmt/410",
+    "formatName": "Windows New Executable",
+    "formatVersion": "",
+    "sizeBytes": 54720,
+    "sourceRepository": "https://github.com/WerWolv/ImHex-Patterns",
+    "sourceCommit": "e07e98adc810f0c052035ee1fdabae7ec65110e2",
+    "originalPath": "tests/patterns/test_data/ne.hexpat.exe",
+    "license": "GPL-2.0 (ImHex-Patterns repository)",
+    "independentCheck": "file(1) 5.45: MS-DOS executable, NE for MS Windows 3.x (3.10) (EXE)",
+    "alsoDetectedAs": [
+      "x-fmt/409"
+    ],
+    "sha256": "d4f1494effb412e0da955837764c80a5d3d84a98ceff120d2089ea01f1e65c59"
   },
   {
     "file": "x-fmt-412_Java_Archive_Format.jar",
@@ -3941,6 +5945,20 @@
     "alsoDetectedAs": []
   },
   {
+    "file": "x-fmt-416_BinHex_Binary_Text.hqx",
+    "puid": "x-fmt/416",
+    "formatName": "BinHex Binary Text",
+    "formatVersion": "",
+    "sizeBytes": 546,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/draw/libmwaw/pass/MacDraw_0.hqx",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: BinHex binary text, version 4.0, ASCII text",
+    "alsoDetectedAs": [],
+    "sha256": "03d8cd8aec8404132c19373c63ff73951a6f086652b8d38d86d2c16a8b0edb6e"
+  },
+  {
     "file": "x-fmt-418_Icon_file_format.ico",
     "puid": "x-fmt/418",
     "formatName": "Icon file format",
@@ -3951,6 +5969,20 @@
     "originalPath": "Tests/images/black_and_white.ico",
     "license": "MIT-CMU License, unless otherwise stated in the repository",
     "alsoDetectedAs": []
+  },
+  {
+    "file": "x-fmt-41_Data_Interchange_Format.dif",
+    "puid": "x-fmt/41",
+    "formatName": "Data Interchange Format",
+    "formatVersion": "",
+    "sizeBytes": 377,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "sc/qa/unit/data/dif/tdf150599.dif",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: Data Interchange Format, generator or table name \"EXCEL\"",
+    "alsoDetectedAs": [],
+    "sha256": "de21cb6186d2932dafb5ca0f128809e0219207123a4075e72b09a8308a156a99"
   },
   {
     "file": "x-fmt-423_JavaScript_file.js",
@@ -3986,6 +6018,20 @@
     "variantReason": "JavaScript: minified library, starts with a licence banner comment and an immediately invoked function; contains the text <!doctype html> inside a string, so the HTML5 signature (fmt/471) matches first",
     "independentCheck": "acorn parses it without error as a script",
     "sha256": "88171413fc76dda23ab32baa17b11e4fff89141c633ece737852445f1ba6c1bd"
+  },
+  {
+    "file": "x-fmt-428_Microsoft_Windows_Shortcut.lnk",
+    "puid": "x-fmt/428",
+    "formatName": "Microsoft Windows Shortcut",
+    "formatVersion": "",
+    "sizeBytes": 876,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/LNK.lnk",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: MS Windows shortcut, Item id list present, Points to a file or directory, Has Description string, Has Relative path, Has",
+    "alsoDetectedAs": [],
+    "sha256": "444ac431ace1de43b8969a31c7684346640e0a8de6ba99baf6497e60f5ec97f5"
   },
   {
     "file": "x-fmt-429_MHTML.mht",
@@ -4026,6 +6072,20 @@
     ]
   },
   {
+    "file": "x-fmt-454_Microsoft_Internet_Shortcut.url",
+    "puid": "x-fmt/454",
+    "formatName": "Microsoft Internet Shortcut",
+    "formatVersion": "",
+    "sizeBytes": 422,
+    "sourceRepository": "https://github.com/exiftool/exiftool",
+    "sourceCommit": "980409314fddbd83d9092b5c160fafab7f67fd52",
+    "originalPath": "t/images/LNK.url",
+    "license": "GPL-1.0-or-later or Artistic License (ExifTool, same terms as Perl)",
+    "independentCheck": "file(1) 5.45: MS Windows 95 Internet shortcut text (URL=<https://www.example.com>), ASCII text, with CRLF line terminators",
+    "alsoDetectedAs": [],
+    "sha256": "51cdf49e2a5e7e270a6ef94622f843b29e52714f995eca06481aaa5d6411e864"
+  },
+  {
     "file": "x-fmt-455_AutoCAD_Drawing_2007-2008.dwg",
     "puid": "x-fmt/455",
     "formatName": "AutoCAD Drawing",
@@ -4050,6 +6110,63 @@
     "alsoDetectedAs": [
       "x-fmt/224"
     ]
+  },
+  {
+    "file": "x-fmt-4_Write_for_Windows_Document_3.1.wri",
+    "puid": "x-fmt/4",
+    "formatName": "Write for Windows Document",
+    "formatVersion": "3.1",
+    "sizeBytes": 176896,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/writer/libwps/pass/Write_3.1.wri",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "d13257b4df644eda291c1e3e7395ceeaf1706ad217106e8ccede595c9beb4364"
+  },
+  {
+    "file": "x-fmt-64_Microsoft_Word_for_Macintosh_Document_4.0.doc",
+    "puid": "x-fmt/64",
+    "formatName": "Microsoft Word for Macintosh Document",
+    "formatVersion": "4.0",
+    "sizeBytes": 2047,
+    "sourceRepository": "https://github.com/harvard-lts/fits",
+    "sourceCommit": "8613bf6be83b7a4082cb7551702b241d63a20ba8",
+    "originalPath": "testfiles/input/MacMSWORD_4-5.doc",
+    "license": "LGPL-3.0 (FITS repository)",
+    "independentCheck": "file(1) 5.45: Microsoft Word for Macintosh 4.0",
+    "alsoDetectedAs": [],
+    "sha256": "3108511cadaaa03f0fd15b1c89f95ae76e667b39fcd7cfc6dba92fe380308644",
+    "extensionException": "Extension exception: PRONOM lists mcw; this sample is named .doc"
+  },
+  {
+    "file": "x-fmt-65_Microsoft_Word_for_Macintosh_Document_5.0.mcw",
+    "puid": "x-fmt/65",
+    "formatName": "Microsoft Word for Macintosh Document",
+    "formatVersion": "5.0",
+    "sizeBytes": 40960,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "writerperfect/qa/unit/data/writer/libmwaw/pass/MicrosoftWord_5.0",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: Microsoft Word for Macintosh 5.0",
+    "alsoDetectedAs": [],
+    "sha256": "ae446782666bb102ce4d941b78d52fdd2c7be4d8aad03ee419476d340c337280"
+  },
+  {
+    "file": "x-fmt-67_OS_2_Presentation_Manager_Metafile_MET.met",
+    "puid": "x-fmt/67",
+    "formatName": "OS/2 Presentation Manager Metafile (MET)",
+    "formatVersion": "",
+    "sizeBytes": 629,
+    "sourceRepository": "https://github.com/LibreOffice/core",
+    "sourceCommit": "3715b766edfe0b6cfde395007362ab56c02a67d8",
+    "originalPath": "vcl/qa/cppunit/graphicfilter/data/met/pass/sample.met",
+    "license": "MPL-2.0 (LibreOffice core repository; test document, per-file origin not documented)",
+    "independentCheck": "file(1) 5.45: data",
+    "alsoDetectedAs": [],
+    "sha256": "c71879b68bad4aa80760a0bc08f5e25cbe4e28b688a81320a4882d7a2a8343e1"
   },
   {
     "file": "x-fmt-9_dBASE_Database_III.dbf",
