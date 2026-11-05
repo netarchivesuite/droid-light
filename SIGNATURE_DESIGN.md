@@ -188,7 +188,7 @@ What was learned while designing them:
   text as a `RightFragment` with a gap of 131,072 (JPEG) or 8,388,608 (HEIF) bytes found the
   same files, but made every large file scan megabytes for `ftyp`: about 8 ms more per file
   for 3 to 8 MB files. The final form has the magic number alone in the first SubSequence
-  (the usual 3,000-byte window) and the XMP text in a chained second SubSequence, which is
+  (a short search, whatever the shared window is) and the XMP text in a chained second SubSequence, which is
   searched only when the first one matched.
 * **The text to look for is `Semantic="MotionPhoto"`, not the `MotionPhoto="1"` flag.** The
   flag is in the XMP of files that have no video (the Motion Photo format says the flag is not

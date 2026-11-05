@@ -658,6 +658,17 @@ public class DroidSignatureVerifier {
     static final class InternalSignatureDef {
         final int id;
         final List<ByteSequenceDef> byteSequences = new ArrayList<>();
+        /**
+         * The same byte sequences, cheapest first - see computeSequenceCost(); set once after parsing. A signature
+         * matches only when ALL its byte sequences match, so the order in which they are tried does not change the
+         * result, only how soon a file that does not match is rejected.
+         */
+        ByteSequenceDef[] byteSequencesCheapestFirst;
+        /**
+         * See computeFirstByteGate(); set once after parsing. The value byte 0 of a file must have for this signature
+         * to be able to match at all, or -1 when the signature has no such requirement.
+         */
+        int firstByteGate = -1;
         InternalSignatureDef(int id) { this.id = id; }
     }
 
@@ -881,8 +892,16 @@ public class DroidSignatureVerifier {
      * e.g. variable-position XMP markers) are held to this cap alone - those are
      * what would make a blanket increase of the cap several times slower on
      * large files.
+     *
+     * <p>Why 150,000: in a test of 46,355 real files, 272 are detected better (a more specific or
+     * an additional format) with a large window than with 3,000 bytes, and the largest distance
+     * any of them needs is 145,408 bytes. The window is cheap now: a sequence with no limit is only searched after the
+     * cheaper byte sequences of its signature matched (see computeSequenceCost()), and most
+     * signatures are not tried at all on a file whose first byte rules them out (see
+     * computeFirstByteGate()). Measured on 478 sample files, the time per file was the same at
+     * 3,000, 35,000, 150,000 and 2,000,000.
      */
-    static int MAX_ANCHOR_SEARCH_DISTANCE = 35000;
+    static int MAX_ANCHOR_SEARCH_DISTANCE = 150000;
 
     /**
      * Gates the per-file diagnostic console output in detect(File)/
@@ -925,6 +944,54 @@ public class DroidSignatureVerifier {
      *  see the parameterized overload below for why an explicit-parameter
      *  version also exists (thread-safe targeted re-scanning at a different
      *  distance, without touching shared mutable state at all). */
+    /**
+     * PERFORMANCE: the BMH skip loop of the forward anchor search on a plain array. Returns the first position p, from
+     * `from` up to and including `last`, where the last element of the anchor matches array[p] (that position is the
+     * anchor's last byte, so the anchor would start lastPos before it), or -1 if there is none. Positions are moved
+     * forward by the shift of the byte found, exactly as the generic loop in matchFixedSubSequence() does; the caller
+     * guarantees that last is a valid index of the array. A literal last element - nearly all anchors - is compared
+     * inline instead of through PatternElement.matchesByteValue().
+     */
+    private static int skipForward(byte[] array, int from, int last, PatternElement lastElement, int[] shifts) {
+        int p = from;
+        if (lastElement.kind == Kind.LITERAL) {
+            int literal = lastElement.a;
+            while (p <= last) {
+                int b = array[p] & 0xFF;
+                if (b == literal) return p;
+                p += shifts[b];
+            }
+            return -1;
+        }
+        while (p <= last) {
+            int b = array[p] & 0xFF;
+            if (lastElement.matchesByteValue(b)) return p;
+            p += shifts[b];
+        }
+        return -1;
+    }
+
+    /** Backward counterpart of skipForward(): the first position p, from `from` down to and including `first`, where
+     *  the first element of the anchor matches array[p], or -1. */
+    private static int skipBackward(byte[] array, int from, int first, PatternElement firstElement, int[] shifts) {
+        int p = from;
+        if (firstElement.kind == Kind.LITERAL) {
+            int literal = firstElement.a;
+            while (p >= first) {
+                int b = array[p] & 0xFF;
+                if (b == literal) return p;
+                p -= shifts[b];
+            }
+            return -1;
+        }
+        while (p >= first) {
+            int b = array[p] & 0xFF;
+            if (firstElement.matchesByteValue(b)) return p;
+            p -= shifts[b];
+        }
+        return -1;
+    }
+
     static long matchFixedSubSequence(FileRegion region, SubSequenceDef sub, long referencePosition, boolean searchBackward) {
         return matchFixedSubSequence(region, sub, referencePosition, searchBackward, MAX_ANCHOR_SEARCH_DISTANCE);
     }
@@ -952,7 +1019,9 @@ public class DroidSignatureVerifier {
             // EOF-anchored: try anchor candidates starting close to the reference
             // point and moving further back (away from EOF) until the RIGHT fragment
             // chain's end satisfies [referencePosition-maxOffset, referencePosition-minOffset].
-            long candidate = referencePosition - anchorLen; // closest possible to reference point
+            // The anchor is at or before the end of its chain, which must end at least minOffset from the end of the
+            // file, so no candidate closer to the end than that can succeed: start at the closest one that can.
+            long candidate = referencePosition - anchorLen - Math.max(minOffset, 0);
             long floor = Math.max(0, referencePosition - maxAnchorSearchDistance);
             if (sub.anchorScanLimit >= 0) floor = Math.max(floor, referencePosition - sub.anchorScanLimit);
             int[] shifts = sub.anchorBackwardShifts;
@@ -970,6 +1039,33 @@ public class DroidSignatureVerifier {
             // distance rather than falling back to a single step - exactly
             // mirroring byteseek's own real search algorithm (see
             // computeForwardShifts()'s javadoc), which does the same thing.
+            // PERFORMANCE: when the whole file is in the head array (the normal case; only a file too large for
+            // that has a tail window and a gap) the skip loop and the anchor comparison work on the plain array,
+            // without FileRegion.byteAt()'s range checks. The candidates visited are exactly the same as below.
+            if (shifts != null && region.tail == null && region.head.length == region.length) {
+                byte[] array = region.head;
+                PatternElement firstElement = sub.anchor.get(0);
+                while (candidate >= floor) {
+                    int p = skipBackward(array, (int) candidate, (int) floor, firstElement, shifts);
+                    if (p < 0) return -1;
+                    candidate = p;
+                    if (matchesAt(array, p, sub.anchor)) {
+                        long afterAnchor = candidate + anchorLen;
+                        long chainEnd = verifyRightFragmentChain(region, afterAnchor, sub.groupedRightFragments);
+                        if (chainEnd >= 0) {
+                            long distanceFromReference = referencePosition - chainEnd;
+                            if (distanceFromReference >= minOffset && distanceFromReference <= maxOffset) {
+                                long beforeLeft = verifyLeftFragmentChain(region, candidate, sub.groupedLeftFragments);
+                                if (beforeLeft >= 0) {
+                                    return chainEnd;
+                                }
+                            }
+                        }
+                    }
+                    candidate -= shifts[array[p] & 0xFF];
+                }
+                return -1;
+            }
             if (shifts != null) {
                 PatternElement firstElement = sub.anchor.get(0);
                 while (candidate >= floor) {
@@ -1025,13 +1121,44 @@ public class DroidSignatureVerifier {
             // point and moving forward until the LEFT fragment chain's start
             // satisfies [referencePosition+minOffset, referencePosition+maxOffset].
             // (Symmetric to the EOF case above; see real source's forward branch.)
-            long candidate = referencePosition; // closest possible to reference point
+            // The anchor is at or after the start of its chain, which must start at least minOffset from the start of
+            // the file, so no candidate before that can succeed: start at the first one that can.
+            long candidate = referencePosition + Math.max(minOffset, 0);
             long ceiling = Math.min(region.length - anchorLen, referencePosition + maxAnchorSearchDistance);
             if (sub.anchorScanLimit >= 0) ceiling = Math.min(ceiling, referencePosition + sub.anchorScanLimit);
             int[] shifts = sub.anchorForwardShifts;
 
             // PERFORMANCE: BMH-accelerated, symmetric to the backward branch above,
             // checking the anchor's LAST byte and shifting forward.
+            // PERFORMANCE: plain-array fast path, see the backward branch above.
+            if (shifts != null && region.tail == null && region.head.length == region.length) {
+                byte[] array = region.head;
+                int lastPos = sub.anchor.size() - 1;
+                PatternElement lastElement = sub.anchor.get(lastPos);
+                long lastCheck = ceiling + lastPos; // ceiling <= length - anchorLen, so this is a valid index
+                while (candidate <= ceiling) {
+                    int p = skipForward(array, (int) (candidate + lastPos), (int) lastCheck, lastElement, shifts);
+                    if (p < 0) return -1;
+                    candidate = p - lastPos;
+                    if (matchesAt(array, (int) candidate, sub.anchor)) {
+                        long beforeLeft = verifyLeftFragmentChain(region, candidate, sub.groupedLeftFragments);
+                        if (beforeLeft >= 0) {
+                            // see the generic branch below for why the offset is always checked
+                            long distanceFromReference = beforeLeft - referencePosition;
+                            boolean leftOk = distanceFromReference >= minOffset && distanceFromReference <= maxOffset;
+                            if (leftOk) {
+                                long afterAnchor = candidate + anchorLen;
+                                long chainEnd = verifyRightFragmentChain(region, afterAnchor, sub.groupedRightFragments);
+                                if (chainEnd >= 0) {
+                                    return chainEnd;
+                                }
+                            }
+                        }
+                    }
+                    candidate += shifts[array[p] & 0xFF];
+                }
+                return -1;
+            }
             if (shifts != null) {
                 int lastPos = sub.anchor.size() - 1;
                 PatternElement lastElement = sub.anchor.get(lastPos);
@@ -1144,7 +1271,7 @@ public class DroidSignatureVerifier {
      *  full rationale (thread-safe targeted re-scanning without shared
      *  mutable state). */
     static boolean matchSignature(FileRegion region, InternalSignatureDef sig, long maxAnchorSearchDistance) {
-        for (ByteSequenceDef bs : sig.byteSequences) {
+        for (ByteSequenceDef bs : sig.byteSequencesCheapestFirst) {
             if (!matchByteSequence(region, bs, maxAnchorSearchDistance)) return false;
         }
         return true;
@@ -1364,6 +1491,64 @@ public class DroidSignatureVerifier {
         return (long) sub.maxSeqOffset + span;
     }
 
+    /**
+     * An estimate of how many bytes it costs to try a byte sequence on a file, used only to decide the order in which
+     * the byte sequences of one signature are tried. A signature matches only when ALL of its byte sequences match, so
+     * the order does not change the result, only how soon a file that does not match is rejected.
+     *
+     * <p>Only the FIRST sub-sequence counts: it is the one that is always searched, from the start or the end of the
+     * file, for at most its anchorScanLimit bytes (see computeAnchorScanLimit()), or, when it has no limit of its own,
+     * across the shared window (MAX_ANCHOR_SEARCH_DISTANCE, as it is when the signature file is loaded). The chained
+     * sub-sequences are searched only after the first one has been found, which for most files never happens, so they
+     * are deliberately not counted: a JPEG-like sequence whose first sub-sequence is a 3-byte marker at offset 0 is a
+     * cheap test even though its last sub-sequence may be searched to the end of the file.
+     */
+    static long computeSequenceCost(ByteSequenceDef bs) {
+        if (bs.orderedSubSequences.isEmpty()) return 0;
+        SubSequenceDef first = bs.orderedSubSequences.get(0);
+        if (first.anchor == null) return 0; // rejected at once, see matchFixedSubSequence()
+        return (first.anchorScanLimit < 0) ? MAX_ANCHOR_SEARCH_DISTANCE : first.anchorScanLimit;
+    }
+
+    /**
+     * The value that the first byte of a file must have for the signature to match, or -1 if there is no such
+     * requirement. A signature matches only when all its byte sequences match, so one sequence that cannot match is
+     * enough to rule the signature out. A sequence counted from the start of the file whose first sub-sequence has
+     * an anchor scan limit of 0 (see computeAnchorScanLimit()) can only match with its anchor placed at offset 0
+     * exactly - there is no other position that matchFixedSubSequence() tries - so when the first element of that
+     * anchor is a literal byte, byte 0 of the file must be that byte. The same holds for a first sub-sequence with
+     * left fragments and SubSeqMaxOffset 0, see below. Most of the signatures of the PRONOM file have such a
+     * sequence, and detectFromRegion() uses this to skip them for most files without running them (see
+     * signaturesByFirstByte).
+     */
+    static int computeFirstByteGate(InternalSignatureDef sig) {
+        for (ByteSequenceDef bs : sig.byteSequences) {
+            if (bs.reference == Reference.EOF || bs.orderedSubSequences.isEmpty()) continue;
+            SubSequenceDef first = bs.orderedSubSequences.get(0);
+            if (first.anchor == null || first.anchor.isEmpty()) continue;
+            if (first.anchorScanLimit == 0) {
+                PatternElement firstElement = first.anchor.get(0);
+                if (firstElement.kind == Kind.LITERAL) return firstElement.a;
+            } else if (first.maxSeqOffset == 0 && !first.groupedLeftFragments.isEmpty()) {
+                // With left fragments the chain starts at the outermost one (the last group), and SubSeqMaxOffset 0
+                // means that chain has to start at offset 0 of the file, so one of the alternatives of that last
+                // group matches there. When all of them begin with the same literal byte, that is byte 0 of the file
+                // (e.g. the "MZ" that the PE executable signatures put before a "PE" anchor lying anywhere up to
+                // 128,500 bytes further in).
+                List<Fragment> outermost = first.groupedLeftFragments.get(first.groupedLeftFragments.size() - 1);
+                int common = -1;
+                boolean same = true;
+                for (Fragment f : outermost) {
+                    PatternElement e = f.pattern.isEmpty() ? null : f.pattern.get(0);
+                    if (e == null || e.kind != Kind.LITERAL || (common >= 0 && e.a != common)) { same = false; break; }
+                    common = e.a;
+                }
+                if (same && common >= 0) return common;
+            }
+        }
+        return -1;
+    }
+
     static void precomputeOrdering(List<InternalSignatureDef> signatures) {
         for (InternalSignatureDef sig : signatures) {
             for (ByteSequenceDef bs : sig.byteSequences) {
@@ -1385,6 +1570,24 @@ public class DroidSignatureVerifier {
                     for (Fragment f : sub.leftFragments) f.forwardShifts = computeForwardShifts(f.pattern);
                 }
             }
+            // Cheapest byte sequence first (stable: sequences of equal cost keep their order in the file).
+            ByteSequenceDef[] cheapestFirst = sig.byteSequences.toArray(new ByteSequenceDef[0]);
+            long[] cost = new long[cheapestFirst.length];
+            for (int i = 0; i < cheapestFirst.length; i++) cost[i] = computeSequenceCost(cheapestFirst[i]);
+            for (int i = 1; i < cheapestFirst.length; i++) { // insertion sort: stable, and a signature has only a few sequences
+                ByteSequenceDef bs = cheapestFirst[i];
+                long c = cost[i];
+                int j = i - 1;
+                while (j >= 0 && cost[j] > c) {
+                    cheapestFirst[j + 1] = cheapestFirst[j];
+                    cost[j + 1] = cost[j];
+                    j--;
+                }
+                cheapestFirst[j + 1] = bs;
+                cost[j + 1] = c;
+            }
+            sig.byteSequencesCheapestFirst = cheapestFirst;
+            sig.firstByteGate = computeFirstByteGate(sig);
         }
     }
 
@@ -1540,6 +1743,15 @@ public class DroidSignatureVerifier {
     // ------------------------------------------------------------------
 
     private final List<InternalSignatureDef> signatures;
+
+    /**
+     * PERFORMANCE: the signatures that can match a file whose first byte is b, for each b (index 0-255), in the same
+     * order as the signature file; index 256 holds the signatures without a first-byte requirement only, for a
+     * region with no bytes at all. A signature that requires a fixed value of byte 0 (see computeFirstByteGate()) is
+     * only listed under that value, so a file is tried against about a third of the signatures instead of all of
+     * them. The result is the same as trying every signature, since the left out ones cannot match.
+     */
+    private final InternalSignatureDef[][] signaturesByFirstByte;
     private final List<FileFormatDef> formats;
 
     /**
@@ -1626,7 +1838,21 @@ public class DroidSignatureVerifier {
         System.out.printf("  Parsed %,d signatures and %,d file formats in %.1f ms%n",
                 signatures.size(), formats.size(), (t1 - t0) / 1e6);
 
+        this.signaturesByFirstByte = buildFirstByteIndex(signatures);
+
         precomputeCommonMimeTypeSignatures();
+    }
+
+    private static InternalSignatureDef[][] buildFirstByteIndex(List<InternalSignatureDef> signatures) {
+        InternalSignatureDef[][] index = new InternalSignatureDef[257][];
+        for (int b = 0; b <= 256; b++) {
+            List<InternalSignatureDef> list = new ArrayList<>();
+            for (InternalSignatureDef sig : signatures) {
+                if (sig.firstByteGate < 0 || sig.firstByteGate == b) list.add(sig);
+            }
+            index[b] = list.toArray(new InternalSignatureDef[0]);
+        }
+        return index;
     }
 
     /**
@@ -1973,7 +2199,8 @@ public class DroidSignatureVerifier {
 
         long t2 = System.nanoTime();
         List<Integer> matchedSignatureIds = new ArrayList<>();
-        for (InternalSignatureDef sig : signatures) {
+        int firstByte = region.head.length > 0 ? region.head[0] & 0xFF : 256;
+        for (InternalSignatureDef sig : signaturesByFirstByte[firstByte]) {
             if (matchSignature(region, sig)) {
                 matchedSignatureIds.add(sig.id);
             }

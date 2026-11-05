@@ -29,9 +29,9 @@ import org.junit.jupiter.api.io.TempDir;
  * end of the file: 65,536 bytes for the JFIF formats (fmt/43), and 131,072 bytes for
  * Exif 2.3.x (fmt/1507). Both limits are counted from the file's <i>own last</i>
  * <code>FF D9</code>: everything after it in the base sample is cut off and the given number
- * of zero bytes is put in its place. The counts are 0, 2,999 and 3,001 (just below and just
- * above the default anchor distance of 3,000 bytes, so a signature with a larger reach must
- * be found by its own reach), exactly the limit, and one byte beyond the limit. Up to and
+ * of zero bytes is put in its place. The counts are 0, 2,999 and 3,001 (around the old shared anchor
+ * distance of 3,000 bytes, which a signature with a larger reach had to override by its own reach;
+ * the shared distance is now larger than every limit tested), exactly the limit, and one byte beyond the limit. Up to and
  * including the limit the file must be detected as the base sample's format; one byte beyond
  * it nothing must match, so the result is empty. This is checked for both
  * {@link DroidSignatureVerifier#detect(File)} and
