@@ -597,11 +597,42 @@ public class DroidSignatureVerifier {
         // to the naive scan for this pattern only.
         int[] forwardShifts;
 
+        /** Length of the pattern in bytes, so the chain verification does not add it up again for every try. */
+        final int patternLength;
+        /**
+         * PERFORMANCE: true when the fragment can lie at exactly one distance (MinOffset equals MaxOffset), which is
+         * the usual case for a keyword that has to follow an anchor immediately, such as the 43 keywords after the
+         * "@" of the BibTeX signature. Such a fragment is tested at that one position instead of being searched for
+         * in a window - see verifyRightFragmentChain().
+         */
+        final boolean fixedGap;
+        /** The value of the first byte of the pattern when that is a literal byte, else -1; a quick test that rules
+         *  out most positions without looking at the rest of the pattern. */
+        final int firstLiteral;
+
         Fragment(int position, int minOffset, int maxOffset, List<PatternElement> pattern) {
             this.position = position;
             this.minOffset = minOffset;
             this.maxOffset = maxOffset;
             this.pattern = pattern;
+            this.patternLength = DroidSignatureVerifier.patternLength(pattern);
+            this.fixedGap = minOffset == maxOffset && !pattern.isEmpty();
+            this.firstLiteral = (!pattern.isEmpty() && pattern.get(0).kind == Kind.LITERAL) ? pattern.get(0).a : -1;
+        }
+
+        /**
+         * PERFORMANCE: set by precomputeOrdering() on every fragment of a Position group whose alternatives all sit at
+         * the same single distance and all begin with a literal byte (the 43 BibTeX keywords after "@"): which byte
+         * values some alternative begins with. One look-up then rules out the whole group for most positions, instead
+         * of trying the alternatives one by one. Null when the group does not have that shape.
+         */
+        boolean[] groupFirstBytes;
+
+        /** Whether the pattern of a fixed-gap fragment matches in `array` starting at `start` (the whole file). */
+        boolean matchesAtInArray(byte[] array, long start) {
+            if (start < 0 || start >= array.length) return false;
+            if (firstLiteral >= 0 && (array[(int) start] & 0xFF) != firstLiteral) return false;
+            return matchesAt(array, (int) start, pattern);
         }
     }
 
@@ -778,6 +809,20 @@ public class DroidSignatureVerifier {
     /** Groups fragments by Position (ascending), preserving each group's members in
      *  their original (file) order - used so same-Position fragments can be tried
      *  as alternatives rather than sequential steps. */
+    /** See Fragment.groupFirstBytes: sets it on the fragments of every group of the given grouping that qualifies (used for the right fragments). */
+    static void computeGroupFirstBytes(List<List<Fragment>> groups) {
+        for (List<Fragment> group : groups) {
+            boolean ok = !group.isEmpty();
+            for (Fragment f : group) {
+                if (!f.fixedGap || f.firstLiteral < 0 || f.minOffset != group.get(0).minOffset) { ok = false; break; }
+            }
+            if (!ok) continue;
+            boolean[] firstBytes = new boolean[256];
+            for (Fragment f : group) firstBytes[f.firstLiteral] = true;
+            for (Fragment f : group) f.groupFirstBytes = firstBytes;
+        }
+    }
+
     static List<List<Fragment>> groupByPosition(List<Fragment> fragments) {
         TreeMap<Integer, List<Fragment>> grouped = new TreeMap<>();
         for (Fragment f : fragments) {
@@ -797,16 +842,32 @@ public class DroidSignatureVerifier {
      *  see the PERFORMANCE note on precomputeOrdering() for why. */
     static long verifyRightFragmentChain(FileRegion region, long afterAnchor, List<List<Fragment>> groupedRightFragments) {
         long cursor = afterAnchor;
+        // PERFORMANCE: with the whole file in the head array, a fragment that can lie at one distance only is tested
+        // right there instead of being searched for (same result as findFirstForward() over a window of one position).
+        byte[] whole = (region.tail == null && region.head.length == region.length) ? region.head : null;
         for (List<Fragment> alternatives : groupedRightFragments) {
             long bestFound = -1;
             int bestPatternLen = -1;
+            if (whole != null) {
+                boolean[] firstBytes = alternatives.get(0).groupFirstBytes;
+                if (firstBytes != null) {
+                    long at = cursor + alternatives.get(0).minOffset;
+                    if (at < 0 || at >= whole.length || !firstBytes[whole[(int) at] & 0xFF]) return -1;
+                }
+            }
             for (Fragment f : alternatives) {
-                long from = cursor + f.minOffset;
-                long to = cursor + f.maxOffset;
-                long found = findFirstForward(region, from, to, f.pattern, f.forwardShifts);
+                long found;
+                if (whole != null && f.fixedGap) {
+                    long at = cursor + f.minOffset;
+                    found = f.matchesAtInArray(whole, at) ? at : -1;
+                } else {
+                    long from = cursor + f.minOffset;
+                    long to = cursor + f.maxOffset;
+                    found = findFirstForward(region, from, to, f.pattern, f.forwardShifts);
+                }
                 if (found >= 0 && (bestFound < 0 || found < bestFound)) {
                     bestFound = found;
-                    bestPatternLen = patternLength(f.pattern);
+                    bestPatternLen = f.patternLength;
                 }
             }
             if (bestFound < 0) return -1;
@@ -823,13 +884,19 @@ public class DroidSignatureVerifier {
      *  see its javadoc. */
     static long verifyLeftFragmentChain(FileRegion region, long beforeAnchor, List<List<Fragment>> groupedLeftFragments) {
         long cursor = beforeAnchor;
+        byte[] whole = (region.tail == null && region.head.length == region.length) ? region.head : null; // see verifyRightFragmentChain()
         for (List<Fragment> alternatives : groupedLeftFragments) {
             long bestFound = -1;
             for (Fragment f : alternatives) {
-                int patLen = patternLength(f.pattern);
+                int patLen = f.patternLength;
                 long to = cursor - f.minOffset - patLen;
-                long from = cursor - f.maxOffset - patLen;
-                long found = findFirstForward(region, from, to, f.pattern, f.forwardShifts);
+                long found;
+                if (whole != null && f.fixedGap) {
+                    found = f.matchesAtInArray(whole, to) ? to : -1;
+                } else {
+                    long from = cursor - f.maxOffset - patLen;
+                    found = findFirstForward(region, from, to, f.pattern, f.forwardShifts);
+                }
                 // "Earliest" for a left fragment means closest to the anchor, i.e.
                 // the LARGEST found offset (rightmost within its window).
                 if (found >= 0 && found > bestFound) {
@@ -952,10 +1019,18 @@ public class DroidSignatureVerifier {
      * guarantees that last is a valid index of the array. A literal last element - nearly all anchors - is compared
      * inline instead of through PatternElement.matchesByteValue().
      */
-    private static int skipForward(byte[] array, int from, int last, PatternElement lastElement, int[] shifts) {
+    private static int skipForward(byte[] array, int from, int last, PatternElement lastElement, int[] shifts,
+                                   boolean onePatternElement) {
         int p = from;
         if (lastElement.kind == Kind.LITERAL) {
             int literal = lastElement.a;
+            if (onePatternElement) {
+                // A one-byte pattern shifts by 1 for every other byte value, so this is a plain search for the byte,
+                // which is what the many signatures that start with a single character ("@", "\\", "{") need.
+                byte target = (byte) literal;
+                while (p <= last && array[p] != target) p++;
+                return p <= last ? p : -1;
+            }
             while (p <= last) {
                 int b = array[p] & 0xFF;
                 if (b == literal) return p;
@@ -973,10 +1048,16 @@ public class DroidSignatureVerifier {
 
     /** Backward counterpart of skipForward(): the first position p, from `from` down to and including `first`, where
      *  the first element of the anchor matches array[p], or -1. */
-    private static int skipBackward(byte[] array, int from, int first, PatternElement firstElement, int[] shifts) {
+    private static int skipBackward(byte[] array, int from, int first, PatternElement firstElement, int[] shifts,
+                                    boolean onePatternElement) {
         int p = from;
         if (firstElement.kind == Kind.LITERAL) {
             int literal = firstElement.a;
+            if (onePatternElement) {
+                byte target = (byte) literal;
+                while (p >= first && array[p] != target) p--;
+                return p >= first ? p : -1;
+            }
             while (p >= first) {
                 int b = array[p] & 0xFF;
                 if (b == literal) return p;
@@ -1046,7 +1127,7 @@ public class DroidSignatureVerifier {
                 byte[] array = region.head;
                 PatternElement firstElement = sub.anchor.get(0);
                 while (candidate >= floor) {
-                    int p = skipBackward(array, (int) candidate, (int) floor, firstElement, shifts);
+                    int p = skipBackward(array, (int) candidate, (int) floor, firstElement, shifts, anchorLen == 1);
                     if (p < 0) return -1;
                     candidate = p;
                     if (matchesAt(array, p, sub.anchor)) {
@@ -1137,7 +1218,7 @@ public class DroidSignatureVerifier {
                 PatternElement lastElement = sub.anchor.get(lastPos);
                 long lastCheck = ceiling + lastPos; // ceiling <= length - anchorLen, so this is a valid index
                 while (candidate <= ceiling) {
-                    int p = skipForward(array, (int) (candidate + lastPos), (int) lastCheck, lastElement, shifts);
+                    int p = skipForward(array, (int) (candidate + lastPos), (int) lastCheck, lastElement, shifts, lastPos == 0);
                     if (p < 0) return -1;
                     candidate = p - lastPos;
                     if (matchesAt(array, (int) candidate, sub.anchor)) {
@@ -1562,6 +1643,7 @@ public class DroidSignatureVerifier {
                     sub.anchorScanLimit = computeAnchorScanLimit(sub, bs.reference == Reference.EOF);
                     sub.groupedRightFragments = groupByPosition(sub.rightFragments);
                     sub.groupedLeftFragments = groupByPosition(sub.leftFragments);
+                    computeGroupFirstBytes(sub.groupedRightFragments);
                     if (sub.anchor != null) {
                         sub.anchorForwardShifts = computeForwardShifts(sub.anchor);
                         sub.anchorBackwardShifts = computeBackwardShifts(sub.anchor);
