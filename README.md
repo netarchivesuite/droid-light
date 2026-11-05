@@ -145,6 +145,7 @@ BSD 3-Clause, see [LICENSE](LICENSE). DROID is released under the New BSD Licens
 - [Ruffle](https://github.com/ruffle-rs/ruffle) test SWFs: MIT OR Apache-2.0. The files under `from_shumway` come from the Mozilla Shumway test corpus and are Apache-2.0; the manifest gives the licence for each file.
 - Big Buck Bunny clips from [opencv_extra](https://github.com/opencv/opencv_extra): the content is licensed CC BY 3.0, (c) Blender Foundation, [www.bigbuckbunny.org](https://www.bigbuckbunny.org). opencv_extra itself states no licence. Some media samples were made with ffmpeg from one such clip; for those the manifest gives the exact command line instead of a source path.
 - CSS, JavaScript and JSON samples (these formats have no binary signature in PRONOM's file): [pallets/flask](https://github.com/pallets/flask) (a tutorial stylesheet, BSD-3-Clause), [kognise/water.css](https://github.com/kognise/water.css) (a minified stylesheet, MIT), [git/git-scm.com](https://github.com/git/git-scm.com) (a script and a minified jQuery 1.7.1; the repository's own code is MIT, and jQuery is MIT), [samayo/country-json](https://github.com/samayo/country-json) (MIT) and [Fyrd/caniuse](https://github.com/Fyrd/caniuse) (data licensed CC BY 4.0).
+- BibTeX and LaTeX samples: [JabRef](https://github.com/JabRef/jabref) (a BibTeX database; MIT) and [pgf](https://github.com/pgf-tikz/pgf) (a chapter of the PGF/TikZ manual; LaTeX Project Public License and/or GNU Free Documentation License, as stated in the file header).
 
 ## Removed: Aho-Corasick detector
 

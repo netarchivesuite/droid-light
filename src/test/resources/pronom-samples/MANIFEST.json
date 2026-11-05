@@ -6635,5 +6635,33 @@
     "alsoDetectedAs": [],
     "independentCheck": "file(1) 5.45: Microsoft Access Database; header text \"Standard Jet DB\" with Jet version byte 0 at offset 0x14 (Jet 3, Access 97). Found only with an anchor search distance of at least 34,182 bytes; with a smaller distance the file gets no result",
     "sha256": "27788b47e17412427830e80c2cb69366885aa11b12c61422de73029194bef135"
+  },
+  {
+    "file": "fmt-1616_BibTeX_Database_File.bib",
+    "puid": "fmt/1616",
+    "formatName": "BibTeX Database File",
+    "formatVersion": "",
+    "sizeBytes": 8236,
+    "sourceRepository": "https://github.com/JabRef/jabref",
+    "sourceCommit": "b6aebd7c9f5d23329f7d2b2c2c1f4d0f232335b4",
+    "originalPath": "jablib/src/main/resources/Chocolate.bib",
+    "license": "MIT",
+    "alsoDetectedAs": [],
+    "independentCheck": "parsed by the independent bibtexparser library: 15 @article entries, no failed blocks; libmagic: BibTeX text",
+    "sha256": "06b83b082a6521a4d5f70443201077bd88a722067a8a43274f6c7982462fa667"
+  },
+  {
+    "file": "fmt-281_LaTeX_Subdocument.tex",
+    "puid": "fmt/281",
+    "formatName": "LaTeX (Subdocument)",
+    "formatVersion": "",
+    "sizeBytes": 6204,
+    "sourceRepository": "https://github.com/pgf-tikz/pgf",
+    "sourceCommit": "7092055d11aeeb13f23fce557f51ec339bd0bbe8",
+    "originalPath": "doc/generic/pgf/pgfmanual-en-base-design.tex",
+    "license": "LaTeX Project Public License and/or GNU Free Documentation License (stated in the file header)",
+    "alsoDetectedAs": [],
+    "independentCheck": "libmagic: LaTeX document; chapter file without \\documentclass (a subdocument); braces balanced; 5 sectioning commands",
+    "sha256": "6c0ef0e02f0ec8e064c40b56d375947ae2934ec0c68efaa0eb8881ba51535510"
   }
 ]
